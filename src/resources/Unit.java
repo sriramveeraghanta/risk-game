@@ -1,4 +1,4 @@
-package army;
+package resources;
 
 import common.EnumClass.UnitType;
 

@@ -1,11 +1,9 @@
 /**
  * 
  */
-package continent;
+package resources;
 
 import java.util.ArrayList;
-
-import country.Country;
 
 /**
  * @author edosh

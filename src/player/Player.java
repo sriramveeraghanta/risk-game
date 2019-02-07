@@ -3,10 +3,10 @@
  */
 package player;
 
-import army.Unit;
 import common.EnumClass.Color;
-import continent.Continent;
-import country.Country;
+import resources.Continent;
+import resources.Country;
+import resources.Unit;
 
 import java.util.ArrayList;
 
@@ -29,14 +29,14 @@ public class Player {
 	}
 
 	/**
-	 * @return the color
+	 * @return the colour
 	 */
 	public Color getColor() {
 		return color;
 	}
 
 	/**
-	 * @param color the color to set
+	 * @param color the colour to set
 	 */
 	public void setColor(Color color) {
 		this.color = color;
@@ -59,14 +59,14 @@ public class Player {
 	/**
 	 * @return the continents
 	 */
-	public ArrayList<String> getContinents() {
+	public ArrayList<Continent> getContinents() {
 		return continents;
 	}
 
 	/**
 	 * @param continents the continents to set
 	 */
-	public void setContinents(ArrayList<String> continents) {
+	public void setContinents(ArrayList<Continent> continents) {
 		this.continents = continents;
 	}
 
