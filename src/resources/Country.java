@@ -1,11 +1,9 @@
 /**
  * 
  */
-package country;
+package resources;
 
 import java.util.ArrayList;
-
-import army.Unit;
 
 /**
  * @author edosh
