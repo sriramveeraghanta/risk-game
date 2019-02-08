@@ -1,6 +1,7 @@
-package resources;
+package common;
 
 import common.EnumClass.UnitType;
+import resources.Country;
 /**
  * 
  * This is an entity class for Cards
