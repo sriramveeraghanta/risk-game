@@ -1,12 +1,12 @@
 /**
  * 
  */
-package player;
+package resources;
 
-import common.EnumClass.Color;
-import resources.Continent;
-import resources.Country;
-import resources.Unit;
+import model.Continent;
+import model.Country;
+import model.Unit;
+import resources.EnumClass.Color;
 
 import java.util.ArrayList;
 

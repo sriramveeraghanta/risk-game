@@ -1,4 +1,4 @@
-package map;
+package model;
 
 public class Map {
 

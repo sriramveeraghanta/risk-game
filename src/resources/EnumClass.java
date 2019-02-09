@@ -1,7 +1,7 @@
 /**
  * 
  */
-package common;
+package resources;
 
 /**
  * @author edosh
