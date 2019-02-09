@@ -1,6 +1,6 @@
-package resources;
+package model;
 
-import common.EnumClass.UnitType;
+import resources.EnumClass.UnitType;
 
 public class Unit {
 	
