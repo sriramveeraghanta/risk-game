@@ -1,11 +1,10 @@
-package common;
+package resources;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
-import common.EnumClass.UnitType;
-import resources.Cards;
-import resources.Country;
+import resources.EnumClass.UnitType;
+import model.Country;
 /**
  * 
  * This Class will create and handle risk cards .
