@@ -1,4 +1,4 @@
-package resources;
+package model;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,10 +10,10 @@ import java.util.Random;
  * @author Harish Jayasankar
  *
  */
- class Dice {
+ class DiceModel {
 
 	private int roll;
-	private Integer[] diceCount;    ///It will have number of Dice
+	private Integer[] diceCount;    ///It will have number of DiceModel
     private Random die;             ///For random number generation from 1 to 6
 
     /**

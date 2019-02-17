@@ -1,6 +1,6 @@
 package model;
 
-import resources.EnumClass.UnitType;
+import model.EnumClass.UnitType;
 
 public class Unit {
 	

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author edosh
  *
  */
-public class Country {
+public class CountryModel {
 
 	private ArrayList<Unit> army;
 
@@ -46,7 +46,7 @@ public class Country {
 	/**
 	 * 
 	 */
-	public Country(String name) {
+	public CountryModel(String name) {
 		this.name = name;
 	}
 

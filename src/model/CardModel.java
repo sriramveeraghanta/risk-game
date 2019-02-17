@@ -1,15 +1,16 @@
-package resources;
+package model;
 
-import resources.EnumClass.UnitType;
-import model.Country;
+import model.EnumClass.UnitType;
+
 /**
  * 
- * This is an entity class for Cards
+ * This is an entity class for CardModel
+ * 
  * @author Harish Jayasankar
  *
  */
 
-public class Cards {
+public class CardModel {
 	/**
 	 * The @cardType .
 	 */
@@ -18,9 +19,9 @@ public class Cards {
 	/**
 	 * The @territory .
 	 */
-	private Country territory;
+	private CountryModel territory;
 
-     /**
+	/**
 	 * @return the cardType
 	 */
 	public UnitType getCardType() {
@@ -30,25 +31,22 @@ public class Cards {
 	/**
 	 * @param cardType the cardType to set
 	 */
-	public Cards(UnitType cardType) {
+	public CardModel(UnitType cardType) {
 		this.cardType = cardType;
 	}
 
 	/**
 	 * @return the territory
 	 */
-	public Country getTerritory() {
+	public CountryModel getTerritory() {
 		return territory;
 	}
 
 	/**
 	 * @param territory the territory to set
 	 */
-	public void setTerritory(Country territory) {
+	public void setTerritory(CountryModel territory) {
 		this.territory = territory;
 	}
 
-
-	
-	
 }
