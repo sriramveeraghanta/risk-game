@@ -11,19 +11,19 @@ import java.util.ArrayList;
  */
 public class CountryModel {
 
-	private ArrayList<Unit> army;
+	private ArrayList<UnitModel> army;
 
 	/**
 	 * @return the army
 	 */
-	public ArrayList<Unit> getArmy() {
+	public ArrayList<UnitModel> getArmy() {
 		return army;
 	}
 
 	/**
 	 * @param army the army to set
 	 */
-	public void setArmy(ArrayList<Unit> army) {
+	public void setArmy(ArrayList<UnitModel> army) {
 		this.army = army;
 	}
 

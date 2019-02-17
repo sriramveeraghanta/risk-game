@@ -2,7 +2,7 @@ package model;
 
 import model.EnumClass.UnitType;
 
-public class Unit {
+public class UnitModel {
 	
 	private UnitType type;
 	private int unitNumber;
