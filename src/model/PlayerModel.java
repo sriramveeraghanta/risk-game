@@ -1,35 +1,32 @@
 /**
  * 
  */
-package resources;
-
-import model.Continent;
-import model.Country;
-import model.Unit;
-import resources.EnumClass.Color;
+package model;
 
 import java.util.ArrayList;
+
+import model.EnumClass.Color;
 
 /**
  * @author edosh
  *
  */
-public class Player {
+public class PlayerModel {
 
 	private Color color;
-	private ArrayList<Country> countries;
-	private ArrayList<Continent> continents;
+	private ArrayList<CountryModel> countryModels;
+	private ArrayList<ContinentModel> continentModels;
 	private ArrayList<Unit> army;
 
 	/**
 	 * 
 	 */
-	public Player(Color color) {
+	public PlayerModel(Color color) {
 		this.setColor(color);
 	}
 
 	/**
-	 * @return the colour
+	 * @return the color
 	 */
 	public Color getColor() {
 		return color;
@@ -43,31 +40,31 @@ public class Player {
 	}
 
 	/**
-	 * @return the countries
+	 * @return the countryModels
 	 */
-	public ArrayList<Country> getCountries() {
-		return countries;
+	public ArrayList<CountryModel> getCountries() {
+		return countryModels;
 	}
 
 	/**
-	 * @param countries the countries to set
+	 * @param countryModels the countryModels to set
 	 */
-	public void setCountries(ArrayList<Country> countries) {
-		this.countries = countries;
+	public void setCountries(ArrayList<CountryModel> countryModels) {
+		this.countryModels = countryModels;
 	}
 
 	/**
-	 * @return the continents
+	 * @return the continentModels
 	 */
-	public ArrayList<Continent> getContinents() {
-		return continents;
+	public ArrayList<ContinentModel> getContinents() {
+		return continentModels;
 	}
 
 	/**
-	 * @param continents the continents to set
+	 * @param continentModels the continentModels to set
 	 */
-	public void setContinents(ArrayList<Continent> continents) {
-		this.continents = continents;
+	public void setContinents(ArrayList<ContinentModel> continentModels) {
+		this.continentModels = continentModels;
 	}
 
 	/**

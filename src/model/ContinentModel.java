@@ -9,22 +9,22 @@ import java.util.ArrayList;
  * @author edosh
  *
  */
-public class Continent {
+public class ContinentModel {
 
-	private ArrayList<Country> countries;
+	private ArrayList<CountryModel> countryModels;
 
 	/**
-	 * @return the countries
+	 * @return the countryModels
 	 */
-	public ArrayList<Country> getCountries() {
-		return countries;
+	public ArrayList<CountryModel> getCountries() {
+		return countryModels;
 	}
 
 	/**
-	 * @param countries the countries to set
+	 * @param countryModels the countryModels to set
 	 */
-	public void setCountries(ArrayList<Country> countries) {
-		this.countries = countries;
+	public void setCountries(ArrayList<CountryModel> countryModels) {
+		this.countryModels = countryModels;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Continent {
 	/**
 	 * 
 	 */
-	public Continent(String name, int value) {
+	public ContinentModel(String name, int value) {
 		this.value = value;
 		this.name = name;
 	}
