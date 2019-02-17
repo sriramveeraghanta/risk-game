@@ -16,7 +16,7 @@ public class PlayerModel {
 	private Color color;
 	private ArrayList<CountryModel> countryModels;
 	private ArrayList<ContinentModel> continentModels;
-	private ArrayList<Unit> army;
+	private ArrayList<UnitModel> army;
 
 	/**
 	 * 
@@ -70,14 +70,14 @@ public class PlayerModel {
 	/**
 	 * @return the army
 	 */
-	public ArrayList<Unit> getArmy() {
+	public ArrayList<UnitModel> getArmy() {
 		return army;
 	}
 
 	/**
 	 * @param army the army to set
 	 */
-	public void setArmy(ArrayList<Unit> army) {
+	public void setArmy(ArrayList<UnitModel> army) {
 		this.army = army;
 	}
 
