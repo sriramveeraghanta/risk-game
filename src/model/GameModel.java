@@ -15,6 +15,8 @@ public class GameModel extends Observable {
 
 	private String title;
 	private boolean visible;
+	
+	 
 
 	/**
 	 * @return the title
