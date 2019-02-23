@@ -80,5 +80,29 @@ public class PlayerModel {
 	public void setArmy(ArrayList<UnitModel> army) {
 		this.army = army;
 	}
+	
+	
+	/**
+	 * @param numberOfPlayers
+	 * @return
+	 */
+	public int CalculateInitialInfantryNumber(int numberOfPlayers) {
+
+		switch (numberOfPlayers) {
+		case 2:
+			return 40;
+		case 3:
+			return 35;
+		case 4:
+			return 30;
+		case 5:
+			return 25;
+		case 6:
+			return 20;
+		default:
+			return -1;
+
+		}
+	}
 
 }
