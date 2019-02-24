@@ -23,8 +23,8 @@ public class CountryModel {
 	/**
 	 * @param army the army to set
 	 */
-	public void setArmy(ArrayList<UnitModel> army) {
-		this.army = army;
+	public void setArmy(UnitModel armies) {
+		army.add(armies);
 	}
 
 	/**
