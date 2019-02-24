@@ -13,27 +13,32 @@ import model.EnumClass.Color;
  *
  */
 public class PlayerModel {
-	
+
 	private String name;
-    private Color color;
+	private Color color;
 	private ArrayList<CountryModel> countryModels;
 	private ArrayList<ContinentModel> continentModels;
 	private UnitModel Unit;
-	private ArrayList<UnitModel> army;
-	private int index;//to find the turn of the player
+	private ArrayList<UnitModel> army_in_hands;
+	private int index;// to find the turn of the player
 	private ArrayList<CardModel> cards;
 	private int turnInCount;
-	private HashMap<CardModel, Integer>playercards;
+	private HashMap<CardModel, Integer> playercards;
+	private int total_army_count;
+	private ArrayList<CardModel> army_swapping_cards;
+
+
 	/**
 	 * 
 	 */
-	public PlayerModel(String name, Color color,int index,UnitModel um) {
+	public PlayerModel(String name, Color color, int index, UnitModel unit) {
 		this.setIndex(index);
 		this.setName(name);
 		this.setColor(color);
-		this.setUnit(um);
-		army.add(um);
+		this.setUnit(unit);
+		army_in_hands.add(unit);
 		turnInCount = 0;
+		total_army_count=unit.getUnitNumber();
 	}
 
 	/**
@@ -47,16 +52,14 @@ public class PlayerModel {
 	 * @param playercards the playercards to set
 	 */
 	public void setPlayercards(CardModel riskCard) {
-		if(playercards==null) {
+		if (playercards == null) {
 			playercards.put(riskCard, 1);
-		}else {
-			for(CardModel cardtype : playercards.keySet())
-			{
-				if(cardtype.equals(riskCard))
-				{
-					int cardcount=playercards.get(cardtype);
-					playercards.put(riskCard, cardcount+1);
-					
+		} else {
+			for (CardModel cardtype : playercards.keySet()) {
+				if (cardtype.equals(riskCard)) {
+					int cardcount = playercards.get(cardtype);
+					playercards.put(riskCard, cardcount + 1);
+
 				}
 			}
 		}
@@ -149,19 +152,19 @@ public class PlayerModel {
 	/**
 	 * @return the army
 	 */
-	public ArrayList<UnitModel> getArmy() {
-		return army;
+	public ArrayList<UnitModel> getArmy_in_hands() {
+		return army_in_hands;
 	}
 
 	/**
 	 * @param army the army to set
 	 */
-	public void setArmy(UnitModel armydetail) {
-		army.add(armydetail);
-		
+	public void setArmy_in_hands(UnitModel armydetail) {
+		army_in_hands.add(armydetail);
+
 	}
-	
-	   /**
+
+	/**
 	 * @return the cards
 	 */
 	public ArrayList<CardModel> getCards() {
@@ -173,14 +176,14 @@ public class PlayerModel {
 	 */
 	public void setCards(CardModel card) {
 		cards.add(card);
-	//	this.cards = cards;
+		// this.cards = cards;
 	}
 
 	public void addRiskCard(CardModel riskCard) {
-			
-			cards.add(riskCard);
-	    }
-	
+
+		cards.add(riskCard);
+	}
+
 	/**
 	 * @param turnInCount the turnInCount to set
 	 */
@@ -192,33 +195,63 @@ public class PlayerModel {
 	public int getTurnInCount() {
 		return turnInCount;
 	}
-	
-	
-    public void decreaseArmies(UnitModel armydetail) {
-    	
-    	if(army!=null) {
-    	for(UnitModel units : army) {
-    		if(units.getType().equals(armydetail.getType())) {
-    			units.setUnitNumber(units.getUnitNumber() - armydetail.getUnitNumber());
-    		}
-    	}
-    	}
-    }
-    
 
-    public void increaseArmies(UnitModel armydetail) {
-    	int addcount=0;
-    	if(army!=null) {
-    	for(UnitModel units : army) {
-    		if(units.getType().equals(armydetail.getType())) {
-    			units.setUnitNumber(units.getUnitNumber() + armydetail.getUnitNumber());
-    			addcount++;
-    		}
-    	}
-    	}
-	if(addcount==0) {
-		army.add(armydetail);
+	public void decreaseArmies(UnitModel armydetail) {
+
+		if (army_in_hands != null) {
+			for (UnitModel units : army_in_hands) {
+				if (units.getType().equals(armydetail.getType())) {
+					units.setUnitNumber(units.getUnitNumber() - armydetail.getUnitNumber());
+				}
+			}
+		}
 	}
-    }
 
+	
+
+	public void increaseArmies(UnitModel armydetail) {
+		int addcount = 0;
+		if (army_in_hands != null) {
+			for (UnitModel units : army_in_hands) {
+				if (units.getType().equals(armydetail.getType())) {
+					units.setUnitNumber(units.getUnitNumber() + armydetail.getUnitNumber());
+					addcount++;
+				}
+			}
+		}
+		if (addcount == 0) {
+			army_in_hands.add(armydetail);
+		}
+		
+		total_army_count=total_army_count + armydetail.getUnitNumber();
+	}
+	
+	/**
+	 * @return the total_army_count
+	 */
+	public int getTotal_army_count() {
+		return total_army_count;
+	}
+
+	/**
+	 * @param total_army_count the total_army_count to set
+	 */
+	public void setTotal_army_count(int total_army_count) {
+		this.total_army_count = total_army_count;
+	}
+
+	
+	/**
+	 * @return the army_swapping_cards
+	 */
+	public ArrayList<CardModel> getArmy_swapping_cards() {
+		return army_swapping_cards;
+	}
+
+	/**
+	 * @param army_swapping_cards the army_swapping_cards to set
+	 */
+	public void setArmy_swapping_cards(CardModel card) {
+		army_swapping_cards.add(card);
+	}
 }
