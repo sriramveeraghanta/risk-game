@@ -24,9 +24,11 @@ public class GameModel extends Observable {
 
 	private String title;
 	private boolean visible;
-	private ArrayList<PlayerModel> players;
+
+  private ArrayList<PlayerModel> players;
 
 	private Stack<CardModel> stackOfCards = DeckModel.stackOfCards;
+
 
 	/**
 	 * @return the title
