@@ -1,6 +1,5 @@
 package model;
 
-import model.EnumClass.Color;
 import model.EnumClass.UnitType;
 
 public class UnitModel {
@@ -8,10 +7,6 @@ public class UnitModel {
 	private UnitType type;
 	private int unitNumber;
 
-	public UnitModel(int unitNumber,UnitType type) {
-		this.setUnitNumber(unitNumber);
-		this.setType(type);
-	}
 	/**
 	 * @return the unitNumber
 	 */
