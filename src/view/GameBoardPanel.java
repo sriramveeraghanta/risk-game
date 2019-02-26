@@ -43,8 +43,8 @@ public class GameBoardPanel extends JFrame {
 	public JLabel playerLabelColor;
 	public JComboBox diceCount;
 	public GridLayout phaseButtonLayout;
-	public Integer attackerDiceCount[] = { 1, 2, 3 };
-	public Integer defendeDiceCount[] = { 1, 2 };
+	public Integer attackerDiceCount[] = {1,2,3};
+	public Integer defendeDiceCount[] = {1, 2};
 	public Color playerColor[] = { Color.GREEN, Color.red, Color.yellow, Color.white, Color.pink, Color.magenta };
 	public int playersCount;
 	public String actionReinforce = "Reinforcement";
