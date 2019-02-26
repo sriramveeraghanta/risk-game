@@ -24,6 +24,7 @@ import javax.swing.border.Border;
 
 /**
  * This class creates GameBoardPanel with map and buttons
+ *
  * 
  * @author Harish Jayasankar
  * 
