@@ -10,6 +10,23 @@ import java.util.ArrayList;
  *
  */
 public class CountryModel {
+	
+	private int id;
+	
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	private ArrayList<UnitModel> army;
 
@@ -48,6 +65,12 @@ public class CountryModel {
 	 */
 	public CountryModel(String name) {
 		this.name = name;
+		this.id = id;
 	}
+	
+	
+
+	
+	
 
 }

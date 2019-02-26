@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import controller.GameController;
 
 /**
- * This Creating the game objects and binds game models with game views by
+ * This class creating the game objects and binds game models with game views by
  * interacting with the game GameController.
  * 
  * @author Sriram Veeraghanta
