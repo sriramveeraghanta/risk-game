@@ -1,4 +1,4 @@
-package view;
+	package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -96,21 +96,5 @@ public class GameView implements Observer {
 
 		startUp = new PhaseStartUpModel(4);
 
-//		for (int i = 0; i < startUp.getPlayers().size(); i++) {
-//			System.out.println(startUp.getPlayers().get(i).getColor().toString());
-//			for (int j = 0; j < startUp.getPlayers().get(i).getArmy().size(); j++)
-//				System.out.println("unit type " + startUp.getPlayers().get(i).getArmy().get(j).getType().toString()
-//						+ " " + "unit number " + startUp.getPlayers().get(i).getArmy().get(j).getUnitNumber());
-//			System.out.println( "                   ");
-//			for (int j = 0; j < startUp.getPlayers().get(i).getCountries().size(); j++)
-//				System.out.println("country Id " + startUp.getPlayers().get(i).getCountries().get(j).getId()
-//						+ " " + "country Name " + startUp.getPlayers().get(i).getCountries().get(j).getName());
-//		}
-//		System.out.println( "                   ");
-//		for (int i = 0; i < startUp.getCountries().size(); i++) {
-//			System.out.println(" country id  " + startUp.getCountries().get(i).getId() + " " + "country Name "
-//					+ startUp.getCountries().get(i).getName());
-//		}
-//		
 	}
 }
