@@ -83,6 +83,8 @@ public class HomePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int numberOfPlayer = Integer.parseInt(JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null));
+			GameBoardPanel gameBoardPanelClass = new GameBoardPanel(numberOfPlayer);
+			gameBoardPanelClass.createGameBoardUI();
 			System.out.println(numberOfPlayer);
 		}
 	};
