@@ -1,5 +1,7 @@
 package controller;
 
+import org.json.JSONException;
+
 import model.GameModel;
 import view.GameView;
 
@@ -8,11 +10,11 @@ public class GameController {
 	private GameModel model;
 	private GameView view;
 
-	public GameController() {
+	public GameController() throws JSONException {
 		initialize();
 	}
 
-	private void initialize() {
+	private void initialize() throws JSONException {
 		// create model
 		this.model = new GameModel();
 		// set first message for model
@@ -20,7 +22,7 @@ public class GameController {
 		// create view
 		this.view = new GameView(model);
 
-		// ad view as observer for model
+		// add view as observer for model
 		model.addObserver(view);
 	}
 

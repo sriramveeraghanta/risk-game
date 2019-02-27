@@ -1,10 +1,9 @@
-package graph;
+package controller;
 import java.io.FileReader;
 import java.util.*;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Graph class is used to create the connected countries and

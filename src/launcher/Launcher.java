@@ -12,8 +12,12 @@ import controller.GameController;
  *
  */
 public class Launcher {
+	/*
+	 * This is the main method.
+	 * */
 	public static void main(String args[]) {
-		System.out.println("start");
+		// Logs
+		System.out.println("Start Game");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
