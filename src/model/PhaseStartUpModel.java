@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -25,7 +26,7 @@ public class PhaseStartUpModel {
 	public PhaseStartUpModel() {
 	}
 
-	public PhaseStartUpModel(int numberOfPlayers) {
+	public PhaseStartUpModel(int numberOfPlayers) throws JSONException {
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
@@ -138,7 +139,7 @@ public class PhaseStartUpModel {
 	/*
 	 * Load countries JSON file and set the countries array list accordingly
 	 */
-	public void loadCountries() {
+	public void loadCountries() throws JSONException {
 
 		String jsonFilePath;
 		try {
@@ -163,7 +164,6 @@ public class PhaseStartUpModel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void assignCountriesToPlayers() {

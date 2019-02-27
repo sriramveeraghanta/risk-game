@@ -8,6 +8,9 @@ import java.util.Observable;
 
 
 /**
+ * This is the main model file, containing all the required data to start a game 
+ * and make operations over the whole game
+ * 
  * @author edosh
  *
  */
@@ -71,11 +74,4 @@ public class GameModel extends Observable {
 	public void setCountries(ArrayList<CountryModel> countries) {
 		this.countries = countries;
 	}
-	
-	
-//	public ArrayList<CountryModel> LoadCountries(String filePath){
-//		
-//		
-//	}
-
 }

@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import org.json.JSONException;
+
 import model.EnumClass;
 import model.GameModel;
 import model.PhaseStartUpModel;
@@ -49,7 +51,7 @@ public class GameView implements Observer {
 
 	private PhaseStartUpModel startUp;
 
-	public GameView(GameModel model) {
+	public GameView(GameModel model) throws JSONException {
 		this._initialize(model);
 	}
 
@@ -80,7 +82,7 @@ public class GameView implements Observer {
 	/*
 	 * Creating Game Panels. buttons and containers necessary across the game.
 	 */
-	private void _initialize(GameModel model) {
+	private void _initialize(GameModel model) throws JSONException {
 
 		mainFrame = new JFrame();
 		mainFrame.setTitle(PROJECT_TITLE);
