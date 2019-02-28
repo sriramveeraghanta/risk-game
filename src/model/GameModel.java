@@ -17,12 +17,30 @@ import java.util.Observable;
 
 @SuppressWarnings("deprecation")
 public class GameModel extends Observable {
+	
+	private int numberOfPlayers = 0;
 
 	private String title;
 	private boolean visible;
 	private ArrayList<CountryModel> countries;
 	
-	 
+	public GameModel() {
+		
+	}
+	
+	/**
+	 * Getter method for getting number of player playing the game.
+	 * */
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+	
+	/**
+	 * Setter method for setting model with number of player collected in the User Interface.
+	 * */
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+	}
 
 	/**
 	 * @return the title
@@ -36,13 +54,6 @@ public class GameModel extends Observable {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	/**
-	 * 
-	 */
-	public GameModel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
