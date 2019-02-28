@@ -3,12 +3,14 @@ package controller;
 import org.json.JSONException;
 
 import model.GameModel;
+import utils.GameConstant;
 import view.GameView;
 
 public class GameController {
 
-	private GameModel model;
-	private GameView view;
+	private GameModel gameModel;
+	private GameView gameView;
+	private GameConstant gameConstant;
 
 	public GameController() throws JSONException {
 		initialize();
@@ -16,17 +18,17 @@ public class GameController {
 
 	private void initialize() throws JSONException {
 		// create model
-		this.model = new GameModel();
+		this.gameModel = new GameModel();
 		// set first message for model
-		model.setTitle("Risk - SOEN 6441 Porject - Group # 40");
+		gameModel.setTitle(gameConstant.PROJECT_TITLE);
 		// create view
-		this.view = new GameView(model);
+		this.gameView = new GameView(gameModel);
 
 		// add view as observer for model
-		model.addObserver(view);
+		gameModel.addObserver(gameView);
 	}
 
 	public void showView() {
-		view.getFrame().setVisible(true);
+		gameView.getFrame().setVisible(true);
 	}
 }

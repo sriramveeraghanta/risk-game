@@ -1,4 +1,4 @@
-	package view;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,6 +33,7 @@ import model.EnumClass;
 import model.GameModel;
 import model.PhaseStartUpModel;
 import model.UnitModel;
+import utils.GameConstant;
 
 /**
  * This class creates the User interface by using observers
@@ -43,19 +44,33 @@ import model.UnitModel;
 
 @SuppressWarnings("deprecation")
 public class GameView implements Observer {
-
-	static JFrame mainFrame;
-	public String PROJECT_TITLE = new String("Risk Game- G-40");
-	public String GAME_TITLE = new String("RISK GAME");
-	public String NEW_GAME_BUTTON_TITLE = new String("New Game");
+	public static JFrame mainFrame;
 
 	private PhaseStartUpModel startUp;
 
-	public GameView(GameModel model) throws JSONException {
-		this._initialize(model);
+	public GameView(GameModel gameModel) throws JSONException {
+		this.initialize(gameModel);
 	}
-
+	
 	/**
+	 * Creating Game Panels. buttons and containers necessary across the game.
+	 * */
+	private void initialize(GameModel gameModel) throws JSONException {
+		// Creating Main frame.
+		mainFrame = new JFrame();
+		mainFrame.setTitle(GameConstant.GAME_TITLE);
+		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		// Home panel
+		HomePanel homePanelClass = new HomePanel();
+		JPanel homePanel = homePanelClass.getPanel();
+		// adding panels to the frame
+		mainFrame.add(homePanel);
+		// setting grid layout to the frame.
+		mainFrame.pack();
+		mainFrame.setVisible(true);
+	}
+	/**
+	 * Getter method to get main frame.
 	 * @return the frame
 	 */
 	public JFrame getFrame() {
@@ -63,14 +78,16 @@ public class GameView implements Observer {
 	}
 
 	/**
+	 * Setter method to set main frame. 
 	 * @param frame the frame to set
 	 */
 	public void setFrame(JFrame frame) {
 		this.mainFrame = frame;
-		// this.mainFrame.setExtendedState(frame.getExtendedState() |
-		// JFrame.MAXIMIZED_BOTH);
 	}
-
+	
+	/**
+	 * Update method
+	 * */
 	@Override
 	public void update(Observable o, Object obj) {
 		if (o instanceof GameModel) {
@@ -79,24 +96,5 @@ public class GameView implements Observer {
 		}
 	}
 
-	/*
-	 * Creating Game Panels. buttons and containers necessary across the game.
-	 */
-	private void _initialize(GameModel model) throws JSONException {
-
-		mainFrame = new JFrame();
-		mainFrame.setTitle(PROJECT_TITLE);
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		HomePanel homePanelClass = new HomePanel();
-		JPanel homePanel = homePanelClass.getPanel();
-
-		mainFrame.add(homePanel);
-		// setting grid layout to the frame.
-		mainFrame.pack();
-		mainFrame.setVisible(true);
-
-		startUp = new PhaseStartUpModel(4);
-
-	}
+	
 }
