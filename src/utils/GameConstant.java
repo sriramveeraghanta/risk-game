@@ -9,6 +9,9 @@ public class GameConstant {
 	// Constant Variables across the project
 	public static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
 	public static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
+	public static String mapFilePath = System.getProperty("user.dir") + "\\src\\resources\\World.map";
+	public static String continentDataSplitter="=" ;
+	public static String countryDataSplitter="," ; 
 	// Constant Strings
 	public static final String PROJECT_TITLE = new String("Risk - SOEN 6441 Porject - Group # 40");
 	public static final String GAME_TITLE = new String("Risk Game");
@@ -25,7 +28,7 @@ public class GameConstant {
 	public String roll_dice="Rolling dices";
 	public String attacker_win="Attacker wins";
 	public String defender_win="Defender wins";
-
+  
 	public GameConstant() {
 			
 	}
