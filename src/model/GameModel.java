@@ -21,6 +21,7 @@ public class GameModel extends Observable {
 	private String title;
 	private boolean visible;
 	private ArrayList<CountryModel> countries;
+	private ArrayList<ContinentModel> continents;
 	
 	 
 
@@ -73,5 +74,19 @@ public class GameModel extends Observable {
 	 */
 	public void setCountries(ArrayList<CountryModel> countries) {
 		this.countries = countries;
+	}
+
+	/**
+	 * @return the continents
+	 */
+	public ArrayList<ContinentModel> getContinents() {
+		return continents;
+	}
+
+	/**
+	 * @param continents the continents to set
+	 */
+	public void setContinents(ArrayList<ContinentModel> continents) {
+		this.continents = continents;
 	}
 }
