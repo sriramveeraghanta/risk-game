@@ -86,6 +86,8 @@ public class GameModel extends Observable {
 	 * @param continents the continents to set
 	 */
 	public void setContinents(ArrayList<ContinentModel> continents) {
+		
+		
 		this.continents = continents;
 	}
 

@@ -1,32 +1,50 @@
-package models;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
+import models.CardModel;
+import models.CountryModel;
+import models.EnumClass;
+import models.PlayerModel;
+import models.UnitModel;
 import models.EnumClass.UnitType;
+import models.GameModel;
 
-public class PhaseStartUpModel {
+public class StartUp {
 
+	private GameModel game;
 	private int numberOfPlayers;
-	private EnumClass.Color[] colors = { EnumClass.Color.BLACK, EnumClass.Color.BLUE, EnumClass.Color.GREEN,
-			EnumClass.Color.PINK, EnumClass.Color.RED, EnumClass.Color.YELLOW };
+	private EnumClass.Color[] colors = EnumClass.Color.values();
 
 	private ArrayList<PlayerModel> players;
-	private ArrayList<CountryModel> countries;
+	private ArrayList<CardModel> cards;
 
-	public PhaseStartUpModel() {
+	/**
+	 * @return the cards
+	 */
+	public ArrayList<CardModel> getCards() {
+		return cards;
 	}
 
-	public PhaseStartUpModel(int numberOfPlayers) {
+	/**
+	 * @param cards the cards to set
+	 */
+	public void setCards(ArrayList<CardModel> cards) {
+		this.cards = cards;
+	}
+
+	public StartUp() {
+	}
+
+	/**
+	 * Initialize the game objects set players properties such countries,armies,
+	 * color
+	 * 
+	 * @param numberOfPlayers
+	 */
+	public StartUp(int numberOfPlayers) {
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
@@ -36,8 +54,9 @@ public class PhaseStartUpModel {
 			players.add(player);
 		}
 		this.setPlayers(players);
-		this.loadCountries();
+		// this.loadCountries();
 		this.assignCountriesToPlayers();
+		this.createGameCards();
 	}
 
 	/**
@@ -69,20 +88,8 @@ public class PhaseStartUpModel {
 	}
 
 	/**
-	 * @return the countries
-	 */
-	public ArrayList<CountryModel> getCountries() {
-		return countries;
-	}
-
-	/**
-	 * @param countries the countries to set
-	 */
-	public void setCountries(ArrayList<CountryModel> countries) {
-		this.countries = countries;
-	}
-
-	/**
+	 * assign initial number of armies to the players at the initial phase *
+	 * 
 	 * @param player
 	 * @return
 	 */
@@ -123,6 +130,11 @@ public class PhaseStartUpModel {
 		}
 	}
 
+	/**
+	 * assigns a color to the player randomly at the starting phase of the game *
+	 * 
+	 * @param player
+	 */
 	public void assignColor(PlayerModel player) {
 
 		int currentIndex = -1;
@@ -136,39 +148,12 @@ public class PhaseStartUpModel {
 		}
 	}
 
-	/*
-	 * Load countries JSON file and set the countries array list accordingly
+	/**
+	 * assigns countries to players randomly at the starting phase of the game
 	 */
-	public void loadCountries() throws JSONException {
-
-		String jsonFilePath;
-		try {
-			jsonFilePath = this._jsonFilePath();
-			String resourceName = jsonFilePath + "\\map_data.json";
-
-			InputStream inputstream = new FileInputStream(resourceName);
-			JSONTokener tokener = new JSONTokener(inputstream);
-			JSONObject object = new JSONObject(tokener);
-			JSONArray countriesJSON = object.getJSONArray("countries");
-
-			this.countries = new ArrayList<CountryModel>();
-
-			for (int i = 0; i < countriesJSON.length(); i++) {
-				JSONObject countryJsonObject = (JSONObject) countriesJSON.get(i);
-				CountryModel country = new CountryModel(countryJsonObject.getString("name"),
-						countryJsonObject.getInt("id"));
-				this.countries.add(country);
-			}
-			this.setCountries(this.countries);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void assignCountriesToPlayers() {
 		int currentIndex = -1;
-		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(this.getCountries());
+		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(game.getCountries());
 		// shuffle the new list;
 		Collections.shuffle(shuffeledcountries);
 		int playerId = 0;
@@ -181,9 +166,19 @@ public class PhaseStartUpModel {
 		}
 	}
 
-	private String _jsonFilePath() throws IOException {
-		String jsonDirectory = System.getProperty("user.dir") + "\\src\\resources";
-		return jsonDirectory;
+	/**
+	 * Randomly generate the cards and assign a different unit type to each
+	 */
+	public void createGameCards() {
+		EnumClass.UnitType unitTypes[] = EnumClass.UnitType.values();
+
+		cards = new ArrayList<CardModel>();
+		for (int i = 0; i < game.getCountries().size(); i++) {
+			CardModel card = new CardModel(unitTypes[i % 3]);
+			cards.add(card);
+		}
+		this.setCards(cards);
+
 	}
 
 }

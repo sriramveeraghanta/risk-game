@@ -21,12 +21,14 @@ public class CountryModel {
 	private ArrayList<UnitModel> armyInCountry;
 	private ArrayList<CountryModel> adjcentCountries;
 	
+	
+	
 	/**
 	 * 
 	 */
 	public CountryModel(String contryName, int xAxis,int yAxis, int numberOfUnits, 
 			ContinentModel assignedContinent, ArrayList<CountryModel> adjcentCountries ) {
-		this.setContryName(contryName);
+		this.setCountryName(contryName);
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setAssignedContinent(assignedContinent);
