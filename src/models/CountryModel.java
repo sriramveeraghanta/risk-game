@@ -7,147 +7,110 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edosh
  *
  */
 public class CountryModel {
-
-	private int id;
-	private String name;
-	private ArrayList<UnitModel> army;
-	private int numberOfInfantry;
+	
+	private String countryName;
 	private int xAxis;
 	private int yAxis;
-	private ArrayList<String> adjacentCountries;
-	private String continent;
-
+	private int numberOfUnits;
+	
+	private ContinentModel assignedContinent;
+	
+	private ArrayList<UnitModel> armyInCountry;
+	private ArrayList<CountryModel> adjcentCountries;
+	
 	/**
 	 * 
 	 */
-	public CountryModel(String name, int xAxis,int yAxis, ArrayList<String> adjacentCountries,String continent) {
-		this.name = name;
-		this.xAxis = xAxis;
-		this.yAxis = yAxis;
-		this.adjacentCountries = adjacentCountries;
-		this.continent = continent;
-		
+	public CountryModel(String contryName, int xAxis,int yAxis, int numberOfUnits, 
+			ContinentModel assignedContinent, ArrayList<CountryModel> adjcentCountries ) {
+		this.setContryName(contryName);
+		this.setxAxis(xAxis);
+		this.setyAxis(yAxis);
+		this.setAssignedContinent(assignedContinent);
+		this.setAdjcentCountries(adjcentCountries);
 	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the army
-	 */
-	public ArrayList<UnitModel> getArmy() {
-		return army;
-	}
-
-	/**
-	 * @param army the army to set
-	 */
+	
 	public void setArmy(ArrayList<UnitModel> army) {
-		this.army = army;
-		List<UnitModel> armyList = this.army;
+		this.armyInCountry = army;
+		List<UnitModel> armyList = this.armyInCountry;
 		UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumClass.UnitType.INFANTRY)).findFirst().get();
 		if (soldier != null) {
-			setNumberOfInfantry(soldier.getUnitNumber());
+			setNumberOfUnits(soldier.getUnitNumber());
 		}
 	}
-
+	
 	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	 * Getter and setter methods for Country Name
+	 * */
+	public String getCountryName() {
+		return countryName;
 	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
-
+	
 	/**
-	 * @return the numberOfInfantry
-	 */
-	public int getNumberOfInfantry() {
-		return numberOfInfantry;
-	}
-
-	/**
-	 * @param numberOfInfantry the numberOfInfantry to set
-	 */
-	public void setNumberOfInfantry(int numberOfInfantry) {
-		this.numberOfInfantry = numberOfInfantry;
-	}
-
-	/**
-	 * @return the xAxis
-	 */
+	 * Getter and setter methods for x axis
+	 * */
 	public int getxAxis() {
 		return xAxis;
 	}
 
-	/**
-	 * @param xAxis the xAxis to set
-	 */
 	public void setxAxis(int xAxis) {
 		this.xAxis = xAxis;
 	}
-
+	
 	/**
-	 * @return the yAxis
-	 */
+	 * Getter and setter methods for Y-Axis
+	 * */
 	public int getyAxis() {
 		return yAxis;
 	}
-
-	/**
-	 * @param yAxis the yAxis to set
-	 */
 	public void setyAxis(int yAxis) {
 		this.yAxis = yAxis;
 	}
-
+	
 	/**
-	 * @return the adjacentCountries
-	 */
-	public ArrayList<String> getAdjacentCountries() {
-		return adjacentCountries;
+	 * Getter and setter methods for Number of Units
+	 * */
+	public int getNumberOfUnits() {
+		return numberOfUnits;
+	}
+	public void setNumberOfUnits(int numberOfUnits) {
+		this.numberOfUnits = numberOfUnits;
 	}
 
 	/**
-	 * @param adjacentCountries the adjacentCountries to set
-	 */
-	public void setAdjacentCountries(ArrayList<String> adjacentCountries) {
-		this.adjacentCountries = adjacentCountries;
+	 * Getter and setter methods for Continent
+	 * */
+	public ContinentModel getAssignedContinent() {
+		return assignedContinent;
+	}
+	public void setAssignedContinent(ContinentModel assignedContinent) {
+		this.assignedContinent = assignedContinent;
 	}
 
 	/**
-	 * @return the continent
-	 */
-	public String getContinent() {
-		return continent;
+	 * Getter and setter methods for 
+	 * */
+	public ArrayList<UnitModel> getArmyInCountry() {
+		return armyInCountry;
 	}
-
+	public void setArmyInCountry(ArrayList<UnitModel> armyInCountry) {
+		this.armyInCountry = armyInCountry;
+	}
+	
 	/**
-	 * @param continent the continent to set
-	 */
-	public void setContinent(String continent) {
-		this.continent = continent;
+	 * Getter and setter methods for Adjacent Countries
+	 * */
+	public ArrayList<CountryModel> getAdjcentCountries() {
+		return adjcentCountries;
+	}
+	public void setAdjcentCountries(ArrayList<CountryModel> adjcentCountries) {
+		this.adjcentCountries = adjcentCountries;
 	}
 
 }
