@@ -24,13 +24,11 @@ public class CountryModel {
 	/**
 	 * 
 	 */
-	public CountryModel(String contryName, int xAxis,int yAxis, int numberOfUnits, 
-			ContinentModel assignedContinent, ArrayList<CountryModel> adjcentCountries ) {
+	public CountryModel(String contryName, int xAxis,int yAxis, ContinentModel assignedContinent) {
 		this.setContryName(contryName);
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setAssignedContinent(assignedContinent);
-		this.setAdjcentCountries(adjcentCountries);
 	}
 	
 	public void setArmy(ArrayList<UnitModel> army) {

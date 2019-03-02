@@ -14,6 +14,11 @@ public class ContinentModel {
 	private int controlValue;
 	private ArrayList<CountryModel> countries;
 	
+	public ContinentModel(String continentName, int controlValue ) {
+		this.continentName = continentName;
+		this.controlValue = controlValue;
+	}
+	
 	/**
 	 * Getter method for continent name
 	 * */
@@ -36,7 +41,7 @@ public class ContinentModel {
 	}
 	
 	/**
-	 * Setter method for control
+	 * Setter method for control value
 	 * */
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
