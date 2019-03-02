@@ -6,64 +6,54 @@ package models;
 import java.util.ArrayList;
 
 /**
- * @author edosh
  *
  */
 public class ContinentModel {
-
-	private ArrayList<CountryModel> countryModels;
-
+	
+	private String continentName;
+	private int controlValue;
+	private ArrayList<CountryModel> countries;
+	
 	/**
-	 * @return the countryModels
-	 */
+	 * Getter method for continent name
+	 * */
+	public String getContinentName() {
+		return continentName;
+	}
+	
+	/**
+	 * Setter method for continent name
+	 * */
+	public void setContinentName(String continentName) {
+		this.continentName = continentName;
+	}
+	
+	/**
+	 * Getter method for Control value
+	 * */
+	public int getControlValue() {
+		return controlValue;
+	}
+	
+	/**
+	 * Setter method for control
+	 * */
+	public void setControlValue(int controlValue) {
+		this.controlValue = controlValue;
+	}
+	
+	/**
+	 * Getter method for countries inside the continent
+	 * */
 	public ArrayList<CountryModel> getCountries() {
-		return countryModels;
+		return countries;
 	}
-
+	
 	/**
-	 * @param countryModels the countryModels to set
-	 */
-	public void setCountries(ArrayList<CountryModel> countryModels) {
-		this.countryModels = countryModels;
+	 * Setter method for settings countries inside the continent
+	 * */
+	public void setCountries(ArrayList<CountryModel> countries) {
+		this.countries = countries;
 	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the value
-	 */
-	public int getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(int value) {
-		this.value = value;
-	}
-
-	private String name;
-	private int value;
-
-	/**
-	 * 
-	 */
-	public ContinentModel(String name, int value) {
-		this.value = value;
-		this.name = name;
-	}
-
+	
 }
