@@ -6,6 +6,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.EnumClass;
+
 /**
  *
  */
@@ -29,6 +31,7 @@ public class CountryModel {
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setAssignedContinent(assignedContinent);
+		this.setAdjcentCountries(adjcentCountries);
 	}
 	
 	/**
@@ -101,7 +104,7 @@ public class CountryModel {
 	public void setAdjcentCountries(ArrayList<CountryModel> adjcentCountries) {
 		this.adjcentCountries = adjcentCountries;
 	}
-
+	
 	public void setArmy(ArrayList<UnitModel> army) {
 		this.armyInCountry = army;
 		List<UnitModel> armyList = this.armyInCountry;
@@ -111,4 +114,3 @@ public class CountryModel {
 		}
 	}
 }
-
