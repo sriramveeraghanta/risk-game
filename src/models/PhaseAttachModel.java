@@ -15,8 +15,8 @@ public class PhaseAttachModel {
 	private CountryModel country_Defender;
 	private int num_attacker_dice;
 	private int num_defender_dice;
-	int NumArmiesAttackerCountry=country_Attacker.getNumberOfInfantry();
-	int NumArmiesDefenderCountry=country_Defender.getNumberOfInfantry();
+//	int NumArmiesAttackerCountry=country_Attacker.getNumberOfInfantry();
+//	int NumArmiesDefenderCountry=country_Defender.getNumberOfInfantry();
 	
 	
 	public int get_num_attacker_dice() {
@@ -55,9 +55,9 @@ public class PhaseAttachModel {
 	 * checking if the number of armies for that country (the selected attacker country ) is more than 1  
 	 */
 	public void checkEligibility() {
-		if(country_Attacker.getNumberOfInfantry()<2) {
-			//ERROR "You do not have enough army for attacking, Select another country that has more that 1 army"
-		}
+//		if(country_Attacker.getNumberOfInfantry()<2) {
+//			//ERROR "You do not have enough army for attacking, Select another country that has more that 1 army"
+//		}
 	}
 	
 	/**
@@ -74,30 +74,30 @@ public class PhaseAttachModel {
 	 */
 	public void attackingResult() {
 		for(int i=0; i<diceArrayDefender.length;i++) {
-			if (diceArrayAttacker[i]<diceArrayDefender[i]) {
-				NumArmiesAttackerCountry--;
-			}
-			else {
-				NumArmiesDefenderCountry--;
-			}
+//			if (diceArrayAttacker[i]<diceArrayDefender[i]) {
+//				NumArmiesAttackerCountry--;
+//			}
+//			else {
+//				NumArmiesDefenderCountry--;
+//			}
 		}
 	}
 	/**
 	 * checking the number of dices which attacker can roll based on the number of armies for that country
 	 */
 	public void checkMaxNumberOfDices() {
-		if(NumArmiesAttackerCountry>3) {
-			maxNumberDiceAttacker=3;
-		}
-		else {
-			maxNumberDiceAttacker=NumArmiesAttackerCountry-1;
-		}
-		if(NumArmiesDefenderCountry>=2) {
-			maxNumberDiceDefender=2;
-		}
-		else {
-			maxNumberDiceDefender=NumArmiesDefenderCountry;
-		}
+//		if(NumArmiesAttackerCountry>3) {
+//			maxNumberDiceAttacker=3;
+//		}
+//		else {
+//			maxNumberDiceAttacker=NumArmiesAttackerCountry-1;
+//		}
+//		if(NumArmiesDefenderCountry>=2) {
+//			maxNumberDiceDefender=2;
+//		}
+//		else {
+//			maxNumberDiceDefender=NumArmiesDefenderCountry;
+//		}
 		
 	}
 	

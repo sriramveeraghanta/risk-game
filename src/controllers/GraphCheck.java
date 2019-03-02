@@ -2,8 +2,8 @@ package controllers;
 import java.io.FileReader;
 import java.util.*;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 
 /**
  * Graph class is used to create the connected countries and
@@ -67,30 +67,30 @@ class Graph{
 	 * getArray() method is used to parse the JSON file map_data.json
 	 *  to extract the country and its adjacent country name
 	 */
-	@SuppressWarnings("deprecation")
-	public void getArray() {
-		JSONParser parser = new JSONParser();
-		try {
-			Object fileReaderObject = parser.parse
-					(new FileReader("C:\\Users\\admin\\git\\SOEN_6441_Project_G40\\src\\resources\\map_data.json"));
-			JSONObject fileReaderJsonObject = (JSONObject)fileReaderObject;
-			JSONArray countryListJsonArray = (JSONArray) fileReaderJsonObject.get("countries");
-			for (int i = 0; i < countryListJsonArray.size(); i++)
-			{
-			    Object countryObject = countryListJsonArray.get(i);
-			    JSONObject countryJsonObject = (JSONObject) countryObject;
-			    country_list[i] = (String) countryJsonObject.get("name");
-			    JSONArray adjacentJsonArray = (JSONArray) countryJsonObject.get("neighbor");
-			    Iterator<String> iterator = adjacentJsonArray.iterator();
-			    while(iterator.hasNext()) {
-			    	this.addEdge(i, iterator.next(), 1);
-			    }
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@SuppressWarnings("deprecation")
+//	public void getArray() {
+//		JSONParser parser = new JSONParser();
+//		try {
+//			Object fileReaderObject = parser.parse
+//					(new FileReader("C:\\Users\\admin\\git\\SOEN_6441_Project_G40\\src\\resources\\map_data.json"));
+//			JSONObject fileReaderJsonObject = (JSONObject)fileReaderObject;
+//			JSONArray countryListJsonArray = (JSONArray) fileReaderJsonObject.get("countries");
+//			for (int i = 0; i < countryListJsonArray.size(); i++)
+//			{
+//			    Object countryObject = countryListJsonArray.get(i);
+//			    JSONObject countryJsonObject = (JSONObject) countryObject;
+//			    country_list[i] = (String) countryJsonObject.get("name");
+//			    JSONArray adjacentJsonArray = (JSONArray) countryJsonObject.get("neighbor");
+//			    Iterator<String> iterator = adjacentJsonArray.iterator();
+//			    while(iterator.hasNext()) {
+//			    	this.addEdge(i, iterator.next(), 1);
+//			    }
+//			}
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
 /**
  * GraphCheck is the main class used to initialize and to parse the JSON
@@ -103,7 +103,7 @@ class Graph{
 		// TODO Auto-generated method stub
 
 		Graph g = new Graph(42);
-		g.getArray();
+		//g.getArray();
 		
 		System.out.println(g);
 	}

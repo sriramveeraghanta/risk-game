@@ -27,9 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import controllers.StartUp;
 import models.EnumClass;
 import models.GameModel;
-import models.PhaseStartUpModel;
 import models.UnitModel;
 import utils.GameConstant;
 
@@ -43,7 +43,7 @@ import utils.GameConstant;
 public class GameView extends JFrame {
 	public static JFrame mainFrame;
 
-	private PhaseStartUpModel startUp;
+	private StartUp startUp;
 
 	public GameView(GameModel gameModel) {
 		this.initialize(gameModel);
