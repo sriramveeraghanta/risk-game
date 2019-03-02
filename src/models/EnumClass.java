@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model;
+package models;
 
 /**
  * @author edosh

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model;
+package models;
 
 import java.util.ArrayList;
 

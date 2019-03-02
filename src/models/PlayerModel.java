@@ -1,12 +1,12 @@
 /**
  * 
  */
-package model;
+package models;
 
 import java.util.ArrayList;
 
-import model.EnumClass.Color;
-import model.EnumClass.UnitType;
+import models.EnumClass.Color;
+import models.EnumClass.UnitType;
 
 /**
  * @author edosh

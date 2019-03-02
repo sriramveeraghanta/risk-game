@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.GameModel;
+import controllers.GameController;
+import models.GameModel;
 import utils.GameConstant;
 
 /**
@@ -22,21 +23,20 @@ import utils.GameConstant;
  * 
  * */
 
-public class HomePanel extends JPanel {
+public class HomeView extends JPanel {
 	public JPanel thisPanel;
 	public GameModel gameModel;
+	public GameController gameController;
 	
-	public HomePanel() {
+	public HomeView() {
 		thisPanel = this;
 		gameModel = new GameModel();
 		// adding few properties to the
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new GridBagLayout());
-		createPanelElements();
 	}
 
-	private void createPanelElements() {
-		
+	public void buildPanel() {
 		// Creating a Label on the top
 		Label homeTitleLabel  = new Label();
 		homeTitleLabel.setAlignment(Label.CENTER);
@@ -69,6 +69,10 @@ public class HomePanel extends JPanel {
 		this.add(homeTitleLabel, gridBagConstraints);
 		this.add(buttonsPanel, gridBagConstraints);
 	}
+	
+	/**
+	 * Getting method for getting the panel information. 
+	 * */
 	public JPanel getPanel() {
 		return this;
 	}
@@ -82,9 +86,10 @@ public class HomePanel extends JPanel {
 			int numberOfPlayer = Integer.parseInt(JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null));
 			gameModel.setNumberOfPlayers(numberOfPlayer);
 			
-			GameBoardPanel gameBoardPanelClass = new GameBoardPanel(numberOfPlayer);
-			gameBoardPanelClass.createGameBoardUI();
-			System.out.println(numberOfPlayer);
+			gameController = new GameController();
+			gameController.navigateToGameBoard();
+			
 		}
 	};
+
 }
