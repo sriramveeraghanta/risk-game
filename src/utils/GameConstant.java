@@ -28,6 +28,9 @@ public class GameConstant {
 	public String roll_dice="Rolling dices";
 	public String attacker_win="Attacker wins";
 	public String defender_win="Defender wins";
+	public static String mapFilePath = System.getProperty("user.dir") + "\\src\\resources\\World.map";
+	public static String continentDataSplitter = "=";
+	public static String countryDataSplitter = ",";
 
 	public GameConstant() {
 			

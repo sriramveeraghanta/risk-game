@@ -16,13 +16,21 @@ public class CountryModel {
 	private String name;
 	private ArrayList<UnitModel> army;
 	private int numberOfInfantry;
+	private int xAxis;
+	private int yAxis;
+	private ArrayList<String> adjacentCountries;
+	private String continent;
 
 	/**
 	 * 
 	 */
-	public CountryModel(String name, int id) {
+	public CountryModel(String name, int xAxis,int yAxis, ArrayList<String> adjacentCountries,String continent) {
 		this.name = name;
-		this.id = id;
+		this.xAxis = xAxis;
+		this.yAxis = yAxis;
+		this.adjacentCountries = adjacentCountries;
+		this.continent = continent;
+		
 	}
 
 	/**
@@ -84,6 +92,62 @@ public class CountryModel {
 	 */
 	public void setNumberOfInfantry(int numberOfInfantry) {
 		this.numberOfInfantry = numberOfInfantry;
+	}
+
+	/**
+	 * @return the xAxis
+	 */
+	public int getxAxis() {
+		return xAxis;
+	}
+
+	/**
+	 * @param xAxis the xAxis to set
+	 */
+	public void setxAxis(int xAxis) {
+		this.xAxis = xAxis;
+	}
+
+	/**
+	 * @return the yAxis
+	 */
+	public int getyAxis() {
+		return yAxis;
+	}
+
+	/**
+	 * @param yAxis the yAxis to set
+	 */
+	public void setyAxis(int yAxis) {
+		this.yAxis = yAxis;
+	}
+
+	/**
+	 * @return the adjacentCountries
+	 */
+	public ArrayList<String> getAdjacentCountries() {
+		return adjacentCountries;
+	}
+
+	/**
+	 * @param adjacentCountries the adjacentCountries to set
+	 */
+	public void setAdjacentCountries(ArrayList<String> adjacentCountries) {
+		this.adjacentCountries = adjacentCountries;
+	}
+
+	/**
+	 * @return the continent
+	 */
+	public String getContinent() {
+		return continent;
+	}
+
+	/**
+	 * @param continent the continent to set
+	 */
+	public void setContinent(String continent) {
+		this.continent = continent;
 	}
 
 }
