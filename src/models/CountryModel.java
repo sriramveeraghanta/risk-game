@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -5,6 +6,8 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.EnumClass;
 
 /**
  *
@@ -21,27 +24,14 @@ public class CountryModel {
 	private ArrayList<UnitModel> armyInCountry;
 	private ArrayList<CountryModel> adjcentCountries;
 	
-	
-	
 	/**
 	 * 
 	 */
-	public CountryModel(String contryName, int xAxis,int yAxis, int numberOfUnits, 
-			ContinentModel assignedContinent, ArrayList<CountryModel> adjcentCountries ) {
+	public CountryModel(String contryName, int xAxis,int yAxis, ContinentModel assignedContinent) {
 		this.setCountryName(contryName);
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setAssignedContinent(assignedContinent);
-		this.setAdjcentCountries(adjcentCountries);
-	}
-	
-	public void setArmy(ArrayList<UnitModel> army) {
-		this.armyInCountry = army;
-		List<UnitModel> armyList = this.armyInCountry;
-		UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumClass.UnitType.INFANTRY)).findFirst().get();
-		if (soldier != null) {
-			setNumberOfUnits(soldier.getUnitNumber());
-		}
 	}
 	
 	/**
@@ -114,5 +104,13 @@ public class CountryModel {
 	public void setAdjcentCountries(ArrayList<CountryModel> adjcentCountries) {
 		this.adjcentCountries = adjcentCountries;
 	}
-
+	
+	public void setArmy(ArrayList<UnitModel> army) {
+		this.armyInCountry = army;
+		List<UnitModel> armyList = this.armyInCountry;
+		UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumClass.UnitType.INFANTRY)).findFirst().get();
+		if (soldier != null) {
+			setNumberOfUnits(soldier.getUnitNumber());
+		}
+	}
 }

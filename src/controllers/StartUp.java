@@ -3,13 +3,14 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.PrimitiveIterator.OfDouble;
 
 import models.CardModel;
 import models.CountryModel;
-import models.EnumClass;
+import utils.EnumClass;
 import models.PlayerModel;
 import models.UnitModel;
-import models.EnumClass.UnitType;
+import utils.EnumClass.UnitType;
 import models.GameModel;
 
 public class StartUp {
@@ -34,17 +35,20 @@ public class StartUp {
 	public void setCards(ArrayList<CardModel> cards) {
 		this.cards = cards;
 	}
-
-	public StartUp() {
-	}
-
 	/**
-	 * Initialize the game objects set players properties such countries,armies,
-	 * color
+	 * Initialise the game objects set players properties such countries,armies,
+	 * Colour
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public StartUp(int numberOfPlayers) {
+	public StartUp() {
+		GameModel gameModel = new GameModel();
+		int numberOfPlayers = gameModel.getNumberOfPlayers();
+		this.init(numberOfPlayers);
+	}
+	
+
+	private void init(int numberOfPlayers) {
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
@@ -57,6 +61,7 @@ public class StartUp {
 		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
+		
 	}
 
 	/**
@@ -131,7 +136,7 @@ public class StartUp {
 	}
 
 	/**
-	 * assigns a color to the player randomly at the starting phase of the game *
+	 * assigns a colour to the player randomly at the starting phase of the game *
 	 * 
 	 * @param player
 	 */

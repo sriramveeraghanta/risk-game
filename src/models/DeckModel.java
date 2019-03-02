@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
-import models.EnumClass.UnitType;
+import utils.EnumClass.UnitType;
 
 /**
  * 
  * This Class will create and handle risk cards .
  * 
- * @author Harish Jayasankar
  *
  */
 
