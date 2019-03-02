@@ -10,12 +10,13 @@ import models.CountryModel;
 import utils.EnumClass;
 import models.PlayerModel;
 import models.UnitModel;
+import utils.EnumClass.Color;
 import utils.EnumClass.UnitType;
 import models.GameModel;
 
 public class StartUp {
 
-	private GameModel game;
+	private GameModel gameModel;
 	private int numberOfPlayers;
 	private EnumClass.Color[] colors = EnumClass.Color.values();
 
@@ -49,11 +50,13 @@ public class StartUp {
 	
 
 	private void init(int numberOfPlayers) {
+		
+		
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
-			PlayerModel player = new PlayerModel();
-			this.assignColor(player);
+			Color assingedColor = this.assignColor();
+			PlayerModel player = new PlayerModel(assingedColor);
 			this.setInitialInfantry(player);
 			players.add(player);
 		}
@@ -139,16 +142,17 @@ public class StartUp {
 	 * assigns a colour to the player randomly at the starting phase of the game *
 	 * 
 	 * @param player
+	 * @return 
 	 */
-	public void assignColor(PlayerModel player) {
-
-		int currentIndex = -1;
+	public Color assignColor() {
+		Color assignedColor;
+		int currentIndex;
 		for (int i = 0; i < 6; i++) {
 			currentIndex = new Random().nextInt(6);
 			if (colors[currentIndex] != null) {
-				player.setColor(this.colors[currentIndex]);
+				assignedColor =  this.colors[currentIndex];
 				this.colors[currentIndex] = null;
-				return;
+				return assignedColor;
 			}
 		}
 	}
@@ -158,7 +162,7 @@ public class StartUp {
 	 */
 	public void assignCountriesToPlayers() {
 		int currentIndex = -1;
-		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(game.getCountries());
+		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(gameModel.getCountries());
 		// shuffle the new list;
 		Collections.shuffle(shuffeledcountries);
 		int playerId = 0;
@@ -178,7 +182,7 @@ public class StartUp {
 		EnumClass.UnitType unitTypes[] = EnumClass.UnitType.values();
 
 		cards = new ArrayList<CardModel>();
-		for (int i = 0; i < game.getCountries().size(); i++) {
+		for (int i = 0; i < gameModel.getCountries().size(); i++) {
 			CardModel card = new CardModel(unitTypes[i % 3]);
 			cards.add(card);
 		}
