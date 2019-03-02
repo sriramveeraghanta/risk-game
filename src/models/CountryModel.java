@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -31,7 +32,6 @@ public class CountryModel {
 		this.setxAxis(xAxis);
 		this.setyAxis(yAxis);
 		this.setAssignedContinent(assignedContinent);
-		this.setAdjcentCountries(adjcentCountries);
 	}
 	
 	/**
