@@ -1,6 +1,6 @@
-package model;
+package models;
 
-import model.EnumClass.UnitType;
+import models.EnumClass.UnitType;
 
 /**
  * 

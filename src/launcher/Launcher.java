@@ -2,7 +2,7 @@ package launcher;
 
 import java.awt.EventQueue;
 
-import controller.GameController;
+import controllers.GameController;
 
 /**
  * This class creating the game objects and binds game models with game views by
@@ -22,7 +22,7 @@ public class Launcher {
 			public void run() {
 				try {
 					GameController controller = new GameController();
-					controller.showView();
+					controller.showHomeView();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

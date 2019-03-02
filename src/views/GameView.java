@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -29,10 +29,10 @@ import javax.swing.border.Border;
 
 import org.json.JSONException;
 
-import model.EnumClass;
-import model.GameModel;
-import model.PhaseStartUpModel;
-import model.UnitModel;
+import models.EnumClass;
+import models.GameModel;
+import models.PhaseStartUpModel;
+import models.UnitModel;
 import utils.GameConstant;
 
 /**
@@ -42,8 +42,7 @@ import utils.GameConstant;
  * 
  */
 
-@SuppressWarnings("deprecation")
-public class GameView implements Observer {
+public class GameView extends JFrame {
 	public static JFrame mainFrame;
 
 	private PhaseStartUpModel startUp;
@@ -60,15 +59,11 @@ public class GameView implements Observer {
 		mainFrame = new JFrame();
 		mainFrame.setTitle(GameConstant.GAME_TITLE);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		// Home panel
-		HomePanel homePanelClass = new HomePanel();
-		JPanel homePanel = homePanelClass.getPanel();
-		// adding panels to the frame
-		mainFrame.add(homePanel);
 		// setting grid layout to the frame.
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}
+	
 	/**
 	 * Getter method to get main frame.
 	 * @return the frame
@@ -82,19 +77,6 @@ public class GameView implements Observer {
 	 * @param frame the frame to set
 	 */
 	public void setFrame(JFrame frame) {
-		this.mainFrame = frame;
+		GameView.mainFrame = frame;
 	}
-	
-	/**
-	 * Update method
-	 * */
-	@Override
-	public void update(Observable o, Object obj) {
-		if (o instanceof GameModel) {
-			GameModel model = (GameModel) o;
-			this.mainFrame.setVisible(model.isVisible());
-		}
-	}
-
-	
 }

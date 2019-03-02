@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import model.EnumClass.UnitType;
+import models.EnumClass.UnitType;
 
 public class PhaseStartUpModel {
 

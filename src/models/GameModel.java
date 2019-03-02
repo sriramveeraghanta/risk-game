@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model;
+package models;
 
 import java.util.ArrayList;
 import java.util.Observable;  
@@ -10,8 +10,6 @@ import java.util.Observable;
 /**
  * This is the main model file, containing all the required data to start a game 
  * and make operations over the whole game
- * 
- * @author edosh
  *
  */
 

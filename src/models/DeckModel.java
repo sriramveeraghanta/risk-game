@@ -1,10 +1,10 @@
-package model;
+package models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
-import model.EnumClass.UnitType;
+import models.EnumClass.UnitType;
 
 /**
  * 

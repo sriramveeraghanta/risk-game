@@ -15,6 +15,9 @@ public class GameConstant {
 	// Button Title Strings
 	public static final String NEW_GAME_BUTTON_TITLE = new String("New Game");
 	public static final String EXIT_GAME_BUTTON_TITLE = new String("Exit Game");
+	public static final String REINFORCEMENT_BUTTON_TITLE = new String("Reinforcement");
+	public static final String ATTACK_BUTTON_TITLE = new String("Attack");
+	public static final String FORTIFY_BUTTON_TITLE = new String("Fortify");
 	// some other string
 	public static final String SELECT_PLAYERS = new String("Select the number of players");
 	public static final String PLACE_ARMY = new String("Place your armies in any of your countries");
