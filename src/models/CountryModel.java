@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class CountryModel {
 	
-	private String contryName;
+	private String countryName;
 	private int xAxis;
 	private int yAxis;
 	private int numberOfUnits;
@@ -45,11 +45,11 @@ public class CountryModel {
 	/**
 	 * Getter and setter methods for Country Name
 	 * */
-	public String getContryName() {
-		return contryName;
+	public String getCountryName() {
+		return countryName;
 	}
-	public void setContryName(String contryName) {
-		this.contryName = contryName;
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 	
 	/**
