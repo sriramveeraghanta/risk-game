@@ -27,8 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import org.json.JSONException;
-
 import models.EnumClass;
 import models.GameModel;
 import models.PhaseStartUpModel;
@@ -47,14 +45,14 @@ public class GameView extends JFrame {
 
 	private PhaseStartUpModel startUp;
 
-	public GameView(GameModel gameModel) throws JSONException {
+	public GameView(GameModel gameModel) {
 		this.initialize(gameModel);
 	}
 	
 	/**
 	 * Creating Game Panels. buttons and containers necessary across the game.
 	 * */
-	private void initialize(GameModel gameModel) throws JSONException {
+	private void initialize(GameModel gameModel) {
 		// Creating Main frame.
 		mainFrame = new JFrame();
 		mainFrame.setTitle(GameConstant.GAME_TITLE);

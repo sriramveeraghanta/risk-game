@@ -1,9 +1,5 @@
 package controllers;
 
-import javax.swing.JPanel;
-
-import org.json.JSONException;
-
 import models.GameModel;
 import utils.GameConstant;
 import views.GameBoardView;
@@ -14,7 +10,6 @@ public class GameController {
 
 	private GameModel gameModel;
 	private GameView gameView;
-	private GameConstant gameConstant;
 
 	public GameController() {
 		initialize();
@@ -24,7 +19,7 @@ public class GameController {
 		// create model3
 		this.gameModel = new GameModel();
 		// set first message for model
-		gameModel.setTitle(gameConstant.PROJECT_TITLE);
+		gameModel.setTitle(GameConstant.PROJECT_TITLE);
 		// create view
 		this.gameView = new GameView(gameModel);
 

@@ -26,7 +26,7 @@ public class PhaseStartUpModel {
 	public PhaseStartUpModel() {
 	}
 
-	public PhaseStartUpModel(int numberOfPlayers) throws JSONException {
+	public PhaseStartUpModel(int numberOfPlayers) {
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
