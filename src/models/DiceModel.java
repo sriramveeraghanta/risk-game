@@ -7,7 +7,6 @@ import java.util.Random;
 /**
  * 
  * This Class will be called ,after player choosing the dice.
- * @author Harish Jayasankar
  *
  */
  class DiceModel {
