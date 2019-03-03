@@ -9,6 +9,22 @@ import utils.EnumClass.UnitType;
  */
 
 public class CardModel {
+	
+	private int numberOfCards;
+	/**
+	 * @return the numberOfCards
+	 */
+	public int getNumberOfCards() {
+		return numberOfCards;
+	}
+
+	/**
+	 * @param numberOfCards the numberOfCards to set
+	 */
+	public void setNumberOfCards(int numberOfCards) {
+		this.numberOfCards = numberOfCards;
+	}
+
 	/**
 	 * The @cardType .
 	 */
