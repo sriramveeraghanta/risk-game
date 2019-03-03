@@ -16,7 +16,7 @@ import utils.GameConstant;
  * 
  */
 public class MapFileDataExtraction {
-	
+
 	private GameModel gameModel;
 
 	public MapFileDataExtraction() {
@@ -42,9 +42,11 @@ public class MapFileDataExtraction {
 				mapDataList.add(mapData);
 			}
 		}
-		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"), gameConstant.CONTINENT_DATA_SPLITTER);
+		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
+				gameConstant.CONTINENT_DATA_SPLITTER);
 
-		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),gameConstant.COUNTRY_DATA_SPLITTER);
+		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),
+				gameConstant.COUNTRY_DATA_SPLITTER);
 	}
 
 	/**

@@ -20,6 +20,7 @@ public class StartUp {
 
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
+	private  ReinforcementPhase reinforcementPhase;
 
 	/**
 	 * @return the cards
@@ -61,6 +62,7 @@ public class StartUp {
 		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
+		this.assignOneUnitPerCountry();
 
 	}
 
@@ -107,27 +109,32 @@ public class StartUp {
 			unit.setUnitNumber(40);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(40);
 			return unit;
 		case 3:
 			unit.setUnitNumber(35);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(35);
 			return unit;
 		case 4:
 			unit.setUnitNumber(30);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(30);
 			return unit;
 
 		case 5:
 			unit.setUnitNumber(25);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(25);
 			return unit;
 		case 6:
 			unit.setUnitNumber(20);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(20);
 			return unit;
 		default:
 			return null;
@@ -172,6 +179,16 @@ public class StartUp {
 			shuffeledcountries.remove(currentIndex);
 			playerId++;
 		}
+	}
+	
+	public void assignOneUnitPerCountry() {
+		
+		for(PlayerModel player: this.getPlayers()) {
+			reinforcementPhase= new ReinforcementPhase(player, gameModel);
+			for(CountryModel country: player.getCountries()) {
+				reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
+			}
+		}		
 	}
 
 	/**
