@@ -5,39 +5,51 @@ package models;
 
 import java.util.ArrayList;
 
-import models.EnumClass.Color;
-import models.EnumClass.UnitType;
+import utils.EnumClass.Color;
 
 /**
- * @author edosh
- *
+ * Player Model class to save the player information.
  */
 public class PlayerModel {
 
 	private Color color;
-	private ArrayList<CountryModel> countryModels;
-	private ArrayList<ContinentModel> continentModels;
+	private ArrayList<CountryModel> countiresList;
+	private ArrayList<ContinentModel> continentsList;
 	private ArrayList<UnitModel> army;
-
-	public PlayerModel() {
-	}
+	private ArrayList<CardModel> deck;
+	private boolean isActive;
 
 	/**
 	 * 
-	 */
+	*/
 	public PlayerModel(Color color) {
 		this.setColor(color);
+		this.setActive(true);
 	}
 
 	/**
-	 * @return the color
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	/**
+	 * @return the colour
 	 */
 	public Color getColor() {
 		return color;
 	}
 
 	/**
-	 * @param color the color to set
+	 * @param color the colour to set
 	 */
 	public void setColor(Color color) {
 		this.color = color;
@@ -47,28 +59,28 @@ public class PlayerModel {
 	 * @return the countryModels
 	 */
 	public ArrayList<CountryModel> getCountries() {
-		return countryModels;
+		return countiresList;
 	}
 
 	/**
 	 * @param countryModels the countryModels to set
 	 */
-	public void setCountries(ArrayList<CountryModel> countryModels) {
-		this.countryModels = countryModels;
+	public void setCountries(ArrayList<CountryModel> countiresList) {
+		this.countiresList = countiresList;
 	}
 
 	/**
 	 * @return the continentModels
 	 */
 	public ArrayList<ContinentModel> getContinents() {
-		return continentModels;
+		return continentsList;
 	}
 
 	/**
 	 * @param continentModels the continentModels to set
 	 */
-	public void setContinents(ArrayList<ContinentModel> continentModels) {
-		this.continentModels = continentModels;
+	public void setContinents(ArrayList<ContinentModel> continentsList) {
+		this.continentsList = continentsList;
 	}
 
 	/**
@@ -89,17 +101,31 @@ public class PlayerModel {
 		if (this.getCountries() == null) {
 			this.setCountries(new ArrayList<CountryModel>());
 		}
-		this.countryModels = this.getCountries();
-		this.countryModels.add(country);
-		this.setCountries(countryModels);
+		this.countiresList = this.getCountries();
+		this.countiresList.add(country);
+		this.setCountries(countiresList);
 	}
 
 	public void removeCountryFromPlayer(CountryModel country) {
 		if (this.getCountries() != null) {
-			this.countryModels = this.getCountries();
-			this.countryModels.remove(country);
-			this.setCountries(countryModels);
+			this.countiresList = this.getCountries();
+			this.countiresList.remove(country);
+			this.setCountries(countiresList);
 		}
+	}
+
+	/**
+	 * @return the deck
+	 */
+	public ArrayList<CardModel> getDeck() {
+		return deck;
+	}
+
+	/**
+	 * @param deck the deck to set
+	 */
+	public void setDeck(ArrayList<CardModel> deck) {
+		this.deck = deck;
 	}
 
 }

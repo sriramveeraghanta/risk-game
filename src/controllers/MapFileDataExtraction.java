@@ -1,13 +1,13 @@
-package controller;
+package controllers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.ContinentModel;
-import model.CountryModel;
-import model.GameModel;
+import models.ContinentModel;
+import models.CountryModel;
+import models.GameModel;
 import utils.GameConstant;
 
 /**
@@ -16,6 +16,7 @@ import utils.GameConstant;
  * 
  */
 public class MapFileDataExtraction {
+	
 	private GameModel gameModel;
 
 	public MapFileDataExtraction() {
@@ -32,7 +33,7 @@ public class MapFileDataExtraction {
 
 		GameConstant gameConstant = new GameConstant();
 		List<String> mapDataList = new ArrayList<String>();
-		FileReader mapFileReader = new FileReader(gameConstant.mapFilePath);
+		FileReader mapFileReader = new FileReader(gameConstant.MAP_FILE_PATH);
 		BufferedReader mapDataReader = new BufferedReader(mapFileReader);
 		String mapData;
 
@@ -88,7 +89,7 @@ public class MapFileDataExtraction {
 	 */
 
 	public void countryMapData(List<String> countryList, int initial, int last, String spliter) {
-		CountryModel countryModel;
+		//CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
 		///This for loop is for extracting each single line in the file.Each line will have specific country details
 		for (int range = initial + 1; range < last; range++) {
@@ -108,10 +109,13 @@ public class MapFileDataExtraction {
 					adjacentcountryList.add(countryArrayList.get(i));
 				}
 
-				countryModel = new CountryModel(countryArrayList.get(0), Integer.parseInt(countryArrayList.get(1)),
-						Integer.parseInt(countryArrayList.get(2)), adjacentcountryList, countryArrayList.get(3));
-
-				countryDetailList.add(countryModel);
+//				countryModel = new CountryModel(countryArrayList.get(0), Integer.parseInt(countryArrayList.get(1)),
+//						Integer.parseInt(countryArrayList.get(2)), adjacentcountryList);
+//				
+//				Contene 
+//				countryModel = new CountryModel();
+//				countryDetailList.add(countryModel);
+				countryDetailList.add(null);
 			}
 
 		}

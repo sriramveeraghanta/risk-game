@@ -1,6 +1,6 @@
 package models;
 
-import models.EnumClass.UnitType;
+import utils.EnumClass.UnitType;
 
 public class UnitModel {
 	
