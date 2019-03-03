@@ -16,12 +16,29 @@ public class PlayerModel {
 	private ArrayList<CountryModel> countiresList;
 	private ArrayList<ContinentModel> continentsList;
 	private ArrayList<UnitModel> army;
+	private ArrayList<CardModel> deck;
+	private boolean isActive;
 
 	/**
 	 * 
-	 */
+	*/
 	public PlayerModel(Color color) {
 		this.setColor(color);
+		this.setActive(true);
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	/**
@@ -95,6 +112,20 @@ public class PlayerModel {
 			this.countiresList.remove(country);
 			this.setCountries(countiresList);
 		}
+	}
+
+	/**
+	 * @return the deck
+	 */
+	public ArrayList<CardModel> getDeck() {
+		return deck;
+	}
+
+	/**
+	 * @param deck the deck to set
+	 */
+	public void setDeck(ArrayList<CardModel> deck) {
+		this.deck = deck;
 	}
 
 }

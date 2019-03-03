@@ -33,7 +33,7 @@ public class MapFileDataExtraction {
 
 		GameConstant gameConstant = new GameConstant();
 		List<String> mapDataList = new ArrayList<String>();
-		FileReader mapFileReader = new FileReader(gameConstant.mapFilePath);
+		FileReader mapFileReader = new FileReader(gameConstant.MAP_FILE_PATH);
 		BufferedReader mapDataReader = new BufferedReader(mapFileReader);
 		String mapData;
 

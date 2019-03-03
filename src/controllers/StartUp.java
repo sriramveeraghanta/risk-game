@@ -9,9 +9,7 @@ import models.CardModel;
 import models.CountryModel;
 import utils.EnumClass;
 import models.PlayerModel;
-import models.UnitModel;
-import utils.EnumClass.Color;
-import utils.EnumClass.UnitType;
+import models.UnitModel; 
 import models.GameModel;
 
 public class StartUp {
@@ -36,6 +34,7 @@ public class StartUp {
 	public void setCards(ArrayList<CardModel> cards) {
 		this.cards = cards;
 	}
+
 	/**
 	 * Initialise the game objects set players properties such countries,armies,
 	 * Colour
@@ -47,15 +46,13 @@ public class StartUp {
 		int numberOfPlayers = gameModel.getNumberOfPlayers();
 		this.init(numberOfPlayers);
 	}
-	
 
 	private void init(int numberOfPlayers) {
-		
-		
+
 		players = new ArrayList<PlayerModel>();
 		this.setNumberOfPlayers(numberOfPlayers);
 		for (int i = 0; i < getNumberOfPlayers(); i++) {
-			Color assingedColor = this.assignColor();
+			EnumClass.Color assingedColor = this.assignColor();
 			PlayerModel player = new PlayerModel(assingedColor);
 			this.setInitialInfantry(player);
 			players.add(player);
@@ -64,7 +61,7 @@ public class StartUp {
 		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
-		
+
 	}
 
 	/**
@@ -104,7 +101,7 @@ public class StartUp {
 	public UnitModel setInitialInfantry(PlayerModel player) {
 		ArrayList<UnitModel> units = new ArrayList<UnitModel>();
 		UnitModel unit = new UnitModel();
-		unit.setType(UnitType.INFANTRY);
+		unit.setType(EnumClass.UnitType.INFANTRY);
 		switch (numberOfPlayers) {
 		case 2:
 			unit.setUnitNumber(40);
@@ -139,22 +136,22 @@ public class StartUp {
 	}
 
 	/**
-	 * assigns a colour to the player randomly at the starting phase of the game *
+	 * assigns a color to the player randomly at the starting phase of the game *
 	 * 
 	 * @param player
-	 * @return 
+	 * @return
 	 */
-	public Color assignColor() {
-		Color assignedColor;
+	public EnumClass.Color assignColor() {
+		EnumClass.Color assignedColor = null ;
 		int currentIndex;
 		for (int i = 0; i < 6; i++) {
 			currentIndex = new Random().nextInt(6);
 			if (colors[currentIndex] != null) {
-				assignedColor =  this.colors[currentIndex];
+				assignedColor = this.colors[currentIndex];
 				this.colors[currentIndex] = null;
-				return assignedColor;
 			}
 		}
+		return assignedColor;
 	}
 
 	/**

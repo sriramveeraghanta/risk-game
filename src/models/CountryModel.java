@@ -50,7 +50,6 @@ public class CountryModel {
 	public int getxAxis() {
 		return xAxis;
 	}
-
 	public void setxAxis(int xAxis) {
 		this.xAxis = xAxis;
 	}
