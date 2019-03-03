@@ -42,9 +42,9 @@ public class MapFileDataExtraction {
 				mapDataList.add(mapData);
 			}
 		}
-		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"), gameConstant.continentDataSplitter);
+		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"), gameConstant.CONTINENT_DATA_SPLITTER);
 
-		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),gameConstant.countryDataSplitter);
+		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),gameConstant.COUNTRY_DATA_SPLITTER);
 	}
 
 	/**
