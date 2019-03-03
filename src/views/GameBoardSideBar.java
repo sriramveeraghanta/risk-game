@@ -8,8 +8,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import action.action;
+import controllers.StartUp;
+import models.PlayerModel;
 import utils.GameConstant;
 
 public class GameBoardSideBar extends JPanel {
@@ -24,6 +29,8 @@ public class GameBoardSideBar extends JPanel {
 	}
 
 	private void buildPanel() {
+//		PlayerModel activePlayer = str.getPlayers().get(0);
+		
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridwidth = gridBagConstraints.REMAINDER;
@@ -48,10 +55,13 @@ public class GameBoardSideBar extends JPanel {
 		fortifyButton.setActionCommand(GameConstant.FORTIFY_BUTTON_TITLE);
 		fortifyButton.addActionListener(actionListener);
 		
+		Integer[] diceCount = {1,2,3};
+		JComboBox<Integer> diceBox = new JComboBox<>(diceCount);
 		this.add(reinforceButton, gridBagConstraints);
 		this.add(attackButton, gridBagConstraints);
 		this.add(fortifyButton, gridBagConstraints);
-		
+		this.add(new JLabel("Number of dice"));
+		this.add(diceBox, gridBagConstraints);
 	}
 
 	public JPanel getPanel() {

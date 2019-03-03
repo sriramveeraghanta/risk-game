@@ -159,7 +159,9 @@ public class StartUp {
 	 */
 	public void assignCountriesToPlayers() {
 		int currentIndex = -1;
-		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(gameModel.getCountries());
+		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>();
+		System.out.println("jhgdufyh"+gameModel.getCountries());
+		shuffeledcountries.addAll(gameModel.getCountries());
 		// shuffle the new list;
 		Collections.shuffle(shuffeledcountries);
 		int playerId = 0;
