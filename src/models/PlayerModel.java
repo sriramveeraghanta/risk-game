@@ -18,6 +18,22 @@ public class PlayerModel {
 	private ArrayList<UnitModel> army;
 	private ArrayList<CardModel> deck;
 	private boolean isActive;
+	private int successfullCardSwapCounter;
+	private int numberOfArmyUnitOnHand;
+
+	/**
+	 * @return the numberOfArmyUnitOnHand
+	 */
+	public int getNumberOfArmyUnitOnHand() {
+		return numberOfArmyUnitOnHand;
+	}
+
+	/**
+	 * @param numberOfArmyUnitOnHand the numberOfArmyUnitOnHand to set
+	 */
+	public void setNumberOfArmyUnitOnHand(int numberOfArmyUnitOnHand) {
+		this.numberOfArmyUnitOnHand = numberOfArmyUnitOnHand;
+	}
 
 	/**
 	 * 
@@ -127,5 +143,21 @@ public class PlayerModel {
 	public void setDeck(ArrayList<CardModel> deck) {
 		this.deck = deck;
 	}
+
+	/**
+	 * @return the successfullCardSwapCounter
+	 */
+	public int getSuccessfullCardSwapCounter() {
+		return successfullCardSwapCounter;
+	}
+
+	/**
+	 * @param successfullCardSwapCounter the successfullCardSwapCounter to set
+	 */
+	public void setSuccessfullCardSwapCounter(int successfullCardSwapCounter) {
+		this.successfullCardSwapCounter = successfullCardSwapCounter;
+	}
+	
+	
 
 }
