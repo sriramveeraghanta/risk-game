@@ -1,5 +1,10 @@
 package utils;
 
+import java.util.ArrayList;
+
+import models.ContinentModel;
+import models.GameModel;
+
 public class Common {
 
 	public Common() {
@@ -13,6 +18,13 @@ public class Common {
 	      } catch (NumberFormatException e) {  
 	         return false;  
 	      }  
+	}
+	
+	private ContinentModel getContinentModelFromList() {
+		GameModel gameModel = new GameModel();
+		ArrayList<ContinentModel> continentList = gameModel.getContinents();
+		
+		return null;
 	}
 
 }

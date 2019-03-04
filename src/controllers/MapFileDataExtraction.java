@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import models.ContinentModel;
 import models.CountryModel;
 import models.GameModel;
@@ -41,10 +40,9 @@ public class MapFileDataExtraction {
 				mapDataList.add(mapData);
 			}
 		}
-		continentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
-				GameConstant.CONTINENT_DATA_SPLITTER);
+		continentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"));
 
-		countryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size(), GameConstant.COUNTRY_DATA_SPLITTER);
+		countryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size());
 	}
 
 	/**
@@ -59,18 +57,21 @@ public class MapFileDataExtraction {
 	 *                    continent names and values
 	 */
 
-	public void continentMapData(int initial, int last, String spliter) {
-		String continent;
-		ContinentModel continentModel;
+	public void continentMapData(int initial, int last) {
 		ArrayList<ContinentModel> continentsList = new ArrayList<ContinentModel>();
+		
 		for (int range = initial + 1; range < last; range++) {
-			continent = mapDataList.get(range);
-			String[] continent_data = continent.split(spliter);
-			if (spliter.equals("=")) {
-				continentModel = new ContinentModel(continent_data[0], Integer.parseInt(continent_data[1]));
-				continentsList.add(continentModel);
-			}
+			// gets the the data from the list (North America=5)
+			String continentData = mapDataList.get(range);
+			// Splitting the string using "="
+			String[] continentDataList = continentData.split(GameConstant.CONTINENT_DATA_SPLITTER);
+			// Creating New Continent
+			ContinentModel continentModel = 
+					new ContinentModel(continentDataList[0],Integer.parseInt(continentDataList[1]));
+			// Adding Continents to the list
+			continentsList.add(continentModel);
 		}
+		System.out.println(continentsList);
 		gameModel.setContinents(continentsList);
 	}
 
@@ -85,7 +86,7 @@ public class MapFileDataExtraction {
 	 *                countries and its further details like coordinates.
 	 */
 
-	public void countryMapData(int initial, int last, String spliter) {
+	public void countryMapData(int initial, int last) {
 		// CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
 		ArrayList<CountryModel> adjacentcountryList = null;
@@ -95,10 +96,23 @@ public class MapFileDataExtraction {
 		 * have specific country details.
 		 */
 		for (int range = initial + 1; range < last; range++) {
-			String country = mapDataList.get(range);
-			String[] country_data = country.split(spliter);
+			// Get Each Line of the country
+			String countryMapLine = mapDataList.get(range);
+			// Splitting with ","
+			String[] countryDataList = countryMapLine.split(GameConstant.COUNTRY_DATA_SPLITTER);
+			//System.out.println(countryDataList[2]);
+			/**
+			 * On the 4th position of the line we have continent string value
+			 * Using the string value we are getting the continent Object from the list of Continents. 
+			 * */
+			ContinentModel continent = getContinentModelFromList();
+			
+			//CountryModel countryModel = new CountryModel(countryDataList[0], countryDataList[1], countryDataList[2], )
 			countryArrayList = new ArrayList<String>();
-			for (String countryDetails : country_data) {
+			
+			
+			
+			for (String countryDetails : countryDataList) {
 				countryArrayList.add(countryDetails);
 			}
 			if (countryArrayList != null && countryArrayList.size() > 0) {
@@ -119,7 +133,7 @@ public class MapFileDataExtraction {
 		//// Updating countries model object with its adjacent countries list
 		for (int range = initial + 1; range < last; range++) {
 			String country = mapDataList.get(range);
-			String[] country_data = country.split(spliter);
+			String[] country_data = country.split(GameConstant.COUNTRY_DATA_SPLITTER);
 			countryArrayList = new ArrayList<String>();
 			adjacentcountryList = new ArrayList<CountryModel>();
 			for (String countryDetails : country_data) {

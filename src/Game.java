@@ -16,16 +16,16 @@ public class Game {
 		MapFileDataExtraction mapLoader = new MapFileDataExtraction();
 		mapLoader.mapFilePocessing();
 		// Controller calls
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameController controller = new GameController();
-					controller.showHomeView();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					GameController controller = new GameController();
+//					controller.showHomeView();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 		System.out.println("end");
 	}
 }
