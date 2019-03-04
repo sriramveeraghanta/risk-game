@@ -18,10 +18,10 @@ import utils.GameConstant;
 public class MapFileDataExtraction {
 
 	private GameModel gameModel;
-	private List<String> mapDataList;
+	private ArrayList<String> mapDataList;
 
 	public MapFileDataExtraction() {
-		gameModel = new GameModel();
+		this.gameModel = new GameModel();
 	}
 
 	/**
@@ -44,8 +44,7 @@ public class MapFileDataExtraction {
 		continentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
 				GameConstant.CONTINENT_DATA_SPLITTER);
 
-		countryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size(),
-				GameConstant.COUNTRY_DATA_SPLITTER);
+		countryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size(), GameConstant.COUNTRY_DATA_SPLITTER);
 	}
 
 	/**
@@ -70,9 +69,7 @@ public class MapFileDataExtraction {
 			if (spliter.equals("=")) {
 				continentModel = new ContinentModel(continent_data[0], Integer.parseInt(continent_data[1]));
 				continentsList.add(continentModel);
-
 			}
-
 		}
 		gameModel.setContinents(continentsList);
 	}
@@ -80,61 +77,54 @@ public class MapFileDataExtraction {
 	/**
 	 * This Method will extract the Continent data from the map file
 	 * 
-	 * @param initial     This parameter holds the starting index of Territories
-	 *                    data in mapDataList
-	 * @param last        This parameter holds the ending index of Territories data
-	 *                    in mapDataList
-	 * @param spliter     This parameter holds "," as splitter value for splitting
-	 *                    countries and its further details like coordinates.
+	 * @param initial This parameter holds the starting index of Territories data in
+	 *                mapDataList
+	 * @param last    This parameter holds the ending index of Territories data in
+	 *                mapDataList
+	 * @param spliter This parameter holds "," as splitter value for splitting
+	 *                countries and its further details like coordinates.
 	 */
 
 	public void countryMapData(int initial, int last, String spliter) {
 		// CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
 		ArrayList<CountryModel> adjacentcountryList = null;
-		CountryModel countryModel = null;
 		ArrayList<String> countryArrayList = null;
-		/// This for loop is for extracting each single line in the file.Each line will
-		/// have specific country details
+		/**
+		 * This for loop is for extracting each single line in the file. Each line will
+		 * have specific country details.
+		 */
 		for (int range = initial + 1; range < last; range++) {
-			String country = countryList.get(range);
+			String country = mapDataList.get(range);
 			String[] country_data = country.split(spliter);
 			countryArrayList = new ArrayList<String>();
 			for (String countryDetails : country_data) {
 				countryArrayList.add(countryDetails);
 			}
-
 			if (countryArrayList != null && countryArrayList.size() > 0) {
-
 				for (ContinentModel continent : gameModel.getContinents()) {
 					if (countryArrayList.get(3).equalsIgnoreCase(continent.getContinentName())) {
-						countryModel = new CountryModel(countryArrayList.get(0),
+						CountryModel countryModel = new CountryModel(countryArrayList.get(0),
 								Integer.parseInt(countryArrayList.get(1)), Integer.parseInt(countryArrayList.get(2)),
 								continent);
 						countryDetailList.add(countryModel);
 					}
-
 				}
 			}
-
 		}
 		//// Setting countries list in game model
 		if (countryDetailList != null && countryDetailList.size() > 0) {
-
 			gameModel.setCountries(countryDetailList);
 		}
-
 		//// Updating countries model object with its adjacent countries list
 		for (int range = initial + 1; range < last; range++) {
-			String country = countryList.get(range);
+			String country = mapDataList.get(range);
 			String[] country_data = country.split(spliter);
 			countryArrayList = new ArrayList<String>();
 			adjacentcountryList = new ArrayList<CountryModel>();
-
 			for (String countryDetails : country_data) {
 				countryArrayList.add(countryDetails);
 			}
-
 			if (countryArrayList != null && countryArrayList.size() > 0) {
 				for (CountryModel countriesDetails : gameModel.getCountries()) {
 					if (countryArrayList.get(0).equalsIgnoreCase(countriesDetails.getCountryName())) {
@@ -145,19 +135,13 @@ public class MapFileDataExtraction {
 								if (countryArrayList.get(i).equalsIgnoreCase(adjacentCountryDetails.getCountryName())) {
 									adjacentcountryList.add(adjacentCountryDetails);
 								}
-
 							}
 						}
-
 						if (adjacentcountryList != null && adjacentcountryList.size() > 0)
 							countriesDetails.setAdjcentCountries(adjacentcountryList);
-
 					}
 				}
-
 			}
-
 		}
-
 	}
 }
