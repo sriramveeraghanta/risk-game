@@ -9,7 +9,7 @@ import models.CardModel;
 import models.CountryModel;
 import utils.EnumClass;
 import models.PlayerModel;
-import models.UnitModel; 
+import models.UnitModel;
 import models.GameModel;
 
 public class StartUp {
@@ -20,6 +20,7 @@ public class StartUp {
 
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
+	private ReinforcementPhase reinforcementPhase;
 
 	/**
 	 * @return the cards
@@ -61,6 +62,7 @@ public class StartUp {
 		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
+		this.assignOneUnitPerCountry();
 
 	}
 
@@ -107,27 +109,32 @@ public class StartUp {
 			unit.setUnitNumber(40);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(40);
 			return unit;
 		case 3:
 			unit.setUnitNumber(35);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(35);
 			return unit;
 		case 4:
 			unit.setUnitNumber(30);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(30);
 			return unit;
 
 		case 5:
 			unit.setUnitNumber(25);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(25);
 			return unit;
 		case 6:
 			unit.setUnitNumber(20);
 			units.add(unit);
 			player.setArmy(units);
+			player.setNumberOfArmyUnitOnHand(20);
 			return unit;
 		default:
 			return null;
@@ -142,7 +149,7 @@ public class StartUp {
 	 * @return
 	 */
 	public EnumClass.Color assignColor() {
-		EnumClass.Color assignedColor = null ;
+		EnumClass.Color assignedColor = null;
 		int currentIndex;
 		for (int i = 0; i < 6; i++) {
 			currentIndex = new Random().nextInt(6);
@@ -159,7 +166,9 @@ public class StartUp {
 	 */
 	public void assignCountriesToPlayers() {
 		int currentIndex = -1;
-		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>(gameModel.getCountries());
+		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>();
+		System.out.println("jhgdufyh"+gameModel.getCountries());
+		shuffeledcountries.addAll(gameModel.getCountries());
 		// shuffle the new list;
 		Collections.shuffle(shuffeledcountries);
 		int playerId = 0;
@@ -172,8 +181,22 @@ public class StartUp {
 		}
 	}
 
+	
+	public void assignOneUnitPerCountry() {
+
+		for (PlayerModel player : this.getPlayers()) {
+			reinforcementPhase = new ReinforcementPhase(player, gameModel);
+			for (CountryModel country : player.getCountries()) {
+				reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
+			}
+		}
+	}
+
 	/**
 	 * Randomly generate the cards and assign a different unit type to each
+	 * 
+	 * This should be rewritten in phase 2 only 3 unique Type cards are needed.
+	 * 
 	 */
 	public void createGameCards() {
 		EnumClass.UnitType unitTypes[] = EnumClass.UnitType.values();

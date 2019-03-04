@@ -16,7 +16,7 @@ import utils.GameConstant;
  * 
  */
 public class MapFileDataExtraction {
-	
+
 	private GameModel gameModel;
 
 	public MapFileDataExtraction() {
@@ -42,9 +42,11 @@ public class MapFileDataExtraction {
 				mapDataList.add(mapData);
 			}
 		}
-		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"), gameConstant.continentDataSplitter);
+		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
+				gameConstant.CONTINENT_DATA_SPLITTER);
 
-		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),gameConstant.countryDataSplitter);
+		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),
+				gameConstant.COUNTRY_DATA_SPLITTER);
 	}
 
 	/**
@@ -89,39 +91,74 @@ public class MapFileDataExtraction {
 	 */
 
 	public void countryMapData(List<String> countryList, int initial, int last, String spliter) {
-		//CountryModel countryModel;
+		// CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
-		///This for loop is for extracting each single line in the file.Each line will have specific country details
+		ArrayList<CountryModel> adjacentcountryList = null;
+		CountryModel countryModel = null;
+		ArrayList<String> countryArrayList = null;
+		/// This for loop is for extracting each single line in the file.Each line will
+		/// have specific country details
 		for (int range = initial + 1; range < last; range++) {
 			String country = countryList.get(range);
 			String[] country_data = country.split(spliter);
-			ArrayList<String> countryArrayList = new ArrayList<String>();
-			ArrayList<String> adjacentcountryList = new ArrayList<String>();
+			countryArrayList = new ArrayList<String>();
+			for (String countryDetails : country_data) {
+				countryArrayList.add(countryDetails);
+			}
+
+			if (countryArrayList != null && countryArrayList.size() > 0) {
+
+				for (ContinentModel continent : gameModel.getContinents()) {
+					if (countryArrayList.get(3).equalsIgnoreCase(continent.getContinentName())) {
+						countryModel = new CountryModel(countryArrayList.get(0),
+								Integer.parseInt(countryArrayList.get(1)), Integer.parseInt(countryArrayList.get(2)),
+								continent);
+						countryDetailList.add(countryModel);
+					}
+
+				}
+			}
+
+		}
+		//// Setting countries list in game model
+		if (countryDetailList != null && countryDetailList.size() > 0) {
+
+			gameModel.setCountries(countryDetailList);
+		}
+
+		//// Updating countries model object with its adjacent countries list
+		for (int range = initial + 1; range < last; range++) {
+			String country = countryList.get(range);
+			String[] country_data = country.split(spliter);
+			countryArrayList = new ArrayList<String>();
+			adjacentcountryList = new ArrayList<CountryModel>();
 
 			for (String countryDetails : country_data) {
 				countryArrayList.add(countryDetails);
 			}
 
 			if (countryArrayList != null && countryArrayList.size() > 0) {
-				//// This loop is for fetching adjacent country details from the list,Since the
-				//// adjacent country details starts from index 4,we are iterating from 4[i=4]
-				for (int i = 4; i < countryArrayList.size(); i++) {
-					adjacentcountryList.add(countryArrayList.get(i));
+				for (CountryModel countriesDetails : gameModel.getCountries()) {
+					if (countryArrayList.get(0).equalsIgnoreCase(countriesDetails.getCountryName())) {
+						//// This loop is for fetching adjacent country details from the list,Since the
+						//// adjacent country details starts from index 4,we are iterating from 4[i=4]
+						for (int i = 4; i < countryArrayList.size(); i++) {
+							for (CountryModel adjacentCountryDetails : gameModel.getCountries()) {
+								if (countryArrayList.get(i).equalsIgnoreCase(adjacentCountryDetails.getCountryName())) {
+									adjacentcountryList.add(adjacentCountryDetails);
+								}
+
+							}
+						}
+
+						if (adjacentcountryList != null && adjacentcountryList.size() > 0)
+							countriesDetails.setAdjcentCountries(adjacentcountryList);
+
+					}
 				}
 
-//				countryModel = new CountryModel(countryArrayList.get(0), Integer.parseInt(countryArrayList.get(1)),
-//						Integer.parseInt(countryArrayList.get(2)), adjacentcountryList);
-//				
-//				Contene 
-//				countryModel = new CountryModel();
-//				countryDetailList.add(countryModel);
-				countryDetailList.add(null);
 			}
 
-		}
-		if (countryDetailList != null && countryDetailList.size() > 0) {
-
-			gameModel.setCountries(countryDetailList);
 		}
 
 	}

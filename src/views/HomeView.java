@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.GameController;
+import controllers.StartUp;
 import models.GameModel;
 import utils.GameConstant;
 
@@ -88,6 +89,7 @@ public class HomeView extends JPanel {
 			
 			gameController = new GameController();
 			gameController.navigateToGameBoard();
+			
 			
 		}
 	};
