@@ -33,7 +33,6 @@ public class GameConstant {
 	public static String CONTINENT_DATA_SPLITTER = "=";
 	public static String COUNTRY_DATA_SPLITTER = ",";
 
-
 	public GameConstant() {
 			
 	}
