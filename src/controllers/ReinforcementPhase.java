@@ -29,6 +29,7 @@ public class ReinforcementPhase {
 
 			return (totalNumberOfArmyUnits * 5) * this.playerModel.getSuccessfullCardSwapCounter();
 		}
+		
 		return 0;
 	}
 

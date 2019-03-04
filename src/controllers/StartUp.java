@@ -9,7 +9,7 @@ import models.CardModel;
 import models.CountryModel;
 import utils.EnumClass;
 import models.PlayerModel;
-import models.UnitModel; 
+import models.UnitModel;
 import models.GameModel;
 
 public class StartUp {
@@ -20,7 +20,7 @@ public class StartUp {
 
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
-	private  ReinforcementPhase reinforcementPhase;
+	private ReinforcementPhase reinforcementPhase;
 
 	/**
 	 * Initialise the game objects set players properties such countries,armies,
@@ -108,7 +108,7 @@ public class StartUp {
 	 * @return
 	 */
 	public EnumClass.Color assignColor() {
-		EnumClass.Color assignedColor = null ;
+		EnumClass.Color assignedColor = null;
 		int currentIndex;
 		for (int i = 0; i < 6; i++) {
 			currentIndex = new Random().nextInt(6);
@@ -139,19 +139,23 @@ public class StartUp {
 			playerId++;
 		}
 	}
+
 	
 	public void assignOneUnitPerCountry() {
-		
-		for(PlayerModel player: this.getPlayers()) {
-			reinforcementPhase= new ReinforcementPhase(player, gameModel);
-			for(CountryModel country: player.getCountries()) {
+
+		for (PlayerModel player : this.getPlayers()) {
+			reinforcementPhase = new ReinforcementPhase(player, gameModel);
+			for (CountryModel country : player.getCountries()) {
 				reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
 			}
-		}		
+		}
 	}
 
 	/**
 	 * Randomly generate the cards and assign a different unit type to each
+	 * 
+	 * This should be rewritten in phase 2 only 3 unique Type cards are needed.
+	 * 
 	 */
 	public void createGameCards() {
 		EnumClass.UnitType unitTypes[] = EnumClass.UnitType.values();
