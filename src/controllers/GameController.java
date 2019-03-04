@@ -42,5 +42,4 @@ public class GameController {
 		//replacing them with Game Board View
 		gameView.getFrame().add(gameBoardView.getPanel());
 	}
-
 }

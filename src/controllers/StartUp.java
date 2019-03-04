@@ -23,20 +23,6 @@ public class StartUp {
 	private  ReinforcementPhase reinforcementPhase;
 
 	/**
-	 * @return the cards
-	 */
-	public ArrayList<CardModel> getCards() {
-		return cards;
-	}
-
-	/**
-	 * @param cards the cards to set
-	 */
-	public void setCards(ArrayList<CardModel> cards) {
-		this.cards = cards;
-	}
-
-	/**
 	 * Initialise the game objects set players properties such countries,armies,
 	 * Colour
 	 * 
@@ -44,54 +30,27 @@ public class StartUp {
 	 */
 	public StartUp() {
 		GameModel gameModel = new GameModel();
-		int numberOfPlayers = gameModel.getNumberOfPlayers();
-		this.init(numberOfPlayers);
+		this.numberOfPlayers = gameModel.getNumberOfPlayers();
+		
+		
+		this.init();
 	}
 
-	private void init(int numberOfPlayers) {
+	private void init() {
 
 		players = new ArrayList<PlayerModel>();
-		this.setNumberOfPlayers(numberOfPlayers);
-		for (int i = 0; i < getNumberOfPlayers(); i++) {
+		// Creating new player objects for the count 
+		for (int i = 0; i < numberOfPlayers; i++) {
 			EnumClass.Color assingedColor = this.assignColor();
 			PlayerModel player = new PlayerModel(assingedColor);
 			this.setInitialInfantry(player);
 			players.add(player);
 		}
-		this.setPlayers(players);
 		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
 		this.assignOneUnitPerCountry();
 
-	}
-
-	/**
-	 * @return the players
-	 */
-	public ArrayList<PlayerModel> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * @param players the players to set
-	 */
-	public void setPlayers(ArrayList<PlayerModel> players) {
-		this.players = players;
-	}
-
-	/**
-	 * @return the numberOfPlayers
-	 */
-	public int getNumberOfPlayers() {
-		return numberOfPlayers;
-	}
-
-	/**
-	 * @param numberOfPlayers the numberOfPlayers to set
-	 */
-	public void setNumberOfPlayers(int numberOfPlayers) {
-		this.numberOfPlayers = numberOfPlayers;
 	}
 
 	/**

@@ -18,6 +18,7 @@ import utils.GameConstant;
 public class MapFileDataExtraction {
 
 	private GameModel gameModel;
+	private List<String> mapDataList;
 
 	public MapFileDataExtraction() {
 		gameModel = new GameModel();
@@ -30,10 +31,8 @@ public class MapFileDataExtraction {
 	 *
 	 */
 	public void mapFilePocessing() throws IOException {
-
-		GameConstant gameConstant = new GameConstant();
-		List<String> mapDataList = new ArrayList<String>();
-		FileReader mapFileReader = new FileReader(gameConstant.MAP_FILE_PATH);
+		mapDataList = new ArrayList<String>();
+		FileReader mapFileReader = new FileReader(GameConstant.MAP_FILE_PATH);
 		BufferedReader mapDataReader = new BufferedReader(mapFileReader);
 		String mapData;
 
@@ -42,11 +41,11 @@ public class MapFileDataExtraction {
 				mapDataList.add(mapData);
 			}
 		}
-		continentMapData(mapDataList, mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
-				gameConstant.CONTINENT_DATA_SPLITTER);
+		continentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"),
+				GameConstant.CONTINENT_DATA_SPLITTER);
 
-		countryMapData(mapDataList, mapDataList.indexOf("[Territories]"), mapDataList.size(),
-				gameConstant.COUNTRY_DATA_SPLITTER);
+		countryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size(),
+				GameConstant.COUNTRY_DATA_SPLITTER);
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class MapFileDataExtraction {
 	 *                    continent names and values
 	 */
 
-	public void continentMapData(List<String> mapDataList, int initial, int last, String spliter) {
+	public void continentMapData(int initial, int last, String spliter) {
 		String continent;
 		ContinentModel continentModel;
 		ArrayList<ContinentModel> continentsList = new ArrayList<ContinentModel>();
@@ -81,7 +80,6 @@ public class MapFileDataExtraction {
 	/**
 	 * This Method will extract the Continent data from the map file
 	 * 
-	 * @param mapDataList This parameter contains all the map data as a List
 	 * @param initial     This parameter holds the starting index of Territories
 	 *                    data in mapDataList
 	 * @param last        This parameter holds the ending index of Territories data
@@ -90,7 +88,7 @@ public class MapFileDataExtraction {
 	 *                    countries and its further details like coordinates.
 	 */
 
-	public void countryMapData(List<String> countryList, int initial, int last, String spliter) {
+	public void countryMapData(int initial, int last, String spliter) {
 		// CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
 		ArrayList<CountryModel> adjacentcountryList = null;
