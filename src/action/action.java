@@ -16,104 +16,149 @@ import javax.swing.JTextField;
 
 import controllers.AttackPhase;
 import controllers.ReinforcementPhase;
+import controllers.FortificationPhase;
 import controllers.StartUp;
 import models.CountryModel;
 import models.GameModel;
 import models.PlayerModel;
+import models.UnitModel;
+import utils.EnumClass;
 import utils.GameConstant;
 
+/**
+ * Action clas is used by classes in View package, for the following game
+ * funnctionality : Reinforcement, Attack, and Fortify action.java is called
+ * from GameBoardSideBar.java
+ *
+ */
 public class action implements ActionListener {
 
 	private StartUp startup;
 	private PlayerModel player;
 	private GameModel gameModel;
-	public action(PlayerModel player,GameModel gameModel, StartUp startup) {
+	private CountryModel countryModel;
+
+	public action(PlayerModel player, GameModel gameModel, StartUp startup) {
 		this.startup = startup;
 		this.player = player;
-		this.gameModel=gameModel;
+		this.gameModel = gameModel;
 	}
+
 	public action() {
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		String phaseActionButton = e.getActionCommand();
+
+		// Retreiving a players owned country
+		/**
+		 * @param countryListOfPlayer country array hold by player
+		 */
+		ArrayList<String> countryName = new ArrayList<>();
+		ArrayList<CountryModel> countryModelListOfPlayer = player.getCountries();
+		for (CountryModel country : countryModelListOfPlayer)
+			countryName.add(country.getCountryName());
+		String[] countryListOfPlayer = countryName.toArray(new String[countryName.size()]);
+
+		// Checking phase action button event
 		if (phaseActionButton.equalsIgnoreCase(GameConstant.REINFORCEMENT_BUTTON_TITLE)) {
-			//TODO country list if required
-//			ArrayList<String> countryListOfAttacker = new ArrayList<>();
-////			JTextField activePlayer = new JTextField("Active Player" +);
-////			ArrayList<CountryModel> countryListOfAttacker = 
-//			for(CountryModel country : activePlayer.getCountries())
-//				    countryListOfAttacker.add(country.getCountryName());
-//			countryListOfAttacker.toArray(new String[countryListOfAttacker.size()]);
-			//TODO proper player model needs to eb updated
-			ReinforcementPhase reinforce=new ReinforcementPhase(player,gameModel);
-			int initialArmy = 5;
-			String[] countryListOfAttacker = {"Alberta", "Alaska", "Columbia"};
-			JComboBox<String> playerCountryList = new JComboBox<>(countryListOfAttacker);
-			while(initialArmy>0) { 
-				Integer[] noOfArmyToPlace = {1,2,3,4,5};
-				JComboBox<Integer> noOfArmyToPlaceInCountry = new JComboBox<>(noOfArmyToPlace);
-				JTextField noOfArmy = new JTextField("Army left : "+initialArmy);
+			// TODO card swapping to implement
+			ReinforcementPhase reinforce = new ReinforcementPhase(player, gameModel);
+			int initialArmy = player.getNumberOfArmyUnitOnHand();
+			JComboBox<String> playerCountryList = new JComboBox<>(countryListOfPlayer);
+
+			/**
+			 * Logic for displaying data in dialogue box
+			 */
+			while (initialArmy > 0) {
+				JTextField noOfArmyToPlaceInCountry = new JTextField();
+				JTextField noOfArmyLeft = new JTextField("Army left : " + initialArmy);
 				panel.add(new JLabel("Country List"));
 				panel.add(playerCountryList);
 				panel.add(new JLabel("No of army you want to place"));
 				panel.add(noOfArmyToPlaceInCountry);
-				panel.add(noOfArmy);
-				JOptionPane.showConfirmDialog(null, panel, "Test",
-			            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-//				reinforce.assignArmyUnitToCountry(playerCountryList.getSelectedItem().toString(),
-//						Integer.parseInt(noOfArmyToPlaceInCountry.getSelectedItem().toString()));
-//				System.out.println(playerCountryList.getSelectedItem() + "  "+noOfArmyToPlaceInCountry.getSelectedItem());
-				initialArmy = initialArmy- (int)noOfArmyToPlaceInCountry.getSelectedItem();
+				panel.add(noOfArmyLeft);
+				JOptionPane.showConfirmDialog(null, panel, "GameConstant.REINFORCEMENT_BUTTON_TITLE",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				reinforce.assignArmyUnitToCountry(playerCountryList.getSelectedItem().toString(),
+						Integer.parseInt(noOfArmyToPlaceInCountry.toString()));
+				initialArmy = initialArmy - (Integer.parseInt(noOfArmyToPlaceInCountry.toString()));
 			}
-		} 
-		else if (phaseActionButton.equalsIgnoreCase(GameConstant.ATTACK_BUTTON_TITLE)) {
-			//TODO sending data to some method
-			String defenderCountry ; 
-			HashMap<String , ArrayList<String>> countryContinent = 
-					new HashMap<>();
-			ArrayList<String> str = new ArrayList<>();
-			str.add("Two");
-			str.add("Five");
-			str.add("Six");
-			countryContinent.put("One", str);
-			ArrayList<String> str2 = new ArrayList<>();
-			str2.add("Four");
-			str2.add("Three");
-			countryContinent.put("Two", str2);
-			String[] countryListOfAttacker = {"One", "Two", "Three"};
-			JComboBox<String> attackerCountry = new JComboBox<>(countryListOfAttacker);
+		} else if (phaseActionButton.equalsIgnoreCase(GameConstant.ATTACK_BUTTON_TITLE)) {
+			// TODO dice roll needs to be implemented
+			String defenderCountry = null;
+			JComboBox<String> attackerCountry = new JComboBox<>(countryListOfPlayer);
 			panel.add(new JLabel("Attacker Country"));
 			panel.add(attackerCountry);
-			int result = JOptionPane.showConfirmDialog(null, panel, "Test",
-		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			ArrayList<String> adjacentCountryList = new ArrayList<>();
+			/// getting attacking country name
+			int result = JOptionPane.showConfirmDialog(null, panel, GameConstant.ATTACK_BUTTON_TITLE,
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if (result == JOptionPane.OK_OPTION) {
-				ArrayList<String> adjacentCountryList = countryContinent.get(attackerCountry.getSelectedItem());
-				for (String country : countryListOfAttacker ) {
-					if (adjacentCountryList.contains(country))
-						adjacentCountryList.remove(country);
+				countryModel = gameModel.getCountries().stream()
+						.filter(c -> c.getCountryName().contentEquals(attackerCountry.getSelectedItem().toString()))
+						.findFirst().get();
+				for (CountryModel country : countryModel.getAdjcentCountries()) {
+					if (!countryName.contains(country.getCountryName()))
+						adjacentCountryList.add(country.getCountryName());
 				}
-				String[] adjacentCountryListForAttacker = 
-						adjacentCountryList.toArray(new String[adjacentCountryList.size()]);
+
+				/// Displaying the adjacent non-owned countries of player for attacking
+				String[] adjacentCountryListForAttacker = adjacentCountryList
+						.toArray(new String[adjacentCountryList.size()]);
 				JComboBox<String> defendercountry = new JComboBox<>(adjacentCountryListForAttacker);
 				panel.add(new JLabel("Attacking Country"));
 				panel.add(defendercountry);
 				defenderCountry = defendercountry.getSelectedItem().toString();
-		    }
-			//ArrayList of adjacent countries of the selected countries
-			//{one: Two, Five , Two: Four Three}
-			//TODO getAdjacentCountry(attackerCountry.getSelectedItem)
-//			AttackPhase attack = new AttackPhase
-//					(player, startup, attackerCountry.getSelectedItem().toString(),defenderCountry);
-			JOptionPane.showConfirmDialog(null, panel, "Test",
-		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-			
-//			System.out.println(attackerCountry.getSelectedItem() + "  "+defendercountry.getSelectedItem());
+			}
+			JOptionPane.showConfirmDialog(null, panel, GameConstant.ATTACK_BUTTON_TITLE, JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+			AttackPhase attack = new AttackPhase(player, startup, attackerCountry.getSelectedItem().toString(),
+					defenderCountry);
+			adjacentCountryList.clear();
 		} else if (phaseActionButton.equalsIgnoreCase(GameConstant.FORTIFY_BUTTON_TITLE)) {
-			System.out.println("Foritfy");
+			String AdjacentCountry = null;
+			int armyValue = 0;
+			JComboBox<String> attackerCountry = new JComboBox<>(countryListOfPlayer);
+			panel.add(new JLabel("Attacker Country"));
+			panel.add(attackerCountry);
+			ArrayList<String> adjacentCountryList = new ArrayList<>();
+			/// getting th country name of player from where fortify needs to be done
+			int result = JOptionPane.showConfirmDialog(null, panel, GameConstant.ATTACK_BUTTON_TITLE,
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (result == JOptionPane.OK_OPTION) {
+				countryModel = gameModel.getCountries().stream()
+						.filter(c -> c.getCountryName().contentEquals(attackerCountry.getSelectedItem().toString()))
+						.findFirst().get();
+				List<UnitModel> units = countryModel.getArmyInCountry();
+				UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumClass.UnitType.INFANTRY))
+						.findFirst().get();
+				int armyCount = soldier.getUnitNumber();
+				JTextField noOfArmyInCountry = new JTextField(armyCount);
+				for (CountryModel country : countryModel.getAdjcentCountries()) {
+					if (countryName.contains(country.getCountryName()))
+						adjacentCountryList.add(country.getCountryName());
+				}
+				String[] adjacentCountryListForFortification = adjacentCountryList
+						.toArray(new String[adjacentCountryList.size()]);
+				/// displaying the adjacent countries of player
+
+				JComboBox<String> playerOwnAdjacentCountry = new JComboBox<>(adjacentCountryListForFortification);
+				panel.add(new JLabel("Army count should be less than the army available"));
+				panel.add(noOfArmyInCountry);
+				panel.add(new JLabel("Adjacent Country"));
+				panel.add(playerOwnAdjacentCountry);
+				AdjacentCountry = playerOwnAdjacentCountry.getSelectedItem().toString();
+				armyValue = Integer.parseInt(noOfArmyInCountry.toString());
+			}
+			JOptionPane.showConfirmDialog(null, panel, "GameConstant.FORTIFY_BUTTON_TITLE",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			FortificationPhase fortify = new FortificationPhase(player);
+			fortify.swapArmyUnitsBetweenCountries(attackerCountry.getSelectedItem().toString(), AdjacentCountry,
+					armyValue);
 		}
 	}
 }
