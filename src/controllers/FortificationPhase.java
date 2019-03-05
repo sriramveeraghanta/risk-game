@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.CountryModel;
-
+/**
+ * 
+ * consist of all the methods which is needed for fortification phase 
+ *
+ */
 public class FortificationPhase {
 
 	private PlayerModel playerModel;
-
+	/**
+	 * Constructor which get player model as parameter 
+	 * @param playerModel
+	 */
 	public FortificationPhase(PlayerModel playerModel) {
 
 		this.setPlayerModel(playerModel);
 	}
 
 	/**
+	 * getting the player model and return it
 	 * @return the playerModel
 	 */
 	public PlayerModel getPlayerModel() {
@@ -26,12 +34,20 @@ public class FortificationPhase {
 	}
 
 	/**
+	 * setting the player model 
 	 * @param playerModel the playerModel to set
 	 */
 	public void setPlayerModel(PlayerModel playerModel) {
 		this.playerModel = playerModel;
 	}
-
+	/**
+	 * swapping the particular number of armies between the countries the player owns for fortification and checking all the countries the
+	 * player own should have at least one army and countries should be adjacent
+	 * @param fromCountryName 
+	 * @param toCountryName
+	 * @param numberOfArmyUnits
+	 * @return if swapping is done successfully or not
+	 */
 	public String swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits) {
 		List<CountryModel> countries = this.getPlayerModel().getCountries();
 

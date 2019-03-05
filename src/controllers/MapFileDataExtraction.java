@@ -18,7 +18,9 @@ import utils.GameConstant;
 public class MapFileDataExtraction {
 
 	private GameModel gameModel;
-
+	/**
+	 * Constructor
+	 */
 	public MapFileDataExtraction() {
 		gameModel = new GameModel();
 	}
@@ -60,7 +62,6 @@ public class MapFileDataExtraction {
 	 * @param spliter     This parameter holds "=" as splitter value for splitting
 	 *                    continent names and values
 	 */
-
 	public void continentMapData(List<String> mapDataList, int initial, int last, String spliter) {
 		String continent;
 		ContinentModel continentModel;
@@ -89,7 +90,6 @@ public class MapFileDataExtraction {
 	 * @param spliter     This parameter holds "," as splitter value for splitting
 	 *                    countries and its further details like coordinates.
 	 */
-
 	public void countryMapData(List<String> countryList, int initial, int last, String spliter) {
 		// CountryModel countryModel;
 		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
