@@ -34,8 +34,10 @@ public class GameController {
 		gameView.getFrame().setVisible(true);
 	}
 
-	public void navigateToGameBoard() {
-		PlayerController statrUp = new PlayerController();
+	public void navigateToGameBoard(int numberOfPlayers) {
+		PlayerController playerController = new PlayerController(numberOfPlayers);
+		playerController.createPlayers();
+		
 		// Removing Current existing pane
 		gameView.getFrame().getContentPane().removeAll();
 		GameBoardView gameBoardView = new GameBoardView();

@@ -28,13 +28,13 @@ public class PlayerController {
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public PlayerController() {
+	public PlayerController(int numberOfPlayers) {
 		this.gameModel = new GameModel();
-		this.numberOfPlayers = gameModel.getNumberOfPlayers();
-		this.init();
+		this.numberOfPlayers = numberOfPlayers;
+		this.gameModel.setNumberOfPlayers(this.numberOfPlayers);
 	}
-
-	private void init() {
+	
+	public void createPlayers() {
 
 		players = new ArrayList<PlayerModel>();
 		// Creating new player objects for the count 
@@ -166,5 +166,7 @@ public class PlayerController {
 		this.setCards(cards);
 
 	}
+
+	
 
 }
