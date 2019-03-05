@@ -26,8 +26,8 @@ import utils.EnumClass;
 import utils.GameConstant;
 
 /**
- * Action clas is used by classes in View package, for the following game
- * funnctionality : Reinforcement, Attack, and Fortify action.java is called
+ * Action class is used by classes in View package, for the following game
+ * functionality : Reinforcement, Attack, and Fortify action.java is called
  * from GameBoardSideBar.java
  *
  */
@@ -37,16 +37,24 @@ public class action implements ActionListener {
 	private PlayerModel player;
 	private GameModel gameModel;
 	private CountryModel countryModel;
-
+	/**
+	 * Constructor for action with player , gameModel , startup parameter
+	 * @param player 
+	 * @param gameModel
+	 * @param startup
+	 */
 	public action(PlayerModel player, GameModel gameModel, StartUp startup) {
 		this.startup = startup;
 		this.player = player;
 		this.gameModel = gameModel;
 	}
-
+	/**
+	 * Constructor for action without parameter
+	 */
 	public action() {
 	}
-
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

@@ -11,18 +11,20 @@ import utils.EnumClass;
 import models.PlayerModel;
 import models.UnitModel;
 import models.GameModel;
-
+/**
+ * Before any other phases in start up phase should set and initialize some properties 
+ */
 public class StartUp {
 
 	private GameModel gameModel;
 	private int numberOfPlayers;
 	private EnumClass.Color[] colors = EnumClass.Color.values();
-
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
 	private ReinforcementPhase reinforcementPhase;
 
 	/**
+	 * getting the array list of cards 
 	 * @return the cards
 	 */
 	public ArrayList<CardModel> getCards() {
@@ -30,6 +32,7 @@ public class StartUp {
 	}
 
 	/**
+	 * setting the array list of cards
 	 * @param cards the cards to set
 	 */
 	public void setCards(ArrayList<CardModel> cards) {
@@ -37,9 +40,7 @@ public class StartUp {
 	}
 
 	/**
-	 * Initialise the game objects set players properties such countries,armies,
-	 * Colour
-	 * 
+	 * Initialize the game objects set players properties such countries,armies,Color
 	 * @param numberOfPlayers
 	 */
 	public StartUp() {
@@ -47,7 +48,10 @@ public class StartUp {
 		int numberOfPlayers = gameModel.getNumberOfPlayers();
 		this.init(numberOfPlayers);
 	}
-
+	/**
+	 * Initialize the game objects set players properties such countries,armies,Color
+	 * @param numberOfPlayers should be get as a parameter and initialize some properties for each player
+	 */
 	private void init(int numberOfPlayers) {
 
 		players = new ArrayList<PlayerModel>();
@@ -67,13 +71,15 @@ public class StartUp {
 	}
 
 	/**
-	 * @return the players
+	 * getting player as an array list
+	 * @return the players an array list of player
 	 */
 	public ArrayList<PlayerModel> getPlayers() {
 		return players;
 	}
 
 	/**
+	 * setting the players as an array list 
 	 * @param players the players to set
 	 */
 	public void setPlayers(ArrayList<PlayerModel> players) {
@@ -81,6 +87,7 @@ public class StartUp {
 	}
 
 	/**
+	 * getting the number of players and return it
 	 * @return the numberOfPlayers
 	 */
 	public int getNumberOfPlayers() {
@@ -88,6 +95,7 @@ public class StartUp {
 	}
 
 	/**
+	 * setting the number of players 
 	 * @param numberOfPlayers the numberOfPlayers to set
 	 */
 	public void setNumberOfPlayers(int numberOfPlayers) {
@@ -97,8 +105,8 @@ public class StartUp {
 	/**
 	 * assign initial number of armies to the players at the initial phase *
 	 * 
-	 * @param player
-	 * @return
+	 * @param player needs to assign the armies to the player in start up phase
+	 * @return the unit model which is contains both number and type of armies
 	 */
 	public UnitModel setInitialInfantry(PlayerModel player) {
 		ArrayList<UnitModel> units = new ArrayList<UnitModel>();
@@ -145,8 +153,8 @@ public class StartUp {
 	/**
 	 * assigns a color to the player randomly at the starting phase of the game *
 	 * 
-	 * @param player
-	 * @return
+	 * @param player for assigning color to each player
+	 * @return the color which is assign to specific player  
 	 */
 	public EnumClass.Color assignColor() {
 		EnumClass.Color assignedColor = null;
@@ -181,7 +189,9 @@ public class StartUp {
 		}
 	}
 
-	
+	/**
+	 * assigning armies to the country each player own in the way each country has at least one army unit in it
+	 */
 	public void assignOneUnitPerCountry() {
 
 		for (PlayerModel player : this.getPlayers()) {
