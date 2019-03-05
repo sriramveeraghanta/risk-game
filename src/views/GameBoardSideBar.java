@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import action.action;
-import controllers.StartUp;
+import controllers.PlayerController;
 import models.GameModel;
 import models.PlayerModel;
 import utils.GameConstant;
@@ -33,7 +33,7 @@ public class GameBoardSideBar extends JPanel {
 //		PlayerModel activePlayer = str.getPlayers().get(0);
 		PlayerModel player;
 		GameModel gameModel=new GameModel();
-		StartUp startup=new StartUp();
+		PlayerController startup=new PlayerController();
 		//TODO:Deciding player turn need to be done.
 	 player=startup.getPlayers().get(0);
 		// GridBag Layout contrainsts

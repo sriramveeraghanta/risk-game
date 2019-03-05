@@ -3,7 +3,7 @@ import java.io.IOException;
 
 import controllers.GameController;
 import controllers.MapController;
-import controllers.StartUp;
+import controllers.PlayerController;
 
 public class Game {
 	/**

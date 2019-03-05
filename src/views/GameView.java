@@ -2,7 +2,7 @@ package views;
 
 import javax.swing.JFrame;
 
-import controllers.StartUp;
+import controllers.PlayerController;
 import models.GameModel;
 import utils.GameConstant;
 
@@ -15,7 +15,7 @@ import utils.GameConstant;
 public class GameView extends JFrame {
 	public static JFrame mainFrame;
 
-	private StartUp startUp;
+	private PlayerController startUp;
 
 	public GameView(GameModel gameModel) {
 		this.initialize(gameModel);

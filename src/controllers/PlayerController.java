@@ -12,7 +12,7 @@ import models.PlayerModel;
 import models.UnitModel;
 import models.GameModel;
 
-public class StartUp {
+public class PlayerController {
 
 	private GameModel gameModel;
 	private int numberOfPlayers;
@@ -28,7 +28,7 @@ public class StartUp {
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public StartUp() {
+	public PlayerController() {
 		this.gameModel = new GameModel();
 		this.numberOfPlayers = gameModel.getNumberOfPlayers();
 		this.init();
