@@ -13,7 +13,11 @@ import models.CountryModel;
 import models.GameModel;
 import models.PlayerModel;
 import models.UnitModel;
-
+/**
+ * 
+ * This class include all the methods that the game needs for attacking like rolling dice and occupy countries 
+ *
+ */
 public class AttackPhase {
 
 	private PlayerModel attackPlayer;
@@ -34,6 +38,13 @@ public class AttackPhase {
 	private String attackerCountryName;
 	private String defenderCountryName;
 
+	/**
+	 * Constructor
+	 * @param attackPlayer is the player whose turn is
+	 * @param startUp we need to get player and cards from startup phase 
+	 * @param attackerCountryName is needed to access to armies in the attacker country
+	 * @param defenderCountryName is needed to access to armies in the defender country
+	 */
 	public AttackPhase(PlayerModel attackPlayer, PlayerController startUp, String attackerCountryName,
 			String defenderCountryName) {
 		
@@ -58,28 +69,46 @@ public class AttackPhase {
 		this.countryAttacker = countryAttacker;
 
 	}
-
+	/**
+	 * getting the number of attacker dice
+	 * @return numberAttackerDice 
+	 */
 	public int getNumberAttackerDice() {
 		return numberAttackerDice;
 	}
-
+	/**
+	 * setting number of attacker dice 
+	 * @param numberAttackerDice
+	 */
 	public void setNumberAttackerDice(int numberAttackerDice) {
 		this.numberAttackerDice = numberAttackerDice;
 	}
-
+	/**
+	 * getting the country attacker 
+	 * @return countryAttacker
+	 */
 	public CountryModel getCountryAttacker() {
 		return countryAttacker;
 	}
-
+	/**
+	 * setting the country attacker
+	 * @param countryAttacker
+	 */
 	public void setCountryAttacker(CountryModel countryAttacker) {
 		this.countryAttacker = countryAttacker;
 	}
-
+	/**
+	 * getting the country defender
+	 * @return countryDefender
+	 */
 	public CountryModel getCountryDefender() {
 		return countryDefender;
 
 	}
-
+	/**
+	 * setting the country defender
+	 * @param countryDefender
+	 */
 	public void setcountryDefender(CountryModel countryDefender) {
 		this.countryDefender = countryDefender;
 	}
@@ -149,7 +178,11 @@ public class AttackPhase {
 			maxNumberDiceDefender = numberArmiesDefenderCountry;
 		}
 	}
-
+	/**
+	 * rolling the dice by getting the number of dices 
+	 * @param numberOfDice
+	 * @return an array of dice face numbers which is sorted 
+	 */
 	public Integer[] roll(int numberOfDice) {
 		diceCount = new Integer[numberOfDice];
 		for (int i = 0; i < diceCount.length; i++) {
@@ -163,7 +196,12 @@ public class AttackPhase {
 
 		return diceCount;
 	}
-
+	/**
+	 * adding or removing the country to or from the countrylist after battle 
+	 * @param winnerPlayer 
+	 * @param loserPlayer
+	 * @param countryName
+	 */
 	private void assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName) {
 		// loser
 		List<CountryModel> loserCountries = loserPlayer.getCountries();
@@ -175,7 +213,11 @@ public class AttackPhase {
 		winnerCountries.add(countryWon);
 
 	}
-
+	/**
+	 * checking if the loser do not have any other countries and own any card then it should be given to the winner player 
+	 * @param winnerPlayer
+	 * @param loserPlayer
+	 */
 	private void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
 		if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
 			if (loserPlayer.getDeck() != null || loserPlayer.getDeck().size() > 0) {
@@ -185,7 +227,11 @@ public class AttackPhase {
 			}
 		}
 	}
-
+	/**
+	 * finding the defender player by getting the country name 
+	 * @param defenderCountryName
+	 * @return the player who is defending
+	 */
 	private PlayerModel getDefender(String defenderCountryName) {
 		for (PlayerModel defender : this.startUp.getPlayers()) {
 			if (defender.getColor() != this.attackPlayer.getColor()) {
@@ -199,7 +245,10 @@ public class AttackPhase {
 		}
 		return null;
 	}
-
+	/**
+	 * assign the cards to the player (deck) by getting the player as the parameter
+	 * @param player
+	 */
 	public void assignCardToPlayer(PlayerModel player) {
 
 		int index = new Random().nextInt(startUp.getCards().size());

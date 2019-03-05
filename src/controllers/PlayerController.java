@@ -12,12 +12,14 @@ import models.PlayerModel;
 import models.UnitModel;
 import models.GameModel;
 
+/**
+ * Before any other phases in start up phase should set and initialize some
+ * properties
+ */
 public class PlayerController {
-
 	private GameModel gameModel;
 	private int numberOfPlayers;
 	private EnumClass.Color[] colors = EnumClass.Color.values();
-
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
 	private ReinforcementPhase reinforcementPhase;
@@ -33,7 +35,13 @@ public class PlayerController {
 		this.numberOfPlayers = numberOfPlayers;
 		this.gameModel.setNumberOfPlayers(this.numberOfPlayers);
 	}
-	
+
+	/**
+	 * Initialize the game objects set players properties such
+	 * countries,armies,Color
+	 * @param numberOfPlayers should be get as a parameter and initialize some
+	 * properties for each player
+	 */
 	public void createPlayers() {
 
 		players = new ArrayList<PlayerModel>();
@@ -54,8 +62,8 @@ public class PlayerController {
 	/**
 	 * assign initial number of armies to the players at the initial phase *
 	 * 
-	 * @param player
-	 * @return
+	 * @param player needs to assign the armies to the player in start up phase
+	 * @return the unit model which is contains both number and type of armies
 	 */
 	public UnitModel setInitialInfantry(PlayerModel player) {
 		ArrayList<UnitModel> units = new ArrayList<UnitModel>();
@@ -102,8 +110,8 @@ public class PlayerController {
 	/**
 	 * assigns a color to the player randomly at the starting phase of the game *
 	 * 
-	 * @param player
-	 * @return
+	 * @param player for assigning color to each player
+	 * @return the color which is assign to specific player  
 	 */
 	public EnumClass.Color assignColor() {
 		EnumClass.Color assignedColor = null;
@@ -138,7 +146,9 @@ public class PlayerController {
 		}
 	}
 
-	
+	/**
+	 * assigning armies to the country each player own in the way each country has at least one army unit in it
+	 */
 	public void assignOneUnitPerCountry() {
 
 		for (PlayerModel player : this.getPlayers()) {
