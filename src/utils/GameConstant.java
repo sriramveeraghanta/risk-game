@@ -21,6 +21,7 @@ public class GameConstant {
 	// some other string
 	public static final String SELECT_PLAYERS = new String("Select the number of players");
 	public static final String PLACE_ARMY = new String("Place your armies in any of your countries");
+<<<<<<< HEAD
 	public static final String SELECT_ATTACKER_COUNTRY = "Select one of your countries for attacking";
 	public static final String SELECT_DEFENDER_COUNTRY = "Select one of your adjacent countries for attacking";
 	public static final String NUMBER_OF_DICES = "Select the number of dices";
@@ -32,6 +33,19 @@ public class GameConstant {
 	// Splitters
 	public static final String CONTINENT_DATA_SPLITTER = "=";
 	public static final String COUNTRY_DATA_SPLITTER = ",";
+=======
+	
+	public String SELECT_ATTACKER_COUNTRY="Select one of your countries for attacking";
+	public String SELECT_DEFENDER_COUNTRY="Select one of your adjacent countries for attacking";
+	public String NUMBER_OF_DICES="Select the number of dices";
+	public String ROLL_DICE="Rolling dices";
+	public String ATTACKER_WIN="Attacker wins";
+	public String DEFENDER_WIN="Defender wins";
+	public static String MAP_FILE_PATH = System.getProperty("user.dir") + "\\src\\resources\\World.map";
+	public static String MAP_IMAGE_FILE_PATH = System.getProperty("user.dir") + "\\src\\resources\\World.bmp";
+	public static String CONTINENT_DATA_SPLITTER = "=";
+	public static String COUNTRY_DATA_SPLITTER = ",";
+>>>>>>> edc00f3059d0f83cd3d4f69afe1113a8cdcad710
 
 	public GameConstant() {
 			

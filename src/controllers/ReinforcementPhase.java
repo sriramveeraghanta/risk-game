@@ -224,6 +224,7 @@ public class ReinforcementPhase {
 
 		return totalContinetValues;
 	}
+  
 	/**
 	 * checking if all the countries in a continent occupied by the player and return the control value of that continent 
 	 * @param continent the object of continent 

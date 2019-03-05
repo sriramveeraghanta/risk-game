@@ -12,9 +12,9 @@ import javax.swing.BoxLayout;
 
 public class GameBoard extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+/**
+* Creating the main game board panel
+*/
 	public GameBoard() {
 		setLayout(new BorderLayout(0, 0));
 		

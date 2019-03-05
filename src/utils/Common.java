@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 import models.ContinentModel;
 import models.CountryModel;
-import models.GameModel;
 
+/**
+ * 
+ * Checking if integer value of a given string
+ * can be formed or not
+ *
+ */
 public class Common {
 
 	public Common() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean tryParseInt(String value) {  

@@ -18,6 +18,10 @@ import models.GameModel;
 import models.PlayerModel;
 import utils.GameConstant;
 
+/**
+ * Creating sidebar with reinforce, attack and fortify buttons 
+ *
+ */
 public class GameBoardSideBar extends JPanel {
 	
 	JButton reinforceButton,
@@ -35,33 +39,36 @@ public class GameBoardSideBar extends JPanel {
 		GameModel gameModel=new GameModel();
 		PlayerController startup=new PlayerController();
 		//TODO:Deciding player turn need to be done.
-	 player=startup.getPlayers().get(0);
+		player=startup.getPlayers().get(0);
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridwidth = gridBagConstraints.REMAINDER;
 		gridBagConstraints.anchor = gridBagConstraints.CENTER;
 		ActionListener actionListener=new action(player, gameModel,startup);
 		
-		// Creating reinforcement button
+		// Creating reinforcement button and calling specified methods on action
 		reinforceButton = new JButton(GameConstant.REINFORCEMENT_BUTTON_TITLE);
 		reinforceButton.setPreferredSize(new Dimension(150, 40));
 		reinforceButton.setActionCommand(GameConstant.REINFORCEMENT_BUTTON_TITLE);
 		reinforceButton.addActionListener(actionListener);
 		
-		// creating attack button
+		// creating attack button and calling specified methods on action
 		attackButton = new JButton(GameConstant.ATTACK_BUTTON_TITLE);
 		attackButton.setPreferredSize(new Dimension(150, 40));
 		attackButton.setActionCommand(GameConstant.ATTACK_BUTTON_TITLE);
 		attackButton.addActionListener(actionListener);
 		
-		// create fortify button
+		// create fortify button and calling specified methods on action
 		fortifyButton = new JButton(GameConstant.FORTIFY_BUTTON_TITLE);
 		fortifyButton.setPreferredSize(new Dimension(150, 40));
 		fortifyButton.setActionCommand(GameConstant.FORTIFY_BUTTON_TITLE);
 		fortifyButton.addActionListener(actionListener);
 		
+		//craeting dice selector combo-box to select no of dice
 		Integer[] diceCount = {1,2,3};
 		JComboBox<Integer> diceBox = new JComboBox<>(diceCount);
+		
+		//adding the buttons and combo box on panel
 		this.add(reinforceButton, gridBagConstraints);
 		this.add(attackButton, gridBagConstraints);
 		this.add(fortifyButton, gridBagConstraints);
