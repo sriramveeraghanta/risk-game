@@ -10,7 +10,8 @@ import java.util.List;
 import utils.EnumClass;
 
 /**
- *
+ *Country Model class stores the country data ,
+ *i.e countryName, the x and y coordinates and the adjacent countries
  */
 public class CountryModel {
 	
@@ -25,7 +26,7 @@ public class CountryModel {
 	private ArrayList<CountryModel> adjcentCountries;
 	
 	/**
-	 * 
+	 * CountryModel constructor to create countryModel object for each initialisation
 	 */
 	public CountryModel(String contryName, int xAxis,int yAxis, ContinentModel assignedContinent) {
 		this.setCountryName(contryName);

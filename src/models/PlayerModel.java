@@ -10,6 +10,7 @@ import utils.EnumClass.Color;
 /**
  * Player Model class to save the player information.
  */
+
 public class PlayerModel {
 
 	private Color color;
