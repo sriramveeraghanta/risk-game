@@ -177,7 +177,7 @@ public class ReinforcementPhase {
 		return totalContinetValues;
 	}
 
-	private boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent,
+	public boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent,
 			List<CountryModel> countries) {
 		List<String> continentCountryNames = continent.getCountries().stream().map(c -> c.getCountryName())
 				.collect(Collectors.toList());

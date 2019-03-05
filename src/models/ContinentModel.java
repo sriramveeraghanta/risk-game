@@ -6,11 +6,17 @@ package models;
 import java.util.ArrayList;
 
 /**
- *
+ *Continent Model stores the data specific to continent ,
+ *i.e continentName, control value and its ownned countries
  */
 public class ContinentModel {
 
 	private String continentName;
+	
+	/**
+	 * @param controlvalue continents controlValue is used by player
+	 *  when he acquires all the countries of the given continent
+	 */
 	private int controlValue;
 	private ArrayList<CountryModel> countries;
 

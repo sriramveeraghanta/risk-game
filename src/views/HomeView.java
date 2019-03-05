@@ -20,7 +20,6 @@ import utils.GameConstant;
 
 /**
  * Creating Home Screen Panel
- * @author Sriram Veeraghanta
  * 
  * */
 
@@ -32,7 +31,7 @@ public class HomeView extends JPanel {
 	public HomeView() {
 		thisPanel = this;
 		gameModel = new GameModel();
-		// adding few properties to the
+		// adding few properties to the panel
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new GridBagLayout());
 	}

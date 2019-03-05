@@ -21,7 +21,7 @@ public class GameConstant {
 	// some other string
 	public static final String SELECT_PLAYERS = new String("Select the number of players");
 	public static final String PLACE_ARMY = new String("Place your armies in any of your countries");
-	// TODO: Please make changes in the below statements, just like the above modifications
+	
 	public String SELECT_ATTACKER_COUNTRY="Select one of your countries for attacking";
 	public String SELECT_DEFENDER_COUNTRY="Select one of your adjacent countries for attacking";
 	public String NUMBER_OF_DICES="Select the number of dices";

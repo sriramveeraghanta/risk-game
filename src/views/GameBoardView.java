@@ -41,6 +41,7 @@ public class GameBoardView extends JPanel {
 		GameBoardSideBar gameBoardSideBar = new GameBoardSideBar();
 		GameBoardMap gameBoardMap = new GameBoardMap();
 		
+		//adding the side bar, map and toolbar to the view 
 		this.add(gameBoardToolbar.getPanel(), BorderLayout.NORTH);
 		this.add(gameBoardSideBar.getPanel(), BorderLayout.WEST);
 		this.add(gameBoardMap.getPanel(), BorderLayout.CENTER);

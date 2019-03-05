@@ -1,6 +1,12 @@
 package models;
 
 import utils.EnumClass.UnitType;
+/**
+ * 
+ * UnitModel class is a Self-defined data type to 
+ * store the army data of each player
+ *
+ */
 
 public class UnitModel {
 	
