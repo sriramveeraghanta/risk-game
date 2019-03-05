@@ -18,13 +18,13 @@ import utils.GameConstant;
  * set those values in model classes
  * 
  */
-public class MapFileDataExtraction {
+public class MapController {
 
 	private GameModel gameModel;
 	private Common gameCommon;
 	private ArrayList<String> mapDataList;
 
-	public MapFileDataExtraction() {
+	public MapController() {
 		this.gameModel = new GameModel();
 		this.gameCommon = new Common();
 	}
@@ -35,7 +35,7 @@ public class MapFileDataExtraction {
 	 * @param mapFilePath This parameter will contain the path of map file
 	 *
 	 */
-	public void mapFilePocessing() throws IOException {
+	public void generateMap() throws IOException {
 		mapDataList = new ArrayList<String>();
 		FileReader mapFileReader = new FileReader(GameConstant.MAP_FILE_PATH);
 		BufferedReader mapDataReader = new BufferedReader(mapFileReader);

@@ -2,7 +2,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 
 import controllers.GameController;
-import controllers.MapFileDataExtraction;
+import controllers.MapController;
 import controllers.StartUp;
 
 public class Game {
@@ -13,8 +13,8 @@ public class Game {
 		// Logs
 		System.out.println("Start Game");
 		// map data extraction
-		MapFileDataExtraction mapLoader = new MapFileDataExtraction();
-		mapLoader.mapFilePocessing();
+		MapController mapController = new MapController();
+		mapController.generateMap();
 		// Controller calls
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

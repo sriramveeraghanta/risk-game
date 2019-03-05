@@ -31,7 +31,6 @@ public class StartUp {
 	public StartUp() {
 		this.gameModel = new GameModel();
 		this.numberOfPlayers = gameModel.getNumberOfPlayers();
-		
 		this.init();
 	}
 
