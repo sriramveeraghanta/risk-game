@@ -29,9 +29,8 @@ public class StartUp {
 	 * @param numberOfPlayers
 	 */
 	public StartUp() {
-		GameModel gameModel = new GameModel();
+		this.gameModel = new GameModel();
 		this.numberOfPlayers = gameModel.getNumberOfPlayers();
-		
 		
 		this.init();
 	}

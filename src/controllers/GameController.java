@@ -35,6 +35,7 @@ public class GameController {
 	}
 
 	public void navigateToGameBoard() {
+		StartUp statrUp = new StartUp();
 		// Removing Current existing pane
 		gameView.getFrame().getContentPane().removeAll();
 		GameBoardView gameBoardView = new GameBoardView();

@@ -4,9 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 import models.ContinentModel;
 import models.CountryModel;
 import models.GameModel;
+import utils.Common;
 import utils.GameConstant;
 
 /**
@@ -17,10 +21,12 @@ import utils.GameConstant;
 public class MapFileDataExtraction {
 
 	private GameModel gameModel;
+	private Common gameCommon;
 	private ArrayList<String> mapDataList;
 
 	public MapFileDataExtraction() {
 		this.gameModel = new GameModel();
+		this.gameCommon = new Common();
 	}
 
 	/**
@@ -71,7 +77,6 @@ public class MapFileDataExtraction {
 			// Adding Continents to the list
 			continentsList.add(continentModel);
 		}
-		System.out.println(continentsList);
 		gameModel.setContinents(continentsList);
 	}
 
@@ -88,9 +93,8 @@ public class MapFileDataExtraction {
 
 	public void countryMapData(int initial, int last) {
 		// CountryModel countryModel;
-		ArrayList<CountryModel> countryDetailList = new ArrayList<CountryModel>();
-		ArrayList<CountryModel> adjacentcountryList = null;
-		ArrayList<String> countryArrayList = null;
+		ArrayList<CountryModel> countryArrayList = new ArrayList<CountryModel>();
+		ArrayList<String[]> countryMapDataList = new ArrayList<String[]>();
 		/**
 		 * This for loop is for extracting each single line in the file. Each line will
 		 * have specific country details.
@@ -100,62 +104,44 @@ public class MapFileDataExtraction {
 			String countryMapLine = mapDataList.get(range);
 			// Splitting with ","
 			String[] countryDataList = countryMapLine.split(GameConstant.COUNTRY_DATA_SPLITTER);
-			//System.out.println(countryDataList[2]);
 			/**
 			 * On the 4th position of the line we have continent string value
 			 * Using the string value we are getting the continent Object from the list of Continents. 
 			 * */
-			ContinentModel continent = getContinentModelFromList();
-			
-			//CountryModel countryModel = new CountryModel(countryDataList[0], countryDataList[1], countryDataList[2], )
-			countryArrayList = new ArrayList<String>();
-			
-			
-			
-			for (String countryDetails : countryDataList) {
-				countryArrayList.add(countryDetails);
-			}
-			if (countryArrayList != null && countryArrayList.size() > 0) {
-				for (ContinentModel continent : gameModel.getContinents()) {
-					if (countryArrayList.get(3).equalsIgnoreCase(continent.getContinentName())) {
-						CountryModel countryModel = new CountryModel(countryArrayList.get(0),
-								Integer.parseInt(countryArrayList.get(1)), Integer.parseInt(countryArrayList.get(2)),
-								continent);
-						countryDetailList.add(countryModel);
-					}
-				}
-			}
+			ContinentModel continent = gameCommon.getContinentModelFromList(gameModel.getContinents(), countryDataList[3]);
+			CountryModel countryModel = new CountryModel(countryDataList[0],
+					Integer.parseInt(countryDataList[1]), Integer.parseInt(countryDataList[2]), continent);
+			countryArrayList.add(countryModel);
+			countryMapDataList.add(countryDataList);
 		}
-		//// Setting countries list in game model
-		if (countryDetailList != null && countryDetailList.size() > 0) {
-			gameModel.setCountries(countryDetailList);
-		}
-		//// Updating countries model object with its adjacent countries list
-		for (int range = initial + 1; range < last; range++) {
-			String country = mapDataList.get(range);
-			String[] country_data = country.split(GameConstant.COUNTRY_DATA_SPLITTER);
-			countryArrayList = new ArrayList<String>();
-			adjacentcountryList = new ArrayList<CountryModel>();
-			for (String countryDetails : country_data) {
-				countryArrayList.add(countryDetails);
+		gameModel.setCountries(countryArrayList);
+		this.addAdjcentCountriesToCountry(countryMapDataList);
+	}
+
+	private void addAdjcentCountriesToCountry(ArrayList<String[]> countryMapDataList) {
+		
+		/**
+		 * We are taking the adjacent countries from the list, which is starting from the 4th index.
+		 * */
+		int startValue = 4;
+		
+		for (int i = 0; i < countryMapDataList.size(); i++) {
+			ArrayList<CountryModel> countriesList = new ArrayList<CountryModel>();
+			//System.out.println(countryMapDataList.get(i)[0]);
+			String[] countryMapData = countryMapDataList.get(i);
+			
+			String[] adjcentCountriesStringsList = Arrays.asList(countryMapData)
+					.subList(startValue, countryMapData.length)
+					.toArray(new String[0]);
+
+			for (String countryString : adjcentCountriesStringsList) {
+				CountryModel countryModel = gameCommon.getCountryModelFromList(gameModel.getCountries(), countryString);
+				countriesList.add(countryModel);
 			}
-			if (countryArrayList != null && countryArrayList.size() > 0) {
-				for (CountryModel countriesDetails : gameModel.getCountries()) {
-					if (countryArrayList.get(0).equalsIgnoreCase(countriesDetails.getCountryName())) {
-						//// This loop is for fetching adjacent country details from the list,Since the
-						//// adjacent country details starts from index 4,we are iterating from 4[i=4]
-						for (int i = 4; i < countryArrayList.size(); i++) {
-							for (CountryModel adjacentCountryDetails : gameModel.getCountries()) {
-								if (countryArrayList.get(i).equalsIgnoreCase(adjacentCountryDetails.getCountryName())) {
-									adjacentcountryList.add(adjacentCountryDetails);
-								}
-							}
-						}
-						if (adjacentcountryList != null && adjacentcountryList.size() > 0)
-							countriesDetails.setAdjcentCountries(adjacentcountryList);
-					}
-				}
-			}
+			
+			CountryModel countryModel = gameCommon.getCountryModelFromList(gameModel.getCountries(), countryMapDataList.get(i)[0]);
+			countryModel.setAdjcentCountries(countriesList);
 		}
+		
 	}
 }

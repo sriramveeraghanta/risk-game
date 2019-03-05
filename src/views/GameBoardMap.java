@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 
 import utils.GameConstant;
 
-public class GameBoardMap extends JPanel {
+class GameBoardMap extends JPanel {
 
 	public GameBoardMap() {
 		this.buildPanel();
 	}
 
-	private void buildPanel() {
+	private void buildPanel(){
 
 		BufferedImage panelMapImage = null;
 		try {

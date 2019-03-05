@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import action.action;
 import controllers.StartUp;
+import models.GameModel;
 import models.PlayerModel;
 import utils.GameConstant;
 
@@ -30,12 +31,16 @@ public class GameBoardSideBar extends JPanel {
 
 	private void buildPanel() {
 //		PlayerModel activePlayer = str.getPlayers().get(0);
-		
+		PlayerModel player;
+		GameModel gameModel=new GameModel();
+		StartUp startup=new StartUp();
+		//TODO:Deciding player turn need to be done.
+	 player=startup.getPlayers().get(0);
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridwidth = gridBagConstraints.REMAINDER;
 		gridBagConstraints.anchor = gridBagConstraints.CENTER;
-		ActionListener actionListener=new action();
+		ActionListener actionListener=new action(player, gameModel,startup);
 		
 		// Creating reinforcement button
 		reinforceButton = new JButton(GameConstant.REINFORCEMENT_BUTTON_TITLE);
