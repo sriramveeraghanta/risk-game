@@ -48,8 +48,8 @@ public class GameController {
 	 * assign the game board to the view
 	 */
 	public void navigateToGameBoard(int numberOfPlayers) {
-		PlayerController playerController = new PlayerController(numberOfPlayers);
-		playerController.createPlayers();
+		PlayerController playerController = new PlayerController();
+		playerController.createPlayers(numberOfPlayers);
 		
 		// Removing Current existing pane
 		gameView.getFrame().getContentPane().removeAll();

@@ -30,10 +30,8 @@ public class PlayerController {
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public PlayerController(int numberOfPlayers) {
+	public PlayerController() {
 		this.gameModel = new GameModel();
-		this.numberOfPlayers = numberOfPlayers;
-		this.gameModel.setNumberOfPlayers(this.numberOfPlayers);
 	}
 
 	/**
@@ -42,8 +40,10 @@ public class PlayerController {
 	 * @param numberOfPlayers should be get as a parameter and initialize some
 	 * properties for each player
 	 */
-	public void createPlayers() {
-
+	public void createPlayers(int numberOfPlayers) {
+		// setting number of players count to game model
+		gameModel.setNumberOfPlayers(this.numberOfPlayers);
+		// players list of player models
 		players = new ArrayList<PlayerModel>();
 		// Creating new player objects for the count 
 		for (int i = 0; i < numberOfPlayers; i++) {
@@ -52,11 +52,28 @@ public class PlayerController {
 			this.setInitialInfantry(player);
 			players.add(player);
 		}
-		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
 		this.assignOneUnitPerCountry();
-
+	}
+	
+	/**
+	 * assigns a color to the player randomly at the starting phase of the game *
+	 * 
+	 * @param player for assigning color to each player
+	 * @return the color which is assign to specific player  
+	 */
+	public EnumClass.Color assignColor() {
+		EnumClass.Color assignedColor = null;
+		int currentIndex;
+		for (int i = 0; i < 6; i++) {
+			currentIndex = new Random().nextInt(6);
+			if (colors[currentIndex] != null) {
+				assignedColor = this.colors[currentIndex];
+				this.colors[currentIndex] = null;
+			}
+		}
+		return assignedColor;
 	}
 
 	/**
@@ -108,28 +125,11 @@ public class PlayerController {
 	}
 
 	/**
-	 * assigns a color to the player randomly at the starting phase of the game *
-	 * 
-	 * @param player for assigning color to each player
-	 * @return the color which is assign to specific player  
-	 */
-	public EnumClass.Color assignColor() {
-		EnumClass.Color assignedColor = null;
-		int currentIndex;
-		for (int i = 0; i < 6; i++) {
-			currentIndex = new Random().nextInt(6);
-			if (colors[currentIndex] != null) {
-				assignedColor = this.colors[currentIndex];
-				this.colors[currentIndex] = null;
-			}
-		}
-		return assignedColor;
-	}
-
-	/**
 	 * assigns countries to players randomly at the starting phase of the game
 	 */
 	public void assignCountriesToPlayers() {
+		int numberOfPlayers = gameModel.getNumberOfPlayers();
+		ArrayList<PlayerModel> playersList= gameModel.getPlayers();
 		int currentIndex = -1;
 		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>();
 		System.out.println("jhgdufyh"+gameModel.getCountries());
@@ -139,8 +139,8 @@ public class PlayerController {
 		int playerId = 0;
 		while (shuffeledcountries.size() > 0) {
 			currentIndex = new Random().nextInt(shuffeledcountries.size());
-			playerId = playerId % (this.getNumberOfPlayers());
-			this.getPlayers().get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
+			playerId = playerId % (numberOfPlayers);
+			playersList.get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
 			shuffeledcountries.remove(currentIndex);
 			playerId++;
 		}
@@ -150,8 +150,9 @@ public class PlayerController {
 	 * assigning armies to the country each player own in the way each country has at least one army unit in it
 	 */
 	public void assignOneUnitPerCountry() {
+		ArrayList<PlayerModel> playersList = gameModel.getPlayers();
 
-		for (PlayerModel player : this.getPlayers()) {
+		for (PlayerModel player : playersList) {
 			reinforcementPhase = new ReinforcementPhase(player, gameModel);
 			for (CountryModel country : player.getCountries()) {
 				reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);

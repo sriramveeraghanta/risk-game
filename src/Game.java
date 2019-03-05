@@ -19,8 +19,8 @@ public class Game {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameController controller = new GameController();
-					controller.showHomeView();
+					GameController gameController = new GameController();
+					gameController.showHomeView();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
