@@ -29,12 +29,7 @@ public class HomeView extends JPanel {
 	
 	public HomeView() {
 		thisPanel = this;
-<<<<<<< HEAD
-		// adding few properties to the
-=======
-		gameModel = new GameModel();
 		// adding few properties to the panel
->>>>>>> edc00f3059d0f83cd3d4f69afe1113a8cdcad710
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new GridBagLayout());
 	}
