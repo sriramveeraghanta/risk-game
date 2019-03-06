@@ -25,20 +25,24 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import models.GameModel;
+
 /**
  * This class creates GameBoardPanel with map and buttons
  * 
  */
 public class GameBoardView extends JPanel {
+	private GameModel gameModel;
 
-	public GameBoardView() {
+	public GameBoardView(GameModel gameModel) {
+		this.gameModel = gameModel;
 		setLayout(new BorderLayout(0, 0));
 		this.buildPanel();
 	}
 	
 	public void buildPanel() {
-		GameBoardToolbar gameBoardToolbar = new GameBoardToolbar();
-		GameBoardSideBar gameBoardSideBar = new GameBoardSideBar();
+		GameBoardToolbar gameBoardToolbar = new GameBoardToolbar(gameModel);
+		GameBoardSideBar gameBoardSideBar = new GameBoardSideBar(gameModel);
 		GameBoardMap gameBoardMap = new GameBoardMap();
 		
 		//adding the side bar, map and toolbar to the view 

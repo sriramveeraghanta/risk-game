@@ -13,7 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controllers.AttackPhase;
+import controllers.MapController;
 import controllers.MapFileDataExtraction;
+import controllers.PlayerController;
 import controllers.StartUp;
 import models.ContinentModel;
 import models.CountryModel;
@@ -37,9 +39,9 @@ public class TestPhaseControllers {
 	PlayerModel player;
 	controllers.ReinforcementPhase testReinforcement;
 	ContinentModel continent;
-	controllers.MapFileDataExtraction testMap;
+	MapController testMap;
 	List<String> mapData;
-	controllers.StartUp startup;
+	PlayerController startup;
 	models.UnitModel unit;
 	controllers.AttackPhase testAttack;
 	
@@ -52,7 +54,7 @@ public class TestPhaseControllers {
 	continent=new ContinentModel("North America", 5);
 	country1=new CountryModel("Alberta", 10, 20, continent);
 	country2=new CountryModel("Alaska", 10, 30, continent);
-	testMap=new MapFileDataExtraction();
+	testMap=new MapController();
 	mapData=new ArrayList<String>(3);
 	startup=new StartUp();
 	unit=new UnitModel();

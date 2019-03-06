@@ -18,8 +18,10 @@ import utils.EnumClass;
  *
  */
 public class GameBoardToolbar extends JPanel {
+	private GameModel gameModel;
 	
-	public GameBoardToolbar() {
+	public GameBoardToolbar(GameModel gameModel) {
+		this.gameModel = gameModel;
 		this.buildPanel();
 	}
 	

@@ -104,7 +104,8 @@ public class HomeView extends JPanel {
 		}
 
 		private void navigateToGameBoard(int numberOfPlayer) {
-			GameBoardView gameBoardView = new GameBoardView();
+			gameView.getFrame().getContentPane().removeAll();
+			GameBoardView gameBoardView = new GameBoardView(gameModel);
 			gameBoardView.buildPanel();
 			//replacing them with Game Board View
 			gameView.getFrame().add(gameBoardView.getPanel());

@@ -29,11 +29,6 @@ public class GameView extends JFrame {
 		mainFrame = new JFrame();
 		mainFrame.setTitle(GameConstant.GAME_TITLE);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-		HomeView homeView = new HomeView(gameModel, this);
-		homeView.buildPanel();
-		mainFrame.add(homeView.getPanel());
-		mainFrame.setVisible(true);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}

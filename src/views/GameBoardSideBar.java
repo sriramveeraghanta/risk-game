@@ -27,8 +27,8 @@ public class GameBoardSideBar extends JPanel {
 			attackButton,
 			fortifyButton;
 	
-	public GameBoardSideBar() {
-		this.gameModel = new GameModel();
+	public GameBoardSideBar(GameModel gameModel) {
+		this.gameModel = gameModel;
 		this.setLayout(new GridBagLayout());
 		this.buildPanel();
 	}
@@ -38,9 +38,6 @@ public class GameBoardSideBar extends JPanel {
 		PlayerModel player;
 		PlayerController playerController = new PlayerController(gameModel);
 		
-		//TODO:Deciding player turn need to be done.
-		GameModel gameModel = new GameModel();
-		System.out.println(gameModel);
 		player = gameModel.getPlayers().get(0);
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
