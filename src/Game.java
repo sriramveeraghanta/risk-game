@@ -4,29 +4,26 @@ import java.io.IOException;
 import controllers.GameController;
 import controllers.MapController;
 import controllers.PlayerController;
+import models.GameModel;
+import views.GameView;
 
 public class Game {
 	/**
 	 * This is the main method.
 	 * */
 	public static void main(String args[]) throws IOException {
-		// Logs
-		System.out.println("Start Game");
-		// map data extraction
-		MapController mapController = new MapController();
+		
+		GameModel gameModel = new GameModel();
+		GameView gameView = new GameView(gameModel);
+		
+		// Map Generation
+		MapController mapController = new MapController(gameModel);
 		mapController.generateMap();
-		// Controller calls
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameController gameController = new GameController();
-					gameController.showHomeView();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		System.out.println("end");
+		
+		// Game Controller
+		GameController gameController = new GameController(gameModel, gameView);
+		gameController.showHomeView();
+		
 	}
 }
 
