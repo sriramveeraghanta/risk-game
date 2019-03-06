@@ -49,6 +49,7 @@ public class HomeView extends JPanel {
 		// Creating exit game button
 		JButton exitGameButton = new JButton(GameConstant.EXIT_GAME_BUTTON_TITLE); 
 		exitGameButton.setPreferredSize(new Dimension(300,150));
+		exitGameButton.addActionListener(onExitGameButtonClick);
 		
 		// GridBag Layout for this panel
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -81,13 +82,31 @@ public class HomeView extends JPanel {
 	public ActionListener onNewGameButtonClick = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int numberOfPlayer = Integer.parseInt(JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null));
-			
-			gameController = new GameController();
-			gameController.navigateToGameBoard(numberOfPlayer);
-			
-			
+			String playerCount = null;
+			playerCount = JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null);
+			if (playerCount != null
+					&& ((playerCount.toString().isEmpty()) || (Integer.parseInt(playerCount.toString()) > 6))) {
+				JOptionPane.showMessageDialog(thisPanel, "Enter a valid Number-Players count should be between 2 and 6",
+						"ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			if (playerCount != null
+					&& !(playerCount.toString().isEmpty()) && (Integer.parseInt(playerCount.toString()) < 6)) {
+				int numberOfPlayer = Integer.parseInt(playerCount.toString());
+				System.out.println("number of players:" + numberOfPlayer);
+				gameController = new GameController();
+				gameController.navigateToGameBoard(numberOfPlayer);
+			}
+
 		}
 	};
+	
+	public ActionListener onExitGameButtonClick = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+
+		}
+	};
+
 
 }
