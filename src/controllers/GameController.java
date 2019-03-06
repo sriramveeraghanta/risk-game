@@ -14,48 +14,30 @@ public class GameController {
 
 	private GameModel gameModel;
 	private GameView gameView;
+	
 	/**
 	 * Constructor 
 	 */
-	public GameController() {
-		initialize();
+	public GameController(GameModel gameModel, GameView gameView) {
+		this.gameModel = gameModel;
+		this.gameView = gameView;
+		init();
 	}
+	
 	/**
-	 * creating an object of view and model 
-	 */
-	private void initialize() {
-		// create model3
-		this.gameModel = new GameModel();
-		// set first message for model
+	 * init method to add few info to the model/ 
+	 * */
+	private void init() {
 		gameModel.setTitle(GameConstant.PROJECT_TITLE);
-		// create view
-		this.gameView = new GameView(gameModel);
-
-		// add view as observer for model
-		//gameModel.addObserver(gameView);
 	}
+	
 	/**
 	 * Showing the home view of the game 
 	 */
 	public void showHomeView() {
-		HomeView homeView = new HomeView();
+		HomeView homeView = new HomeView(gameModel, gameView);
 		homeView.buildPanel();
 		gameView.getFrame().add(homeView.getPanel());
 		gameView.getFrame().setVisible(true);
-	}
-	
-	/**
-	 * assign the game board to the view
-	 */
-	public void navigateToGameBoard(int numberOfPlayers) {
-		PlayerController playerController = new PlayerController();
-		playerController.createPlayers(numberOfPlayers);
-		
-		// Removing Current existing pane
-		gameView.getFrame().getContentPane().removeAll();
-		GameBoardView gameBoardView = new GameBoardView();
-		gameBoardView.buildPanel();
-		//replacing them with Game Board View
-		gameView.getFrame().add(gameBoardView.getPanel());
 	}
 }

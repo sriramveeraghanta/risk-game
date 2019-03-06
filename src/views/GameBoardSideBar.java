@@ -1,16 +1,13 @@
 package views;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import action.action;
 import controllers.PlayerController;
@@ -24,27 +21,32 @@ import utils.GameConstant;
  */
 public class GameBoardSideBar extends JPanel {
 	
+	private GameModel gameModel;
+	
 	JButton reinforceButton,
 			attackButton,
 			fortifyButton;
 	
 	public GameBoardSideBar() {
+		this.gameModel = new GameModel();
 		this.setLayout(new GridBagLayout());
 		this.buildPanel();
 	}
 
 	private void buildPanel() {
-//		PlayerModel activePlayer = str.getPlayers().get(0);
+		//PlayerModel activePlayer = str.getPlayers().get(0);
 		PlayerModel player;
-		GameModel gameModel=new GameModel();
-		PlayerController startup=new PlayerController();
+		PlayerController playerController = new PlayerController(gameModel);
+		
 		//TODO:Deciding player turn need to be done.
-		player=startup.getPlayers().get(0);
+		GameModel gameModel = new GameModel();
+		System.out.println(gameModel);
+		player = gameModel.getPlayers().get(0);
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridwidth = gridBagConstraints.REMAINDER;
 		gridBagConstraints.anchor = gridBagConstraints.CENTER;
-		ActionListener actionListener=new action(player, gameModel,startup);
+		ActionListener actionListener=new action(player, gameModel, playerController);
 		
 		// Creating reinforcement button and calling specified methods on action
 		reinforceButton = new JButton(GameConstant.REINFORCEMENT_BUTTON_TITLE);

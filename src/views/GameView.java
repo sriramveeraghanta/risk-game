@@ -13,23 +13,27 @@ import utils.GameConstant;
  */
 
 public class GameView extends JFrame {
+	private GameModel gameModel;
 	public static JFrame mainFrame;
 
-	private PlayerController startUp;
-
 	public GameView(GameModel gameModel) {
-		this.initialize(gameModel);
+		this.gameModel = gameModel;
+		this.init();
 	}
 	
 	/**
 	 * Creating Game Panels. buttons and containers necessary across the game.
 	 * */
-	private void initialize(GameModel gameModel) {
+	private void init() {
 		// Creating Main frame.
 		mainFrame = new JFrame();
 		mainFrame.setTitle(GameConstant.GAME_TITLE);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		// setting grid layout to the frame.
+		
+		HomeView homeView = new HomeView(gameModel, this);
+		homeView.buildPanel();
+		mainFrame.add(homeView.getPanel());
+		mainFrame.setVisible(true);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}

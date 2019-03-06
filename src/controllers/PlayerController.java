@@ -30,8 +30,9 @@ public class PlayerController {
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public PlayerController() {
+	public PlayerController(GameModel gameModel) {
 		this.gameModel = new GameModel();
+		this.numberOfPlayers = gameModel.getNumberOfPlayers();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class PlayerController {
 	 * @param numberOfPlayers should be get as a parameter and initialize some
 	 * properties for each player
 	 */
-	public void createPlayers(int numberOfPlayers) {
+	public void createPlayers() {
 		// setting number of players count to game model
 		gameModel.setNumberOfPlayers(this.numberOfPlayers);
 		// players list of player models
@@ -52,9 +53,8 @@ public class PlayerController {
 			this.setInitialInfantry(player);
 			players.add(player);
 		}
-		this.assignCountriesToPlayers();
-		this.createGameCards();
-		this.assignOneUnitPerCountry();
+		gameModel.setPlayers(players);
+		
 	}
 	
 	/**
@@ -120,7 +120,6 @@ public class PlayerController {
 			return unit;
 		default:
 			return null;
-
 		}
 	}
 
@@ -128,11 +127,8 @@ public class PlayerController {
 	 * assigns countries to players randomly at the starting phase of the game
 	 */
 	public void assignCountriesToPlayers() {
-		int numberOfPlayers = gameModel.getNumberOfPlayers();
-		ArrayList<PlayerModel> playersList= gameModel.getPlayers();
 		int currentIndex = -1;
 		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>();
-		System.out.println("jhgdufyh"+gameModel.getCountries());
 		shuffeledcountries.addAll(gameModel.getCountries());
 		// shuffle the new list;
 		Collections.shuffle(shuffeledcountries);
@@ -140,7 +136,7 @@ public class PlayerController {
 		while (shuffeledcountries.size() > 0) {
 			currentIndex = new Random().nextInt(shuffeledcountries.size());
 			playerId = playerId % (numberOfPlayers);
-			playersList.get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
+			gameModel.getPlayers().get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
 			shuffeledcountries.remove(currentIndex);
 			playerId++;
 		}
@@ -178,6 +174,33 @@ public class PlayerController {
 
 	}
 
+	/**
+	 * @return the cards
+	 */
+	public ArrayList<CardModel> getCards() {
+		return cards;
+	}
+
+	/**
+	 * @param cards the cards to set
+	 */
+	public void setCards(ArrayList<CardModel> cards) {
+		this.cards = cards;
+	}
 	
+	/**
+	 * @return the players
+	 */
+	public ArrayList<PlayerModel> getPlayers() {
+		return players;
+	}
+
+	/**
+	 * @param players the players to set
+	 */
+	public void setPlayers(ArrayList<PlayerModel> players) {
+		this.players = players;
+	}
+
 
 }

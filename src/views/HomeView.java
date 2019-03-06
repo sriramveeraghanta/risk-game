@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,10 +25,15 @@ import utils.GameConstant;
  * */
 
 public class HomeView extends JPanel {
-	public JPanel thisPanel;
-	public GameController gameController;
 	
-	public HomeView() {
+	public static JFrame mainFrame;
+	private GameModel gameModel;
+	private GameView gameView;
+	public JPanel thisPanel;
+	
+	public HomeView(GameModel gameModel, GameView gameView) {
+		this.gameModel = gameModel;
+		this.gameView = gameView;
 		thisPanel = this;
 		// adding few properties to the panel
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -89,14 +95,19 @@ public class HomeView extends JPanel {
 				JOptionPane.showMessageDialog(thisPanel, "Enter a valid Number-Players count should be between 2 and 6",
 						"ERROR", JOptionPane.ERROR_MESSAGE);
 			}
-			if (playerCount != null
-					&& !(playerCount.toString().isEmpty()) && (Integer.parseInt(playerCount.toString()) < 6)) {
+			if (playerCount != null && !(playerCount.toString().isEmpty())
+					&& (Integer.parseInt(playerCount.toString()) < 6)) {
 				int numberOfPlayer = Integer.parseInt(playerCount.toString());
-				System.out.println("number of players:" + numberOfPlayer);
-				gameController = new GameController();
-				gameController.navigateToGameBoard(numberOfPlayer);
+				gameModel.setNumberOfPlayers(numberOfPlayer);
+				navigateToGameBoard(numberOfPlayer);
 			}
+		}
 
+		private void navigateToGameBoard(int numberOfPlayer) {
+			GameBoardView gameBoardView = new GameBoardView();
+			gameBoardView.buildPanel();
+			//replacing them with Game Board View
+			gameView.getFrame().add(gameBoardView.getPanel());
 		}
 	};
 	

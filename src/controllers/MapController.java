@@ -24,8 +24,8 @@ public class MapController {
 	private Common gameCommon;
 	private ArrayList<String> mapDataList;
 
-	public MapController() {
-		this.gameModel = new GameModel();
+	public MapController(GameModel gameModel) {
+		this.gameModel = gameModel;
 		this.gameCommon = new Common();
 	}
 
