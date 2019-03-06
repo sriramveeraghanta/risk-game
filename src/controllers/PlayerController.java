@@ -11,11 +11,12 @@ import utils.EnumClass;
 import models.PlayerModel;
 import models.UnitModel;
 import models.GameModel;
-/**
- * Before any other phases in start up phase should set and initialize some properties 
- */
-public class StartUp {
 
+/**
+ * Before any other phases in start up phase should set and initialize some
+ * properties
+ */
+public class PlayerController {
 	private GameModel gameModel;
 	private int numberOfPlayers;
 	private EnumClass.Color[] colors = EnumClass.Color.values();
@@ -24,82 +25,55 @@ public class StartUp {
 	private ReinforcementPhase reinforcementPhase;
 
 	/**
-	 * getting the array list of cards 
-	 * @return the cards
-	 */
-	public ArrayList<CardModel> getCards() {
-		return cards;
-	}
-
-	/**
-	 * setting the array list of cards
-	 * @param cards the cards to set
-	 */
-	public void setCards(ArrayList<CardModel> cards) {
-		this.cards = cards;
-	}
-
-	/**
-	 * Initialize the game objects set players properties such countries,armies,Color
+	 * Initialise the game objects set players properties such countries,armies,
+	 * Colour
+	 * 
 	 * @param numberOfPlayers
 	 */
-	public StartUp() {
-		GameModel gameModel = new GameModel();
-		int numberOfPlayers = gameModel.getNumberOfPlayers();
-		this.init(numberOfPlayers);
+	public PlayerController() {
+		this.gameModel = new GameModel();
 	}
-	/**
-	 * Initialize the game objects set players properties such countries,armies,Color
-	 * @param numberOfPlayers should be get as a parameter and initialize some properties for each player
-	 */
-	private void init(int numberOfPlayers) {
 
+	/**
+	 * Initialize the game objects set players properties such
+	 * countries,armies,Color
+	 * @param numberOfPlayers should be get as a parameter and initialize some
+	 * properties for each player
+	 */
+	public void createPlayers(int numberOfPlayers) {
+		// setting number of players count to game model
+		gameModel.setNumberOfPlayers(this.numberOfPlayers);
+		// players list of player models
 		players = new ArrayList<PlayerModel>();
-		this.setNumberOfPlayers(numberOfPlayers);
-		for (int i = 0; i < getNumberOfPlayers(); i++) {
+		// Creating new player objects for the count 
+		for (int i = 0; i < numberOfPlayers; i++) {
 			EnumClass.Color assingedColor = this.assignColor();
 			PlayerModel player = new PlayerModel(assingedColor);
 			this.setInitialInfantry(player);
 			players.add(player);
 		}
-		this.setPlayers(players);
-		// this.loadCountries();
 		this.assignCountriesToPlayers();
 		this.createGameCards();
 		this.assignOneUnitPerCountry();
-
 	}
-
+	
 	/**
-	 * getting player as an array list
-	 * @return the players an array list of player
+	 * assigns a color to the player randomly at the starting phase of the game *
+	 * 
+	 * @param player for assigning color to each player
+	 * @return the color which is assign to specific player  
 	 */
-	public ArrayList<PlayerModel> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * setting the players as an array list 
-	 * @param players the players to set
-	 */
-	public void setPlayers(ArrayList<PlayerModel> players) {
-		this.players = players;
-	}
-
-	/**
-	 * getting the number of players and return it
-	 * @return the numberOfPlayers
-	 */
-	public int getNumberOfPlayers() {
-		return numberOfPlayers;
-	}
-
-	/**
-	 * setting the number of players 
-	 * @param numberOfPlayers the numberOfPlayers to set
-	 */
-	public void setNumberOfPlayers(int numberOfPlayers) {
-		this.numberOfPlayers = numberOfPlayers;
+	public EnumClass.Color assignColor() {
+		EnumClass.Color assignedColor = null;
+		int currentIndex;
+		for (int i = 0; i < 6; i++) {
+			currentIndex = new Random().nextInt(6);
+			if (colors[currentIndex] != null) {
+				assignedColor = this.colors[currentIndex];
+				this.colors[currentIndex] = null;
+			}
+		}
+		return assignedColor;
 	}
 
 	/**
@@ -151,28 +125,11 @@ public class StartUp {
 	}
 
 	/**
-	 * assigns a color to the player randomly at the starting phase of the game *
-	 * 
-	 * @param player for assigning color to each player
-	 * @return the color which is assign to specific player  
-	 */
-	public EnumClass.Color assignColor() {
-		EnumClass.Color assignedColor = null;
-		int currentIndex;
-		for (int i = 0; i < 6; i++) {
-			currentIndex = new Random().nextInt(6);
-			if (colors[currentIndex] != null) {
-				assignedColor = this.colors[currentIndex];
-				this.colors[currentIndex] = null;
-			}
-		}
-		return assignedColor;
-	}
-
-	/**
 	 * assigns countries to players randomly at the starting phase of the game
 	 */
 	public void assignCountriesToPlayers() {
+		int numberOfPlayers = gameModel.getNumberOfPlayers();
+		ArrayList<PlayerModel> playersList= gameModel.getPlayers();
 		int currentIndex = -1;
 		ArrayList<CountryModel> shuffeledcountries = new ArrayList<CountryModel>();
 		System.out.println("jhgdufyh"+gameModel.getCountries());
@@ -182,8 +139,8 @@ public class StartUp {
 		int playerId = 0;
 		while (shuffeledcountries.size() > 0) {
 			currentIndex = new Random().nextInt(shuffeledcountries.size());
-			playerId = playerId % (this.getNumberOfPlayers());
-			this.getPlayers().get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
+			playerId = playerId % (numberOfPlayers);
+			playersList.get(playerId).addCountryToPlayer(shuffeledcountries.get(currentIndex));
 			shuffeledcountries.remove(currentIndex);
 			playerId++;
 		}
@@ -193,8 +150,9 @@ public class StartUp {
 	 * assigning armies to the country each player own in the way each country has at least one army unit in it
 	 */
 	public void assignOneUnitPerCountry() {
+		ArrayList<PlayerModel> playersList = gameModel.getPlayers();
 
-		for (PlayerModel player : this.getPlayers()) {
+		for (PlayerModel player : playersList) {
 			reinforcementPhase = new ReinforcementPhase(player, gameModel);
 			for (CountryModel country : player.getCountries()) {
 				reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
@@ -219,5 +177,7 @@ public class StartUp {
 		this.setCards(cards);
 
 	}
+
+	
 
 }

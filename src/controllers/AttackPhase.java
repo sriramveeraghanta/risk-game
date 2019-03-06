@@ -22,7 +22,7 @@ public class AttackPhase {
 
 	private PlayerModel attackPlayer;
 	private PlayerModel defendPlayer;
-	private StartUp startUp;
+	private PlayerController startUp;
 	public Integer[] diceArrayAttacker = new Integer[getNumberAttackerDice()];
 	public Integer[] diceArrayDefender = new Integer[getNumberAttackerDice() - 1];
 	int maxNumberDiceAttacker;
@@ -45,7 +45,7 @@ public class AttackPhase {
 	 * @param attackerCountryName is needed to access to armies in the attacker country
 	 * @param defenderCountryName is needed to access to armies in the defender country
 	 */
-	public AttackPhase(PlayerModel attackPlayer, StartUp startUp, String attackerCountryName,
+	public AttackPhase(PlayerModel attackPlayer, PlayerController startUp, String attackerCountryName,
 			String defenderCountryName) {
 		
 		this.attackPlayer = attackPlayer;

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.GameController;
-import controllers.StartUp;
+import controllers.PlayerController;
 import models.GameModel;
 import utils.GameConstant;
 
@@ -25,13 +25,16 @@ import utils.GameConstant;
 
 public class HomeView extends JPanel {
 	public JPanel thisPanel;
-	public GameModel gameModel;
 	public GameController gameController;
 	
 	public HomeView() {
 		thisPanel = this;
+<<<<<<< HEAD
+		// adding few properties to the
+=======
 		gameModel = new GameModel();
 		// adding few properties to the panel
+>>>>>>> edc00f3059d0f83cd3d4f69afe1113a8cdcad710
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new GridBagLayout());
 	}
@@ -84,10 +87,9 @@ public class HomeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int numberOfPlayer = Integer.parseInt(JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null));
-			gameModel.setNumberOfPlayers(numberOfPlayer);
 			
 			gameController = new GameController();
-			gameController.navigateToGameBoard();
+			gameController.navigateToGameBoard(numberOfPlayer);
 			
 			
 		}

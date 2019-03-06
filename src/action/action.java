@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import controllers.AttackPhase;
 import controllers.ReinforcementPhase;
 import controllers.FortificationPhase;
-import controllers.StartUp;
+import controllers.PlayerController;
 import models.CountryModel;
 import models.GameModel;
 import models.PlayerModel;
@@ -33,18 +33,20 @@ import utils.GameConstant;
  */
 public class action implements ActionListener {
 
-	private StartUp startup;
+	private PlayerController startup;
 	private PlayerModel player;
 	private GameModel gameModel;
 	private CountryModel countryModel;
+
 	/**
 	 * Constructor for action with player , gameModel , startup parameter
-	 * @param player 
+	 * 
+	 * @param playerModel
 	 * @param gameModel
-	 * @param startup
+	 * @param playerController
 	 */
-	public action(PlayerModel player, GameModel gameModel, StartUp startup) {
-		this.startup = startup;
+	public action(PlayerModel player, GameModel gameModel, PlayerController playerController) {
+		this.startup = playerController;
 		this.player = player;
 		this.gameModel = gameModel;
 	}

@@ -43,10 +43,14 @@ public class GameController {
 		gameView.getFrame().add(homeView.getPanel());
 		gameView.getFrame().setVisible(true);
 	}
+	
 	/**
 	 * assign the game board to the view
 	 */
-	public void navigateToGameBoard() {
+	public void navigateToGameBoard(int numberOfPlayers) {
+		PlayerController playerController = new PlayerController();
+		playerController.createPlayers(numberOfPlayers);
+		
 		// Removing Current existing pane
 		gameView.getFrame().getContentPane().removeAll();
 		GameBoardView gameBoardView = new GameBoardView();
@@ -54,5 +58,4 @@ public class GameController {
 		//replacing them with Game Board View
 		gameView.getFrame().add(gameBoardView.getPanel());
 	}
-
 }
