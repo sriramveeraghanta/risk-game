@@ -76,7 +76,8 @@ public class HomeView extends JPanel {
 	}
 	
 	/**
-	 * Getting method for getting the panel information. 
+	 * Getting method for getting the panel information.
+	 * @return JPanel 
 	 * */
 	public JPanel getPanel() {
 		return this;

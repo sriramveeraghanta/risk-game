@@ -14,9 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import controllers.AttackPhase;
 import controllers.MapController;
-import controllers.MapFileDataExtraction;
 import controllers.PlayerController;
-import controllers.StartUp;
 import models.ContinentModel;
 import models.CountryModel;
 import models.GameModel;
