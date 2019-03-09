@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import action.action;
-import controllers.PlayerController;
+import controllers.StartUp;
 import models.GameModel;
 import models.PlayerModel;
 import utils.GameConstant;
@@ -36,14 +36,13 @@ public class GameBoardSideBar extends JPanel {
 	private void buildPanel() {
 		//PlayerModel activePlayer = str.getPlayers().get(0);
 		PlayerModel player;
-		PlayerController playerController = new PlayerController(gameModel);
 		
 		player = gameModel.getPlayers().get(0);
 		// GridBag Layout contrainsts
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.gridwidth = gridBagConstraints.REMAINDER;
 		gridBagConstraints.anchor = gridBagConstraints.CENTER;
-		ActionListener actionListener=new action(player, gameModel, playerController);
+		ActionListener actionListener=new action(player, gameModel);
 		
 		// Creating reinforcement button and calling specified methods on action
 		reinforceButton = new JButton(GameConstant.REINFORCEMENT_BUTTON_TITLE);

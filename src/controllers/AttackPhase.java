@@ -13,16 +13,18 @@ import models.CountryModel;
 import models.GameModel;
 import models.PlayerModel;
 import models.UnitModel;
+
 /**
  * 
- * This class include all the methods that the game needs for attacking like rolling dice and occupy countries 
+ * This class include all the methods that the game needs for attacking like
+ * rolling dice and occupy countries
  *
  */
 public class AttackPhase {
 
 	private PlayerModel attackPlayer;
 	private PlayerModel defendPlayer;
-	private PlayerController startUp;
+	private GameModel gameModel;
 	public Integer[] diceArrayAttacker = new Integer[getNumberAttackerDice()];
 	public Integer[] diceArrayDefender = new Integer[getNumberAttackerDice() - 1];
 	int maxNumberDiceAttacker;
@@ -40,19 +42,22 @@ public class AttackPhase {
 
 	/**
 	 * Constructor
-	 * @param attackPlayer is the player whose turn is
-	 * @param startUp we need to get player and cards from startup phase 
-	 * @param attackerCountryName is needed to access to armies in the attacker country
-	 * @param defenderCountryName is needed to access to armies in the defender country
+	 * 
+	 * @param attackPlayer        is the player whose turn is
+	 * @param startUp             we need to get player and cards from startup phase
+	 * @param attackerCountryName is needed to access to armies in the attacker
+	 *                            country
+	 * @param defenderCountryName is needed to access to armies in the defender
+	 *                            country
 	 */
-	public AttackPhase(PlayerModel attackPlayer, PlayerController startUp, String attackerCountryName,
+	public AttackPhase(PlayerModel attackPlayer, GameModel gameModel, String attackerCountryName,
 			String defenderCountryName) {
-		
+
 		this.attackPlayer = attackPlayer;
-		this.startUp = startUp;
+		this.gameModel = gameModel;
 		this.attackerCountryName = attackerCountryName;
 		this.defenderCountryName = defenderCountryName;
-		
+
 		List<CountryModel> countries = this.attackPlayer.getCountries();
 
 		CountryModel countryAttacker = countries.stream()
@@ -69,44 +74,56 @@ public class AttackPhase {
 		this.countryAttacker = countryAttacker;
 
 	}
+
 	/**
 	 * getting the number of attacker dice
-	 * @return numberAttackerDice 
+	 * 
+	 * @return numberAttackerDice
 	 */
 	public int getNumberAttackerDice() {
 		return numberAttackerDice;
 	}
+
 	/**
-	 * setting number of attacker dice 
+	 * setting number of attacker dice
+	 * 
 	 * @param numberAttackerDice
 	 */
 	public void setNumberAttackerDice(int numberAttackerDice) {
 		this.numberAttackerDice = numberAttackerDice;
 	}
+
 	/**
-	 * getting the country attacker 
+	 * getting the country attacker
+	 * 
 	 * @return countryAttacker
 	 */
 	public CountryModel getCountryAttacker() {
 		return countryAttacker;
 	}
+
 	/**
 	 * setting the country attacker
+	 * 
 	 * @param countryAttacker
 	 */
 	public void setCountryAttacker(CountryModel countryAttacker) {
 		this.countryAttacker = countryAttacker;
 	}
+
 	/**
 	 * getting the country defender
+	 * 
 	 * @return countryDefender
 	 */
 	public CountryModel getCountryDefender() {
 		return countryDefender;
 
 	}
+
 	/**
 	 * setting the country defender
+	 * 
 	 * @param countryDefender
 	 */
 	public void setcountryDefender(CountryModel countryDefender) {
@@ -141,24 +158,24 @@ public class AttackPhase {
 		for (int i = 0; i < diceArrayDefender.length; i++) {
 			if (diceArrayAttacker[i] < diceArrayDefender[i]) {
 				numberArmiesAttackerCountry--;
-				
+
 			} else {
 				numberArmiesDefenderCountry--;
 			}
 		}
-		//if attacker looses
-		if(numberArmiesAttackerCountry==0) {
+		// if attacker looses
+		if (numberArmiesAttackerCountry == 0) {
 			this.assignCardToPlayer(this.defendPlayer);
 			this.assignCountryToWinnerPlayer(this.defendPlayer, this.attackPlayer, this.attackerCountryName);
 			this.assignRemainingCardsToWinnerPlayer(this.defendPlayer, this.attackPlayer);
-			
+
 		}
-		//if defender looses
-		if(numberArmiesDefenderCountry==0) {
+		// if defender looses
+		if (numberArmiesDefenderCountry == 0) {
 			this.assignCardToPlayer(this.attackPlayer);
 			this.assignCountryToWinnerPlayer(this.attackPlayer, this.defendPlayer, this.defenderCountryName);
 			this.assignRemainingCardsToWinnerPlayer(this.attackPlayer, this.defendPlayer);
-			
+
 		}
 	}
 
@@ -178,10 +195,12 @@ public class AttackPhase {
 			maxNumberDiceDefender = numberArmiesDefenderCountry;
 		}
 	}
+
 	/**
-	 * rolling the dice by getting the number of dices 
+	 * rolling the dice by getting the number of dices
+	 * 
 	 * @param numberOfDice
-	 * @return an array of dice face numbers which is sorted 
+	 * @return an array of dice face numbers which is sorted
 	 */
 	public Integer[] roll(int numberOfDice) {
 		diceCount = new Integer[numberOfDice];
@@ -196,9 +215,11 @@ public class AttackPhase {
 
 		return diceCount;
 	}
+
 	/**
-	 * adding or removing the country to or from the countrylist after battle 
-	 * @param winnerPlayer 
+	 * adding or removing the country to or from the countrylist after battle
+	 * 
+	 * @param winnerPlayer
 	 * @param loserPlayer
 	 * @param countryName
 	 */
@@ -213,8 +234,11 @@ public class AttackPhase {
 		winnerCountries.add(countryWon);
 
 	}
+
 	/**
-	 * checking if the loser do not have any other countries and own any card then it should be given to the winner player 
+	 * checking if the loser do not have any other countries and own any card then
+	 * it should be given to the winner player
+	 * 
 	 * @param winnerPlayer
 	 * @param loserPlayer
 	 */
@@ -227,13 +251,15 @@ public class AttackPhase {
 			}
 		}
 	}
+
 	/**
-	 * finding the defender player by getting the country name 
+	 * finding the defender player by getting the country name
+	 * 
 	 * @param defenderCountryName
 	 * @return the player who is defending
 	 */
 	private PlayerModel getDefender(String defenderCountryName) {
-		for (PlayerModel defender : this.startUp.getPlayers()) {
+		for (PlayerModel defender : this.gameModel.getPlayers()) {
 			if (defender.getColor() != this.attackPlayer.getColor()) {
 				List<CountryModel> countries = defender.getCountries();
 				List<String> countryNames = countries.stream().map(c -> c.getCountryName())
@@ -245,15 +271,17 @@ public class AttackPhase {
 		}
 		return null;
 	}
+
 	/**
 	 * assign the cards to the player (deck) by getting the player as the parameter
+	 * 
 	 * @param player
 	 */
 	public void assignCardToPlayer(PlayerModel player) {
 
-		int index = new Random().nextInt(startUp.getCards().size());
+		int index = new Random().nextInt(gameModel.getCards().size());
 		ArrayList<CardModel> deck = player.getDeck();
-		deck.add(startUp.getCards().get(index));
+		deck.add(gameModel.getCards().get(index));
 		player.setDeck(deck);
 	}
 }

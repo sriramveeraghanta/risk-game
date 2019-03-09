@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.GameController;
-import controllers.PlayerController;
+import controllers.StartUp;
 import models.GameModel;
 import utils.GameConstant;
 
@@ -30,6 +30,7 @@ public class HomeView extends JPanel {
 	private GameModel gameModel;
 	private GameView gameView;
 	public JPanel thisPanel;
+	private StartUp startUp;
 	
 	public HomeView(GameModel gameModel, GameView gameView) {
 		this.gameModel = gameModel;
@@ -100,6 +101,8 @@ public class HomeView extends JPanel {
 					&& (Integer.parseInt(playerCount.toString()) < 6)) {
 				int numberOfPlayer = Integer.parseInt(playerCount.toString());
 				gameModel.setNumberOfPlayers(numberOfPlayer);
+				startUp = new StartUp(gameModel);
+				startUp.createPlayers();
 				navigateToGameBoard(numberOfPlayer);
 			}
 		}

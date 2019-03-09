@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controllers.PlayerController;
+import controllers.StartUp;
 import models.GameModel;
 import models.PlayerModel;
 import models.UnitModel;
@@ -28,8 +28,8 @@ public class GameBoardToolbar extends JPanel {
 	JLabel playerLabelColor;
 
 	private void buildPanel() {	
-		GameModel gameModel =new GameModel();
-		for(PlayerModel player : gameModel.getPlayers()) {
+		
+		for(PlayerModel player : this.gameModel.getPlayers()) {
 				playerLabelColor = new JLabel();
 				playerLabelColor.setPreferredSize(new Dimension(120, 40));
 				playerLabelColor.setOpaque(true);

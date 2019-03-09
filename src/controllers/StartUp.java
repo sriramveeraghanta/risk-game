@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -11,18 +12,20 @@ import utils.EnumClass;
 import models.PlayerModel;
 import models.UnitModel;
 import models.GameModel;
+import controllers.MapBuilder;
 
 /**
  * Before any other phases in start up phase should set and initialize some
  * properties
  */
-public class PlayerController {
+public class StartUp {
 	private GameModel gameModel;
 	private int numberOfPlayers;
 	private EnumClass.Color[] colors = EnumClass.Color.values();
 	private ArrayList<PlayerModel> players;
 	private ArrayList<CardModel> cards;
 	private ReinforcementPhase reinforcementPhase;
+	private MapBuilder mapBuilder;
 
 	/**
 	 * Initialise the game objects set players properties such countries,armies,
@@ -30,23 +33,26 @@ public class PlayerController {
 	 * 
 	 * @param numberOfPlayers
 	 */
-	public PlayerController(GameModel gameModel) {
-		this.gameModel = new GameModel();
+	public StartUp(GameModel gameModel) {
+		this.gameModel = gameModel;
 		this.numberOfPlayers = gameModel.getNumberOfPlayers();
+		// Map Generation
+		this.mapBuilder = new MapBuilder(gameModel);
 	}
 
 	/**
 	 * Initialize the game objects set players properties such
 	 * countries,armies,Color
+	 * 
 	 * @param numberOfPlayers should be get as a parameter and initialize some
-	 * properties for each player
+	 *                        properties for each player
 	 */
 	public void createPlayers() {
 		// setting number of players count to game model
 		gameModel.setNumberOfPlayers(this.numberOfPlayers);
 		// players list of player models
 		players = new ArrayList<PlayerModel>();
-		// Creating new player objects for the count 
+		// Creating new player objects for the count
 		for (int i = 0; i < numberOfPlayers; i++) {
 			EnumClass.Color assingedColor = this.assignColor();
 			PlayerModel player = new PlayerModel(assingedColor);
@@ -54,26 +60,36 @@ public class PlayerController {
 			players.add(player);
 		}
 		gameModel.setPlayers(players);
-		
+		try {
+			this.mapBuilder.generateMap();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.assignCountriesToPlayers();
+		this.createGameCards();
+		this.assignOneUnitPerCountry();
+
 	}
-	
+
 	/**
 	 * assigns a color to the player randomly at the starting phase of the game *
 	 * 
 	 * @param player for assigning color to each player
-	 * @return the color which is assign to specific player  
+	 * @return the color which is assign to specific player
 	 */
 	public EnumClass.Color assignColor() {
 		EnumClass.Color assignedColor = null;
 		int currentIndex;
 		for (int i = 0; i < 6; i++) {
 			currentIndex = new Random().nextInt(6);
-			if (colors[currentIndex] != null) {
+			if (this.colors[currentIndex] != null) {
 				assignedColor = this.colors[currentIndex];
 				this.colors[currentIndex] = null;
+				return assignedColor;
 			}
 		}
-		return assignedColor;
+		return null;
 	}
 
 	/**
@@ -143,7 +159,8 @@ public class PlayerController {
 	}
 
 	/**
-	 * assigning armies to the country each player own in the way each country has at least one army unit in it
+	 * assigning armies to the country each player own in the way each country has
+	 * at least one army unit in it
 	 */
 	public void assignOneUnitPerCountry() {
 		ArrayList<PlayerModel> playersList = gameModel.getPlayers();
@@ -171,6 +188,7 @@ public class PlayerController {
 			cards.add(card);
 		}
 		this.setCards(cards);
+		this.gameModel.setCards(cards);
 
 	}
 
@@ -187,7 +205,7 @@ public class PlayerController {
 	public void setCards(ArrayList<CardModel> cards) {
 		this.cards = cards;
 	}
-	
+
 	/**
 	 * @return the players
 	 */
@@ -201,6 +219,5 @@ public class PlayerController {
 	public void setPlayers(ArrayList<PlayerModel> players) {
 		this.players = players;
 	}
-
 
 }
