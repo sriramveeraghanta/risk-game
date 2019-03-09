@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import controllers.AttackPhase;
 import controllers.ReinforcementPhase;
 import controllers.FortificationPhase;
-import controllers.PlayerController;
+import controllers.StartUp;
 import models.CountryModel;
 import models.GameModel;
 import models.PlayerModel;
@@ -27,13 +27,12 @@ import utils.GameConstant;
 
 /**
  * Action class is used by classes in View package, for the following game
- * functionality : Reinforcement, Attack, and Fortify action.java is called
- * from GameBoardSideBar.java
+ * functionality : Reinforcement, Attack, and Fortify action.java is called from
+ * GameBoardSideBar.java
  *
  */
 public class action implements ActionListener {
 
-	private PlayerController startup;
 	private PlayerModel player;
 	private GameModel gameModel;
 	private CountryModel countryModel;
@@ -43,20 +42,19 @@ public class action implements ActionListener {
 	 * 
 	 * @param playerModel
 	 * @param gameModel
-	 * @param playerController
+	 * @param startUp
 	 */
-	public action(PlayerModel player, GameModel gameModel, PlayerController playerController) {
-		this.startup = playerController;
+	public action(PlayerModel player, GameModel gameModel) {
 		this.player = player;
 		this.gameModel = gameModel;
 	}
+
 	/**
 	 * Constructor for action without parameter
 	 */
 	public action() {
 	}
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -126,7 +124,7 @@ public class action implements ActionListener {
 			}
 			JOptionPane.showConfirmDialog(null, panel, GameConstant.ATTACK_BUTTON_TITLE, JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.PLAIN_MESSAGE);
-			AttackPhase attack = new AttackPhase(player, startup, attackerCountry.getSelectedItem().toString(),
+			AttackPhase attack = new AttackPhase(player, gameModel, attackerCountry.getSelectedItem().toString(),
 					defenderCountry);
 			adjacentCountryList.clear();
 		} else if (phaseActionButton.equalsIgnoreCase(GameConstant.FORTIFY_BUTTON_TITLE)) {

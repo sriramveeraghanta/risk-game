@@ -21,7 +21,22 @@ public class GameModel extends Observable {
 	private ArrayList<PlayerModel> players;
 	private ArrayList<ContinentModel> continents;
 	private ArrayList<CountryModel> countries;
+	private ArrayList<CardModel> cards;
 	
+	/**
+	 * @return the cards
+	 */
+	public ArrayList<CardModel> getCards() {
+		return cards;
+	}
+
+	/**
+	 * @param cards the cards to set
+	 */
+	public void setCards(ArrayList<CardModel> cards) {
+		this.cards = cards;
+	}
+
 	public GameModel() {
 		// TODO Auto-generated constructor stub
 	}

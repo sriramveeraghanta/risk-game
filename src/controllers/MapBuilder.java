@@ -18,13 +18,13 @@ import utils.GameConstant;
  * set those values in model classes
  * 
  */
-public class MapController {
+public class MapBuilder {
 
 	private GameModel gameModel;
 	private Common gameCommon;
 	private ArrayList<String> mapDataList;
 
-	public MapController(GameModel gameModel) {
+	public MapBuilder(GameModel gameModel) {
 		this.gameModel = gameModel;
 		this.gameCommon = new Common();
 	}

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import controllers.MapController;
+import controllers.MapBuilder;
 import models.GameModel;
 
 /**
@@ -18,24 +18,24 @@ import models.GameModel;
  *
  */
 public class TestMapFileDataExtraction {
-	MapController mapController;
+	MapBuilder mapBuilder;
 	
 	@BeforeEach
 	public void beforeTest() {
 		GameModel gameModel = new GameModel();
-		mapController = new MapController(gameModel);
+		mapBuilder = new MapBuilder(gameModel);
 	}
 	
 	//rename the map file and try to load with previous name
 	@Test
 	public void testMapFilePocessingInvalid() {
-		assertThrows(FileNotFoundException.class, ()->{mapController.generateMap();});
+		assertThrows(FileNotFoundException.class, ()->{mapBuilder.generateMap();});
 	}
 	
 	//remove the [continent] tag from .map file
 	@Test
 	public void testContinentMapData() {
-		assertThrows(NullPointerException.class, ()->{mapController.generateMap();});
+		assertThrows(NullPointerException.class, ()->{mapBuilder.generateMap();});
 	}
 	
 	@AfterEach
