@@ -1,8 +1,10 @@
 package views;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JFrame;
 
-import controllers.StartUp;
 import models.GameModel;
 import utils.GameConstant;
 
@@ -12,9 +14,10 @@ import utils.GameConstant;
  * 
  */
 
-public class GameView extends JFrame {
-	private GameModel gameModel;
+public class GameView implements Observer{
+	
 	public static JFrame mainFrame;
+	private GameModel gameModel;
 
 	public GameView(GameModel gameModel) {
 		this.gameModel = gameModel;
@@ -30,22 +33,27 @@ public class GameView extends JFrame {
 		mainFrame.setTitle(GameConstant.GAME_TITLE);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		mainFrame.pack();
-		mainFrame.setVisible(true);
 	}
 	
 	/**
-	 * Getter method to get main frame.
+	 * Getter method to get Home frame.
 	 * @return the frame
 	 */
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return mainFrame;
 	}
 
 	/**
-	 * Setter method to set main frame. 
+	 * Setter method to set Home frame. 
 	 * @param frame the frame to set
 	 */
-	public void setFrame(JFrame frame) {
+	public static void setFrame(JFrame frame) {
 		GameView.mainFrame = frame;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

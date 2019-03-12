@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import controllers.GameController;
 import controllers.StartUp;
 import models.GameModel;
+import utils.Common;
 import utils.GameConstant;
 
 /**
@@ -26,22 +27,22 @@ import utils.GameConstant;
 
 public class HomeView extends JPanel {
 	
-	public static JFrame mainFrame;
 	private GameModel gameModel;
 	private GameView gameView;
 	public JPanel thisPanel;
 	private StartUp startUp;
 	
-	public HomeView(GameModel gameModel, GameView gameView) {
-		this.gameModel = gameModel;
-		this.gameView = gameView;
+	public HomeView(GameModel model) {
+		this.gameModel = model;
 		thisPanel = this;
+		init();
+	}
+
+	private void init() {
 		// adding few properties to the panel
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.setLayout(new GridBagLayout());
-	}
-
-	public void buildPanel() {
+		
 		// Creating a Label on the top
 		Label homeTitleLabel  = new Label();
 		homeTitleLabel.setAlignment(Label.CENTER);
@@ -90,21 +91,28 @@ public class HomeView extends JPanel {
 	public ActionListener onNewGameButtonClick = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String playerCount = null;
-			playerCount = JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null);
-			if (playerCount != null
-					&& ((playerCount.toString().isEmpty()) || (Integer.parseInt(playerCount.toString()) > 6))) {
-				JOptionPane.showMessageDialog(thisPanel, "Enter a valid Number-Players count should be between 2 and 6",
-						"ERROR", JOptionPane.ERROR_MESSAGE);
+			int playerCount;
+			
+			while(true) {
+				String playerCountString = JOptionPane.showInputDialog(thisPanel, "Enter the number of players?", null);
+				try {
+					playerCount = Integer.parseUnsignedInt(playerCountString);
+					if(playerCount <= GameConstant.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstant.MINIMUM_NUMBER_OF_PLAYERS) {
+						gameModel.setNumberOfPlayers(playerCount);
+						startGameBoard();
+						break;
+					} else  {
+						JOptionPane.showMessageDialog(thisPanel, GameConstant.PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (NumberFormatException exception) {  
+					JOptionPane.showMessageDialog(thisPanel, GameConstant.INVALID_PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+			    }
 			}
-			if (playerCount != null && !(playerCount.toString().isEmpty())
-					&& (Integer.parseInt(playerCount.toString()) < 6)) {
-				int numberOfPlayer = Integer.parseInt(playerCount.toString());
-				gameModel.setNumberOfPlayers(numberOfPlayer);
-				startUp = new StartUp(gameModel);
-				startUp.createPlayers();
-				navigateToGameBoard(numberOfPlayer);
-			}
+		}
+
+		private void startGameBoard() {
+			StartUp startUp = new StartUp(gameModel);
+			startUp.createPlayers();
 		}
 
 		private void navigateToGameBoard(int numberOfPlayer) {

@@ -1,5 +1,9 @@
 package controllers;
 
+import java.util.Observer;
+
+import javax.swing.JFrame;
+
 import models.GameModel;
 import utils.GameConstant;
 import views.GameBoardView;
@@ -18,9 +22,7 @@ public class GameController {
 	/**
 	 * Constructor 
 	 */
-	public GameController(GameModel gameModel, GameView gameView) {
-		this.gameModel = gameModel;
-		this.gameView = gameView;
+	public GameController() {
 		init();
 	}
 	
@@ -28,16 +30,18 @@ public class GameController {
 	 * init method to add few info to the model/ 
 	 * */
 	private void init() {
+		this.gameModel = new GameModel();
+		this.gameView = new GameView(gameModel);
+		gameModel.addObserver(gameView);
 		gameModel.setTitle(GameConstant.PROJECT_TITLE);
 	}
 	
 	/**
 	 * Showing the home view of the game 
 	 */
-	public void showHomeView() {
-		HomeView homeView = new HomeView(gameModel, gameView);
-		homeView.buildPanel();
-		gameView.getFrame().add(homeView.getPanel());
-		gameView.getFrame().setVisible(true);
+	public void showView() {
+		HomeView homeView = new HomeView(gameModel);
+		GameView.getFrame().add(homeView.getPanel());
+		GameView.getFrame().setVisible(true);
 	}
 }
