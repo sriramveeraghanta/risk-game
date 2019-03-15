@@ -37,10 +37,10 @@ public class GameBoardView extends JPanel {
 	public GameBoardView(GameModel gameModel) {
 		this.gameModel = gameModel;
 		setLayout(new BorderLayout(0, 0));
-		this.buildPanel();
+		this.init();
 	}
 	
-	public void buildPanel() {
+	public void init() {
 		GameBoardToolbar gameBoardToolbar = new GameBoardToolbar(gameModel);
 		GameBoardSideBar gameBoardSideBar = new GameBoardSideBar(gameModel);
 		GameBoardMap gameBoardMap = new GameBoardMap();

@@ -1,6 +1,3 @@
-import java.awt.EventQueue;
-import java.io.IOException;
-
 import controllers.GameController;
 import models.GameModel;
 import views.GameView;
@@ -9,15 +6,18 @@ public class Game {
 	/**
 	 * This is the main method.
 	 * */
-	public static void main(String args[]) throws IOException {
+	public static void main(String args[]) {
 		
-		System.out.println("start");
+		GameView gameView = new GameView();
+		GameModel gameModel = new GameModel();
+		gameModel.addObserver(gameView);
+		
 		GameController gameController = new GameController();
-		gameController.showView();
-		System.out.println("end");
-		
-		RunMVC mainRunMVC = new RunMVC();
-		
+		gameController.setGameModel(gameModel);
+		gameController.setGameView(gameView);
+
+ 		gameView.addController(gameController);
+ 		//gameView.startGame();
 	}
 }
 
