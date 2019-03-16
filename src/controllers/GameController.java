@@ -6,6 +6,7 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 import models.GameModel;
+import models.PlayerModel;
 import utils.GameConstant;
 import views.GameView;
 /**
@@ -43,7 +44,7 @@ public class GameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		System.out.println(event);
+		//System.out.println(event);
 		
 		if(event.getActionCommand().equals(GameConstant.NEW_GAME_BUTTON_TITLE)) {
 			//MapBuilder mapBuilder = new MapBuilder();
@@ -54,6 +55,7 @@ public class GameController implements ActionListener {
 				try {
 					playerCount = Integer.parseUnsignedInt(playerCountString);
 					if(playerCount <= GameConstant.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstant.MINIMUM_NUMBER_OF_PLAYERS) {
+						gameModel.setNumberOfPlayers(playerCount);
 						startDefaultGameBoard();
 						break;
 					} else  {
@@ -68,8 +70,8 @@ public class GameController implements ActionListener {
 	}
 
 	private void startDefaultGameBoard() {
-		
-	}
-	
-	
+		///StartUp startUp = new StartUp(gameModel);
+		MapBuilder mapBuilder = new MapBuilder(gameModel);
+		mapBuilder.readMapFile(null);
+	}	
 }

@@ -36,8 +36,7 @@ public class StartUp {
 	public StartUp(GameModel gameModel) {
 		this.gameModel = gameModel;
 		this.numberOfPlayers = gameModel.getNumberOfPlayers();
-		// Map Generation
-		this.mapBuilder = new MapBuilder(gameModel);
+		init();
 	}
 
 	/**
@@ -47,7 +46,7 @@ public class StartUp {
 	 * @param numberOfPlayers should be get as a parameter and initialize some
 	 *                        properties for each player
 	 */
-	public void createPlayers() {
+	public void init() {
 		// setting number of players count to game model
 		gameModel.setNumberOfPlayers(this.numberOfPlayers);
 		// players list of player models
@@ -60,12 +59,6 @@ public class StartUp {
 			players.add(player);
 		}
 		gameModel.setPlayers(players);
-		try {
-			this.mapBuilder.generateMap();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.assignCountriesToPlayers();
 		this.createGameCards();
 		this.assignOneUnitPerCountry();
