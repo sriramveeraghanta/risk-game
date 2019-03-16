@@ -4,11 +4,10 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Observable;  
-
+import java.util.Observable;
 
 /**
- * This is the main model file, containing all the required data to start a game 
+ * This is the main model file, containing all the required data to start a game
  * and make operations over the whole game
  *
  */
@@ -18,15 +17,15 @@ public class GameModel extends Observable {
 
 	private String title;
 	private int numberOfPlayers;
-	private ArrayList<PlayerModel> players;
-	private ArrayList<ContinentModel> continents;
-	private ArrayList<CountryModel> countries;
-	private ArrayList<CardModel> cards;
-	
+	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
+	private ArrayList<ContinentModel> continents = new ArrayList<ContinentModel>();
+	private ArrayList<CountryModel> countries = new ArrayList<CountryModel>();
+	private ArrayList<CardModel> cards = new ArrayList<CardModel>();
+
 	public GameModel() {
-		
+
 	}
-	
+
 	/**
 	 * @return the cards
 	 */
@@ -40,9 +39,10 @@ public class GameModel extends Observable {
 	public void setCards(ArrayList<CardModel> cards) {
 		this.cards = cards;
 	}
-	 
+
 	/**
 	 * Getter method for Title
+	 * 
 	 * @return the title
 	 */
 	public String getTitle() {
@@ -51,12 +51,12 @@ public class GameModel extends Observable {
 
 	/**
 	 * Setter method for title
+	 * 
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	/**
 	 * @return the countries
@@ -85,7 +85,7 @@ public class GameModel extends Observable {
 	public void setContinents(ArrayList<ContinentModel> continents) {
 		this.continents = continents;
 	}
-	
+
 	/**
 	 * @return the number of players in the game.
 	 */

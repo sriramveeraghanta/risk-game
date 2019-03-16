@@ -23,7 +23,7 @@ public class TestMapFileDataExtraction {
 	@BeforeEach
 	public void beforeTest() {
 		GameModel gameModel = new GameModel();
-		mapBuilder = new MapBuilder(gameModel);
+		//mapBuilder = new MapBuilder(gameModel);
 	}
 	
 	//rename the map file and try to load with previous name
