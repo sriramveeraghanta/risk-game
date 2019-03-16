@@ -1,16 +1,19 @@
 package controllers;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observer;
+
+import javax.swing.JOptionPane;
 
 import models.GameModel;
 import utils.GameConstant;
-import views.GameBoardView;
 import views.GameView;
-import views.HomeView;
 /**
  * 
  * representing some initialization and main operations like connecting view and model
  *
  */
-public class GameController {
+public class GameController implements ActionListener {
 
 	private GameModel gameModel;
 	private GameView gameView;
@@ -18,26 +21,55 @@ public class GameController {
 	/**
 	 * Constructor 
 	 */
-	public GameController(GameModel gameModel, GameView gameView) {
-		this.gameModel = gameModel;
+	public GameController() {
+		
+	}
+
+	public GameView getGameView() {
+		return this.gameView;
+	}
+	
+	public void setGameView(GameView gameView) {
 		this.gameView = gameView;
-		init();
 	}
 	
-	/**
-	 * init method to add few info to the model/ 
-	 * */
-	private void init() {
-		gameModel.setTitle(GameConstant.PROJECT_TITLE);
+	public GameModel getGameModel() {
+		return this.gameModel;
 	}
 	
-	/**
-	 * Showing the home view of the game 
-	 */
-	public void showHomeView() {
-		HomeView homeView = new HomeView(gameModel, gameView);
-		homeView.buildPanel();
-		gameView.getFrame().add(homeView.getPanel());
-		gameView.getFrame().setVisible(true);
+	public void setGameModel(GameModel gameModel) {
+		this.gameModel = gameModel;
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		System.out.println(event);
+		
+		if(event.getActionCommand().equals(GameConstant.NEW_GAME_BUTTON_TITLE)) {
+			//MapBuilder mapBuilder = new MapBuilder();
+			int playerCount;
+			
+			while(true) {
+				String playerCountString = JOptionPane.showInputDialog(null, "Enter the number of players?", null);
+				try {
+					playerCount = Integer.parseUnsignedInt(playerCountString);
+					if(playerCount <= GameConstant.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstant.MINIMUM_NUMBER_OF_PLAYERS) {
+						startDefaultGameBoard();
+						break;
+					} else  {
+						JOptionPane.showMessageDialog(null, GameConstant.PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (NumberFormatException exception) {  
+					JOptionPane.showMessageDialog(null, GameConstant.INVALID_PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+			    }
+			}
+			
+		}
+	}
+
+	private void startDefaultGameBoard() {
+		
+	}
+	
+	
 }

@@ -23,6 +23,10 @@ public class GameModel extends Observable {
 	private ArrayList<CountryModel> countries;
 	private ArrayList<CardModel> cards;
 	
+	public GameModel() {
+		
+	}
+	
 	/**
 	 * @return the cards
 	 */
@@ -35,10 +39,6 @@ public class GameModel extends Observable {
 	 */
 	public void setCards(ArrayList<CardModel> cards) {
 		this.cards = cards;
-	}
-
-	public GameModel() {
-		// TODO Auto-generated constructor stub
 	}
 	 
 	/**
