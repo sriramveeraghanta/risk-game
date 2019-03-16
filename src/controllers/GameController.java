@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
 
 import models.GameModel;
 import utils.GameConstant;
@@ -46,8 +47,28 @@ public class GameController implements ActionListener {
 		
 		if(event.getActionCommand().equals(GameConstant.NEW_GAME_BUTTON_TITLE)) {
 			//MapBuilder mapBuilder = new MapBuilder();
+			int playerCount;
+			
+			while(true) {
+				String playerCountString = JOptionPane.showInputDialog(null, "Enter the number of players?", null);
+				try {
+					playerCount = Integer.parseUnsignedInt(playerCountString);
+					if(playerCount <= GameConstant.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstant.MINIMUM_NUMBER_OF_PLAYERS) {
+						startDefaultGameBoard();
+						break;
+					} else  {
+						JOptionPane.showMessageDialog(null, GameConstant.PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (NumberFormatException exception) {  
+					JOptionPane.showMessageDialog(null, GameConstant.INVALID_PLAYER_COUNT_ERROR, "ERROR", JOptionPane.ERROR_MESSAGE);
+			    }
+			}
 			
 		}
+	}
+
+	private void startDefaultGameBoard() {
+		
 	}
 	
 	
