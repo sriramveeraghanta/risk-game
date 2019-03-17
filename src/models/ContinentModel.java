@@ -6,19 +6,19 @@ package models;
 import java.util.ArrayList;
 
 /**
- *Continent Model stores the data specific to continent ,
- *i.e continentName, control value and its ownned countries
+ * Continent Model stores the data specific to continent , i.e continentName,
+ * control value and its ownned countries
  */
 public class ContinentModel {
 
 	private String continentName;
-	
+
 	/**
-	 * @param controlvalue continents controlValue is used by player
-	 *  when he acquires all the countries of the given continent
+	 * @param controlvalue continents controlValue is used by player when he
+	 *                     acquires all the countries of the given continent
 	 */
 	private int controlValue;
-	private ArrayList<CountryModel> countries;
+	private ArrayList<CountryModel> countries = new ArrayList<CountryModel>();;
 
 	public ContinentModel(String continentName, int controlValue) {
 		this.continentName = continentName;
@@ -63,7 +63,7 @@ public class ContinentModel {
 	/**
 	 * Setter method for settings countries inside the continent
 	 */
-	public void setCountries(ArrayList<CountryModel> countries) {
-		this.countries = countries;
+	public void addCountry(CountryModel country) {
+		this.countries.add(country);
 	}
 }
