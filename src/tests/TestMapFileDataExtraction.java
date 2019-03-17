@@ -26,17 +26,17 @@ public class TestMapFileDataExtraction {
 		//mapBuilder = new MapBuilder(gameModel);
 	}
 	
-	//rename the map file and try to load with previous name
-	@Test
-	public void testMapFilePocessingInvalid() {
-		assertThrows(FileNotFoundException.class, ()->{mapBuilder.generateMap();});
-	}
-	
-	//remove the [continent] tag from .map file
-	@Test
-	public void testContinentMapData() {
-		assertThrows(NullPointerException.class, ()->{mapBuilder.generateMap();});
-	}
+	/*
+	 * //rename the map file and try to load with previous name
+	 * 
+	 * @Test public void testMapFilePocessingInvalid() {
+	 * assertThrows(FileNotFoundException.class, ()->{mapBuilder.generateMap();}); }
+	 * 
+	 * //remove the [continent] tag from .map file
+	 * 
+	 * @Test public void testContinentMapData() {
+	 * assertThrows(NullPointerException.class, ()->{mapBuilder.generateMap();}); }
+	 */
 	
 	@AfterEach
 	public void afterTest() {

@@ -68,8 +68,8 @@ public class GameModel extends Observable {
 	/**
 	 * @param countries the countries to set
 	 */
-	public void setCountries(ArrayList<CountryModel> countries) {
-		this.countries = countries;
+	public void addCountry(CountryModel country) {
+		this.countries.add(country);
 	}
 
 	/**
@@ -82,8 +82,8 @@ public class GameModel extends Observable {
 	/**
 	 * @param continents the continents to set
 	 */
-	public void setContinents(ArrayList<ContinentModel> continents) {
-		this.continents = continents;
+	public void addContinent(ContinentModel continent) {
+		this.continents.add(continent);
 	}
 
 	/**
