@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="LoadGamePanel" fx:controller="main.controllers.LoadGameController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Continents List:" />
+        <Button fx:id="addContinentButton" layoutX="504.0" layoutY="12.0" mnemonicParsing="false" onAction="#addContinent" text="Add Continent">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>
