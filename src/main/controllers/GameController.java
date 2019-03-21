@@ -19,7 +19,6 @@ public class GameController {
     @FXML
     private Button newGameButton,loadGameButton, exitGameButton ;
 
-
     /**
      * Start Game
      * @param event
@@ -32,7 +31,7 @@ public class GameController {
         dialog.setTitle("Players Count");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(playerCountString -> {
-            int playerCount = 0;
+            int playerCount;
             try {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS
@@ -67,7 +66,6 @@ public class GameController {
         stage.setScene(new Scene(LoadGamePanel));
         stage.show();
     }
-
 
     /**
      * Exit the current window that is opened
