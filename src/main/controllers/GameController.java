@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import main.models.GameModel;
 import main.utills.GameConstants;
 
 import java.io.IOException;
@@ -16,8 +17,14 @@ import java.util.Optional;
 
 public class GameController {
 
+    private GameModel gameModel;
+
     @FXML
     private Button newGameButton,loadGameButton, exitGameButton ;
+
+    public GameController(){
+
+    }
 
     /**
      * Start Game
@@ -28,7 +35,7 @@ public class GameController {
     public void startNewGame(ActionEvent event) throws IOException {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
-        dialog.setTitle("Players Count");
+        dialog.setTitle(getGameModel().getTitle());
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(playerCountString -> {
             int playerCount;
@@ -70,8 +77,11 @@ public class GameController {
     public void loadGame(ActionEvent event) throws IOException {
         System.out.println(getClass());
         Stage stage = (Stage) loadGameButton.getScene().getWindow();
-        Parent LoadGamePanel = FXMLLoader.load(getClass().getResource("/views/LoadGame.fxml"));
-        stage.setScene(new Scene(LoadGamePanel));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoadGame.fxml"));
+        Parent loadGamePanel = loader.load();
+        LoadGameController loadGameController = loader.getController();
+        loadGameController.setGameModel(this.gameModel);
+        stage.setScene(new Scene(loadGamePanel));
         stage.show();
     }
 
@@ -84,5 +94,13 @@ public class GameController {
         System.out.println("Exit game");
         Stage stage = (Stage) exitGameButton.getScene().getWindow();
         stage.close();
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
     }
 }

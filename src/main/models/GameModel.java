@@ -6,10 +6,10 @@ public class GameModel {
 
     private String title;
     private int numberOfPlayers;
-    private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
-    private ArrayList<ContinentModel> continents = new ArrayList<ContinentModel>();
-    private ArrayList<CountryModel> countries = new ArrayList<CountryModel>();
-    private ArrayList<CardModel> cards = new ArrayList<CardModel>();
+    private ArrayList<PlayerModel> players = new ArrayList<>();
+    private ArrayList<ContinentModel> continents = new ArrayList<>();
+    private ArrayList<CountryModel> countries = new ArrayList<>();
+    private ArrayList<CardModel> cards = new ArrayList<>();
 
     public GameModel() {
 
