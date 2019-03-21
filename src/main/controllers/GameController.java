@@ -25,7 +25,7 @@ public class GameController {
      * @throws IOException
      */
     @FXML
-    public void startNewGame(ActionEvent event) {
+    public void startNewGame(ActionEvent event) throws IOException {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
         dialog.setTitle("Players Count");
@@ -34,10 +34,16 @@ public class GameController {
             int playerCount;
             try {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
-                if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS
-                        && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
+                if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
                     // TODO: Start Startup Phase
                     System.out.println(playerCount);
+
+                    // Creating an Game Board
+                    Stage stage = (Stage) newGameButton.getScene().getWindow();
+                    Parent LoadGamePanel = FXMLLoader.load(getClass().getResource("/views/GameBoard.fxml"));
+                    stage.setScene(new Scene(LoadGamePanel));
+                    stage.show();
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
@@ -49,6 +55,8 @@ public class GameController {
                 alert.setTitle("Warning");
                 alert.setHeaderText(GameConstants.PLAYER_COUNT_ERROR);
                 alert.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
