@@ -9,8 +9,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import main.helpers.MapBuilder;
 import main.models.GameModel;
 import main.utills.GameConstants;
+import main.utills.GameException;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -42,8 +44,13 @@ public class GameController {
             try {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
+
                     // TODO: Start Startup Phase
                     System.out.println(playerCount);
+
+                    MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
+                    mapBuilder.readMapFile(null);
+                    System.out.println(getGameModel().getContinents());
 
                     // Creating an Game Board
                     Stage stage = (Stage) newGameButton.getScene().getWindow();
@@ -63,6 +70,8 @@ public class GameController {
                 alert.setHeaderText(GameConstants.PLAYER_COUNT_ERROR);
                 alert.showAndWait();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (GameException e) {
                 e.printStackTrace();
             }
         });

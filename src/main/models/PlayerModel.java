@@ -1,6 +1,7 @@
 package main.models;
 
 import javafx.scene.paint.Color;
+import main.utills.EnumHandler;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,10 @@ public class PlayerModel {
     private boolean isActive;
     private int successfullCardSwapCounter;
     private int numberOfArmyUnitOnHand;
+
+    public PlayerModel(EnumHandler.Color assingedColor) {
+
+    }
 
     /**
      * @return the numberOfArmyUnitOnHand
@@ -73,7 +78,7 @@ public class PlayerModel {
     }
 
     /**
-     * @param countryModels the countryModels to set
+     * @param countiresList the countryModels to set
      */
     public void setCountries(ArrayList<CountryModel> countiresList) {
         this.countiresList = countiresList;
@@ -87,7 +92,7 @@ public class PlayerModel {
     }
 
     /**
-     * @param continentModels the continentModels to set
+     * @param continentsList the continentModels to set
      */
     public void setContinents(ArrayList<ContinentModel> continentsList) {
         this.continentsList = continentsList;
