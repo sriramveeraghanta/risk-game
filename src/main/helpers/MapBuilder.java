@@ -25,6 +25,7 @@ public class MapBuilder {
 
     public MapBuilder(GameModel gameModel) {
         this.gameModel = gameModel;
+        this.gameCommon = new GameCommons();
     }
 
     /**
@@ -36,7 +37,7 @@ public class MapBuilder {
      */
     public void readMapFile(String mapFilePath) throws GameException {
         if (mapFilePath == null) {
-            mapFilePath = GameConstants.MAP_FILE_PATH;
+            mapFilePath = MapBuilder.class.getResource("/maps/world.map").getFile();
         }
         try {
             mapFileReader = new FileReader(mapFilePath);

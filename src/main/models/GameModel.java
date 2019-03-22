@@ -2,6 +2,9 @@ package main.models;
 
 import java.util.ArrayList;
 
+/**
+ * Game Model
+ * */
 public class GameModel {
 
     private String title;

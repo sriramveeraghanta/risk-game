@@ -21,9 +21,9 @@ public class LoadGameController {
     private GameModel gameModel;
 
     @FXML
-    private TextArea mapEditorTextArea;
+    private TextArea mapDataTextArea;
     @FXML
-    private TextField fileNameTextField;
+    private TextField mapFileNameTextField;
 
     public LoadGameController() {
 
@@ -31,8 +31,8 @@ public class LoadGameController {
 
     @FXML
     public void createUserMap(ActionEvent event) {
-        CharSequence fileName = fileNameTextField.getCharacters();
-        ObservableList<CharSequence> paragraph = mapEditorTextArea.getParagraphs();
+        CharSequence fileName = mapFileNameTextField.getCharacters();
+        ObservableList<CharSequence> paragraph = mapDataTextArea.getParagraphs();
         createMapFile(fileName, paragraph);
     }
 
