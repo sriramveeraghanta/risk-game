@@ -56,6 +56,7 @@ public class GameController {
                     Stage stage = (Stage) newGameButton.getScene().getWindow();
                     Parent LoadGamePanel = FXMLLoader.load(getClass().getResource("/views/GameBoard.fxml"));
                     stage.setScene(new Scene(LoadGamePanel));
+                    stage.setResizable(false);
                     stage.show();
 
                 } else {
@@ -91,6 +92,7 @@ public class GameController {
         LoadGameController loadGameController = loader.getController();
         loadGameController.setGameModel(this.gameModel);
         stage.setScene(new Scene(loadGamePanel));
+        stage.setResizable(false);
         stage.show();
     }
 

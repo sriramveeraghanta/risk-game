@@ -257,8 +257,26 @@ public class MapBuilder {
             if (countryAdjacencyValidation[i][i] == 1)
                 return false;
         }
+        return true;
+    }
 
-
+    private boolean validateContinentsAreAdjacent() {
+        int[] areAdjacent = new int[gameModel.getContinents().size()];
+        for (int i = 0; i < gameModel.getContinents().size(); i++) {
+            ArrayList<String> continentCountries = gameCommon.getCountryList(gameModel.getContinents().get(i).getCountries());
+            ContinentModel continent = gameModel.getContinents().get(i);
+            for (CountryModel country : continent.getCountries()) {
+                ArrayList<String> adjacentCountries = gameCommon.getCountryList(country.getAdjcentCountries());
+                if (!continentCountries.containsAll(adjacentCountries)) {
+                    areAdjacent[i] = +1;
+                }
+            }
+        }
+        for (int x = 0; x < areAdjacent.length; x++) {
+            if (areAdjacent[x] == 0) {
+                return false;
+            }
+        }
         return true;
     }
 
