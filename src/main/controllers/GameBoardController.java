@@ -42,7 +42,8 @@ public class GameBoardController {
         ObservableList<String> playersList = FXCollections.observableList(playersListStrings);
         playersListView.setOrientation(Orientation.HORIZONTAL);
         playersListView.getItems().setAll(playersList);
-
+        playersListView.setMouseTransparent(true);
+        playersListView.setFocusTraversable(false);
 
     }
 
