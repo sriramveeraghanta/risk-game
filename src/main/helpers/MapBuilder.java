@@ -235,7 +235,7 @@ public class MapBuilder {
         ArrayList<String> countries = gameCommon.getCountryList(gameModel.getCountries());
         int[][] countryAdjacencyValidation = new int[gameModel.getCountries().size()][gameModel.getCountries().size()];
         //filling countryAdjacencyValidation;
-        for (int i = 0; i < gameModel.getCountries().size; i++) {
+        for (int i = 0; i < gameModel.getCountries().size(); i++) {
             CountryModel country = gameModel.getCountries().get(i);
             for (int j = 0; j < country.getAdjcentCountries().size(); j++) {
                 CountryModel adjacentCountry = country.getAdjcentCountries().get(j);
@@ -246,14 +246,14 @@ public class MapBuilder {
             }
         }
         //validate
-        for (int i = 0; i < gameModel.getCountries().size; i++) {
-            for (int j = 0; j < gameModel.getCountries().size; j++) {
+        for (int i = 0; i < gameModel.getCountries().size(); i++) {
+            for (int j = 0; j < gameModel.getCountries().size(); j++) {
                 if (countryAdjacencyValidation[i][j] != countryAdjacencyValidation[j][i])
                     return false;
             }
         }
         // validate that no self relation exist
-        for (int i = 0; i < gameModel.getCountries().size; i++) {
+        for (int i = 0; i < gameModel.getCountries().size(); i++) {
             if (countryAdjacencyValidation[i][i] == 1)
                 return false;
         }
