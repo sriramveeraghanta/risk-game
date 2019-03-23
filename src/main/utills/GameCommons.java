@@ -35,4 +35,21 @@ public class GameCommons {
                 .findFirst().get();
         return countryModel;
     }
+
+    public ArrayList<String> getCountryList(ArrayList<CountryModel> countryList) {
+        ArrayList<String> countries = new ArrayList<String>();
+        for (CountryModel country : countryList) {
+            countries.add(country.getCountryName());
+        }
+        return countries;
+    }
+
+    public ArrayList<String> getContinentList(ArrayList<ContinentModel> continentList) {
+        ArrayList<String> continents = new ArrayList<String>();
+        for (ContinentModel continent : continentList) {
+            continents.add(continent.getContinentName());
+        }
+        return continents;
+    }
+
 }
