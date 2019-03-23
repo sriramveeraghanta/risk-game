@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import main.helpers.MapBuilder;
+import main.helpers.StartupPhase;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
@@ -44,19 +45,10 @@ public class GameController {
             try {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
-
-                    // TODO: Start Startup Phase
-                    System.out.println(playerCount);
-
-                    MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-                    mapBuilder.readMapFile(null);
-                    System.out.println(getGameModel().getContinents());
-
-                    // Creating an Game Board
-                    Stage stage = (Stage) newGameButton.getScene().getWindow();
-                    Parent LoadGamePanel = FXMLLoader.load(getClass().getResource("/views/GameBoard.fxml"));
-                    stage.setScene(new Scene(LoadGamePanel));
-                    stage.show();
+                    /**
+                     * Initiating players and Creating new Map.
+                     * */
+                    this.initGame(playerCount);
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -75,6 +67,30 @@ public class GameController {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void initGame(int playerCount) throws GameException, IOException {
+        // TODO: Start Startup Phase
+        getGameModel().setNumberOfPlayers(playerCount);
+        System.out.println(playerCount);
+
+        MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
+        mapBuilder.readMapFile(null);
+        System.out.println(getGameModel().getContinents());
+
+        StartupPhase startupPhase = new StartupPhase(this.getGameModel());
+        startupPhase.initiatePlayers(playerCount);
+
+        System.out.println(gameModel.getPlayers());
+
+        // Creating an Game Board
+        Stage stage = (Stage) newGameButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GameBoard.fxml"));
+        Parent LoadGamePanel = loader.load();
+        GameBoardController gameBoardController = loader.getController();
+        gameBoardController.setGameModel(this.gameModel);
+        stage.setScene(new Scene(LoadGamePanel, 1280, 768));
+        stage.show();
     }
 
     /**
