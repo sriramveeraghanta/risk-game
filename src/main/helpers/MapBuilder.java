@@ -33,7 +33,6 @@ public class MapBuilder {
      *
      * @param mapFilePath This parameter will contain the path of map file
      * @throws GameException
-     *
      */
     public void readMapFile(String mapFilePath) throws GameException {
         if (mapFilePath == null) {
@@ -106,10 +105,10 @@ public class MapBuilder {
                     gameCommon.getContinentModelFromList(gameModel.getContinents(), countryDataList[3])));
             countryMapDataList.add(countryDataList);
         }
-        this.addAdjcentCountriesToCountry(countryMapDataList);
+        this.addAdjacentCountriesToCountry(countryMapDataList);
     }
 
-    public void addAdjcentCountriesToCountry(ArrayList<String[]> countryMapDataList) throws GameException {
+    public void addAdjacentCountriesToCountry(ArrayList<String[]> countryMapDataList) throws GameException {
         /**
          * We are taking the adjacent countries from the list, which is starting from
          * the 4th index.
@@ -232,8 +231,35 @@ public class MapBuilder {
         return false;
     }
 
-    private boolean validateIfCountriesAreAdjacent(ArrayList<String[]> countryMapDataList) {
-        return false;
+    private boolean validateIfCountriesAreAdjacent() {
+        ArrayList<String> countries = gameCommon.getCountryList(gameModel.getCountries());
+        int[][] countryAdjacencyValidation = new int[gameModel.getCountries().size()][gameModel.getCountries().size()];
+        //filling countryAdjacencyValidation;
+        for (int i = 0; i < gameModel.getCountries().size; i++) {
+            CountryModel country = gameModel.getCountries().get(i);
+            for (int j = 0; j < country.getAdjcentCountries().size(); j++) {
+                CountryModel adjacentCountry = country.getAdjcentCountries().get(j);
+                //find index of adjacent country
+                int x = countries.indexOf(adjacentCountry.getCountryName());
+
+                countryAdjacencyValidation[i][x] = 1;
+            }
+        }
+        //validate
+        for (int i = 0; i < gameModel.getCountries().size; i++) {
+            for (int j = 0; j < gameModel.getCountries().size; j++) {
+                if (countryAdjacencyValidation[i][j] != countryAdjacencyValidation[j][i])
+                    return false;
+            }
+        }
+        // validate that no self relation exist
+        for (int i = 0; i < gameModel.getCountries().size; i++) {
+            if (countryAdjacencyValidation[i][i] == 1)
+                return false;
+        }
+
+
+        return true;
     }
 
     public boolean validateCountriesBelongToOneContinent() {
@@ -254,5 +280,4 @@ public class MapBuilder {
         }
         return true;
     }
-
 }
