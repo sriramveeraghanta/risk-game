@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import main.helpers.ReinforcementPhase;
+import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.GameCommons;
@@ -55,8 +57,8 @@ public class GameBoardController {
             playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
             playerLabelList.add(playerLabel);
             playerListPanel.getChildren().add(playerLabel);
-            lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
         }
+        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
     }
 
 

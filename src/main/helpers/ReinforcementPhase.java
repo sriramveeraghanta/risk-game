@@ -252,6 +252,8 @@ public class ReinforcementPhase {
         List<String> continentCountryNames = continent.getCountries().stream().map(c -> c.getCountryName())
                 .collect(Collectors.toList());
         List<String> countryNames = countries.stream().map(c -> c.getCountryName()).collect(Collectors.toList());
+        if (continentCountryNames.size() == 0 || countryNames.size() == 0)
+            return false;
         if (countryNames.containsAll(continentCountryNames)) {
             return true;
         }
