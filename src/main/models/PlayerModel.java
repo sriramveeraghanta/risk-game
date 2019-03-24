@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class PlayerModel {
 
     private EnumHandler.Color color;
-    private ArrayList<CountryModel> countiresList;
-    private ArrayList<ContinentModel> continentsList;
-    private ArrayList<UnitModel> army;
-    private ArrayList<CardModel> deck;
+    private ArrayList<CountryModel> countriesList = new ArrayList<>();
+    private ArrayList<ContinentModel> continentsList= new ArrayList<>();
+    private ArrayList<UnitModel> army= new ArrayList<>();
+    private ArrayList<CardModel> deck= new ArrayList<>();
     private boolean isActive;
     private int successfullCardSwapCounter;
     private int numberOfArmyUnitOnHand;
@@ -71,14 +71,14 @@ public class PlayerModel {
      * @return the countryModels
      */
     public ArrayList<CountryModel> getCountries() {
-        return countiresList;
+        return countriesList;
     }
 
     /**
      * @param countiresList the countryModels to set
      */
     public void setCountries(ArrayList<CountryModel> countiresList) {
-        this.countiresList = countiresList;
+        this.countriesList = countiresList;
     }
 
     /**
@@ -113,16 +113,16 @@ public class PlayerModel {
         if (this.getCountries() == null) {
             this.setCountries(new ArrayList<CountryModel>());
         }
-        this.countiresList = this.getCountries();
-        this.countiresList.add(country);
-        this.setCountries(countiresList);
+        this.countriesList = this.getCountries();
+        this.countriesList.add(country);
+        this.setCountries(countriesList);
     }
 
     public void removeCountryFromPlayer(CountryModel country) {
         if (this.getCountries() != null) {
-            this.countiresList = this.getCountries();
-            this.countiresList.remove(country);
-            this.setCountries(countiresList);
+            this.countriesList = this.getCountries();
+            this.countriesList.remove(country);
+            this.setCountries(countriesList);
         }
     }
 

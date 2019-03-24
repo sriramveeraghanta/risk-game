@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Game Model
- * */
+ */
 public class GameModel {
 
     private String title;
@@ -13,6 +13,7 @@ public class GameModel {
     private ArrayList<ContinentModel> continents = new ArrayList<>();
     private ArrayList<CountryModel> countries = new ArrayList<>();
     private ArrayList<CardModel> cards = new ArrayList<>();
+    private int currentIndex;
 
     public GameModel() {
 
@@ -104,5 +105,13 @@ public class GameModel {
      */
     public void setPlayers(ArrayList<PlayerModel> players) {
         this.players = players;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
     }
 }

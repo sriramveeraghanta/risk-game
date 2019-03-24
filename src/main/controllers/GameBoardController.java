@@ -30,8 +30,6 @@ public class GameBoardController {
     @FXML
     private Label lblCurrentPlayerName;
 
-    private int currentIndex;
-
     public GameBoardController() {
     }
 
@@ -48,7 +46,7 @@ public class GameBoardController {
         System.out.println(getGameModel());
 
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-        currentIndex = 0;
+        gameModel.setCurrentIndex(0);
         for (int i = 0; i < playerModelsList.size(); i++) {
             System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
@@ -57,7 +55,7 @@ public class GameBoardController {
             playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
             playerLabelList.add(playerLabel);
             playerListPanel.getChildren().add(playerLabel);
-            lblCurrentPlayerName.setText(gameModel.getPlayers().get(currentIndex).getColor().toString());
+            lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
         }
     }
 
@@ -71,7 +69,7 @@ public class GameBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel,gameModel.getPlayers().get(currentIndex));
+            attackPhaseDialogController.setGameModel(this.gameModel,gameModel.getPlayers().get(gameModel.getCurrentIndex()));
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.setResizable(false);
             stage.show();
@@ -117,15 +115,15 @@ public class GameBoardController {
         }
     }
 
-
-    private PlayerModel getNextPlayer(){
-        if(gameModel.getNumberOfPlayers()==currentIndex+1){
-            currentIndex=0;
+    @FXML
+    private void getNextPlayer(){
+        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentIndex()+1){
+            gameModel.setCurrentIndex(0);
         }
         else{
-            currentIndex++;
+            gameModel.setCurrentIndex(gameModel.getCurrentIndex()+1);
         }
-        return gameModel.getPlayers().get(currentIndex);
+        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
     }
 
 

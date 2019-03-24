@@ -216,6 +216,8 @@ public class ReinforcementPhase {
      * @return number of the control value of the continent player can occupies all the countries
      */
     private int validateNewContinentOccupation() {
+
+
         int totalContinetValues = 0;
         for (ContinentModel continent : gameModel.getContinents()) {
 
