@@ -1,13 +1,12 @@
 package main.models;
 
-import javafx.scene.paint.Color;
 import main.utills.EnumHandler;
 
 import java.util.ArrayList;
 
 public class PlayerModel {
 
-    private Color color;
+    private EnumHandler.Color color;
     private ArrayList<CountryModel> countiresList;
     private ArrayList<ContinentModel> continentsList;
     private ArrayList<UnitModel> army;
@@ -16,8 +15,12 @@ public class PlayerModel {
     private int successfullCardSwapCounter;
     private int numberOfArmyUnitOnHand;
 
-    public PlayerModel(EnumHandler.Color assingedColor) {
-
+    /**
+     *
+     */
+    public PlayerModel(EnumHandler.Color color) {
+        this.setColor(color);
+        this.setActive(true);
     }
 
     /**
@@ -34,13 +37,7 @@ public class PlayerModel {
         this.numberOfArmyUnitOnHand = numberOfArmyUnitOnHand;
     }
 
-    /**
-     *
-     */
-    public PlayerModel(Color color) {
-        this.setColor(color);
-        this.setActive(true);
-    }
+
 
     /**
      * @return the isActive
@@ -59,14 +56,14 @@ public class PlayerModel {
     /**
      * @return the colour
      */
-    public Color getColor() {
+    public EnumHandler.Color getColor() {
         return color;
     }
 
     /**
      * @param color the colour to set
      */
-    public void setColor(Color color) {
+    public void setColor(EnumHandler.Color color) {
         this.color = color;
     }
 
