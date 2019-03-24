@@ -45,10 +45,12 @@ public class GameController {
             try {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
+
                     /**
                      * Initiating players and Creating new Map.
                      * */
                     this.initGame(playerCount);
+
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -107,6 +109,7 @@ public class GameController {
         LoadGameController loadGameController = loader.getController();
         loadGameController.setGameModel(this.gameModel);
         stage.setScene(new Scene(loadGamePanel));
+        stage.setResizable(false);
         stage.show();
     }
 
