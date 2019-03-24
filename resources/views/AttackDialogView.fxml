@@ -8,46 +8,38 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="attackPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="469.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AttackPhaseDialogController">
+<AnchorPane fx:id="attackPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AttackPhaseDialogController">
     <children>
+        <Pane layoutX="14.0" layoutY="339.0" prefHeight="45.0" prefWidth="273.0">
+            <children>
+                <Label layoutX="14.0" layoutY="16.0" prefHeight="17.0" prefWidth="87.0" text="Current player: " />
+                <Label fx:id="lblCurrentPlayerName" layoutX="98.0" layoutY="16.0" prefHeight="17.0" prefWidth="153.0" text="______" />
+            </children>
+        </Pane>
         <SplitPane fx:id="attackSplitPanel" dividerPositions="0.5016722408026756" prefHeight="326.0" prefWidth="600.0">
             <items>
-                <AnchorPane fx:id="attackingCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="370.0"
-                            prefWidth="303.0">
+                <AnchorPane fx:id="attackingCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="303.0">
                     <children>
-                        <ListView fx:id="attackingCountryListView" layoutY="43.0" prefHeight="284.0" prefWidth="297.0"/>
-                        <Label fx:id="attackingCountryListLabel" alignment="CENTER" prefHeight="45.0" prefWidth="297.0"
-                               text="Attacking Country List">
+                        <ListView fx:id="attackingCountryListView" layoutY="43.0" prefHeight="284.0" prefWidth="297.0" />
+                        <Label fx:id="attackingCountryListLabel" alignment="CENTER" prefHeight="45.0" prefWidth="297.0" text="Attacking Country List">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="defendingCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-                            prefWidth="293.0">
+                <AnchorPane fx:id="defendingCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="293.0">
                     <children>
-                        <ListView fx:id="defendingCountryListView" layoutY="45.0" prefHeight="284.0" prefWidth="297.0"/>
-                        <Label fx:id="defendingCountryListLabel" alignment="CENTER" contentDisplay="CENTER"
-                               layoutX="-1.0" prefHeight="45.0" prefWidth="297.0" text="Defending Country List">
+                        <ListView fx:id="defendingCountryListView" layoutY="45.0" prefHeight="284.0" prefWidth="297.0" />
+                        <Label fx:id="defendingCountryListLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" prefHeight="45.0" prefWidth="297.0" text="Defending Country List">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
             </items>
         </SplitPane>
-        <Button fx:id="AttackActionButton" layoutX="238.0" layoutY="408.0" mnemonicParsing="false"
-                onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack"/>
-        <Pane layoutX="14.0" layoutY="339.0" prefHeight="45.0" prefWidth="273.0">
-            <children>
-                <Label layoutX="14.0" layoutY="16.0" prefHeight="17.0" prefWidth="87.0" text="Current player: "/>
-                <Label fx:id="lblCurrentPlayerName" layoutX="98.0" layoutY="16.0" prefHeight="17.0" prefWidth="153.0"
-                       text="______"/>
-            </children>
-        </Pane>
+        <Button fx:id="AttackActionButton" layoutX="318.0" layoutY="349.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack" />
     </children>
 </AnchorPane>
