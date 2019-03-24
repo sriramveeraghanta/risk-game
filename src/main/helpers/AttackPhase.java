@@ -211,7 +211,7 @@ public class AttackPhase {
      * @param loserPlayer
      * @param countryName
      */
-    private void assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName) {
+    public void assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName) {
         // loser
         List<CountryModel> loserCountries = loserPlayer.getCountries();
         CountryModel countryWon = loserCountries.stream().filter(c -> c.getCountryName().contentEquals(countryName))
@@ -230,7 +230,7 @@ public class AttackPhase {
      * @param winnerPlayer
      * @param loserPlayer
      */
-    private void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
+    public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
         if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
             if (loserPlayer.getDeck() != null || loserPlayer.getDeck().size() > 0) {
                 ArrayList<CardModel> winnerDeck = winnerPlayer.getDeck();
@@ -246,7 +246,7 @@ public class AttackPhase {
      * @param defenderCountryName
      * @return the player who is defending
      */
-    private PlayerModel getDefender(String defenderCountryName) {
+    public PlayerModel getDefender(String defenderCountryName) {
         for (PlayerModel defender : this.gameModel.getPlayers()) {
             if (defender.getColor() != this.attackPlayer.getColor()) {
                 List<CountryModel> countries = defender.getCountries();
