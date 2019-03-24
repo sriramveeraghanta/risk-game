@@ -27,6 +27,10 @@ public class GameBoardController {
     public FlowPane playerListPanel;
     @FXML
     public Button attackButton, fortifyButton, reinforceButton;
+    @FXML
+    private Label lblCurrentPlayerName;
+
+    private int currentIndex;
 
     public GameBoardController() {
     }
@@ -44,7 +48,7 @@ public class GameBoardController {
         System.out.println(getGameModel());
 
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-
+        currentIndex = 0;
         for (int i = 0; i < playerModelsList.size(); i++) {
             System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
@@ -53,6 +57,7 @@ public class GameBoardController {
             playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
             playerLabelList.add(playerLabel);
             playerListPanel.getChildren().add(playerLabel);
+            lblCurrentPlayerName.setText(gameModel.getPlayers().get(currentIndex).getColor().toString());
         }
     }
 
@@ -66,8 +71,9 @@ public class GameBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel);
+            attackPhaseDialogController.setGameModel(this.gameModel,gameModel.getPlayers().get(currentIndex));
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -78,7 +84,7 @@ public class GameBoardController {
     }
 
     @FXML
-    private  void fortifyPhase() {
+    private void fortifyPhase() {
         // Creating an Fortify Dialog Phase
         try {
             Stage stage = new Stage();
@@ -111,6 +117,16 @@ public class GameBoardController {
         }
     }
 
+
+    private PlayerModel getNextPlayer(){
+        if(gameModel.getNumberOfPlayers()==currentIndex+1){
+            currentIndex=0;
+        }
+        else{
+            currentIndex++;
+        }
+        return gameModel.getPlayers().get(currentIndex);
+    }
 
 
 }

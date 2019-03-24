@@ -92,6 +92,7 @@ public class GameController {
         GameBoardController gameBoardController = loader.getController();
         gameBoardController.setGameModel(this.gameModel);
         stage.setScene(new Scene(LoadGamePanel, 1280, 768));
+        stage.setResizable(false);
         stage.show();
     }
 
