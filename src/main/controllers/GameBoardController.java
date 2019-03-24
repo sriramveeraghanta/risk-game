@@ -84,8 +84,8 @@ public class GameBoardController {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FortifyView.fxml"));
             Parent LoadGamePanel = loader.load();
-            AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel);
+            FortifyDialogController FortifyDialogController = loader.getController();
+            FortifyDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.show();
 
@@ -96,7 +96,19 @@ public class GameBoardController {
 
     @FXML
     private void reinforcementPhase() {
+        // Creating an Attack Phase
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ReinforcementDialogView.fxml"));
+            Parent LoadGamePanel = loader.load();
+            ReinforcementDialogController ReinforcementDialogController = loader.getController();
+            ReinforcementDialogController.setGameModel(this.gameModel);
+            stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            stage.show();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
