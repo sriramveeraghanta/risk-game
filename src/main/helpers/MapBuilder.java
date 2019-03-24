@@ -34,7 +34,7 @@ public class MapBuilder {
      * @param mapFilePath This parameter will contain the path of map file
      * @throws GameException
      */
-    public void readMapFile(String mapFilePath) throws GameException {
+    public boolean readMapFile(String mapFilePath) throws GameException {
         if (mapFilePath == null) {
             mapFilePath = MapBuilder.class.getResource("/maps/world.map").getFile();
         }
@@ -55,6 +55,30 @@ public class MapBuilder {
 
         loadContinentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"));
         loadCountryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size());
+
+        int isValid = 0;
+        if (!validateCountriesBelongToOneContinent()) {
+            System.out.println("Countries do not belong to one Continent");
+            isValid++;
+        }
+
+        if(!validateContinentHasMinimumOneCountry()){
+            System.out.println("A Continent should have at least one Country");
+            isValid++;
+        }
+
+        if (!validateIfCountriesAreAdjacent()) {
+            System.out.println("Countries are not adjacent");
+            isValid++;
+        }
+
+        if (!validateContinentsAreAdjacent()) {
+            System.out.println("Continent are not adjacent");
+            isValid++;
+        }
+
+        return (isValid == 0);
+
     }
 
     /**
@@ -68,6 +92,15 @@ public class MapBuilder {
      */
 
     public void loadContinentMapData(int initial, int last) throws GameException {
+
+        if (initial < 0) {
+            throw new GameException("[Continents] attribute is missing for map file");
+        }
+
+        if (last < 0) {
+            throw new GameException("[Continents] attribute is missing for map file");
+        }
+
         int hasError = validateContinentData(initial, last);
         if (hasError >= 0) {
             throw new GameException("Invalid input at line number: [" + (hasError - 1) + "]");
@@ -81,7 +114,7 @@ public class MapBuilder {
     }
 
     /**
-     * This Method will extract the Continent data from the map file
+     * This Method will extract the Country data from the map file
      *
      * @param initial This parameter holds the starting index of Territories data in
      *                mapDataList
@@ -91,18 +124,42 @@ public class MapBuilder {
      */
 
     public void loadCountryMapData(int initial, int last) throws GameException {
+
+        if (initial < 0) {
+            throw new GameException("[Territories] attribute is missing for map file");
+        }
+
+        if (last < 0) {
+            throw new GameException("[Territories] attribute is missing for map file");
+        }
+
         int hasError = validateCountryData(initial, last);
         if (hasError >= 0) {
             throw new GameException("Invalid input at line number: [" + (hasError - 1) + "]");
         }
         ArrayList<String[]> countryMapDataList = new ArrayList<String[]>();
+        int xAxis = 0;
+        int yAxis = 0;
+        ContinentModel continent;
         for (int index = initial + 1; index < last; index++) {
             // Get Each Line of the country
             String countryMapLine = mapDataList.get(index);
             String[] countryDataList = countryMapLine.split(GameConstants.COUNTRY_DATA_SPLITTER);
-            gameModel.addCountry(new CountryModel(countryDataList[0], Integer.parseInt(countryDataList[1]),
-                    Integer.parseInt(countryDataList[2]),
-                    gameCommon.getContinentModelFromList(gameModel.getContinents(), countryDataList[3])));
+            if (gameCommon.tryParseInt(countryDataList[1])) {
+                xAxis = Integer.parseInt(countryDataList[1]);
+            } else {
+                xAxis = 0;
+            }
+            if (gameCommon.tryParseInt(countryDataList[2])) {
+                yAxis = Integer.parseInt(countryDataList[2]);
+            } else {
+                yAxis = 0;
+            }
+            continent = gameCommon.getContinentModelFromList(gameModel.getContinents(), countryDataList[3]);
+            if (continent == null) {
+                throw new GameException("Invalid Continent name at line number: [" + (index + 1) + "]");
+            }
+            gameModel.addCountry(new CountryModel(countryDataList[0], xAxis, yAxis, continent));
             countryMapDataList.add(countryDataList);
         }
         this.addAdjacentCountriesToCountry(countryMapDataList);
@@ -138,62 +195,7 @@ public class MapBuilder {
 
     }
 
-    public void createOrUpdateContinent(String continentName, int controlValue) {
-        ContinentModel continent = gameCommon.getContinentModelFromList(gameModel.getContinents(), continentName);
-        if (continent == null) {
-            continent = new ContinentModel(continentName, controlValue);
-        } else {
-            ContinentModel theContinent = gameModel.getContinents().get(gameModel.getContinents().indexOf(continent));
-            theContinent.setControlValue(controlValue);
-        }
-    }
-
-    public void addNewCountry(String countryName, int xCoordinate, int yCoordinate, String continentName)
-            throws GameException {
-        if (gameCommon.getCountryModelFromList(gameModel.getCountries(), countryName) != null) {
-            throw new GameException("Country already exists");
-        }
-        gameModel.addCountry(new CountryModel(countryName, xCoordinate, yCoordinate,
-                gameCommon.getContinentModelFromList(gameModel.getContinents(), continentName)));
-    }
-
-    public void removeCountry(String countryName) throws GameException {
-        CountryModel country = gameCommon.getCountryModelFromList(gameModel.getCountries(), countryName);
-        if (country == null) {
-            throw new GameException("Country [" + countryName + "] does not exist");
-        }
-        gameModel.getCountries().remove(country);
-    }
-
-    public void updateCountry(String countryName, int xAxis, int yAxis, String continentName) throws GameException {
-        CountryModel country = gameCommon.getCountryModelFromList(gameModel.getCountries(), countryName);
-        if (country == null) {
-            throw new GameException("Country [" + countryName + "] does not exist");
-        } else {
-            CountryModel theCountry = gameModel.getCountries().get(gameModel.getCountries().indexOf(country));
-            theCountry.setxAxis(xAxis);
-            theCountry.setyAxis(yAxis);
-        }
-    }
-
-    public void assignCountryToContinent(String countryName, String continentName) throws GameException {
-        ContinentModel continent = gameCommon.getContinentModelFromList(gameModel.getContinents(), continentName);
-        CountryModel country = gameCommon.getCountryModelFromList(gameModel.getCountries(), countryName);
-        if (country == null) {
-            throw new GameException("Country [" + countryName + "] does not exist");
-        }
-        if (continent == null) {
-            throw new GameException("Continent [" + continentName + "] does not exist");
-        }
-        ContinentModel theContinent = gameModel.getContinents().get(gameModel.getContinents().indexOf(continent));
-        theContinent.addCountry(country);
-    }
-
-    public void addAdjacentCountries() {
-
-    }
-
-    private int validateContinentData(int initial, int last) {
+    public int validateContinentData(int initial, int last) {
         for (int index = initial + 1; index < last; index++) {
             String continentData = mapDataList.get(index);
             String[] continentDataList = continentData.split(GameConstants.CONTINENT_DATA_SPLITTER);
@@ -205,7 +207,7 @@ public class MapBuilder {
         return -1;
     }
 
-    private int validateCountryData(int initial, int last) {
+    public int validateCountryData(int initial, int last) {
         for (int index = initial + 1; index < last; index++) {
             String countryMapLine = mapDataList.get(index);
             String[] countryDataList = countryMapLine.split(GameConstants.COUNTRY_DATA_SPLITTER);
@@ -224,14 +226,14 @@ public class MapBuilder {
         return -1;
     }
 
-    private boolean validateIfContinentExists(String continentName) {
+    public boolean validateIfContinentExists(String continentName) {
         if (gameCommon.getContinentModelFromList(gameModel.getContinents(), continentName) != null) {
             return true;
         }
         return false;
     }
 
-    private boolean validateIfCountriesAreAdjacent() {
+    public boolean validateIfCountriesAreAdjacent() {
         ArrayList<String> countries = gameCommon.getCountryList(gameModel.getCountries());
         int[][] countryAdjacencyValidation = new int[gameModel.getCountries().size()][gameModel.getCountries().size()];
         //filling countryAdjacencyValidation;
@@ -260,7 +262,7 @@ public class MapBuilder {
         return true;
     }
 
-    private boolean validateContinentsAreAdjacent() {
+    public boolean validateContinentsAreAdjacent() {
         int[] areAdjacent = new int[gameModel.getContinents().size()];
         for (int i = 0; i < gameModel.getContinents().size(); i++) {
             ArrayList<String> continentCountries = gameCommon.getCountryList(gameModel.getContinents().get(i).getCountries());
@@ -281,7 +283,6 @@ public class MapBuilder {
     }
 
     public boolean validateCountriesBelongToOneContinent() {
-
         for (int i = 0; i < gameModel.getContinents().size() - 1; i++) {
             List<String> fromCountryNames = gameModel.getContinents().get(i).getCountries().stream()
                     .map(c -> c.getCountryName()).collect(Collectors.toList());
@@ -298,4 +299,13 @@ public class MapBuilder {
         }
         return true;
     }
+
+    public boolean validateContinentHasMinimumOneCountry() {
+        for (int i = 0; i < gameModel.getContinents().size(); i++) {
+            if (gameModel.getContinents().get(i).getCountries().size() == 0)
+                return false;
+        }
+        return true;
+    }
+
 }
