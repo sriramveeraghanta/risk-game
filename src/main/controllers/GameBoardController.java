@@ -1,51 +1,104 @@
 package main.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import main.models.GameModel;
 import main.models.PlayerModel;
+import main.utills.GameCommons;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameBoardController {
 
-    public GameModel gameModel;
+    private GameModel gameModel;
+
+    private ArrayList playerLabelList = new ArrayList();
 
     @FXML
-    public ListView<String> playersListView;
+    public FlowPane playerListPanel;
+    @FXML
+    public Button attackButton, fortifyButton, reinforceButton;
 
     public GameBoardController() {
     }
 
-    public GameModel getGameModel() {
+    private GameModel getGameModel() {
         return gameModel;
     }
 
-    public void setGameModel(GameModel gameModel) {
+    void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
         this.initData();
     }
 
     private void initData() {
         System.out.println(getGameModel());
+
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-        ArrayList<String> playersListStrings = new ArrayList<>();
 
         for (int i = 0; i < playerModelsList.size(); i++) {
-            System.out.println(playerModelsList.get(i));
-            playersListStrings.add("Player_"+playerModelsList.get(i).getColor().toString());
+            System.out.println(playerListPanel);
+            GameCommons gameCommons = new GameCommons();
+            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
+            playerLabel.setTextFill(Color.WHITE);
+            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+            playerLabelList.add(playerLabel);
+            playerListPanel.getChildren().add(playerLabel);
+        }
+    }
+
+
+    @FXML
+    private void attackPhase() {
+
+        // Creating an Attack Phase
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
+            Parent LoadGamePanel = loader.load();
+            AttackPhaseDialogController attackPhaseDialogController = loader.getController();
+            attackPhaseDialogController.setGameModel(this.gameModel);
+            stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        ObservableList<String> playersList = FXCollections.observableList(playersListStrings);
-        playersListView.setOrientation(Orientation.HORIZONTAL);
-        playersListView.getItems().setAll(playersList);
-        playersListView.setMouseTransparent(true);
-        playersListView.setFocusTraversable(false);
 
     }
+
+    @FXML
+    private  void fortifyPhase() {
+        // Creating an Fortify Dialog Phase
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FortifyView.fxml"));
+            Parent LoadGamePanel = loader.load();
+            AttackPhaseDialogController attackPhaseDialogController = loader.getController();
+            attackPhaseDialogController.setGameModel(this.gameModel);
+            stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void reinforcementPhase() {
+
+    }
+
 
 
 }

@@ -1,5 +1,6 @@
 package main.utills;
 
+import javafx.scene.paint.Color;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 
@@ -52,4 +53,21 @@ public class GameCommons {
         return continents;
     }
 
+    public Color getFXColor(String color) {
+        if(color.equals("BLACK")) {
+            return Color.BLACK;
+        } else if(color.equals("BLUE")){
+            return Color.BLUE;
+        }else if(color.equals("GREEN")){
+            return Color.GREEN;
+        } else if(color.equals("PINK")){
+            return Color.PINK;
+        }else if(color.equals("RED")){
+            return Color.RED;
+        }else if(color.equals("YELLOW")){
+            return Color.YELLOW;
+        } else {
+            return Color.GREY;
+        }
+    }
 }

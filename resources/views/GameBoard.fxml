@@ -6,9 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.GameBoardController">
    <children>
-      <ListView fx:id="playersListView" layoutX="12.0" layoutY="14.0" prefHeight="58.0" prefWidth="572.0" />
+      <FlowPane fx:id="playerListPanel" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="571.0" />
+      <Pane layoutX="14.0" layoutY="71.0" prefHeight="314.0" prefWidth="166.0">
+         <children>
+            <Button fx:id="attackButton" layoutX="54.0" layoutY="30.0" mnemonicParsing="false" onAction="#attackPhase" text="Attack" />
+            <Button fx:id="fortifyButton" layoutX="54.0" layoutY="75.0" mnemonicParsing="false" onAction="#fortifyPhase" text="Fortify" />
+            <Button fx:id="reinforceButton" layoutX="45.0" layoutY="120.0" mnemonicParsing="false" onAction="#reinforcementPhase" text="Reinforce" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
