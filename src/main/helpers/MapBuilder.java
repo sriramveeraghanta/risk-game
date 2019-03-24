@@ -234,7 +234,7 @@ public class MapBuilder {
     }
 
     public boolean validateIfCountriesAreAdjacent() {
-        ArrayList<String> countries = gameCommon.getCountryList(gameModel.getCountries());
+        ArrayList<String> countries = gameCommon.getCountriesList(gameModel.getCountries());
         int[][] countryAdjacencyValidation = new int[gameModel.getCountries().size()][gameModel.getCountries().size()];
         //filling countryAdjacencyValidation;
         for (int i = 0; i < gameModel.getCountries().size(); i++) {
@@ -265,10 +265,10 @@ public class MapBuilder {
     public boolean validateContinentsAreAdjacent() {
         int[] areAdjacent = new int[gameModel.getContinents().size()];
         for (int i = 0; i < gameModel.getContinents().size(); i++) {
-            ArrayList<String> continentCountries = gameCommon.getCountryList(gameModel.getContinents().get(i).getCountries());
+            ArrayList<String> continentCountries = gameCommon.getCountriesList(gameModel.getContinents().get(i).getCountries());
             ContinentModel continent = gameModel.getContinents().get(i);
             for (CountryModel country : continent.getCountries()) {
-                ArrayList<String> adjacentCountries = gameCommon.getCountryList(country.getAdjcentCountries());
+                ArrayList<String> adjacentCountries = gameCommon.getCountriesList(country.getAdjcentCountries());
                 if (!continentCountries.containsAll(adjacentCountries)) {
                     areAdjacent[i] = +1;
                 }

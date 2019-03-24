@@ -43,19 +43,18 @@ public class GameBoardController {
     }
 
     private void initData() {
-        System.out.println(getGameModel());
-
+        //System.out.println(getGameModel());
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-        gameModel.setCurrentIndex(0);
+        gameModel.setCurrentPlayerIndex(0);
         for (int i = 0; i < playerModelsList.size(); i++) {
-            System.out.println(playerListPanel);
+            //System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
             Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
             playerLabel.setTextFill(Color.WHITE);
             playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
             playerLabelList.add(playerLabel);
             playerListPanel.getChildren().add(playerLabel);
-            lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
+            lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
         }
     }
 
@@ -69,7 +68,7 @@ public class GameBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel,gameModel.getPlayers().get(gameModel.getCurrentIndex()));
+            attackPhaseDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.setResizable(false);
             stage.show();
@@ -77,8 +76,6 @@ public class GameBoardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML
@@ -117,13 +114,13 @@ public class GameBoardController {
 
     @FXML
     private void getNextPlayer(){
-        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentIndex()+1){
-            gameModel.setCurrentIndex(0);
+        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){
+            gameModel.setCurrentPlayerIndex(0);
         }
         else{
-            gameModel.setCurrentIndex(gameModel.getCurrentIndex()+1);
+            gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
         }
-        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
+        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
 

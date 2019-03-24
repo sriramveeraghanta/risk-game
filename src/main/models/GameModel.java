@@ -13,7 +13,7 @@ public class GameModel {
     private ArrayList<ContinentModel> continents = new ArrayList<>();
     private ArrayList<CountryModel> countries = new ArrayList<>();
     private ArrayList<CardModel> cards = new ArrayList<>();
-    private int currentIndex;
+    private int currentPlayerIndex;
 
     public GameModel() {
 
@@ -107,11 +107,11 @@ public class GameModel {
         this.players = players;
     }
 
-    public int getCurrentIndex() {
-        return currentIndex;
+    public int getCurrentPlayerIndex() {
+        return currentPlayerIndex;
     }
 
-    public void setCurrentIndex(int currentIndex) {
-        this.currentIndex = currentIndex;
+    public void setCurrentPlayerIndex(int currentPlayerIndex) {
+        this.currentPlayerIndex = currentPlayerIndex;
     }
 }
