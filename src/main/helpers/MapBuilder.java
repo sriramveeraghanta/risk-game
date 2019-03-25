@@ -52,7 +52,6 @@ public class MapBuilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         loadContinentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"));
         loadCountryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size());
 
@@ -266,7 +265,6 @@ public class MapBuilder {
 
     public boolean validateContinentsAreAdjacent() {
         int[] areAdjacent = new int[gameModel.getContinents().size()];
-        System.out.println(gameModel.getContinents().size());
         for (int i = 0; i < gameModel.getContinents().size(); i++) {
             ArrayList<String> continentCountries = gameCommon.getCountryList(gameModel.getContinents().get(i).getCountries());
             ContinentModel continent = gameModel.getContinents().get(i);
