@@ -28,7 +28,7 @@ public class GameBoardController {
     @FXML
     public Button attackButton, fortifyButton, reinforceButton;
     @FXML
-    private Label lblCurrentPlayerName;
+    private Label currentPlayerLabel;
 
     public GameBoardController() {
     }
@@ -49,15 +49,20 @@ public class GameBoardController {
         for (int i = 0; i < playerModelsList.size(); i++) {
             //System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
+            // creating label
             Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
             playerLabel.setTextFill(Color.WHITE);
             playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+            // Assigning to the list
             playerLabelList.add(playerLabel);
             playerListPanel.getChildren().add(playerLabel);
-            lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
-        }
-    }
 
+
+        }
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+    }
 
     @FXML
     private void attackPhase() {
@@ -120,7 +125,7 @@ public class GameBoardController {
         else{
             gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
         }
-        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
 

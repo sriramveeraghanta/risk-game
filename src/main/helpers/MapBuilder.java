@@ -62,7 +62,7 @@ public class MapBuilder {
             isValid++;
         }
 
-        if(!validateContinentHasMinimumOneCountry()){
+        if (!validateContinentHasMinimumOneCountry()) {
             System.out.println("A Continent should have at least one Country");
             isValid++;
         }
@@ -159,7 +159,9 @@ public class MapBuilder {
             if (continent == null) {
                 throw new GameException("Invalid Continent name at line number: [" + (index + 1) + "]");
             }
-            gameModel.addCountry(new CountryModel(countryDataList[0], xAxis, yAxis, continent));
+            CountryModel newCountry = new CountryModel(countryDataList[0], xAxis, yAxis, continent);
+            gameModel.addCountry(newCountry);
+            continent.addCountry(newCountry);
             countryMapDataList.add(countryDataList);
         }
         this.addAdjacentCountriesToCountry(countryMapDataList);

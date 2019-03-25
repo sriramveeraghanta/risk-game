@@ -157,7 +157,7 @@ public class AttackPhase {
      * @param winnerPlayer
      * @param loserPlayer
      */
-    private void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
+    public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
         if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
             if (loserPlayer.getDeck() != null || loserPlayer.getDeck().size() > 0) {
                 ArrayList<CardModel> winnerDeck = winnerPlayer.getDeck();
