@@ -146,7 +146,7 @@ public class StartupPhase {
         for (PlayerModel player : playersList) {
             reinforcementPhase = new ReinforcementPhase(player, gameModel);
             for (CountryModel country : player.getCountries()) {
-                reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
+                reinforcementPhase.assignArmyUnitToCountry(country, 1);
             }
         }
     }

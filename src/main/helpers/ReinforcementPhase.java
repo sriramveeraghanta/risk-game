@@ -73,21 +73,18 @@ public class ReinforcementPhase {
     /**
      * assigning the number of armies which calculated to the country of the player
      *
-     * @param countryName   which country we want to place the armies
+     * @param country   which country we want to place the armies
      * @param numberOfUnits
      * @return boolean if it goes in catch it return false
      */
-    public boolean assignArmyUnitToCountry(String countryName, int numberOfUnits) {
+    public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
         List<CountryModel> countries = this.playerModel.getCountries();
-
-        CountryModel country = countries.stream().filter(c -> c.getCountryName().contentEquals(countryName))
-                .findFirst().get();
         try {
             if (this.playerModel.getNumberOfArmyUnitOnHand() > numberOfUnits) {
+                country.setNumberOfUnits(country.getNumberOfUnits()+1);
                 List<UnitModel> units = country.getArmyInCountry();
                 UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
                 soldier.setUnitNumber((country.getNumberOfUnits() + numberOfUnits));
-
                 this.playerModel.setNumberOfArmyUnitOnHand(this.playerModel.getNumberOfArmyUnitOnHand() - numberOfUnits);
             }
 
@@ -216,8 +213,6 @@ public class ReinforcementPhase {
      * @return number of the control value of the continent player can occupies all the countries
      */
     public int validateNewContinentOccupation() {
-
-
         int totalContinetValues = 0;
         for (ContinentModel continent : gameModel.getContinents()) {
 
@@ -236,7 +231,6 @@ public class ReinforcementPhase {
                 }
             }
         }
-
         return totalContinetValues;
     }
 

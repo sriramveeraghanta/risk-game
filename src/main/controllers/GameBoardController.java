@@ -2,13 +2,11 @@ package main.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.models.GameModel;
 import main.models.PlayerModel;
@@ -19,14 +17,16 @@ import java.util.ArrayList;
 
 public class GameBoardController {
 
+
     private GameModel gameModel;
 
-    private ArrayList playerLabelList = new ArrayList();
+
+    private ArrayList playerCardList = new ArrayList();
 
     @FXML
-    public FlowPane playerListPanel;
+    public TilePane playerListPanel;
     @FXML
-    public Button attackButton, fortifyButton, reinforceButton;
+    public Button attackButton, fortifyButton, reinforceButton, nextPlayerButton;
     @FXML
     private Label currentPlayerLabel;
 
@@ -37,12 +37,12 @@ public class GameBoardController {
         return gameModel;
     }
 
-    void setGameModel(GameModel gameModel) {
+    void setGameModel(GameModel gameModel) throws IOException {
         this.gameModel = gameModel;
         this.initData();
     }
 
-    private void initData() {
+    private void initData() throws IOException {
         //System.out.println(getGameModel());
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
         gameModel.setCurrentPlayerIndex(0);
@@ -50,16 +50,19 @@ public class GameBoardController {
             //System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
             // creating label
-            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
-            playerLabel.setTextFill(Color.WHITE);
-            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+//            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
+//            playerLabel.setTextFill(Color.WHITE);
+//            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 
-
+            // Player Card
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerCard.fxml"));
+            Parent playerCard = loader.load();
+            PlayerCardController playerCardController = loader.getController();
+            playerCardController.setPlayerModel(playerModelsList.get(i));
             // Assigning to the list
-            playerLabelList.add(playerLabel);
-            playerListPanel.getChildren().add(playerLabel);
-
-
+            playerCardList.add(playerCard);
+            // Appending to the Flow pane
+            playerListPanel.getChildren().add(playerCard);
         }
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
