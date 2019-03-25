@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class PlayerModel {
 
     private EnumHandler.Color color;
-    private ArrayList<CountryModel> countriesList = new ArrayList<>();
-    private ArrayList<ContinentModel> continentsList= new ArrayList<>();
-    private ArrayList<UnitModel> army= new ArrayList<>();
-    private ArrayList<CardModel> deck= new ArrayList<>();
+    private ArrayList<CountryModel> countiresList = new ArrayList<CountryModel>();
+    private ArrayList<ContinentModel> continentsList=new ArrayList<ContinentModel>();
+    private ArrayList<UnitModel> army = new ArrayList<UnitModel>();
+    private ArrayList<CardModel> deck = new ArrayList<CardModel>();
     private boolean isActive;
     private int successfullCardSwapCounter;
     private int numberOfArmyUnitOnHand;
@@ -71,14 +71,14 @@ public class PlayerModel {
      * @return the countryModels
      */
     public ArrayList<CountryModel> getCountries() {
-        return countriesList;
+        return countiresList;
     }
 
     /**
      * @param countiresList the countryModels to set
      */
     public void setCountries(ArrayList<CountryModel> countiresList) {
-        this.countriesList = countiresList;
+        this.countiresList = countiresList;
     }
 
     /**
@@ -113,16 +113,16 @@ public class PlayerModel {
         if (this.getCountries() == null) {
             this.setCountries(new ArrayList<CountryModel>());
         }
-        this.countriesList = this.getCountries();
-        this.countriesList.add(country);
-        this.setCountries(countriesList);
+        this.countiresList = this.getCountries();
+        this.countiresList.add(country);
+        this.setCountries(countiresList);
     }
 
     public void removeCountryFromPlayer(CountryModel country) {
         if (this.getCountries() != null) {
-            this.countriesList = this.getCountries();
-            this.countriesList.remove(country);
-            this.setCountries(countriesList);
+            this.countiresList = this.getCountries();
+            this.countiresList.remove(country);
+            this.setCountries(countiresList);
         }
     }
 

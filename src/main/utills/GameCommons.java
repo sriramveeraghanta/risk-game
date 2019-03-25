@@ -23,17 +23,27 @@ public class GameCommons {
 
     public ContinentModel getContinentModelFromList(ArrayList<ContinentModel> continentList, String continentName) {
         ContinentModel continentModel = null;
-        continentModel = continentList.stream()
-                .filter(continent -> continent.getContinentName().contentEquals(continentName))
-                .findFirst().get();
+        try {
+            continentModel = continentList.stream()
+                    .filter(continent -> continent.getContinentName().contentEquals(continentName))
+                    .findFirst().get();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         return continentModel;
     }
 
     public CountryModel getCountryModelFromList(ArrayList<CountryModel> countriesList, String countryName) {
         CountryModel countryModel = null;
-        countryModel = countriesList.stream()
-                .filter(country -> country.getCountryName().contentEquals(countryName))
-                .findFirst().get();
+        try {
+            countryModel = countriesList.stream()
+                    .filter(country -> country.getCountryName().contentEquals(countryName))
+                    .findFirst().get();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         return countryModel;
     }
 

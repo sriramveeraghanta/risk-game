@@ -5,6 +5,7 @@ import main.models.PlayerModel;
 import main.models.UnitModel;
 import main.utills.EnumHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FortificationPhase {
@@ -43,7 +44,14 @@ public class FortificationPhase {
      */
     public String swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits) {
         List<CountryModel> countries = this.getPlayerModel().getCountries();
-
+ for(CountryModel country1 : countries){
+     System.out.println("countryName:"+country1.getCountryName());
+     List<UnitModel> unitss=new ArrayList<UnitModel>();
+     unitss=country1.getArmyInCountry();
+     for(UnitModel uni : unitss) {
+         System.out.println("armyUnit:" + uni.getType());
+     }
+ }
         CountryModel fromCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(fromCountryName))
                 .findFirst().get();
         CountryModel toCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(toCountryName))
@@ -54,6 +62,7 @@ public class FortificationPhase {
         } else {
             /// from Country;
             List<UnitModel> units = fromCountry.getArmyInCountry();
+            System.out.println("Unit Size:"+units.size());
             UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst()
                     .get();
             soldier.setUnitNumber((fromCountry.getNumberOfUnits() - numberOfArmyUnits));

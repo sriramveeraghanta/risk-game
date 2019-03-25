@@ -52,7 +52,6 @@ public class MapBuilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         loadContinentMapData(mapDataList.indexOf("[Continents]"), mapDataList.indexOf("[Territories]"));
         loadCountryMapData(mapDataList.indexOf("[Territories]"), mapDataList.size());
 
@@ -283,6 +282,7 @@ public class MapBuilder {
         }
         return true;
     }
+
 
     public boolean validateCountriesBelongToOneContinent() {
         for (int i = 0; i < gameModel.getContinents().size() - 1; i++) {
