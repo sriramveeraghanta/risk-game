@@ -103,7 +103,7 @@ public class ReinforcementPhase {
      *
      * @return the number of units he can get for similar cards
      */
-    private int getNumberOfSimilarCards() {
+    public int getNumberOfSimilarCards() {
         int numberOfUnits = 0;
         int infantryCardNumber = 0;
         int artilaryCardNumber = 0;
@@ -127,7 +127,6 @@ public class ReinforcementPhase {
         if (cavalaryCardNumber / 3 > 0) {
             setPlayerDeckByCardType(cards, EnumHandler.UnitType.CAVALRY);
         }
-
         return numberOfUnits;
     }
 
@@ -136,7 +135,7 @@ public class ReinforcementPhase {
      *
      * @return the number of units he can get for different cards
      */
-    private int getNumberOfDifferentCards() {
+    public int getNumberOfDifferentCards() {
         int numberOfUnits = 0;
         int infantryCardNumber = 0;
         int artilaryCardNumber = 0;
@@ -166,7 +165,7 @@ public class ReinforcementPhase {
      * @param unitType getting the unit type and return the number of it
      * @return the number of specific card type
      */
-    private int getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
+    public int getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
         try {
             CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
                     .get();
@@ -186,7 +185,7 @@ public class ReinforcementPhase {
      * @param cards    a list of cards
      * @param unitType which is the type of cards
      */
-    private void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
+    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
         CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
                 .get();
         if (card != null) {
@@ -201,7 +200,7 @@ public class ReinforcementPhase {
      * @param unitType     which is the type of cards
      * @param numbeOfUnits the number of each card type player has
      */
-    private void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType, int numbeOfUnits) {
+    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType, int numbeOfUnits) {
         CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
                 .get();
         if (card != null) {
@@ -215,9 +214,7 @@ public class ReinforcementPhase {
      *
      * @return number of the control value of the continent player can occupies all the countries
      */
-    private int validateNewContinentOccupation() {
-
-
+    public int validateNewContinentOccupation() {
         int totalContinetValues = 0;
         for (ContinentModel continent : gameModel.getContinents()) {
 
@@ -247,13 +244,11 @@ public class ReinforcementPhase {
      * @param countries a list of countries player own
      * @return if player can get whole continent return true
      */
-    private boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent,
+    public boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent,
                                                                     List<CountryModel> countries) {
         List<String> continentCountryNames = continent.getCountries().stream().map(c -> c.getCountryName())
                 .collect(Collectors.toList());
         List<String> countryNames = countries.stream().map(c -> c.getCountryName()).collect(Collectors.toList());
-        if (continentCountryNames.size() == 0 || countryNames.size() == 0)
-            return false;
         if (countryNames.containsAll(continentCountryNames)) {
             return true;
         }
