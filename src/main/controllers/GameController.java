@@ -86,13 +86,13 @@ public class GameController {
         System.out.println(gameModel.getPlayers());
 
         // Creating an Game Board
-        Stage stage = (Stage) newGameButton.getScene().getWindow();
+        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GameBoard.fxml"));
-        Parent LoadGamePanel = loader.load();
+        Parent GameBoardPanel = loader.load();
         GameBoardController gameBoardController = loader.getController();
         gameBoardController.setGameModel(this.gameModel);
-        stage.setScene(new Scene(LoadGamePanel, 1280, 768));
-        stage.setResizable(false);
+        stage.setScene(new Scene(GameBoardPanel, 1280, 768));
+        //stage.setResizable(false);
         stage.show();
     }
 

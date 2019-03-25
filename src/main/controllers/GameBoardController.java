@@ -2,13 +2,11 @@ package main.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.models.GameModel;
 import main.models.PlayerModel;
@@ -19,16 +17,18 @@ import java.util.ArrayList;
 
 public class GameBoardController {
 
+
     private GameModel gameModel;
 
-    private ArrayList playerLabelList = new ArrayList();
+
+    private ArrayList playerCardList = new ArrayList();
 
     @FXML
-    public FlowPane playerListPanel;
+    public TilePane playerListPanel;
     @FXML
-    public Button attackButton, fortifyButton, reinforceButton;
+    public Button attackButton, fortifyButton, reinforceButton, nextPlayerButton;
     @FXML
-    private Label lblCurrentPlayerName;
+    private Label currentPlayerLabel;
 
     public GameBoardController() {
     }
@@ -37,28 +37,35 @@ public class GameBoardController {
         return gameModel;
     }
 
-    void setGameModel(GameModel gameModel) {
+    void setGameModel(GameModel gameModel) throws IOException {
         this.gameModel = gameModel;
         this.initData();
     }
 
-    private void initData() {
-        System.out.println(getGameModel());
-
+    private void initData() throws IOException {
+        //System.out.println(getGameModel());
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-        gameModel.setCurrentIndex(0);
+        gameModel.setCurrentPlayerIndex(0);
         for (int i = 0; i < playerModelsList.size(); i++) {
-            System.out.println(playerListPanel);
+            //System.out.println(playerListPanel);
             GameCommons gameCommons = new GameCommons();
-            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
-            playerLabel.setTextFill(Color.WHITE);
-            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-            playerLabelList.add(playerLabel);
-            playerListPanel.getChildren().add(playerLabel);
-        }
-        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
-    }
+            // creating label
+//            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
+//            playerLabel.setTextFill(Color.WHITE);
+//            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 
+            // Player Card
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerCard.fxml"));
+            Parent playerCard = loader.load();
+            PlayerCardController playerCardController = loader.getController();
+            playerCardController.setPlayerModel(playerModelsList.get(i));
+            // Assigning to the list
+            playerCardList.add(playerCard);
+            // Appending to the Flow pane
+            playerListPanel.getChildren().add(playerCard);
+        }
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+    }
 
     @FXML
     private void attackPhase() {
@@ -69,7 +76,7 @@ public class GameBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel,gameModel.getPlayers().get(gameModel.getCurrentIndex()));
+            attackPhaseDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.setResizable(false);
             stage.show();
@@ -77,8 +84,6 @@ public class GameBoardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML
@@ -117,13 +122,13 @@ public class GameBoardController {
 
     @FXML
     private void getNextPlayer(){
-        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentIndex()+1){
-            gameModel.setCurrentIndex(0);
+        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){
+            gameModel.setCurrentPlayerIndex(0);
         }
         else{
-            gameModel.setCurrentIndex(gameModel.getCurrentIndex()+1);
+            gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
         }
-        lblCurrentPlayerName.setText(gameModel.getPlayers().get(gameModel.getCurrentIndex()).getColor().toString());
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
 

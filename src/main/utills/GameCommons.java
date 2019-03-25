@@ -47,7 +47,7 @@ public class GameCommons {
         return countryModel;
     }
 
-    public ArrayList<String> getCountryList(ArrayList<CountryModel> countryList) {
+    public ArrayList<String> getCountriesList(ArrayList<CountryModel> countryList) {
         ArrayList<String> countries = new ArrayList<String>();
         for (CountryModel country : countryList) {
             countries.add(country.getCountryName());
@@ -79,5 +79,16 @@ public class GameCommons {
         } else {
             return Color.GREY;
         }
+    }
+
+    public ArrayList<CountryModel> getAttackerAdjcentCountires(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
+        ArrayList<CountryModel> adjacentList = new ArrayList<>();
+
+        for(CountryModel country: adjcentCountries) {
+            if(!playerCountries.contains(country)){
+                adjacentList.add(country);
+            }
+        }
+        return adjacentList;
     }
 }

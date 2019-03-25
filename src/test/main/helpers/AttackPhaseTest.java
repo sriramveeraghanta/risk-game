@@ -23,7 +23,7 @@ import static junit.framework.Assert.assertTrue;
 * @since <pre>Mar 24, 2019</pre> 
 * @version 1.0 
 */ 
-public class AttackPhaseTest { 
+public class AttackPhaseTest {
     PlayerModel attackerPlayer;
     PlayerModel defenderPlayer;
     CountryModel attackerCountry;
@@ -58,7 +58,7 @@ public void before() throws Exception {
     playerList.add(attackerPlayer);
     playerList.add(defenderPlayer);
     gameModel.setPlayers(playerList);
-    attackPhase = new AttackPhase(attackerPlayer, gameModel, "Alaska", "Alberta");
+    attackPhase = new AttackPhase(gameModel, attackerCountry, defenderCountry);
 } 
 
 @After
@@ -130,10 +130,10 @@ public void testSetcountryDefender() throws Exception {
 * Method: checkIfPlayerCanAttackCountry() 
 * 
 */ 
-@Test
-public void testCheckIfPlayerCanAttackCountry() throws Exception { 
-    assertTrue(attackPhase.checkIfPlayerCanAttackCountry());
-} 
+//@Test
+//public void testCheckIfPlayerCanAttackCountry() throws Exception {
+//    assertTrue(attackPhase.checkIfPlayerCanAttackCountry());
+//}
 
 /** 
 * 

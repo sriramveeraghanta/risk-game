@@ -31,7 +31,6 @@ public class StartupPhase {
      * countries,armies,Color
      *
      */
-
     public void initiatePlayers(int playerCount) {
         this.numberOfPlayers = playerCount;
         // setting number of players count to game model
@@ -147,7 +146,7 @@ public class StartupPhase {
         for (PlayerModel player : playersList) {
             reinforcementPhase = new ReinforcementPhase(player, gameModel);
             for (CountryModel country : player.getCountries()) {
-                reinforcementPhase.assignArmyUnitToCountry(country.getCountryName(), 1);
+                reinforcementPhase.assignArmyUnitToCountry(country, 1);
             }
         }
     }
