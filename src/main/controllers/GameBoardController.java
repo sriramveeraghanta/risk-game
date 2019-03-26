@@ -8,9 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.models.ContinentModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class GameBoardController {
     private ArrayList playerCardList = new ArrayList();
 
     @FXML
-    public TilePane playerListPanel;
+    public TilePane playerListPanel, mapInfoPanel;
     @FXML
     public Button attackButton, fortifyButton, reinforceButton, nextPlayerButton;
     @FXML
@@ -63,21 +63,37 @@ public class GameBoardController {
      */
     private void initData() throws IOException {
         //System.out.println(getGameModel());
-        ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
         gameModel.setCurrentPlayerIndex(0);
-        for (int i = 0; i < playerModelsList.size(); i++) {
-            //System.out.println(playerListPanel);
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+        this.renderPlayersInfo();
+        this.renderMapInfo();
+    }
+
+    private void renderMapInfo() throws IOException {
+        ArrayList<ContinentModel> continents = getGameModel().getContinents();
+        for(ContinentModel continent: continents) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ContinentInfo.fxml"));
+            Parent continentInfoPanel = loader.load();
+            ContinentInfoController continentInfoController = loader.getController();
+            continentInfoController.setContinentModel(continent);
+            mapInfoPanel.getChildren().add(continentInfoPanel);
+        }
+    }
+
+    private void renderPlayersInfo() throws IOException {
+        ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
+        for (PlayerModel player: playerModelsList) {
+            System.out.println(player);
             // Player Card
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerInfo.fxml"));
             Parent playerCard = loader.load();
-            PlayerCardController playerCardController = loader.getController();
-            playerCardController.setPlayerModel(playerModelsList.get(i));
+            PlayerInfoController playerInfoController = loader.getController();
+            playerInfoController.setPlayerModel(player);
             // Assigning to the list
             playerCardList.add(playerCard);
             // Appending to the Flow pane
             playerListPanel.getChildren().add(playerCard);
         }
-        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
     /**

@@ -16,7 +16,7 @@ import main.utills.GameCommons;
 /**
  * This class is the controller of player cards
  */
-public class PlayerCardController {
+public class PlayerInfoController {
 
     public PlayerModel playerModel;
 
@@ -25,7 +25,7 @@ public class PlayerCardController {
     @FXML
     public TableView playerTableView;
     @FXML
-    public TableColumn countryNameTableColumn, unitsCountTableColumn;
+    public TableColumn playerCountryNameTableColumn, unitsCountTableColumn;
 
     /**
      * Setter method to set the player model
@@ -40,7 +40,7 @@ public class PlayerCardController {
 
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.playerModel.getCountries());
 
-        countryNameTableColumn.setCellValueFactory(
+        playerCountryNameTableColumn.setCellValueFactory(
                 new PropertyValueFactory<CountryModel, String>("countryName"));
 
         unitsCountTableColumn.setCellValueFactory(
