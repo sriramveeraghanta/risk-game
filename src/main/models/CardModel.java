@@ -37,6 +37,7 @@ public class CardModel {
     }
 
     /**
+     * getting the number of cards
      * @return the cardType
      */
     public EnumHandler.CardType getCardType() {
@@ -44,6 +45,7 @@ public class CardModel {
     }
 
     /**
+     * stting the number of cards
      * @param cardType the cardType to set
      */
     public void setCardType(EnumHandler.CardType cardType) {
