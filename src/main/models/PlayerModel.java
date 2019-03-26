@@ -7,37 +7,33 @@ import java.util.ArrayList;
 public class PlayerModel {
 
     private EnumHandler.Color color;
-    private ArrayList<CountryModel> countiresList = new ArrayList<CountryModel>();
-    private ArrayList<ContinentModel> continentsList=new ArrayList<ContinentModel>();
-    private ArrayList<UnitModel> army = new ArrayList<UnitModel>();
-    private ArrayList<CardModel> deck = new ArrayList<CardModel>();
     private boolean isActive;
-    private int successfullCardSwapCounter;
-    private int numberOfArmyUnitOnHand;
+    private int successfulCardSwapCounter;
+    private UnitModel armyInHand;
+    private ArrayList<CardModel> deck = new ArrayList<>();
+    private ArrayList<CountryModel> countriesList = new ArrayList<>();
+    private ArrayList<ContinentModel> continentsList=new ArrayList<>();
 
     /**
      *
      */
-    public PlayerModel(EnumHandler.Color color) {
-        this.setColor(color);
-        this.setActive(true);
+    public PlayerModel() {
+
     }
 
     /**
-     * @return the numberOfArmyUnitOnHand
+     * @return the armyInHand
      */
-    public int getNumberOfArmyUnitOnHand() {
-        return numberOfArmyUnitOnHand;
+    public UnitModel getArmyInHand() {
+        return armyInHand;
     }
 
     /**
-     * @param numberOfArmyUnitOnHand the numberOfArmyUnitOnHand to set
+     * @param armyInHand the armyInHand to set
      */
-    public void setNumberOfArmyUnitOnHand(int numberOfArmyUnitOnHand) {
-        this.numberOfArmyUnitOnHand = numberOfArmyUnitOnHand;
+    public void setArmyInHand(UnitModel armyInHand) {
+        this.armyInHand = armyInHand;
     }
-
-
 
     /**
      * @return the isActive
@@ -68,17 +64,45 @@ public class PlayerModel {
     }
 
     /**
+     * @return the deck
+     */
+    public ArrayList<CardModel> getDeck() {
+        return deck;
+    }
+
+    /**
+     * @param deck the deck to set
+     */
+    public void setDeck(ArrayList<CardModel> deck) {
+        this.deck = deck;
+    }
+
+    /**
+     * @return the successfulCardSwapCounter
+     */
+    public int getSuccessfulCardSwapCounter() {
+        return successfulCardSwapCounter;
+    }
+
+    /**
+     * @param successfulCardSwapCounter the successfulCardSwapCounter to set
+     */
+    public void setSuccessfulCardSwapCounter(int successfulCardSwapCounter) {
+        this.successfulCardSwapCounter = successfulCardSwapCounter;
+    }
+
+    /**
      * @return the countryModels
      */
     public ArrayList<CountryModel> getCountries() {
-        return countiresList;
+        return countriesList;
     }
 
     /**
      * @param countiresList the countryModels to set
      */
     public void setCountries(ArrayList<CountryModel> countiresList) {
-        this.countiresList = countiresList;
+        this.countriesList = countiresList;
     }
 
     /**
@@ -95,63 +119,12 @@ public class PlayerModel {
         this.continentsList = continentsList;
     }
 
-    /**
-     * @return the army
-     */
-    public ArrayList<UnitModel> getArmy() {
-        return army;
-    }
-
-    /**
-     * @param army the army to set
-     */
-    public void setArmy(ArrayList<UnitModel> army) {
-        this.army = army;
-    }
-
-    public void addCountryToPlayer(CountryModel country) {
+    public void addCountry(CountryModel country) {
         if (this.getCountries() == null) {
-            this.setCountries(new ArrayList<CountryModel>());
+            this.setCountries(new ArrayList<>());
         }
-        this.countiresList = this.getCountries();
-        this.countiresList.add(country);
-        this.setCountries(countiresList);
+        this.countriesList = this.getCountries();
+        this.countriesList.add(country);
+        this.setCountries(countriesList);
     }
-
-    public void removeCountryFromPlayer(CountryModel country) {
-        if (this.getCountries() != null) {
-            this.countiresList = this.getCountries();
-            this.countiresList.remove(country);
-            this.setCountries(countiresList);
-        }
-    }
-
-    /**
-     * @return the deck
-     */
-    public ArrayList<CardModel> getDeck() {
-        return deck;
-    }
-
-    /**
-     * @param deck the deck to set
-     */
-    public void setDeck(ArrayList<CardModel> deck) {
-        this.deck = deck;
-    }
-
-    /**
-     * @return the successfullCardSwapCounter
-     */
-    public int getSuccessfullCardSwapCounter() {
-        return successfullCardSwapCounter;
-    }
-
-    /**
-     * @param successfullCardSwapCounter the successfullCardSwapCounter to set
-     */
-    public void setSuccessfullCardSwapCounter(int successfullCardSwapCounter) {
-        this.successfullCardSwapCounter = successfullCardSwapCounter;
-    }
-
 }

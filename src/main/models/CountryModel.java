@@ -10,12 +10,9 @@ public class CountryModel {
     private String countryName;
     private int xAxis;
     private int yAxis;
-    private int numberOfUnits;
-
     private ContinentModel assignedContinent;
-
-    private ArrayList<UnitModel> armyInCountry;
-    private ArrayList<CountryModel> adjcentCountries;
+    private UnitModel armyInCountry;
+    private ArrayList<CountryModel> adjacentCountries;
 
     /**
      * CountryModel constructor to create countryModel object for each initialisation
@@ -57,15 +54,6 @@ public class CountryModel {
         this.yAxis = yAxis;
     }
 
-    /**
-     * Getter and setter methods for Number of Units
-     * */
-    public int getNumberOfUnits() {
-        return numberOfUnits;
-    }
-    public void setNumberOfUnits(int numberOfUnits) {
-        this.numberOfUnits = numberOfUnits;
-    }
 
     /**
      * Getter and setter methods for Continent
@@ -80,29 +68,34 @@ public class CountryModel {
     /**
      * Getter and setter methods for
      * */
-    public ArrayList<UnitModel> getArmyInCountry() {
+    public UnitModel getArmyInCountry() {
         return armyInCountry;
     }
-    public void setArmyInCountry(ArrayList<UnitModel> armyInCountry) {
+    public void setArmyInCountry(UnitModel armyInCountry) {
         this.armyInCountry = armyInCountry;
     }
 
     /**
      * Getter and setter methods for Adjacent Countries
      * */
-    public ArrayList<CountryModel> getAdjcentCountries() {
-        return adjcentCountries;
+    public ArrayList<CountryModel> getAdjacentCountries() {
+        return adjacentCountries;
     }
-    public void setAdjcentCountries(ArrayList<CountryModel> adjcentCountries) {
-        this.adjcentCountries = adjcentCountries;
+    public void setAdjacentCountries(ArrayList<CountryModel> adjacentCountries) {
+        this.adjacentCountries = adjacentCountries;
     }
 
-    public void setArmy(ArrayList<UnitModel> army) {
-        this.armyInCountry = army;
-        List<UnitModel> armyList = this.armyInCountry;
-        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
-        if (soldier != null) {
-            setNumberOfUnits(soldier.getUnitNumber());
-        }
+    public void addUnitsToCountry(int unitsCount){
+        this.getArmyInCountry().setUnitCount(this.getArmyInCountry().getUnitCount() + unitsCount);
     }
+
+
+//    public void setArmy(ArrayList<UnitModel> army) {
+//        this.armyInCountry = army;
+//        List<UnitModel> armyList = this.armyInCountry;
+//        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
+//        if (soldier != null) {
+//            setNumberOfUnits(soldier.getUnitCount());
+//        }
+//    }
 }
