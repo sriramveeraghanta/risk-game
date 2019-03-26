@@ -7,6 +7,9 @@ import main.models.PlayerModel;
 
 import java.util.*;
 
+/**
+ * This class contains all of the methods that we need in attack phase
+ */
 public class AttackPhase {
 
     public PlayerModel attackingPlayer, defendingPlayer;
@@ -27,8 +30,8 @@ public class AttackPhase {
     }
 
     /**
-     * checking the number of dices which attacker can roll based on the number of
-     * armies for that country
+     * This method do all the processes it should be done in attacking phase like rolling dice check result
+     * @return the string which is a message that shws to the user if he lost or won
      */
     public String attackCountry(){
         ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberofAttackerDice());
@@ -62,8 +65,9 @@ public class AttackPhase {
     }
 
     /**
-     * checking the number of dices which attacker can roll based on the number of
-     * armies for that country
+     * this method getting the number of attacker dice and set and return the number of dices according to the
+     * player army in that specific country
+     * @return the number of dices according to the attacker army in that specific country
      */
     public int getNumberofAttackerDice() {
         if (attackingCountry.getNumberOfUnits() > 3) {
@@ -74,8 +78,9 @@ public class AttackPhase {
     }
 
     /**
-     * checking the number of dices which attacker can roll based on the number of
-     * armies for that country
+     * this method getting the number of defender dice and set and return the number of dices according to the
+     * player army in that specific country
+     * @return the number of dices according to the defender army in that specific country
      */
     public int getNumberofDefenderDice() {
         if (defendingCountry.getNumberOfUnits() >= 2) {
@@ -87,9 +92,8 @@ public class AttackPhase {
 
     /**
      * rolling the dice by getting the number of dices
-     *
-     * @param numberOfDice
-     * @return an array of dice face numbers which is sorted
+     * @param numberOfDice number of dices attacker or defender wants to roll
+     * @return an array list of dice face numbers which is sorted
      */
     public ArrayList<Integer> getAllDiceValues(int numberOfDice) {
         ArrayList<Integer> diceValues = new ArrayList<>();
@@ -105,7 +109,6 @@ public class AttackPhase {
 
     /**
      * assign the cards to the player (deck) by getting the player as the parameter
-     *
      * @param player
      */
     public void assignCardToPlayer(PlayerModel player) {
@@ -118,8 +121,7 @@ public class AttackPhase {
 
     /**
      * finding the defender player by getting the country name
-     *
-     * @param defendingCountry
+     * @param defendingCountry object of the defender country
      * @return the player who is defending
      */
     private PlayerModel getDefender(CountryModel defendingCountry) {
@@ -135,11 +137,10 @@ public class AttackPhase {
     }
 
     /**
-     * adding or removing the country to or from the countrylist after battle
-     *
-     * @param winnerPlayer
-     * @param loserPlayer
-     * @param lostCountry
+     * adding or removing the country to or from the countrylist after battle according to the result
+     * @param winnerPlayer object of the player who won
+     * @param loserPlayer object of the player who lost
+     * @param lostCountry object of the country which the loser lost it
      */
     private void assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, CountryModel lostCountry) {
         // loser
@@ -153,9 +154,8 @@ public class AttackPhase {
     /**
      * checking if the loser do not have any other countries and own any card then
      * it should be given to the winner player
-     *
-     * @param winnerPlayer
-     * @param loserPlayer
+     * @param winnerPlayer object of the player who won
+     * @param loserPlayer object of the player who lost
      */
     public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
         if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {

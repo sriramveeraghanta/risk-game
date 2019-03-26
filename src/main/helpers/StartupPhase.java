@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * This class contains the methods and variables we need in start up phase
+ */
 public class StartupPhase {
 
     private int numberOfPlayers;
-
     private GameModel gameModel;
     private EnumHandler.Color[] colors = EnumHandler.Color.values();
     private ReinforcementPhase reinforcementPhase;
@@ -18,7 +20,6 @@ public class StartupPhase {
     /**
      * Initialise the game objects set players properties such countries,armies,
      * Colour
-     *
      * @param gameModel
      */
     public StartupPhase(GameModel gameModel) {
@@ -28,7 +29,7 @@ public class StartupPhase {
     /**
      * Initialize the game objects set players properties such
      * countries,armies,Color
-     *
+     * @param playerCount the number of player which is integer
      */
     public void initNewGame(int playerCount) {
         this.numberOfPlayers = playerCount;
@@ -43,7 +44,8 @@ public class StartupPhase {
 
     /**
      * Creating new players for the game
-     * */
+     * @return the array list of palyer model
+     */
     public ArrayList<PlayerModel> getNewPlayers() {
         ArrayList<PlayerModel> playersList = new ArrayList<>();
         // Creating new player objects for the count
@@ -60,7 +62,6 @@ public class StartupPhase {
 
     /**
      * assigns a color to the player randomly at the starting phase of the game *
-     *
      * @return the color which is assign to specific player
      */
     public EnumHandler.Color getAssignedColor() {
@@ -78,8 +79,7 @@ public class StartupPhase {
     }
 
     /**
-     * assign initial number of armies to the players at the initial phase *
-     *
+     * assign initial number of armies to the players at the initial phase
      * @return the unit model which is contains both number and type of armies
      */
     public UnitModel getInitialUnit() {
@@ -140,7 +140,6 @@ public class StartupPhase {
 
     /**
      * Randomly generate the cards and assign a different unit type to each
-     *
      * This should be rewritten in phase 2 only 3 unique Type cards are needed.
      *
      */

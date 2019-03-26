@@ -13,6 +13,9 @@ import main.models.CountryModel;
 import main.models.PlayerModel;
 import main.utills.GameCommons;
 
+/**
+ * This class is the controller of player cards
+ */
 public class PlayerCardController {
 
     public PlayerModel playerModel;
@@ -24,6 +27,10 @@ public class PlayerCardController {
     @FXML
     public TableColumn countryNameTableColumn, unitsCountTableColumn;
 
+    /**
+     * Setter method to set the player model
+     * @param playerModel object of player model
+     */
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
 

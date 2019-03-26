@@ -6,11 +6,16 @@ package main.utills;
  *
  */
 public class EnumHandler {
-    //UnitType is used in UnitModel class to store army data
+    /**
+     * UnitType is used in UnitModel class to store army data
+     */
     public enum UnitType {
         INFANTRY, CAVALRY, ARTILLERY
     }
 
+    /**
+     * color is the color which is assigned to the players
+     */
     public enum Color {
         BLACK, BLUE, GREEN, PINK, RED, YELLOW
     }

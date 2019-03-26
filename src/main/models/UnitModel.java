@@ -7,6 +7,7 @@ public class UnitModel {
     private int unitCount;
 
     /**
+     * Getter method for getting the unit count
      * @return the unitCount
      */
     public int getUnitCount() {
@@ -14,6 +15,7 @@ public class UnitModel {
     }
 
     /**
+     * Setter method for setting the unit count
      * @param unitCount the unitCount to set
      */
     public void setUnitCount(int unitCount) {
@@ -21,6 +23,7 @@ public class UnitModel {
     }
 
     /**
+     * Getter method for getting the type
      * @return the type
      */
     public EnumHandler.UnitType getType() {
@@ -28,6 +31,7 @@ public class UnitModel {
     }
 
     /**
+     * Setter method for setting the type
      * @param type the type to set
      */
     public void setType(EnumHandler.UnitType type) {

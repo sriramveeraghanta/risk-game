@@ -8,6 +8,9 @@ import main.utills.EnumHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains all of the fortification phase method
+ */
 public class FortificationPhase {
     private PlayerModel playerModel;
     /**
