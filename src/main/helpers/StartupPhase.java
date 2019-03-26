@@ -125,7 +125,6 @@ public class StartupPhase {
             while (player.getArmyInHand() > 0) {
                 for (CountryModel country : player.getCountries()) {
                     if(player.getArmyInHand() > 0) {
-                        System.out.println(country);
                         country.setArmyInCountry(country.getArmyInCountry() + 1);
                         player.setArmyInHand(player.getArmyInHand() - 1);
                     } else {

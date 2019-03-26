@@ -35,7 +35,7 @@ public class PlayerInfoController {
         this.playerModel = playerModel;
 
         GameCommons gameCommons = new GameCommons();
-        playerLabel.setText("Player: "+playerModel.getColor().toString());
+        playerLabel.setText("Player: "+this.playerModel.getColor().toString());
         playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(this.playerModel.getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.playerModel.getCountries());

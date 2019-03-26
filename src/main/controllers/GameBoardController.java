@@ -83,7 +83,6 @@ public class GameBoardController {
     private void renderPlayersInfo() throws IOException {
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
         for (PlayerModel player: playerModelsList) {
-            System.out.println(player);
             // Player Card
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerInfo.fxml"));
             Parent playerCard = loader.load();
