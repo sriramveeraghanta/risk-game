@@ -25,22 +25,22 @@ public class CardModel {
     }
 
     /**
-     * The @cardType .
+     * The @cardType.
      */
-    private EnumHandler.UnitType cardType;
+    private EnumHandler.CardType cardType;
 
     /**
      * @param cardType the cardType to set
      */
-    public CardModel(EnumHandler.UnitType cardType) {
-        this.cardType = cardType;
+    public CardModel(EnumHandler.CardType cardType) {
+        setCardType(cardType);
     }
 
     /**
      * getting the number of cards
      * @return the cardType
      */
-    public EnumHandler.UnitType getCardType() {
+    public EnumHandler.CardType getCardType() {
         return cardType;
     }
 
@@ -48,7 +48,7 @@ public class CardModel {
      * stting the number of cards
      * @param cardType the cardType to set
      */
-    public void setCardType(EnumHandler.UnitType cardType) {
+    public void setCardType(EnumHandler.CardType cardType) {
         this.cardType = cardType;
     }
 }

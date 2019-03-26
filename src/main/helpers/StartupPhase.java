@@ -15,7 +15,6 @@ public class StartupPhase {
     private int numberOfPlayers;
     private GameModel gameModel;
     private EnumHandler.Color[] colors = EnumHandler.Color.values();
-    private ReinforcementPhase reinforcementPhase;
 
     /**
      * Initialise the game objects set players properties such countries,armies,
@@ -37,17 +36,14 @@ public class StartupPhase {
         gameModel.setNumberOfPlayers(playerCount);
         gameModel.setPlayers(getNewPlayers());
         this.assignCountriesToPlayers();
-        this.assignUnitsPerCountry();
+        this.assignUnitsToPlayerCountries();
         this.createGameCards();
     }
 
 
     /**
      * Creating new players for the game
-     * @return the array list of palyer model
      */
-    public ArrayList<PlayerModel> getNewPlayers() {
-        ArrayList<PlayerModel> playersList = new ArrayList<>();
         // Creating new player objects for the count
         for (int i = 0; i < numberOfPlayers; i++) {
             EnumHandler.Color assignedColor = this.getAssignedColor();
@@ -82,27 +78,20 @@ public class StartupPhase {
      * assign initial number of armies to the players at the initial phase
      * @return the unit model which is contains both number and type of armies
      */
-    public UnitModel getInitialUnit() {
-        UnitModel unit = new UnitModel();
-        unit.setType(EnumHandler.UnitType.INFANTRY);
+    public int getInitialUnit() {
         switch (numberOfPlayers) {
             case 2:
-                unit.setUnitCount(40);
-                return unit;
+                return 40;
             case 3:
-                unit.setUnitCount(35);
-                return unit;
+                return 35;
             case 4:
-                unit.setUnitCount(30);
-                return unit;
+                return 30;
             case 5:
-                unit.setUnitCount(25);
-                return unit;
+                return 25;
             case 6:
-                unit.setUnitCount(20);
-                return unit;
+                return 20;
             default:
-                return null;
+                return 0;
         }
     }
 
@@ -128,12 +117,19 @@ public class StartupPhase {
      * assigning armies to the country each player own in the way each country has
      * at least one army unit in it
      */
-    public void assignUnitsPerCountry() {
+    public void assignUnitsToPlayerCountries() {
         ArrayList<PlayerModel> playersList = gameModel.getPlayers();
         for (PlayerModel player : playersList) {
-            for (CountryModel country : player.getCountries()) {
-                country.addUnitsToCountry(1);
-                //reinforcementPhase.assignArmyUnitToCountry(country, 1);
+            while (player.getArmyInHand() > 0) {
+                for (CountryModel country : player.getCountries()) {
+                    if(player.getArmyInHand() > 0) {
+                        System.out.println(country);
+                        country.setArmyInCountry(country.getArmyInCountry() + 1);
+                        player.setArmyInHand(player.getArmyInHand() - 1);
+                    } else {
+                        break;
+                    }
+                }
             }
         }
     }
@@ -141,14 +137,12 @@ public class StartupPhase {
     /**
      * Randomly generate the cards and assign a different unit type to each
      * This should be rewritten in phase 2 only 3 unique Type cards are needed.
-     *
      */
     public void createGameCards() {
-        EnumHandler.UnitType unitTypes[] = EnumHandler.UnitType.values();
-
-       ArrayList<CardModel> cards = new ArrayList<>();
+        EnumHandler.CardType cardTypes[] = EnumHandler.CardType.values();
+        ArrayList<CardModel> cards = new ArrayList<>();
         for (int i = 0; i < gameModel.getCountries().size(); i++) {
-            CardModel card = new CardModel(unitTypes[i % 3]);
+            CardModel card = new CardModel(cardTypes[i % cardTypes.length]);
             cards.add(card);
         }
         this.gameModel.setCards(cards);

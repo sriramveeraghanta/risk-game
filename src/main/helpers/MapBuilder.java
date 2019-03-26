@@ -163,6 +163,7 @@ public class MapBuilder {
                 throw new GameException("Invalid Continent name at line number: [" + (index + 1) + "]");
             }
             CountryModel newCountry = new CountryModel(countryDataList[0], xAxis, yAxis, continent);
+            newCountry.setArmyInCountry(GameConstants.INITIAL_NUMBER_OF_UNITS);
             gameModel.addCountry(newCountry);
             continent.addCountry(newCountry);
             countryMapDataList.add(countryDataList);

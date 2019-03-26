@@ -16,7 +16,7 @@ public class CountryModel {
     private int xAxis;
     private int yAxis;
     private ContinentModel assignedContinent;
-    private UnitModel armyInCountry;
+    private int armyInCountry;
     private ArrayList<CountryModel> adjacentCountries;
 
     /**
@@ -100,6 +100,7 @@ public class CountryModel {
 
     /**
      * Getter and setter methods for
+<<<<<<< HEAD
      * @return the number of armies in that country
      */
     public UnitModel getArmyInCountry() {
@@ -111,6 +112,13 @@ public class CountryModel {
      * @param armyInCountry the number of armies in that country
      */
     public void setArmyInCountry(UnitModel armyInCountry) {
+=======
+     * */
+    public int getArmyInCountry() {
+        return armyInCountry;
+    }
+    public void setArmyInCountry(int armyInCountry) {
+>>>>>>> 6e3a721db9a42e4b1c0baa076993781442f698ee
         this.armyInCountry = armyInCountry;
     }
 
@@ -135,14 +143,13 @@ public class CountryModel {
      * @param unitsCount the number of armies we want to add to that specific country
      */
     public void addUnitsToCountry(int unitsCount){
-        this.getArmyInCountry().setUnitCount(this.getArmyInCountry().getUnitCount() + unitsCount);
+        this.setArmyInCountry(this.getArmyInCountry() + unitsCount);
     }
-
 
 //    public void setArmy(ArrayList<UnitModel> army) {
 //        this.armyInCountry = army;
 //        List<UnitModel> armyList = this.armyInCountry;
-//        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
+//        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst().get();
 //        if (soldier != null) {
 //            setNumberOfUnits(soldier.getUnitCount());
 //        }

@@ -35,9 +35,9 @@ public void before() throws Exception {
     mapBuilder = new MapBuilder(gameModel);
     mapBuilder.readMapFile(null);
     gameCommons = new GameCommons();
-    cardModel = new CardModel(EnumHandler.UnitType.INFANTRY);
+    cardModel = new CardModel(EnumHandler.CardType.INFANTRY);
     cardModel.setNumberOfCards(4);
-    cardModel1 = new CardModel(EnumHandler.UnitType.INFANTRY);
+    cardModel1 = new CardModel(EnumHandler.CardType.INFANTRY);
     cardModel1.setNumberOfCards(2);
     country1 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Venezuala");
     country2 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Peru");
@@ -138,13 +138,13 @@ public void testGetNumberOfDifferentCards() throws Exception {
 
 /** 
 * 
-* Method: getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) 
+* Method: getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.CardType unitType)
 * 
 */ 
 @Test
 public void testGetNumberCardTypeByCardType() throws Exception {
     List<CardModel> card =new ArrayList<>();
     card.add(cardModel);
-    assertEquals(reinforce.getNumberCardTypeByCardType(card, EnumHandler.UnitType.INFANTRY), 4);
+    assertEquals(reinforce.getNumberCardTypeByCardType(card, EnumHandler.CardType.INFANTRY), 4);
 }
 } 

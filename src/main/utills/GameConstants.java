@@ -7,6 +7,7 @@ public class GameConstants {
     // Constant Variables across the project
     public static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
     public static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
+    public static final int INITIAL_NUMBER_OF_UNITS = 0;
 
     // Constant Strings
     public static final String PROJECT_TITLE = "Risk - SOEN 6441 Porject - Group # 40";

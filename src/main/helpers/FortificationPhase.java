@@ -2,10 +2,7 @@ package main.helpers;
 
 import main.models.CountryModel;
 import main.models.PlayerModel;
-import main.models.UnitModel;
-import main.utills.EnumHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +15,6 @@ public class FortificationPhase {
      * @param playerModel
      */
     public FortificationPhase(PlayerModel playerModel) {
-
         this.setPlayerModel(playerModel);
     }
 
@@ -45,38 +41,38 @@ public class FortificationPhase {
      * @param numberOfArmyUnits
      * @return if swapping is done successfully or not
      */
-    public String swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits) {
-        List<CountryModel> countries = this.getPlayerModel().getCountries();
- for(CountryModel country1 : countries){
-     System.out.println("countryName:"+country1.getCountryName());
-     List<UnitModel> unitss = new ArrayList<UnitModel>();
-     unitss=country1.getArmyInCountry();
-     for(UnitModel uni : unitss) {
-         System.out.println("armyUnit:" + uni.getType());
-     }
- }
-        CountryModel fromCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(fromCountryName))
-                .findFirst().get();
-        CountryModel toCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(toCountryName))
-                .findFirst().get();
-
-        if ((fromCountry.getNumberOfUnits() < 2) || ((fromCountry.getNumberOfUnits() - numberOfArmyUnits) < 1)) {
-            return "Invalid Operation";
-        } else {
-            /// from Country;
-            List<UnitModel> units = fromCountry.getArmyInCountry();
-            System.out.println("Unit Size:"+units.size());
-            UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst()
-                    .get();
-            soldier.setUnitNumber((fromCountry.getNumberOfUnits() - numberOfArmyUnits));
-
-            // to Country
-            units = toCountry.getArmyInCountry();
-            soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
-            soldier.setUnitNumber((toCountry.getNumberOfUnits() + numberOfArmyUnits));
-            return "Operation Completed";
-        }
-
-    }
+//    public String swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits) {
+//        List<CountryModel> countries = this.getPlayerModel().getCountries();
+//        for (CountryModel country1 : countries) {
+//            System.out.println("countryName:" + country1.getCountryName());
+//            List<UnitModel> unitss = new ArrayList<UnitModel>();
+//            unitss = country1.getArmyInCountry();
+//            for (UnitModel uni : unitss) {
+//                System.out.println("armyUnit:" + uni.getType());
+//            }
+//        }
+//        CountryModel fromCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(fromCountryName))
+//                .findFirst().get();
+//        CountryModel toCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(toCountryName))
+//                .findFirst().get();
+//
+//        if ((fromCountry.getNumberOfUnits() < 2) || ((fromCountry.getNumberOfUnits() - numberOfArmyUnits) < 1)) {
+//            return "Invalid Operation";
+//        } else {
+//            /// from Country;
+//            List<UnitModel> units = fromCountry.getArmyInCountry();
+//            System.out.println("Unit Size:" + units.size());
+//            UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst()
+//                    .get();
+//            soldier.setUnitNumber((fromCountry.getNumberOfUnits() - numberOfArmyUnits));
+//
+//            // to Country
+//            units = toCountry.getArmyInCountry();
+//            soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst().get();
+//            soldier.setUnitNumber((toCountry.getNumberOfUnits() + numberOfArmyUnits));
+//            return "Operation Completed";
+//        }
+//
+//    }
 
 }

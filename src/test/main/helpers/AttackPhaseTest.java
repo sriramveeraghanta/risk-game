@@ -1,4 +1,4 @@
-package test.main.helpers; 
+package test.main.helpers;
 
 import main.helpers.AttackPhase;
 import main.helpers.MapBuilder;
@@ -9,20 +9,20 @@ import main.models.PlayerModel;
 import main.utills.EnumHandler;
 import main.utills.GameCommons;
 import org.junit.Test;
-import org.junit.Before; 
+import org.junit.Before;
 import org.junit.After;
 
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertTrue;
 
-/** 
-* AttackPhase Tester. 
-* 
-* @author <Authors name> 
-* @since <pre>Mar 24, 2019</pre> 
-* @version 1.0 
-*/ 
+/**
+ * AttackPhase Tester.
+ *
+ * @author <Authors name>
+ * @version 1.0
+ * @since <pre>Mar 24, 2019</pre>
+ */
 public class AttackPhaseTest {
     PlayerModel attackerPlayer;
     PlayerModel defenderPlayer;
@@ -35,164 +35,140 @@ public class AttackPhaseTest {
     ArrayList<PlayerModel> playerList;
     AttackPhase attackPhase;
 
-@Before
-public void before() throws Exception {
-    countryList = new ArrayList<>();
-    playerList = new ArrayList<>();
-    defenderPlayer = new PlayerModel(EnumHandler.Color.BLACK);
-    defenderPlayer.setActive(false);
-    attackerPlayer = new PlayerModel(EnumHandler.Color.BLUE);
-    gameModel = new GameModel();
-    gameCommons = new GameCommons();
-    mapBuilder = new MapBuilder(gameModel);
-    mapBuilder.readMapFile(null);
-    attackerCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alaska");
-    defenderCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alberta");
-    attackerCountry.setNumberOfUnits(5);
-    defenderCountry.setNumberOfUnits(4);
-    countryList.add(attackerCountry);
-    attackerPlayer.setCountries(countryList);
-    countryList.clear();
-    countryList.add(defenderCountry);
-    defenderPlayer.setCountries(countryList);
-    playerList.add(attackerPlayer);
-    playerList.add(defenderPlayer);
-    gameModel.setPlayers(playerList);
-    attackPhase = new AttackPhase(gameModel, attackerCountry, defenderCountry);
-} 
+    @Before
+    public void before() throws Exception {
+        countryList = new ArrayList<>();
+//        playerList = new ArrayList<>();
+//        defenderPlayer = new PlayerModel(EnumHandler.Color.BLACK);
+//        defenderPlayer.setActive(false);
+//        attackerPlayer = new PlayerModel(EnumHandler.Color.BLUE);
+        gameModel = new GameModel();
+        gameCommons = new GameCommons();
+        mapBuilder = new MapBuilder(gameModel);
+        mapBuilder.readMapFile(null);
+        attackerCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alaska");
+        defenderCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alberta");
+//        attackerCountry.setNumberOfUnits(5);
+//        defenderCountry.setNumberOfUnits(4);
+        countryList.add(attackerCountry);
+        attackerPlayer.setCountries(countryList);
+        countryList.clear();
+        countryList.add(defenderCountry);
+        defenderPlayer.setCountries(countryList);
+        playerList.add(attackerPlayer);
+        playerList.add(defenderPlayer);
+        gameModel.setPlayers(playerList);
+        attackPhase = new AttackPhase(gameModel, attackerCountry, defenderCountry);
+    }
 
-@After
-public void after() throws Exception { 
-} 
+    @After
+    public void after() throws Exception {
+    }
 
-/** 
-* 
-* Method: getNumberAttackerDice() 
-* 
-*/ 
-@Test
-public void testGetNumberAttackerDice() throws Exception { 
+    /**
+     * Method: getNumberAttackerDice()
+     */
+    @Test
+    public void testGetNumberAttackerDice() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: setNumberAttackerDice(int numberAttackerDice) 
-* 
-*/ 
-@Test
-public void testSetNumberAttackerDice() throws Exception { 
+    /**
+     * Method: setNumberAttackerDice(int numberAttackerDice)
+     */
+    @Test
+    public void testSetNumberAttackerDice() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: getCountryAttacker() 
-* 
-*/ 
-@Test
-public void testGetCountryAttacker() throws Exception { 
+    /**
+     * Method: getCountryAttacker()
+     */
+    @Test
+    public void testGetCountryAttacker() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: setCountryAttacker(CountryModel countryAttacker) 
-* 
-*/ 
-@Test
-public void testSetCountryAttacker() throws Exception { 
+    /**
+     * Method: setCountryAttacker(CountryModel countryAttacker)
+     */
+    @Test
+    public void testSetCountryAttacker() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: getCountryDefender() 
-* 
-*/ 
-@Test
-public void testGetCountryDefender() throws Exception { 
+    /**
+     * Method: getCountryDefender()
+     */
+    @Test
+    public void testGetCountryDefender() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: setcountryDefender(CountryModel countryDefender) 
-* 
-*/ 
-@Test
-public void testSetcountryDefender() throws Exception { 
+    /**
+     * Method: setcountryDefender(CountryModel countryDefender)
+     */
+    @Test
+    public void testSetcountryDefender() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: checkIfPlayerCanAttackCountry() 
-* 
-*/ 
+/**
+ *
+ * Method: checkIfPlayerCanAttackCountry()
+ *
+ */
 //@Test
 //public void testCheckIfPlayerCanAttackCountry() throws Exception {
 //    assertTrue(attackPhase.checkIfPlayerCanAttackCountry());
 //}
 
-/** 
-* 
-* Method: rollDice() 
-* 
-*/ 
-@Test
-public void testRollDice() throws Exception { 
+    /**
+     * Method: rollDice()
+     */
+    @Test
+    public void testRollDice() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: attackingResult() 
-* 
-*/ 
-@Test
-public void testAttackingResult() throws Exception { 
+    /**
+     * Method: attackingResult()
+     */
+    @Test
+    public void testAttackingResult() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: checkMaxNumberOfDices() 
-* 
-*/ 
-@Test
-public void testCheckMaxNumberOfDices() throws Exception { 
+    /**
+     * Method: checkMaxNumberOfDices()
+     */
+    @Test
+    public void testCheckMaxNumberOfDices() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: roll(int numberOfDice) 
-* 
-*/ 
-@Test
-public void testRoll() throws Exception { 
+    /**
+     * Method: roll(int numberOfDice)
+     */
+    @Test
+    public void testRoll() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
-/** 
-* 
-* Method: assignCardToPlayer(PlayerModel player) 
-* 
-*/ 
-@Test
-public void testAssignCardToPlayer() throws Exception { 
+    /**
+     * Method: assignCardToPlayer(PlayerModel player)
+     */
+    @Test
+    public void testAssignCardToPlayer() throws Exception {
 //TODO: Test goes here... 
-} 
+    }
 
 
-/** 
-* 
-* Method: assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName) 
-* 
-*/ 
-@Test
-public void testAssignCountryToWinnerPlayer() throws Exception { 
+    /**
+     * Method: assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName)
+     */
+    @Test
+    public void testAssignCountryToWinnerPlayer() throws Exception {
 //TODO: Test goes here... 
 /* 
 try { 
@@ -203,16 +179,14 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
-/** 
-* 
-* Method: assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) 
-* 
-*/ 
-@Test
-public void testAssignRemainingCardsToWinnerPlayer() throws Exception { 
+    /**
+     * Method: assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer)
+     */
+    @Test
+    public void testAssignRemainingCardsToWinnerPlayer() throws Exception {
 //TODO: Test goes here... 
 /* 
 try { 
@@ -223,16 +197,14 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
-/** 
-* 
-* Method: getDefender(String defenderCountryName) 
-* 
-*/ 
-@Test
-public void testGetDefender() throws Exception { 
+    /**
+     * Method: getDefender(String defenderCountryName)
+     */
+    @Test
+    public void testGetDefender() throws Exception {
 //TODO: Test goes here... 
 /* 
 try { 
@@ -243,7 +215,7 @@ try {
 } catch(IllegalAccessException e) { 
 } catch(InvocationTargetException e) { 
 } 
-*/ 
-} 
+*/
+    }
 
 } 

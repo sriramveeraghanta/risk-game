@@ -78,20 +78,10 @@ public class ReinforcementPhase {
      * @return boolean if it goes in catch it return false
      */
     public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
-        List<CountryModel> countries = this.playerModel.getCountries();
-        try {
-            if (this.playerModel.getArmyInHand() > numberOfUnits) {
-                country.setNumberOfUnits(country.getNumberOfUnits()+1);
-                List<UnitModel> units = country.getArmyInCountry();
-                UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
-                soldier.setUnitCount((country.getNumberOfUnits() + numberOfUnits));
-                this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
-            }
-
-        } catch (Exception ex) {
-            return false;
+        if (this.playerModel.getArmyInHand() > numberOfUnits) {
+            country.setArmyInCountry(country.getArmyInCountry() + numberOfUnits);
+            this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
         }
-
         return true;
     }
 
@@ -106,22 +96,22 @@ public class ReinforcementPhase {
         int cavalaryCardNumber = 0;
         List<CardModel> cards = this.playerModel.getDeck();
 
-        infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.INFANTRY);
-        artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.ARTILLERY);
-        cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.CAVALRY);
+        infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
+        artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
+        cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.CAVALRY);
 
         numberOfUnits += infantryCardNumber / 3;
         numberOfUnits += artilaryCardNumber / 3;
         numberOfUnits += cavalaryCardNumber / 3;
 
         if (infantryCardNumber / 3 > 0) {
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.INFANTRY);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.INFANTRY);
         }
         if (artilaryCardNumber / 3 > 0) {
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.ARTILLERY);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.ARTILLERY);
         }
         if (cavalaryCardNumber / 3 > 0) {
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.CAVALRY);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.CAVALRY);
         }
 
         return numberOfUnits;
@@ -138,16 +128,16 @@ public class ReinforcementPhase {
         int cavalaryCardNumber = 0;
         List<CardModel> cards = this.playerModel.getDeck();
 
-        infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.INFANTRY);
-        artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.ARTILLERY);
-        cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.UnitType.CAVALRY);
+        infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
+        artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
+        cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.CAVALRY);
 
         numberOfUnits = Math.min(infantryCardNumber, Math.min(artilaryCardNumber, cavalaryCardNumber));
 
         if (numberOfUnits > 0) {
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.INFANTRY, numberOfUnits);
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.ARTILLERY, numberOfUnits);
-            setPlayerDeckByCardType(cards, EnumHandler.UnitType.CAVALRY, numberOfUnits);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.INFANTRY, numberOfUnits);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.ARTILLERY, numberOfUnits);
+            setPlayerDeckByCardType(cards, EnumHandler.CardType.CAVALRY, numberOfUnits);
         }
 
         return numberOfUnits;
@@ -156,14 +146,14 @@ public class ReinforcementPhase {
 
     /**
      * checking the cards type and return the number of each card type
-     * @param cards list of all cards player own
-     * @param unitType getting the unit type and return the number of it
+     *
+     * @param cards    list of all cards player own
+     * @param cardType getting the unit type and return the number of it
      * @return the number of specific card type
      */
-    public int getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
+    public int getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
         try {
-            CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
-                    .get();
+            CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
             if (card != null) {
                 return card.getNumberOfCards();
             } else {
@@ -177,10 +167,10 @@ public class ReinforcementPhase {
     /**
      * setting the player deck by getting the list of cards and unit type of it
      * @param cards    a list of cards
-     * @param unitType which is the type of cards
+     * @param cardType which is the type of cards
      */
-    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
+    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
+        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst()
                 .get();
         if (card != null) {
             card.setNumberOfCards(card.getNumberOfCards() - (3 * (card.getNumberOfCards() / 3)));
@@ -190,11 +180,11 @@ public class ReinforcementPhase {
     /**
      * setting the player deck by getting the list of cards and unit type of it
      * @param cards        a list of cards
-     * @param unitType     which is the type of cards
+     * @param cardType     which is the type of cards
      * @param numbeOfUnits the number of each card type player has
      */
-    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.UnitType unitType, int numbeOfUnits) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(unitType)).findFirst()
+    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType, int numbeOfUnits) {
+        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst()
                 .get();
         if (card != null) {
             card.setNumberOfCards(card.getNumberOfCards() - numbeOfUnits);

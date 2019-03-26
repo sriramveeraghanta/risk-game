@@ -34,26 +34,26 @@ public class AttackPhase {
      * @return the string which is a message that shws to the user if he lost or won
      */
     public String attackCountry(){
-        ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberofAttackerDice());
-        ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberofDefenderDice());
+        ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberOfAttackerDice());
+        ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberOfDefenderDice());
 
         for (int i = 0; i < defenderDiceValues.size(); i++) {
             if (attackerDiceValues.get(i) < defenderDiceValues.get(i)) {
-                attackingCountry.setNumberOfUnits(attackingCountry.getNumberOfUnits() - 1);
+                attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
             } else {
-                defendingCountry.setNumberOfUnits(defendingCountry.getNumberOfUnits() - 1);
+                defendingCountry.setArmyInCountry(defendingCountry.getArmyInCountry() - 1);
             }
         }
-        System.out.println(attackingCountry.getNumberOfUnits());
+        System.out.println(attackingCountry.getArmyInCountry());
         // if attacker looses
-        if (attackingCountry.getNumberOfUnits() < 0) {
+        if (attackingCountry.getArmyInCountry() < 0) {
             this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
             return "You Lost";
         }
         // if defender looses
-        if (defendingCountry.getNumberOfUnits() < 0) {
+        if (defendingCountry.getArmyInCountry() < 0) {
             this.assignCardToPlayer(this.attackingPlayer);
             this.assignCountryToWinnerPlayer(this.attackingPlayer, this.defendingPlayer, this.defendingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
@@ -69,8 +69,8 @@ public class AttackPhase {
      * player army in that specific country
      * @return the number of dices according to the attacker army in that specific country
      */
-    public int getNumberofAttackerDice() {
-        if (attackingCountry.getNumberOfUnits() > 3) {
+    public int getNumberOfAttackerDice() {
+        if (attackingCountry.getArmyInCountry() > 3) {
             return 3;
         } else {
             return 2;
@@ -82,8 +82,8 @@ public class AttackPhase {
      * player army in that specific country
      * @return the number of dices according to the defender army in that specific country
      */
-    public int getNumberofDefenderDice() {
-        if (defendingCountry.getNumberOfUnits() >= 2) {
+    public int getNumberOfDefenderDice() {
+        if (defendingCountry.getArmyInCountry() >= 2) {
             return 2;
         } else {
             return 1;
@@ -112,7 +112,6 @@ public class AttackPhase {
      * @param player
      */
     public void assignCardToPlayer(PlayerModel player) {
-
         int index = new Random().nextInt(gameModel.getCards().size());
         ArrayList<CardModel> deck = player.getDeck();
         deck.add(gameModel.getCards().get(index));

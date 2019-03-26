@@ -35,9 +35,7 @@ public class AttackPhaseDialogController {
         System.out.println(defendingCountry.getCountryName());
         if(attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
-            System.out.println(attackingCountry.getNumberOfUnits());
-            if(attackingCountry.getNumberOfUnits() > 2) {
-
+            if(attackingCountry.getArmyInCountry() > 2) {
                 String message = attackPhase.attackCountry();
                 System.out.println(message);
                 if(message != null) {
