@@ -13,7 +13,7 @@ import main.models.CountryModel;
 import main.models.PlayerModel;
 import main.utills.GameCommons;
 
-public class PlayerCardController {
+public class PlayerInfoController {
 
     public PlayerModel playerModel;
 
@@ -22,7 +22,7 @@ public class PlayerCardController {
     @FXML
     public TableView playerTableView;
     @FXML
-    public TableColumn countryNameTableColumn, unitsCountTableColumn;
+    public TableColumn playerCountryNameTableColumn, unitsCountTableColumn;
 
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
@@ -33,7 +33,7 @@ public class PlayerCardController {
 
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.playerModel.getCountries());
 
-        countryNameTableColumn.setCellValueFactory(
+        playerCountryNameTableColumn.setCellValueFactory(
                 new PropertyValueFactory<CountryModel, String>("countryName"));
 
         unitsCountTableColumn.setCellValueFactory(
