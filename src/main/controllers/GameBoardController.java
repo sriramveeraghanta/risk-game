@@ -48,12 +48,6 @@ public class GameBoardController {
         gameModel.setCurrentPlayerIndex(0);
         for (int i = 0; i < playerModelsList.size(); i++) {
             //System.out.println(playerListPanel);
-            GameCommons gameCommons = new GameCommons();
-            // creating label
-//            Label playerLabel = new Label("Player_" + playerModelsList.get(i).getColor().toString());
-//            playerLabel.setTextFill(Color.WHITE);
-//            playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(playerModelsList.get(i).getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-
             // Player Card
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerCard.fxml"));
             Parent playerCard = loader.load();

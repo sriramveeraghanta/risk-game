@@ -9,7 +9,7 @@ public class PlayerModel {
     private EnumHandler.Color color;
     private boolean isActive;
     private int successfulCardSwapCounter;
-    private UnitModel armyInHand;
+    private int armyInHand;
     private ArrayList<CardModel> deck = new ArrayList<>();
     private ArrayList<CountryModel> countriesList = new ArrayList<>();
     private ArrayList<ContinentModel> continentsList=new ArrayList<>();
@@ -24,14 +24,14 @@ public class PlayerModel {
     /**
      * @return the armyInHand
      */
-    public UnitModel getArmyInHand() {
+    public int getArmyInHand() {
         return armyInHand;
     }
 
     /**
      * @param armyInHand the armyInHand to set
      */
-    public void setArmyInHand(UnitModel armyInHand) {
+    public void setArmyInHand(int armyInHand) {
         this.armyInHand = armyInHand;
     }
 

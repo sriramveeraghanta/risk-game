@@ -11,7 +11,7 @@ public class CountryModel {
     private int xAxis;
     private int yAxis;
     private ContinentModel assignedContinent;
-    private UnitModel armyInCountry;
+    private int armyInCountry;
     private ArrayList<CountryModel> adjacentCountries;
 
     /**
@@ -68,10 +68,10 @@ public class CountryModel {
     /**
      * Getter and setter methods for
      * */
-    public UnitModel getArmyInCountry() {
+    public int getArmyInCountry() {
         return armyInCountry;
     }
-    public void setArmyInCountry(UnitModel armyInCountry) {
+    public void setArmyInCountry(int armyInCountry) {
         this.armyInCountry = armyInCountry;
     }
 
@@ -86,14 +86,13 @@ public class CountryModel {
     }
 
     public void addUnitsToCountry(int unitsCount){
-        this.getArmyInCountry().setUnitCount(this.getArmyInCountry().getUnitCount() + unitsCount);
+        this.setArmyInCountry(this.getArmyInCountry() + unitsCount);
     }
-
 
 //    public void setArmy(ArrayList<UnitModel> army) {
 //        this.armyInCountry = army;
 //        List<UnitModel> armyList = this.armyInCountry;
-//        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
+//        UnitModel soldier = armyList.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst().get();
 //        if (soldier != null) {
 //            setNumberOfUnits(soldier.getUnitCount());
 //        }

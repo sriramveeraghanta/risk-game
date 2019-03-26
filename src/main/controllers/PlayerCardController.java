@@ -37,7 +37,7 @@ public class PlayerCardController {
                 new PropertyValueFactory<CountryModel, String>("countryName"));
 
         unitsCountTableColumn.setCellValueFactory(
-                new PropertyValueFactory<CountryModel, Integer>("numberOfUnits"));
+                new PropertyValueFactory<CountryModel, Integer>("armyInCountry"));
 
         playerTableView.setItems(playerCountriesObservable);
 
