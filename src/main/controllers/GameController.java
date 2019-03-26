@@ -21,6 +21,10 @@ import java.util.Optional;
 public class GameController {
 
     private GameModel gameModel;
+    private boolean userMap;
+    private String userMapFilePath;
+
+
 
     @FXML
     private Button newGameButton,loadGameButton, exitGameButton ;
@@ -36,6 +40,10 @@ public class GameController {
      */
     @FXML
     public void startNewGame(ActionEvent event) throws IOException {
+        this.playerCountDialog();
+    }
+
+    public void playerCountDialog(){
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
         dialog.setTitle(getGameModel().getTitle());
@@ -66,18 +74,26 @@ public class GameController {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (GameException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(GameConstants.INVALID_MAP_ERROR);
+                alert.showAndWait();
             }
         });
     }
-
     private void initGame(int playerCount) throws GameException, IOException {
         // TODO: Start Startup Phase
+
+        System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
         System.out.println(playerCount);
-
         MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-        mapBuilder.readMapFile(null);
+        if(this.isUserMap()){
+           mapBuilder.readMapFile(this.userMapFilePath);
+        }else {
+            mapBuilder.readMapFile(null);
+        }
+
         System.out.println(getGameModel().getContinents());
 
         StartupPhase startupPhase = new StartupPhase(this.getGameModel());
@@ -109,9 +125,12 @@ public class GameController {
         Parent loadGamePanel = loader.load();
         LoadGameController loadGameController = loader.getController();
         loadGameController.setGameModel(this.gameModel);
+        loadGameController.setGameController(this);
+        loadGameController.setStage(stage);
         stage.setScene(new Scene(loadGamePanel));
         stage.setResizable(false);
         stage.show();
+
     }
 
     /**
@@ -131,5 +150,21 @@ public class GameController {
 
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
+    }
+
+    public boolean isUserMap() {
+        return userMap;
+    }
+
+    public void setUserMap(boolean userMap) {
+        this.userMap = userMap;
+    }
+
+    public String getUserMapFilePath() {
+        return userMapFilePath;
+    }
+
+    public void setUserMapFilePath(String userMapFilePath) {
+        this.userMapFilePath = userMapFilePath;
     }
 }
