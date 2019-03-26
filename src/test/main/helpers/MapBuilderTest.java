@@ -14,10 +14,7 @@ import static junit.framework.Assert.*;
 /** 
 * MapBuilder Tester. 
 * 
-* @author <Authors name> 
-* @since <pre>Mar 23, 2019</pre> 
-* @version 1.0 
-*/ 
+*/
 public class MapBuilderTest {
     String continentName;
     String countryName;
@@ -40,47 +37,47 @@ public void before() throws Exception {
 public void after() throws Exception { 
 } 
 
-/** 
-* 
-* Method: readMapFile(String mapFilePath) 
-* 
-*/ 
-@Test
-public void testReadMapFile() throws Exception { 
-//TODO: Test goes here...
+///**
+//*
+//* Method: readMapFile(String mapFilePath)
+//*
+//*/
+//@Test
+//public void testReadMapFile() throws Exception {
+////TODO: Test goes here...
+//
+//
+//}
 
+///**
+//*
+//* Method: loadContinentMapData(int initial, int last)
+//*
+//*/
+//@Test
+//public void testLoadContinentMapData() throws Exception {
+////TODO: Test goes here...
+//}
 
-} 
+///**
+//*
+//* Method: loadCountryMapData(int initial, int last)
+//*
+//*/
+//@Test
+//public void testLoadCountryMapData() throws Exception {
+////TODO: Test goes here...
+//}
 
-/** 
-* 
-* Method: loadContinentMapData(int initial, int last) 
-* 
-*/ 
-@Test
-public void testLoadContinentMapData() throws Exception { 
-//TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: loadCountryMapData(int initial, int last) 
-* 
-*/ 
-@Test
-public void testLoadCountryMapData() throws Exception { 
-//TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: addAdjcentCountriesToCountry(ArrayList<String[]> countryMapDataList) 
-* 
-*/ 
-@Test
-public void testAddAdjcentCountriesToCountry() throws Exception { 
-//TODO: Test goes here... 
-} 
+///**
+//*
+//* Method: addAdjcentCountriesToCountry(ArrayList<String[]> countryMapDataList)
+//*
+//*/
+//@Test
+//public void testAddAdjcentCountriesToCountry() throws Exception {
+////TODO: Test goes here...
+//}
 
 /** 
 * 
@@ -114,15 +111,15 @@ public void testAddAdjcentCountriesToCountry() throws Exception {
 //    assertEquals(countryName,country.getCountryName());
 //}
 
-/** 
-* 
-* Method: removeCountry(String countryName) 
-* 
-*/ 
-@Test
-public void testRemoveCountry() throws Exception { 
-//TODO: Test goes here... 
-} 
+///**
+//*
+//* Method: removeCountry(String countryName)
+//*
+//*/
+//@Test
+//public void testRemoveCountry() throws Exception {
+////TODO: Test goes here...
+//}
 
 /** 
 * 
@@ -142,12 +139,12 @@ public void testRemoveCountry() throws Exception {
 //    assertEquals(countryYaxis,country.getyAxis());
 //}
 
-/** 
-* 
-* Method: assignCountryToContinent(String countryName, String continentName) 
-* 
-*/ 
-@Test
+
+    /**
+     * Method: assignCountryToContinent(String countryName, String continentName)
+     * @throws Exception if exception occurs it throws Exception
+     */
+    @Test
 public void testAssignCountryToContinent() throws Exception {
 //TODO: Test goes here...
     continentName = "North America";
@@ -161,54 +158,54 @@ public void testAssignCountryToContinent() throws Exception {
     }
 }
 
-/** 
-* 
-* Method: addAdjacentCountries() 
-* 
-*/ 
-@Test
-public void testAddAdjacentCountries() throws Exception { 
-//TODO: Test goes here... 
-} 
+///**
+//*
+//* Method: addAdjacentCountries()
+//*
+//*/
+//@Test
+//public void testAddAdjacentCountries() throws Exception {
+////TODO: Test goes here...
+//}
 
-/** 
-* 
-* Method: validateCountriesBelongToOneContinent() 
-* 
-*/ 
-@Test
+
+    /**
+     * Method: validateCountriesBelongToOneContinent()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testValidateCountriesBelongToOneContinent() throws Exception { 
 //TODO: Test goes here...
     assertTrue(mapBuilder.validateCountriesBelongToOneContinent());
 } 
 
-/** 
-* 
-* Method: validateContinentData(int initial, int last) 
-* 
-*/ 
-@Test
-public void testValidateContinentData() throws Exception { 
-//TODO: Test goes here... 
-//mapBuilder.validateContinentData();
-} 
+///**
+//*
+//* Method: validateContinentData(int initial, int last)
+//*
+//*/
+//@Test
+//public void testValidateContinentData() throws Exception {
+////TODO: Test goes here...
+////mapBuilder.validateContinentData();
+//}
 
-/** 
-* 
-* Method: validateCountryData(int initial, int last) 
-* 
-*/ 
-@Test
-public void testValidateCountryData() throws Exception { 
-//TODO: Test goes here.
-} 
+///**
+//*
+//* Method: validateCountryData(int initial, int last)
+//*
+//*/
+//@Test
+//public void testValidateCountryData() throws Exception {
+////TODO: Test goes here.
+//}
 
-/** 
-* 
-* Method: validateIfContinentExists(String continentName) 
-* 
-*/ 
-@Test
+
+    /**
+     * Method: validateIfContinentExists(String continentName)
+     * @throws Exception if exception occur it throws exception
+     */
+    @Test
 public void testValidateIfContinentExists() throws Exception { 
 //TODO: Test goes here...
     continentName="North America";
@@ -218,12 +215,12 @@ public void testValidateIfContinentExists() throws Exception {
 
 } 
 
-/** 
-* 
-* Method: validateIfCountriesAreAdjacent(ArrayList<String[]> countryMapDataList) 
-* 
-*/ 
-@Test
+
+    /**
+     * Method: validateIfCountriesAreAdjacent
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testValidateIfCountriesAreAdjacent() throws Exception { 
 //TODO: Test goes here... 
 assertTrue(mapBuilder.validateIfCountriesAreAdjacent());

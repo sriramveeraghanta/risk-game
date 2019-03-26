@@ -19,8 +19,10 @@ public class AttackPhase {
 
 
     /**
-     * checking the number of dices which attacker can roll based on the number of
-     * armies for that country
+     * This method is constructor for attack phase
+     * @param gameModel object of game model
+     * @param attackingCountry which is an object of country model
+     * @param defendingCountry which is an object of country model
      */
     public AttackPhase(GameModel gameModel, CountryModel attackingCountry, CountryModel defendingCountry) {
         this.gameModel = gameModel;
@@ -115,7 +117,7 @@ public class AttackPhase {
 
     /**
      * assign the cards to the player (deck) by getting the player as the parameter
-     * @param player
+     * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
         int index = new Random().nextInt(gameModel.getCards().size());

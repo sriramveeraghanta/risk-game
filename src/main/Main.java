@@ -19,7 +19,7 @@ public class Main extends Application {
     /**
      * This method starts the application
      * @param primaryStage type of Stage
-     * @throws Exception
+     * @throws Exception if exception happened it throws exception
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -38,9 +38,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     /**
      * This is the main method of the application
-     * @param args 
+     * @param args the default parameter for main
      */
     public static void main(String[] args) {
         launch(args);

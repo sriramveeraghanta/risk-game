@@ -42,7 +42,7 @@ public class GameController {
     /**
      * with Start Game new game starts
      * @param event type of ActionEvent
-     * @throws IOException
+     * @throws IOException if exception occur it throws IOException
      */
     @FXML
     public void startNewGame(ActionEvent event) throws IOException {
@@ -130,7 +130,7 @@ public class GameController {
     /**
      * Loading the New Game to the user
      * @param event type of ActionEvent
-     * @throws IOException
+     * @throws IOException if exception occur it throws IOException
      */
     @FXML
     public void loadGame(ActionEvent event) throws IOException {
