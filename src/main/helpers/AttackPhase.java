@@ -1,5 +1,6 @@
 package main.helpers;
 
+import javafx.scene.control.Alert;
 import main.models.CardModel;
 import main.models.CountryModel;
 import main.models.GameModel;
@@ -35,7 +36,7 @@ public class AttackPhase {
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      * @return the string which is a message that shws to the user if he lost or won
      */
-    public String attackCountry(){
+    public void attackCountry(){
         ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberOfAttackerDice());
         ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberOfDefenderDice());
 
@@ -46,24 +47,29 @@ public class AttackPhase {
                 defendingCountry.setArmyInCountry(defendingCountry.getArmyInCountry() - 1);
             }
         }
-        System.out.println(attackingCountry.getArmyInCountry());
         // if attacker looses
         if (attackingCountry.getArmyInCountry() < 0) {
             this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
-            return "You Lost";
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("You Won");
+            alert.setHeaderText(null);
+            alert.setContentText("Attacker won and occupied the defender country");
+            alert.showAndWait();
         }
         // if defender looses
         if (defendingCountry.getArmyInCountry() < 0) {
             this.assignCardToPlayer(this.attackingPlayer);
             this.assignCountryToWinnerPlayer(this.attackingPlayer, this.defendingPlayer, this.defendingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
-            return "You Won";
+            // Alert to the user
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("You Lost");
+            alert.setHeaderText(null);
+            alert.setContentText("Defender won and occupied the attacking country");
+            alert.showAndWait();
         }
-        System.out.println(attackingCountry.getCountryName());
-        System.out.println(defendingCountry.getCountryName());
-        return  null;
     }
 
     /**

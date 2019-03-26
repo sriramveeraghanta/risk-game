@@ -31,20 +31,10 @@ public class AttackPhaseDialogController {
      * this method do all action that should be done in attack phase
      */
     public void attackAction() {
-        System.out.println(attackingCountry.getCountryName());
-        System.out.println(defendingCountry.getCountryName());
         if(attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             if(attackingCountry.getArmyInCountry() > 2) {
-                String message = attackPhase.attackCountry();
-                System.out.println(message);
-                if(message != null) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle(message);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Attacker won and occupied the defender country");
-                    alert.showAndWait();
-                }
+                attackPhase.attackCountry();
             }
         } else {
             System.out.println("IN else");

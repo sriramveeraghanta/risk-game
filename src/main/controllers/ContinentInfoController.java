@@ -3,40 +3,34 @@ package main.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import main.models.ContinentModel;
 import main.models.CountryModel;
-import main.utills.GameCommons;
+
 
 public class ContinentInfoController {
     @FXML
     public Label continentNameLabel;
     @FXML
-    public TableView countriesTableView;
+    public TableView<CountryModel> countriesTableView;
     @FXML
-    public TableColumn countryNameTableColumn;
+    public TableColumn<CountryModel, String> countryNameTableColumn;
     @FXML
-    public TableColumn countryUnitsTableColumn;
+    public TableColumn<CountryModel, Integer> countryUnitsTableColumn;
 
-    public ContinentModel continentModel;
+    private ContinentModel continentModel;
 
-    public void setContinentModel(ContinentModel continent) {
+    void setContinentModel(ContinentModel continent) {
         this.continentModel = continent;
-
         continentNameLabel.setText(this.continentModel.getContinentName());
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.continentModel.getCountries());
         countryNameTableColumn.setCellValueFactory(
-                new PropertyValueFactory<CountryModel, String>("countryName"));
+                new PropertyValueFactory<>("countryName"));
         countryUnitsTableColumn.setCellValueFactory(
-                new PropertyValueFactory<CountryModel, Integer>("armyInCountry"));
+                new PropertyValueFactory<>("armyInCountry"));
         countriesTableView.setItems(playerCountriesObservable);
-
     }
 }

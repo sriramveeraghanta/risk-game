@@ -99,9 +99,9 @@ public class GameController {
     private void initGame(int playerCount) throws GameException, IOException {
         // TODO: Start Startup Phase
 
-        System.out.println("count"+playerCount);
+        //System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
-        System.out.println(playerCount);
+        //System.out.println(playerCount);
         MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
         if(this.isUserMap()){
            mapBuilder.readMapFile(this.userMapFilePath);
@@ -109,12 +109,12 @@ public class GameController {
             mapBuilder.readMapFile(null);
         }
 
-        System.out.println(getGameModel().getContinents());
+        //System.out.println(getGameModel().getContinents());
 
         StartupPhase startupPhase = new StartupPhase(this.getGameModel());
         startupPhase.initNewGame(playerCount);
 
-        System.out.println(gameModel.getPlayers());
+        //System.out.println(gameModel.getPlayers());
 
         // Creating an Game Board
         Stage stage = new Stage();
@@ -134,7 +134,6 @@ public class GameController {
      */
     @FXML
     public void loadGame(ActionEvent event) throws IOException {
-        System.out.println(getClass());
         Stage stage = (Stage) loadGameButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoadGame.fxml"));
         Parent loadGamePanel = loader.load();
@@ -154,7 +153,7 @@ public class GameController {
      */
     @FXML
     public void exitGame(ActionEvent event) {
-        System.out.println("Exit game");
+        //System.out.println("Exit game");
         Stage stage = (Stage) exitGameButton.getScene().getWindow();
         stage.close();
     }
