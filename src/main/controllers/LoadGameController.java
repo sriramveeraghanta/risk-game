@@ -44,6 +44,11 @@ public class LoadGameController {
 
     }
 
+    /**
+     * this method create user map and get event which is type of ActionEvent as parameter
+     * @param event type of ActionEvent
+     * @throws IOException if exception occur it throws IOException
+     */
     @FXML
     public void createUserMap(ActionEvent event) throws IOException {
         CharSequence fileName = mapFileNameTextField.getCharacters();

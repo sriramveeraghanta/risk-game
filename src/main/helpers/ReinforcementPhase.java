@@ -74,7 +74,7 @@ public class ReinforcementPhase {
     /**
      * assigning the number of armies which calculated to the country of the player
      * @param country   which country we want to place the armies
-     * @param numberOfUnits
+     * @param numberOfUnits number of armies assign to the country
      * @return boolean if it goes in catch it return false
      */
     public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {

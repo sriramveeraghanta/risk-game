@@ -72,7 +72,7 @@ public class GameCommons {
     /**
      * Getting the array list of  countries
      * @param countryList array list of countries
-     * @returnthe array list of countries
+     * @return the array list of countries
      */
     public ArrayList<String> getCountriesList(ArrayList<CountryModel> countryList) {
         ArrayList<String> countries = new ArrayList<String>();

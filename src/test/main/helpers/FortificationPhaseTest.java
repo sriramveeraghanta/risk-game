@@ -18,10 +18,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
 * FortificationPhase Tester.
-*
-* @author <Authors name>
-* @since <pre>Mar 23, 2019</pre>
-* @version 1.0
 */
 public class FortificationPhaseTest {
     PlayerModel attackerPlayer;
@@ -66,37 +62,37 @@ public void before() throws Exception {
 public void after() throws Exception {
 }
 
-/**
-*
-* Method: getPlayerModel()
-*
-*/
-@Test
-public void testGetPlayerModel() throws Exception {
-//TODO: Test goes here...
-}
+///**
+//*
+//* Method: getPlayerModel()
+//*
+//*/
+//@Test
+//public void testGetPlayerModel() throws Exception {
+////TODO: Test goes here...
+//}
 
-/**
-*
-* Method: setPlayerModel(PlayerModel playerModel)
-*
-*/
-@Test
-public void testSetPlayerModel() throws Exception {
-//TODO: Test goes here...
-}
+///**
+//*
+//* Method: setPlayerModel(PlayerModel playerModel)
+//*
+//*/
+//@Test
+//public void testSetPlayerModel() throws Exception {
+////TODO: Test goes here...
+//}
 
-/**
-*
-* Method: swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits)
-*
-*/
-@Test
-public void testSwapArmyUnitsBetweenCountries() throws Exception {
-//    assertEquals("Operation Completed",
-////            fortify.swapArmyUnitsBetweenCountries(attackerCountryFrom.getCountryName(),attackerCountryTo.getCountryName(),
-////                     2));
-}
+///**
+//*
+//* Method: swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits)
+//*
+//*/
+//@Test
+//public void testSwapArmyUnitsBetweenCountries() throws Exception {
+////    assertEquals("Operation Completed",
+//////            fortify.swapArmyUnitsBetweenCountries(attackerCountryFrom.getCountryName(),attackerCountryTo.getCountryName(),
+//////                     2));
+//}
 
 
 }
