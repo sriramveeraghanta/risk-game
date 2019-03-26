@@ -5,6 +5,9 @@ import main.models.PlayerModel;
 
 import java.util.List;
 
+/**
+ * This class contains all of the fortification phase method
+ */
 public class FortificationPhase {
     private PlayerModel playerModel;
     /**

@@ -18,6 +18,9 @@ import main.utills.GameException;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * This class is a game controller class
+ */
 public class GameController {
 
     private GameModel gameModel;
@@ -29,13 +32,16 @@ public class GameController {
     @FXML
     private Button newGameButton,loadGameButton, exitGameButton ;
 
+    /**
+     * Constructor of the game controller class
+     */
     public GameController(){
 
     }
 
     /**
-     * Start Game
-     * @param event
+     * with Start Game new game starts
+     * @param event type of ActionEvent
      * @throws IOException
      */
     @FXML
@@ -43,6 +49,9 @@ public class GameController {
         this.playerCountDialog();
     }
 
+    /**
+     * this method is player count dialog
+     */
     public void playerCountDialog(){
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
@@ -54,9 +63,8 @@ public class GameController {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
 
-                    /**
-                     * Initiating players and Creating new Map.
-                     * */
+
+                     // Initiating players and Creating new Map.
                     this.initGame(playerCount);
 
 
@@ -81,6 +89,13 @@ public class GameController {
             }
         });
     }
+
+    /**
+     * This method do all of the initialization of the game by getting the number of players  as a parameter
+     * @param playerCount number of players
+     * @throws GameException
+     * @throws IOException
+     */
     private void initGame(int playerCount) throws GameException, IOException {
         // TODO: Start Startup Phase
 
@@ -114,7 +129,7 @@ public class GameController {
 
     /**
      * Loading the New Game to the user
-     * @param event
+     * @param event type of ActionEvent
      * @throws IOException
      */
     @FXML
@@ -135,7 +150,7 @@ public class GameController {
 
     /**
      * Exit the current window that is opened
-     * @param event
+     * @param event type of ActionEvent
      */
     @FXML
     public void exitGame(ActionEvent event) {
@@ -144,26 +159,50 @@ public class GameController {
         stage.close();
     }
 
+    /**
+     * Getter method to get the game model object
+     * @return the objectof game model
+     */
     public GameModel getGameModel() {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel type of GameModel
+     */
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
     }
 
+    /**
+     * this method check the user map and return true or false
+     * @return boolean value
+     */
     public boolean isUserMap() {
         return userMap;
     }
 
+    /**
+     * set the user map type of boolean
+     * @param userMap boolean
+     */
     public void setUserMap(boolean userMap) {
         this.userMap = userMap;
     }
 
+    /**
+     * get the user map file path and return it as a String
+     * @return the String user map file path
+     */
     public String getUserMapFilePath() {
         return userMapFilePath;
     }
 
+    /**
+     * Set user map file path and get the user map file path as a parameter
+     * @param userMapFilePath type of String
+     */
     public void setUserMapFilePath(String userMapFilePath) {
         this.userMapFilePath = userMapFilePath;
     }
