@@ -28,7 +28,7 @@ public class MapBuilder {
 
     /**
      * constructor for the map builder
-     * @param gameModel
+     * @param gameModel is an object of game model class
      */
     public MapBuilder(GameModel gameModel) {
         this.gameModel = gameModel;
@@ -40,7 +40,7 @@ public class MapBuilder {
      * Processing of World.map file starts here
      * @param mapFilePath This parameter will contain the path of map file
      * @return boolean if it is valid or invalid
-     * @throws GameException
+     * @throws GameException if exception happened it throws exception
      */
     public boolean readMapFile(String mapFilePath) throws GameException {
         if (mapFilePath == null) {
@@ -94,7 +94,7 @@ public class MapBuilder {
      *                mapDataList
      * @param last    This parameter holds the ending index of continents data in
      *                mapDataList
-     * @throws GameException
+     * @throws GameException if exception happened it throws exception
      */
     public void loadContinentMapData(int initial, int last) throws GameException {
 
@@ -124,7 +124,7 @@ public class MapBuilder {
      *                mapDataList
      * @param last    This parameter holds the ending index of Territories data in
      *                mapDataList
-     * @throws GameException
+     * @throws GameException if exception happened it throws exception
      */
     public void loadCountryMapData(int initial, int last) throws GameException {
 
@@ -174,7 +174,7 @@ public class MapBuilder {
     /**
      * adding the list of adjacent countries to the country
      * @param countryMapDataList list of the countries which is wanted to add to that country
-     * @throws GameException
+     * @throws GameException if exception happened it throws exception
      */
     public void addAdjacentCountriesToCountry(ArrayList<String[]> countryMapDataList) throws GameException {
         /*

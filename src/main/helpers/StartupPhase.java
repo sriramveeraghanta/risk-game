@@ -19,7 +19,7 @@ public class StartupPhase {
     /**
      * Initialise the game objects set players properties such countries,armies,
      * Colour
-     * @param gameModel
+     * @param gameModel is an object of game model
      */
     public StartupPhase(GameModel gameModel) {
         this.gameModel = gameModel;
@@ -41,8 +41,10 @@ public class StartupPhase {
     }
 
 
+
     /**
-     * Creating new players for the game
+     * getting the new players and returning the array list of player model
+     * @return array list of player model
      */
     public ArrayList<PlayerModel> getNewPlayers(){
         ArrayList<PlayerModel> playersList = new ArrayList<>();

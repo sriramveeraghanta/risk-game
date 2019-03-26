@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.LoadGameController">
+   <children>
+      <TextField fx:id="mapFileNameTextField" layoutX="221.0" layoutY="173.0" prefHeight="27.0" prefWidth="832.0" />
+      <TextArea fx:id="mapDataTextArea" layoutX="221.0" layoutY="233.0" prefHeight="396.0" prefWidth="835.0" />
+      <Label layoutX="223.0" layoutY="209.0" text="Map Data">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="224.0" layoutY="150.0" text="File Name">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" layoutX="373.0" layoutY="665.0" mnemonicParsing="false" onAction="#createUserMap" prefHeight="27.0" prefWidth="511.0" text="Create Map" textAlignment="CENTER" />
+   </children>
+</Pane>
