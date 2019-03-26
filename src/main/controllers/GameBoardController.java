@@ -15,6 +15,9 @@ import main.utills.GameCommons;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is a controller for game board
+ */
 public class GameBoardController {
 
 
@@ -30,18 +33,34 @@ public class GameBoardController {
     @FXML
     private Label currentPlayerLabel;
 
+    /**
+     * Constructor of the game board controller
+     */
     public GameBoardController() {
     }
 
+    /**
+     * Getter method to get the object of game model
+     * @return the object of game model
+     */
     private GameModel getGameModel() {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel object of game model
+     * @throws IOException
+     */
     void setGameModel(GameModel gameModel) throws IOException {
         this.gameModel = gameModel;
         this.initData();
     }
 
+    /**
+     * This method initialize the data
+     * @throws IOException
+     */
     private void initData() throws IOException {
         //System.out.println(getGameModel());
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
@@ -61,6 +80,9 @@ public class GameBoardController {
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
+    /**
+     * This method is a private method for attacking phase which creates the attack phase
+     */
     @FXML
     private void attackPhase() {
 
@@ -79,7 +101,9 @@ public class GameBoardController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method is a private method for fortify phase which creates the fortify phase
+     */
     @FXML
     private void fortifyPhase() {
         // Creating an Fortify Dialog Phase
@@ -96,7 +120,9 @@ public class GameBoardController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method is a private method for reinforcement phase which creates the reinforcement phase
+     */
     @FXML
     private void reinforcementPhase() {
         // Creating an Attack Phase
@@ -114,6 +140,9 @@ public class GameBoardController {
         }
     }
 
+    /**
+     * this method is a private method which is getting the next player
+     */
     @FXML
     private void getNextPlayer(){
         if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){

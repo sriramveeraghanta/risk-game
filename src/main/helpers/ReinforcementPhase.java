@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * this class contains all the methods we need in reinforcement phase
+ */
 public class ReinforcementPhase {
 
     private PlayerModel playerModel;
@@ -14,7 +17,6 @@ public class ReinforcementPhase {
 
     /**
      * Constructor Reinforcement Phase
-     *
      * @param playerModel the player
      * @param gameModel   the object of gameModel
      */
@@ -26,7 +28,6 @@ public class ReinforcementPhase {
     /**
      * this method calculates the number of army units player get according to the cards if they are similar of they are different
      * and the number will increase 5 times more each time he swap the cards with armies
-     *
      * @return the total number of army units he can get for cards
      */
     public int swapCardsForArmyUnits() {
@@ -41,8 +42,8 @@ public class ReinforcementPhase {
     }
 
     /**
-     * getting the continent control value which shows the number of armies player can get after owning all the countries in a continent
-     *
+     * getting the continent control value which shows the number of armies player can get after owning all the
+     * countries in a continent
      * @return the number of control value of specific continent
      */
     public int getArmyUnitsForConqueredContinent() {
@@ -51,9 +52,9 @@ public class ReinforcementPhase {
     }
 
     /**
-     * calculating the number of armies players can get for each round by default which should be the number of countries divided by 3
+     * calculating the number of armies players can get for each round by default which should
+     * be the number of countries divided by 3
      * rounded down
-     *
      * @return the number of armies each player can by default
      */
     public int getArmyUnitsFromCountries() {
@@ -72,7 +73,6 @@ public class ReinforcementPhase {
 
     /**
      * assigning the number of armies which calculated to the country of the player
-     *
      * @param country   which country we want to place the armies
      * @param numberOfUnits
      * @return boolean if it goes in catch it return false
@@ -87,7 +87,6 @@ public class ReinforcementPhase {
 
     /**
      * checking the cards of the player if they are similar types and return the number of units he can get
-     *
      * @return the number of units he can get for similar cards
      */
     public int getNumberOfSimilarCards() {
@@ -120,7 +119,6 @@ public class ReinforcementPhase {
 
     /**
      * checking the cards of the player if they are different types and return the number of units he can get
-     *
      * @return the number of units he can get for different cards
      */
     public int getNumberOfDifferentCards() {
@@ -168,7 +166,6 @@ public class ReinforcementPhase {
 
     /**
      * setting the player deck by getting the list of cards and unit type of it
-     *
      * @param cards    a list of cards
      * @param cardType which is the type of cards
      */
@@ -182,7 +179,6 @@ public class ReinforcementPhase {
 
     /**
      * setting the player deck by getting the list of cards and unit type of it
-     *
      * @param cards        a list of cards
      * @param cardType     which is the type of cards
      * @param numbeOfUnits the number of each card type player has
@@ -198,7 +194,6 @@ public class ReinforcementPhase {
 
     /**
      * checking if the continent player occupy is in his continent list
-     *
      * @return number of the control value of the continent player can occupies all the countries
      */
     public int validateNewContinentOccupation() {
@@ -225,7 +220,6 @@ public class ReinforcementPhase {
 
     /**
      * checking if all the countries in a continent occupied by the player and return the control value of that continent
-     *
      * @param continent the object of continent
      * @param countries a list of countries player own
      * @return if player can get whole continent return true

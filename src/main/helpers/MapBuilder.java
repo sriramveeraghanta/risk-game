@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class contains all of methods related to building map
+ */
 public class MapBuilder {
 
     private GameModel gameModel;
@@ -23,15 +26,20 @@ public class MapBuilder {
     FileReader mapFileReader;
     String mapLineData;
 
+    /**
+     * constructor for the map builder
+     * @param gameModel
+     */
     public MapBuilder(GameModel gameModel) {
         this.gameModel = gameModel;
         this.gameCommon = new GameCommons();
     }
 
+
     /**
      * Processing of World.map file starts here
-     *
      * @param mapFilePath This parameter will contain the path of map file
+     * @return boolean if it is valid or invalid
      * @throws GameException
      */
     public boolean readMapFile(String mapFilePath) throws GameException {
@@ -82,14 +90,12 @@ public class MapBuilder {
 
     /**
      * This Method will extract the Continent data from the map file
-     *
      * @param initial This parameter holds the starting index of continents data in
      *                mapDataList
      * @param last    This parameter holds the ending index of continents data in
      *                mapDataList
      * @throws GameException
      */
-
     public void loadContinentMapData(int initial, int last) throws GameException {
 
         if (initial < 0) {
@@ -114,14 +120,12 @@ public class MapBuilder {
 
     /**
      * This Method will extract the Country data from the map file
-     *
      * @param initial This parameter holds the starting index of Territories data in
      *                mapDataList
      * @param last    This parameter holds the ending index of Territories data in
      *                mapDataList
      * @throws GameException
      */
-
     public void loadCountryMapData(int initial, int last) throws GameException {
 
         if (initial < 0) {
@@ -167,8 +171,13 @@ public class MapBuilder {
         this.addAdjacentCountriesToCountry(countryMapDataList);
     }
 
+    /**
+     * adding the list of adjacent countries to the country
+     * @param countryMapDataList list of the countries which is wanted to add to that country
+     * @throws GameException
+     */
     public void addAdjacentCountriesToCountry(ArrayList<String[]> countryMapDataList) throws GameException {
-        /**
+        /*
          * We are taking the adjacent countries from the list, which is starting from
          * the 4th index.
          */
@@ -197,6 +206,13 @@ public class MapBuilder {
 
     }
 
+    /**
+     * validating the continent data according to parameters and return
+     * the index if it is valid
+     * @param initial index of first continent data
+     * @param last index of last continent data
+     * @return the index of it if it is valid or -1 if it is invalid
+     */
     public int validateContinentData(int initial, int last) {
         for (int index = initial + 1; index < last; index++) {
             String continentData = mapDataList.get(index);
@@ -209,6 +225,13 @@ public class MapBuilder {
         return -1;
     }
 
+    /**
+     * validating the country data according to parameters and return
+     * the index if it is valid
+     * @param initial index of first country data
+     * @param last index of last country data
+     * @return the index of it if it is valid or -1 if it is invalid
+     */
     public int validateCountryData(int initial, int last) {
         for (int index = initial + 1; index < last; index++) {
             String countryMapLine = mapDataList.get(index);
@@ -228,6 +251,11 @@ public class MapBuilder {
         return -1;
     }
 
+    /**
+     * this method check if the continent is exists or not
+     * @param continentName string name of the continent
+     * @return true if it is valid
+     */
     public boolean validateIfContinentExists(String continentName) {
         if (gameCommon.getContinentModelFromList(gameModel.getContinents(), continentName) != null) {
             return true;
@@ -235,6 +263,10 @@ public class MapBuilder {
         return false;
     }
 
+    /**
+     * this method checking if countries are adjacent or not and return true and false
+     * @return true or false if it is valid or not
+     */
     public boolean validateIfCountriesAreAdjacent() {
         ArrayList<String> countries = gameCommon.getCountriesList(gameModel.getCountries());
         int[][] countryAdjacencyValidation = new int[gameModel.getCountries().size()][gameModel.getCountries().size()];
@@ -264,6 +296,10 @@ public class MapBuilder {
         return true;
     }
 
+    /**
+     * validate continents if they are adjacent or not
+     * @return true or false false if they are valid
+     */
     public boolean validateContinentsAreAdjacent() {
         int[] areAdjacent = new int[gameModel.getContinents().size()];
         for (int i = 0; i < gameModel.getContinents().size(); i++) {
@@ -284,6 +320,10 @@ public class MapBuilder {
         return true;
     }
 
+    /**
+     * chack if all of the countries belong to at least one country
+     * @return true or false if it is valid
+     */
     public boolean validateCountriesBelongToOneContinent() {
         for (int i = 0; i < gameModel.getContinents().size() - 1; i++) {
             List<String> fromCountryNames = gameModel.getContinents().get(i).getCountries().stream()
@@ -302,6 +342,10 @@ public class MapBuilder {
         return true;
     }
 
+    /**
+     * this method validate the continent if it has at least 1 country
+     * @return true or false if validation fail or pass
+     */
     public boolean validateContinentHasMinimumOneCountry() {
         for (int i = 0; i < gameModel.getContinents().size(); i++) {
             if (gameModel.getContinents().get(i).getCountries().size() == 0)
