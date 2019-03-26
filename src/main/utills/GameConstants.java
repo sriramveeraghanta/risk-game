@@ -23,6 +23,7 @@ public class GameConstants {
     // error Messages
     public static final String PLAYER_COUNT_ERROR = "Enter a valid Number-Players count should be between 2 and 6";
     public static final String INVALID_PLAYER_COUNT_ERROR = "Please Enter a valid player count between 2 to 6";
+    public static final String INVALID_MAP_ERROR = "Enter a valid Map Data";
 
 
     public static final String SELECT_ATTACKER_COUNTRY = "Select one of your countries for attacking";
@@ -33,6 +34,7 @@ public class GameConstants {
     public static final String DEFENDER_WIN = "Defender wins";
     public static final String MAP_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.map";
     public static final String MAP_IMAGE_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.bmp";
+    public static final String USER_MAP_FILE_PATH = System.getProperty("user.dir") + "/resources/userMapFiles/";
     // Splitters
     public static final String CONTINENT_DATA_SPLITTER = "=";
     public static final String COUNTRY_DATA_SPLITTER = ",";
