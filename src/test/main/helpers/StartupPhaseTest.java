@@ -33,7 +33,7 @@ public void testInit() throws Exception {
 
 /** 
 * 
-* Method: assignColor() 
+* Method: getAssignedColor()
 * 
 */ 
 @Test
@@ -63,7 +63,7 @@ public void testAssignCountriesToPlayers() throws Exception {
 
 /** 
 * 
-* Method: assignOneUnitPerCountry() 
+* Method: assignUnitsPerCountry()
 * 
 */ 
 @Test

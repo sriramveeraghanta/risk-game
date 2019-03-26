@@ -46,7 +46,7 @@ public class FortificationPhase {
         List<CountryModel> countries = this.getPlayerModel().getCountries();
  for(CountryModel country1 : countries){
      System.out.println("countryName:"+country1.getCountryName());
-     List<UnitModel> unitss=new ArrayList<UnitModel>();
+     List<UnitModel> unitss = new ArrayList<UnitModel>();
      unitss=country1.getArmyInCountry();
      for(UnitModel uni : unitss) {
          System.out.println("armyUnit:" + uni.getType());

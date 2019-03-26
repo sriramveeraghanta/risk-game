@@ -191,7 +191,7 @@ public class MapBuilder {
 
             CountryModel countryModel = gameCommon.getCountryModelFromList(gameModel.getCountries(),
                     countryMapDataList.get(i)[0]);
-            countryModel.setAdjcentCountries(countriesList);
+            countryModel.setAdjacentCountries(countriesList);
         }
 
     }
@@ -240,8 +240,8 @@ public class MapBuilder {
         //filling countryAdjacencyValidation;
         for (int i = 0; i < gameModel.getCountries().size(); i++) {
             CountryModel country = gameModel.getCountries().get(i);
-            for (int j = 0; j < country.getAdjcentCountries().size(); j++) {
-                CountryModel adjacentCountry = country.getAdjcentCountries().get(j);
+            for (int j = 0; j < country.getAdjacentCountries().size(); j++) {
+                CountryModel adjacentCountry = country.getAdjacentCountries().get(j);
                 //find index of adjacent country
                 int x = countries.indexOf(adjacentCountry.getCountryName());
 
@@ -269,7 +269,7 @@ public class MapBuilder {
             ArrayList<String> continentCountries = gameCommon.getCountriesList(gameModel.getContinents().get(i).getCountries());
             ContinentModel continent = gameModel.getContinents().get(i);
             for (CountryModel country : continent.getCountries()) {
-                ArrayList<String> adjacentCountries = gameCommon.getCountriesList(country.getAdjcentCountries());
+                ArrayList<String> adjacentCountries = gameCommon.getCountriesList(country.getAdjacentCountries());
                 if (!continentCountries.containsAll(adjacentCountries)) {
                     areAdjacent[i] = +1;
                 }

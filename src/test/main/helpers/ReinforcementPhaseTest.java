@@ -29,7 +29,7 @@ public class ReinforcementPhaseTest {
 
 @Before
 public void before() throws Exception {
-    playerModel = new PlayerModel(EnumHandler.Color.BLACK);
+    playerModel = new PlayerModel();
     gameModel = new GameModel();
     reinforce = new ReinforcementPhase(playerModel, gameModel);
     mapBuilder = new MapBuilder(gameModel);
@@ -77,19 +77,19 @@ public void testSwapCardsForArmyUnitsForArmyGreaterThanZero() throws Exception {
 */ 
 @Test
 public void testGetArmyUnitsForConqueredContinentForOneContinent() throws Exception {
-    playerModel.addCountryToPlayer(country1);
-    playerModel.addCountryToPlayer(country2);
-    playerModel.addCountryToPlayer(country3);
-    playerModel.addCountryToPlayer(country4);
+    playerModel.addCountry(country1);
+    playerModel.addCountry(country2);
+    playerModel.addCountry(country3);
+    playerModel.addCountry(country4);
     assertEquals(reinforce.getArmyUnitsForConqueredContinent(),2);
 }
 
     @Test
     public void testGetArmyUnitsForConqueredContinentForSecondContinent() throws Exception {
-        playerModel.addCountryToPlayer(country1);
-        playerModel.addCountryToPlayer(country2);
-        playerModel.addCountryToPlayer(country3);
-        playerModel.addCountryToPlayer(country4);
+        playerModel.addCountry(country1);
+        playerModel.addCountry(country2);
+        playerModel.addCountry(country3);
+        playerModel.addCountry(country4);
         ContinentModel continentModel = gameCommons.getContinentModelFromList(gameModel.getContinents(),"Asia");
         ArrayList<ContinentModel> continentModelList =new ArrayList<>();
         continentModelList.add(continentModel);
@@ -104,10 +104,10 @@ public void testGetArmyUnitsForConqueredContinentForOneContinent() throws Except
 */ 
 @Test
 public void testGetArmyUnitsFromCountries() throws Exception {
-    playerModel.addCountryToPlayer(country1);
-    playerModel.addCountryToPlayer(country2);
-    playerModel.addCountryToPlayer(country3);
-    playerModel.addCountryToPlayer(country4);
+    playerModel.addCountry(country1);
+    playerModel.addCountry(country2);
+    playerModel.addCountry(country3);
+    playerModel.addCountry(country4);
     assertEquals(reinforce.getArmyUnitsFromCountries(), 3);
 } 
 

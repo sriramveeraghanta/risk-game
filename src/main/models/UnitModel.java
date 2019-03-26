@@ -3,22 +3,21 @@ package main.models;
 import main.utills.EnumHandler;
 
 public class UnitModel {
-
     private EnumHandler.UnitType type;
-    private int unitNumber;
+    private int unitCount;
 
     /**
-     * @return the unitNumber
+     * @return the unitCount
      */
-    public int getUnitNumber() {
-        return unitNumber;
+    public int getUnitCount() {
+        return unitCount;
     }
 
     /**
-     * @param unitNumber the unitNumber to set
+     * @param unitCount the unitCount to set
      */
-    public void setUnitNumber(int unitNumber) {
-        this.unitNumber = unitNumber;
+    public void setUnitCount(int unitCount) {
+        this.unitCount = unitCount;
     }
 
     /**

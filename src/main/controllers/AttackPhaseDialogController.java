@@ -81,7 +81,7 @@ public class AttackPhaseDialogController {
                 //System.out.println("Selected Country: " + newValue.getCountryName());
                 setAttackingCountry(newValue);
 
-                ArrayList<CountryModel> defendingCountyModels = gameCommons.getAttackerAdjcentCountires(newValue.getAdjcentCountries(), playerCountries);
+                ArrayList<CountryModel> defendingCountyModels = gameCommons.getAttackerAdjcentCountires(newValue.getAdjacentCountries(), playerCountries);
                 ObservableList<CountryModel> defendingCountries = FXCollections.observableArrayList(defendingCountyModels);
                 defendingCountryListView.setItems(defendingCountries);
                 defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {

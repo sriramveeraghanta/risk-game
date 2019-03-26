@@ -10,7 +10,7 @@ public class ContinentModel {
 
     private String continentName;
     private int controlValue;
-    private ArrayList<CountryModel> countries = new ArrayList<CountryModel>();
+    private ArrayList<CountryModel> countries = new ArrayList<>();
 
     /**
      * @param controlValue continents controlValue is used by player

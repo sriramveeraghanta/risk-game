@@ -81,7 +81,7 @@ public class GameController {
         System.out.println(getGameModel().getContinents());
 
         StartupPhase startupPhase = new StartupPhase(this.getGameModel());
-        startupPhase.initiatePlayers(playerCount);
+        startupPhase.initNewGame(playerCount);
 
         System.out.println(gameModel.getPlayers());
 

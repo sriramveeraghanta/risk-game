@@ -32,9 +32,9 @@ public class ReinforcementPhase {
     public int swapCardsForArmyUnits() {
         int totalNumberOfArmyUnits = getNumberOfSimilarCards() + getNumberOfDifferentCards();
         if (totalNumberOfArmyUnits > 0) {
-            this.playerModel.setSuccessfullCardSwapCounter(this.playerModel.getSuccessfullCardSwapCounter() + 1);
+            this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
 
-            return (totalNumberOfArmyUnits * 5) * this.playerModel.getSuccessfullCardSwapCounter();
+            return (totalNumberOfArmyUnits * 5) * this.playerModel.getSuccessfulCardSwapCounter();
         }
 
         return 0;
@@ -80,12 +80,12 @@ public class ReinforcementPhase {
     public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
         List<CountryModel> countries = this.playerModel.getCountries();
         try {
-            if (this.playerModel.getNumberOfArmyUnitOnHand() > numberOfUnits) {
+            if (this.playerModel.getArmyInHand() > numberOfUnits) {
                 country.setNumberOfUnits(country.getNumberOfUnits()+1);
                 List<UnitModel> units = country.getArmyInCountry();
                 UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.UnitType.INFANTRY)).findFirst().get();
-                soldier.setUnitNumber((country.getNumberOfUnits() + numberOfUnits));
-                this.playerModel.setNumberOfArmyUnitOnHand(this.playerModel.getNumberOfArmyUnitOnHand() - numberOfUnits);
+                soldier.setUnitCount((country.getNumberOfUnits() + numberOfUnits));
+                this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
             }
 
         } catch (Exception ex) {
