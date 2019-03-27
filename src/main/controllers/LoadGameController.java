@@ -8,8 +8,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.helpers.MapBuilder;
 import main.models.GameModel;
 import main.utills.GameConstants;
+import main.utills.GameException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -54,21 +56,32 @@ public class LoadGameController {
         CharSequence fileName = mapFileNameTextField.getCharacters();
         ObservableList<CharSequence> paragraph = mapDataTextArea.getParagraphs();
         createMapFile(fileName, paragraph);
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Risk Game");
-        alert.setHeaderText("Do you want to Start a Game with new map ?");
-        ButtonType buttonTypeOne = new ButtonType("Yes");
-        ButtonType buttonTypeTwo = new ButtonType("No");
-        alert.getButtonTypes().setAll(buttonTypeOne,buttonTypeTwo);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
-            this.getGameController().setUserMap(true);
-            this.getGameController().setUserMapFilePath(mapFilePath);
-            this.getGameController().playerCountDialog();
+        MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
+        boolean isvalidMap=false;
+        Alert alert=null;
+        try {
+            isvalidMap=mapBuilder.readMapFile(mapFilePath);
+        }catch (GameException e) {
+             alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(GameConstants.INVALID_MAP_ERROR);
+            alert.showAndWait();
+        }
+        if(isvalidMap) {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Risk Game");
+            alert.setHeaderText(GameConstants.MAP_MSG);
+            ButtonType buttonTypeOne = new ButtonType("Yes");
+            ButtonType buttonTypeTwo = new ButtonType("No");
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne) {
+                this.getGameController().setUserMapValidated(true);;
+                this.getGameController().playerCountDialog();
+                this.getStage().close();
+            }
         }
         alert.close();
-        this.getStage().close();
 
     }
 
@@ -80,9 +93,10 @@ public class LoadGameController {
      */
     private void createMapFile(CharSequence fileName, ObservableList<CharSequence> mapData) {
         Iterator<CharSequence> iterator = mapData.iterator();
-         mapFilePath = GameConstants.USER_MAP_FILE_PATH + fileName.toString()+".map";
+
 
         try {
+            mapFilePath = GameConstants.USER_MAP_FILE_PATH + fileName.toString()+".map";
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(mapFilePath)));
             while(iterator.hasNext()) {
                 CharSequence seq = iterator.next();
@@ -91,25 +105,12 @@ public class LoadGameController {
             }
             bufferedWriter.flush();
             bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * Getting the resource path
-     * @return the path as a String
-     */
-    private static String getResourcePath() {
-        try {
-            URI resourcePathFile = System.class.getResource("/data").toURI();
-            String resourcePath = Files.readAllLines(Paths.get(resourcePathFile)).get(0);
-            URI rootURI = new File("").toURI();
-            URI resourceURI = new File(resourcePath).toURI();
-            URI relativeResourceURI = rootURI.relativize(resourceURI);
-            return relativeResourceURI.getPath();
-        } catch (Exception e) {
-            return null;
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(GameConstants.INVALID_MAP_ERROR);
+            alert.showAndWait();
         }
     }
 

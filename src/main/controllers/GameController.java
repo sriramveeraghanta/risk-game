@@ -24,9 +24,7 @@ import java.util.Optional;
 public class GameController {
 
     private GameModel gameModel;
-    private boolean userMap;
-    private String userMapFilePath;
-
+    private boolean userMapValidated;
 
 
     @FXML
@@ -101,20 +99,16 @@ public class GameController {
 
         //System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
-        //System.out.println(playerCount);
-        MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-        if(this.isUserMap()){
-           mapBuilder.readMapFile(this.userMapFilePath);
-        }else {
+        System.out.println(playerCount);
+
+        if(!this.isUserMapValidated()){
+            MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
             mapBuilder.readMapFile(null);
         }
-
-        //System.out.println(getGameModel().getContinents());
 
         StartupPhase startupPhase = new StartupPhase(this.getGameModel());
         startupPhase.initNewGame(playerCount);
 
-        //System.out.println(gameModel.getPlayers());
 
         // Creating an Game Board
         Stage stage = new Stage();
@@ -174,35 +168,12 @@ public class GameController {
         this.gameModel = gameModel;
     }
 
-    /**
-     * this method check the user map and return true or false
-     * @return boolean value
-     */
-    public boolean isUserMap() {
-        return userMap;
+    public boolean isUserMapValidated() {
+        return userMapValidated;
     }
 
-    /**
-     * set the user map type of boolean
-     * @param userMap boolean
-     */
-    public void setUserMap(boolean userMap) {
-        this.userMap = userMap;
+    public void setUserMapValidated(boolean userMapValidated) {
+        this.userMapValidated = userMapValidated;
     }
 
-    /**
-     * get the user map file path and return it as a String
-     * @return the String user map file path
-     */
-    public String getUserMapFilePath() {
-        return userMapFilePath;
-    }
-
-    /**
-     * Set user map file path and get the user map file path as a parameter
-     * @param userMapFilePath type of String
-     */
-    public void setUserMapFilePath(String userMapFilePath) {
-        this.userMapFilePath = userMapFilePath;
-    }
 }

@@ -29,7 +29,9 @@ public class GameConstants {
     public static final String INVALID_PLAYER_COUNT_ERROR = "Please Enter a valid player count between 2 to 6";
     public static final String INVALID_MAP_ERROR = "Enter a valid Map Data";
 
-
+    public static final String MAP_MSG="Do you want to Start a Game with new map ?";
+    public static final String FORTIFY_INVALID_MSG = "Invalid Operation Data";
+    public static final String FORTIFY_VALID_MSG = "Fortification Completed";
     public static final String SELECT_ATTACKER_COUNTRY = "Select one of your countries for attacking";
     public static final String SELECT_DEFENDER_COUNTRY = "Select one of your adjacent countries for attacking";
     public static final String NUMBER_OF_DICES = "Select the number of dices";
