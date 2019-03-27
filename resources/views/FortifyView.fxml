@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="fortifyPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.FortifyDialogController">
+<AnchorPane fx:id="fortifyPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.FortifyDialogController">
    <children>
-      <SplitPane fx:id="FortifySplitPanel" dividerPositions="0.5614617940199336" prefHeight="326.0" prefWidth="604.0">
+      <SplitPane fx:id="fortifySplitPanel" dividerPositions="0.4983388704318937" prefHeight="326.0" prefWidth="604.0">
         <items>
-          <AnchorPane fx:id="PlayerCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="324.0" prefWidth="344.0">
+          <AnchorPane fx:id="playerCountryListPanel" minHeight="0.0" minWidth="0.0" prefHeight="324.0" prefWidth="344.0">
                <children>
-                  <ListView fx:id="PlayerCountryList" layoutY="43.0" prefHeight="284.0" prefWidth="274.0" />
-                  <Label fx:id="PlayerCountryListLabel" alignment="CENTER" prefHeight="45.0" prefWidth="297.0" text="Player Country List">
+                  <ListView fx:id="playerCountryList" layoutY="43.0" prefHeight="284.0" prefWidth="299.0" />
+                  <Label fx:id="playerCountryListLabel" alignment="CENTER" prefHeight="45.0" prefWidth="297.0" text="Player Country List">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -24,8 +24,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <ListView fx:id="PlayerOwnedCountryList" layoutY="45.0" prefHeight="284.0" prefWidth="288.0" />
-                  <Label fx:id="PlayerOwnedadjacentCountryListLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" prefHeight="45.0" prefWidth="297.0" text="Player Owned Adjacent Country List">
+                  <ListView fx:id="playerOwnedAdjacentCountryList" layoutY="45.0" prefHeight="284.0" prefWidth="299.0" />
+                  <Label fx:id="playerOwnedadjacentCountryListLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" prefHeight="45.0" prefWidth="297.0" text="Player Owned Adjacent Country List">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -34,10 +34,8 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <Button fx:id="AttackActionButton" layoutX="357.0" layoutY="358.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Fortify" />
-      <Label fx:id="AvailableArmyCountLabel" layoutX="14.0" layoutY="338.0" prefHeight="32.0" prefWidth="138.0" text="Army Units Available :" />
-      <TextField fx:id="AvailableArmyCount" layoutX="152.0" layoutY="342.0" />
-      <Label fx:id="ArmyCountToFortifyLabel" layoutX="14.0" layoutY="379.0" prefHeight="32.0" prefWidth="131.0" text="Enter No. Of Units   :" />
-      <TextField fx:id="ArmyCountToFortify" layoutX="151.0" layoutY="383.0" />
+      <Button fx:id="fortifyActionButton" layoutX="348.0" layoutY="346.0" mnemonicParsing="false" onAction="#fortifyAction" prefHeight="25.0" prefWidth="139.0" text="Fortify" />
+      <Label fx:id="armyCountToFortifyLabel" layoutX="14.0" layoutY="342.0" prefHeight="32.0" prefWidth="131.0" text="Enter No. Of Units   :" />
+      <TextField fx:id="armyCountToFortify" layoutX="145.0" layoutY="346.0" />
    </children>
 </AnchorPane>
