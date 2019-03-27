@@ -85,6 +85,10 @@ public class ReinforcementDialogController {
         });
     }
 
+    /**
+     * Action when we are trying to add army to the country
+     *
+     * */
     @FXML
     public void addArmyAction() {
         if(getSelectedCountry() != null && !ArmyCountToPlace.getText().equals("")) {
@@ -119,23 +123,42 @@ public class ReinforcementDialogController {
     }
 
 
-
+    /**
+     * Getter method for getting the current Selected Country;
+     * @return Country Model
+     * */
     public CountryModel getSelectedCountry() {
         return selectedCountry;
     }
 
+    /**
+     * Setter method for getting the current Selected Country;
+     * @param selectedCountry of Country Model which is selected by the user.
+     * */
     public void setSelectedCountry(CountryModel selectedCountry) {
         this.selectedCountry = selectedCountry;
     }
 
+    /**
+     * Getter method for player model
+     * @return player model
+     * */
     public PlayerModel getPlayerModel() {
         return playerModel;
     }
 
+    /**
+     * Setter method for getting the current Selected Country;
+     * @param playerModel Player model
+     * */
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
     }
 
+    /**
+     * SwapCards Action Listener.
+     * @param actionEvent Action event from javafx
+     * */
     public void swapCardAction(ActionEvent actionEvent) {
 
     }

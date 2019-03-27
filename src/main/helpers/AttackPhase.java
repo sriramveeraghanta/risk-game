@@ -36,7 +36,6 @@ public class AttackPhase {
 
     /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
-     * @return the string which is a message that shws to the user if he lost or won
      */
     public void attackCountry(){
 

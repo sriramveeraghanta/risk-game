@@ -28,29 +28,49 @@ public class FortifyDialogController {
     private GameModel gameModel;
     private CountryModel playerFromCountry = null;
     private CountryModel playerOwnedAdjacentToCountry = null;
-    private PlayerModel currentPlayer=null;
-
-
+    private PlayerModel currentPlayer = null;
 
     @FXML
-    private ListView<CountryModel> playerOwnedAdjacentCountryList,playerCountryList;
+    private ListView<CountryModel> playerOwnedAdjacentCountryList, playerCountryList;
 
     @FXML
     private TextField armyCountToFortify;
 
 
+    /**
+     * Setter method to set country
+     *
+     * @return game type of game model
+     */
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    /**
+     * Setter method to set the game model object
+     *
+     * @param gameModel type of game model
+     */
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
+        this.initializeFortify();
+    }
+
+    /**
+     * Fortify action listener
+     */
     @FXML
-    public  void fortifyAction() {
+    public void fortifyAction() {
         try {
-            if (playerFromCountry != null && playerOwnedAdjacentToCountry != null) {
+            if (getPlayerFromCountry() != null && getPlayerOwnedAdjacentToCountry() != null) {
                 int armyCount = 0;
-                FortificationPhase fortifyPhase = new FortificationPhase(currentPlayer);
+                FortificationPhase fortifyPhase = new FortificationPhase(getCurrentPlayer());
                 try {
-                    armyCount = Integer.parseUnsignedInt(armyCountToFortify.getText().toString());
+                    armyCount = Integer.parseUnsignedInt(armyCountToFortify.getText());
                 } catch (NumberFormatException e) {
                     invalidMsg();
                 }
-                String message = fortifyPhase.swapArmyUnitsBetweenCountries(playerFromCountry, playerOwnedAdjacentToCountry, armyCount);
+                String message = fortifyPhase.swapArmyUnitsBetweenCountries(getPlayerFromCountry(), getPlayerOwnedAdjacentToCountry(), armyCount);
                 if (message != null) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Fortification Phase");
@@ -62,31 +82,24 @@ public class FortifyDialogController {
             } else {
                 invalidMsg();
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             invalidMsg();
         }
     }
 
+    /**
+     * Alert for invalid message.
+     */
     public void invalidMsg() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
         alert.showAndWait();
     }
-    public GameModel getGameModel() {
-        return gameModel;
-    }
 
     /**
-     * Setter method to set the game model object
-     * @param gameModel type of game model
+     * Initializing the fortification phase
      */
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-        this.initializeFortify();
-    }
-
     private void initializeFortify() {
 
         GameCommons gameCommons = new GameCommons();
@@ -103,7 +116,7 @@ public class FortifyDialogController {
                 if (empty) {
                     setText(null);
                 } else {
-                    setText(item.getCountryName()+"-"+item.getArmyInCountry());
+                    setText(item.getCountryName() + "-" + item.getArmyInCountry());
                 }
             }
         });
@@ -123,11 +136,11 @@ public class FortifyDialogController {
                         if (empty) {
                             setText(null);
                         } else {
-                            setText(item.getCountryName()+"-"+item.getArmyInCountry());
+                            setText(item.getCountryName() + "-" + item.getArmyInCountry());
                         }
                     }
                 });
-                playerOwnedAdjacentCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>(){
+                playerOwnedAdjacentCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
                     @Override
                     public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
                         setPlayerOwnedAdjacentToCountry(newValue);
@@ -137,27 +150,57 @@ public class FortifyDialogController {
         });
     }
 
-
+    /**
+     * Getter method to set country
+     *
+     * @return country type of country model
+     */
     public CountryModel getPlayerFromCountry() {
         return playerFromCountry;
     }
 
+    /**
+     * Setter method to set country
+     *
+     * @param playerFromCountry type of game model
+     */
     public void setPlayerFromCountry(CountryModel playerFromCountry) {
         this.playerFromCountry = playerFromCountry;
     }
 
+
+    /**
+     * Getter method for getting adjacent Owned countries
+     *
+     * @return Country Model
+     */
     public CountryModel getPlayerOwnedAdjacentToCountry() {
         return playerOwnedAdjacentToCountry;
     }
 
+    /**
+     * Setter method to set country
+     *
+     * @param playerOwnedAdjacentToCountry type of country model
+     */
     public void setPlayerOwnedAdjacentToCountry(CountryModel playerOwnedAdjacentToCountry) {
         this.playerOwnedAdjacentToCountry = playerOwnedAdjacentToCountry;
     }
 
+    /**
+     * Setter method to set Player
+     *
+     * @return gets the current player who is playing
+     */
     public PlayerModel getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Setter method to set Player
+     *
+     * @param currentPlayer type of Player model
+     */
     public void setCurrentPlayer(PlayerModel currentPlayer) {
         this.currentPlayer = currentPlayer;
     }

@@ -37,9 +37,9 @@ public class FortificationPhase {
     /**
      * swapping the particular number of armies between the countries the player owns for fortification and checking all the countries the
      * player own should have at least one army and countries should be adjacent
-     * @param fromCountryModel
-     * @param toCountryModel
-     * @param numberOfArmyUnits
+     * @param fromCountryModel Country Model from which we are changing
+     * @param toCountryModel country Model to which we are changing the army
+     * @param numberOfArmyUnits number of units we are trying to place
      * @return if swapping is done successfully or not
      */
     public String swapArmyUnitsBetweenCountries(CountryModel fromCountryModel,CountryModel toCountryModel, int numberOfArmyUnits) {
