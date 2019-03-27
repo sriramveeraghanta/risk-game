@@ -37,7 +37,11 @@ public class AttackPhaseDialogController {
                 attackPhase.attackCountry();
             }
         } else {
-            System.out.println("IN else");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Please Select Attacking and Defending country");
+            alert.setHeaderText(null);
+            alert.setContentText("Something Went Wrong, make sure you select it.");
+            alert.showAndWait();
         }
     }
 
