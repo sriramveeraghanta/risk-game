@@ -1,10 +1,12 @@
 package main.helpers;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import main.models.CardModel;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
+import main.utills.GameConstants;
 
 import java.util.*;
 
@@ -37,35 +39,40 @@ public class AttackPhase {
      * @return the string which is a message that shws to the user if he lost or won
      */
     public void attackCountry(){
-        ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberOfAttackerDice());
-        ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberOfDefenderDice());
 
-        for (int i = 0; i < defenderDiceValues.size(); i++) {
-            if (attackerDiceValues.get(i) < defenderDiceValues.get(i)) {
+        ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberOfDiceCount());
+        ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberOfDiceCount() - 1);
+
+        for(int i=0 ; i < defenderDiceValues.size(); i++) {
+            if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
                 attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
             } else {
                 defendingCountry.setArmyInCountry(defendingCountry.getArmyInCountry() - 1);
             }
         }
+        System.out.println(attackingCountry.getArmyInCountry());
+        System.out.println(defendingCountry.getArmyInCountry());
         // if attacker looses
-        if (attackingCountry.getArmyInCountry() < 0) {
+        if (attackingCountry.getArmyInCountry() <= 0) {
             this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("You Won");
-            alert.setHeaderText(null);
-            alert.setContentText("Attacker won and occupied the defender country");
-            alert.showAndWait();
         }
         // if defender looses
-        if (defendingCountry.getArmyInCountry() < 0) {
+        else if (defendingCountry.getArmyInCountry() <= 0) {
             this.assignCardToPlayer(this.attackingPlayer);
             this.assignCountryToWinnerPlayer(this.attackingPlayer, this.defendingPlayer, this.defendingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
             // Alert to the user
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("You Lost");
+            alert.setHeaderText(null);
+            alert.setContentText("Defender won and occupied the attacking country");
+            alert.showAndWait();
+        } else {
+            // Alert to the user
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("You have attacked the defending country");
             alert.setHeaderText(null);
             alert.setContentText("Defender won and occupied the attacking country");
             alert.showAndWait();
@@ -77,24 +84,11 @@ public class AttackPhase {
      * player army in that specific country
      * @return the number of dices according to the attacker army in that specific country
      */
-    public int getNumberOfAttackerDice() {
-        if (attackingCountry.getArmyInCountry() > 3) {
+    public int getNumberOfDiceCount() {
+        if (attackingCountry.getArmyInCountry() >= 3) {
             return 3;
         } else {
             return 2;
-        }
-    }
-
-    /**
-     * this method getting the number of defender dice and set and return the number of dices according to the
-     * player army in that specific country
-     * @return the number of dices according to the defender army in that specific country
-     */
-    public int getNumberOfDefenderDice() {
-        if (defendingCountry.getArmyInCountry() >= 2) {
-            return 2;
-        } else {
-            return 1;
         }
     }
 
