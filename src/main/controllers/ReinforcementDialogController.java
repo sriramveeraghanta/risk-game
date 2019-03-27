@@ -4,18 +4,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import main.helpers.AttackPhase;
-import main.helpers.FortificationPhase;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import main.helpers.ReinforcementPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
 import main.utills.GameConstants;
 
 import java.util.ArrayList;
@@ -25,6 +21,8 @@ import java.util.ArrayList;
  */
 public class ReinforcementDialogController {
 
+    public AnchorPane ReinforcementPanel;
+    public Label playerUnitsInHand;
     private GameModel gameModel;
     private CountryModel selectedCountry = null;
     private PlayerModel playerModel=null;
@@ -55,45 +53,16 @@ public class ReinforcementDialogController {
         this.initializeReinforce();
     }
 
-    @FXML
-    public void addArmyAction() {
-        if(selectedCountry != null) {
-            System.out.println("country name:"+ selectedCountry.getCountryName());
-            System.out.println("Player:"+ playerModel.getArmyInHand());
-            int armyCount = 0;
-            try {
-                armyCount = Integer.parseUnsignedInt(ArmyCountToPlace.getText().toString());
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
-                alert.showAndWait();
-            }
-
-            if(armyCount < playerModel.getArmyInHand() ) {
-                ReinforcementPhase reinforcePhase = new ReinforcementPhase(playerModel, gameModel);
-                reinforcePhase.assignArmyUnitToCountry(selectedCountry,armyCount);
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
-                alert.showAndWait();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
-            alert.showAndWait();
-        }
-    }
-
+    /**
+     * Initializing the Reinforment phase required data
+     *
+     * */
     private void initializeReinforce() {
-        GameCommons gameCommons = new GameCommons();
 
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         setPlayerModel(currentPlayer);
-        System.out.println(currentPlayer.getArmyInHand());
+        playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
+
         ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
         PlayerCountriesList.setItems(playerCountriesObservable);
@@ -116,6 +85,41 @@ public class ReinforcementDialogController {
         });
     }
 
+    @FXML
+    public void addArmyAction() {
+        if(getSelectedCountry() != null && !ArmyCountToPlace.getText().equals("")) {
+            System.out.println("country name:"+ getSelectedCountry().getCountryName());
+            System.out.println("Player:"+ getPlayerModel().getArmyInHand());
+            int armyCount = 0;
+            try {
+                armyCount = Integer.parseUnsignedInt(ArmyCountToPlace.getText());
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
+                alert.showAndWait();
+            }
+
+            if(armyCount <= playerModel.getArmyInHand() ) {
+                ReinforcementPhase reinforcePhase = new ReinforcementPhase(playerModel, gameModel);
+                reinforcePhase.assignArmyUnitToCountry(selectedCountry, armyCount);
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Invalid Input data, please enter army count less than army count in your hand. Player units in hand:"+getPlayerModel().getArmyInHand());
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
+            alert.showAndWait();
+        }
+    }
+
+
+
     public CountryModel getSelectedCountry() {
         return selectedCountry;
     }
@@ -130,5 +134,9 @@ public class ReinforcementDialogController {
 
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
+    }
+
+    public void swapCardAction(ActionEvent actionEvent) {
+
     }
 }

@@ -95,11 +95,7 @@ public class GameController {
      * @throws IOException
      */
     private void initGame(int playerCount) throws GameException, IOException {
-        // TODO: Start Startup Phase
-
-        //System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
-        System.out.println(playerCount);
 
         if(!this.isUserMapValidated()){
             MapBuilder mapBuilder = new MapBuilder(this.getGameModel());

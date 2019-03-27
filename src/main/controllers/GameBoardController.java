@@ -64,6 +64,7 @@ public class GameBoardController {
     private void initData() throws IOException {
         //System.out.println(getGameModel());
         gameModel.setCurrentPlayerIndex(0);
+        getGameModel().getPlayers().get(getGameModel().getCurrentPlayerIndex()).setArmyInHand(3);
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
         this.renderPlayersInfo();
         this.renderMapInfo();
@@ -144,10 +145,10 @@ public class GameBoardController {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ReinforcementDialogView.fxml"));
-            Parent LoadGamePanel = loader.load();
+            Parent reinforcementPanel = loader.load();
             ReinforcementDialogController ReinforcementDialogController = loader.getController();
             ReinforcementDialogController.setGameModel(this.gameModel);
-            stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            stage.setScene(new Scene(reinforcementPanel, 600, 400));
             stage.show();
 
         } catch (IOException e) {
@@ -162,11 +163,11 @@ public class GameBoardController {
     private void getNextPlayer(){
         if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){
             gameModel.setCurrentPlayerIndex(0);
-            gameModel.getPlayers().get(0).setArmyInHand(3);
+            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
         else{
             gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
-            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()+1).setArmyInHand(3);
+            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
