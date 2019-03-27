@@ -18,10 +18,6 @@ import static junit.framework.Assert.assertTrue;
 
 /**
  * AttackPhase Tester.
- *
- * @author <Authors name>
- * @version 1.0
- * @since <pre>Mar 24, 2019</pre>
  */
 public class AttackPhaseTest {
     PlayerModel attackerPlayer;
@@ -65,53 +61,57 @@ public class AttackPhaseTest {
     public void after() throws Exception {
     }
 
+
     /**
      * Method: getNumberAttackerDice()
+     * @throws Exception if exception occured it throws the Exception
      */
     @Test
     public void testGetNumberAttackerDice() throws Exception {
 //TODO: Test goes here... 
     }
 
+
     /**
      * Method: setNumberAttackerDice(int numberAttackerDice)
+     * @throws Exception if exception occured it throws the Exception
      */
     @Test
     public void testSetNumberAttackerDice() throws Exception {
 //TODO: Test goes here... 
     }
 
-    /**
-     * Method: getCountryAttacker()
-     */
-    @Test
-    public void testGetCountryAttacker() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: getCountryAttacker()
+//     */
+//    @Test
+//    public void testGetCountryAttacker() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: setCountryAttacker(CountryModel countryAttacker)
-     */
-    @Test
-    public void testSetCountryAttacker() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: setCountryAttacker(CountryModel countryAttacker)
+//     */
+//    @Test
+//    public void testSetCountryAttacker() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: getCountryDefender()
-     */
-    @Test
-    public void testGetCountryDefender() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: getCountryDefender()
+//     */
+//    @Test
+//    public void testGetCountryDefender() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: setcountryDefender(CountryModel countryDefender)
-     */
-    @Test
-    public void testSetcountryDefender() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: setcountryDefender(CountryModel countryDefender)
+//     */
+//    @Test
+//    public void testSetcountryDefender() throws Exception {
+////TODO: Test goes here...
+//    }
 
 /**
  *
@@ -123,54 +123,54 @@ public class AttackPhaseTest {
 //    assertTrue(attackPhase.checkIfPlayerCanAttackCountry());
 //}
 
-    /**
-     * Method: rollDice()
-     */
-    @Test
-    public void testRollDice() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: rollDice()
+//     */
+//    @Test
+//    public void testRollDice() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: attackingResult()
-     */
-    @Test
-    public void testAttackingResult() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: attackingResult()
+//     */
+//    @Test
+//    public void testAttackingResult() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: checkMaxNumberOfDices()
-     */
-    @Test
-    public void testCheckMaxNumberOfDices() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: checkMaxNumberOfDices()
+//     */
+//    @Test
+//    public void testCheckMaxNumberOfDices() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: roll(int numberOfDice)
-     */
-    @Test
-    public void testRoll() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: roll(int numberOfDice)
+//     */
+//    @Test
+//    public void testRoll() throws Exception {
+////TODO: Test goes here...
+//    }
 
-    /**
-     * Method: assignCardToPlayer(PlayerModel player)
-     */
-    @Test
-    public void testAssignCardToPlayer() throws Exception {
-//TODO: Test goes here... 
-    }
+//    /**
+//     * Method: assignCardToPlayer(PlayerModel player)
+//     */
+//    @Test
+//    public void testAssignCardToPlayer() throws Exception {
+////TODO: Test goes here...
+//    }
 
 
-    /**
-     * Method: assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName)
-     */
-    @Test
-    public void testAssignCountryToWinnerPlayer() throws Exception {
-//TODO: Test goes here... 
-/* 
+//    /**
+//     * Method: assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, String countryName)
+//     */
+//    @Test
+//    public void testAssignCountryToWinnerPlayer() throws Exception {
+////TODO: Test goes here...
+/*
 try { 
    Method method = AttackPhase.getClass().getMethod("assignCountryToWinnerPlayer", PlayerModel.class, PlayerModel.class, String.class); 
    method.setAccessible(true); 
@@ -180,14 +180,14 @@ try {
 } catch(InvocationTargetException e) { 
 } 
 */
-    }
+    //}
 
-    /**
-     * Method: assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer)
-     */
-    @Test
-    public void testAssignRemainingCardsToWinnerPlayer() throws Exception {
-//TODO: Test goes here... 
+//    /**
+//     * Method: assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer)
+//     */
+//    @Test
+//    public void testAssignRemainingCardsToWinnerPlayer() throws Exception {
+////TODO: Test goes here...
 /* 
 try { 
    Method method = AttackPhase.getClass().getMethod("assignRemainingCardsToWinnerPlayer", PlayerModel.class, PlayerModel.class); 
@@ -198,14 +198,14 @@ try {
 } catch(InvocationTargetException e) { 
 } 
 */
-    }
-
-    /**
-     * Method: getDefender(String defenderCountryName)
-     */
-    @Test
-    public void testGetDefender() throws Exception {
-//TODO: Test goes here... 
+//    }
+//
+//    /**
+//     * Method: getDefender(String defenderCountryName)
+//     */
+//    @Test
+//    public void testGetDefender() throws Exception {
+////TODO: Test goes here...
 /* 
 try { 
    Method method = AttackPhase.getClass().getMethod("getDefender", String.class); 
@@ -216,6 +216,6 @@ try {
 } catch(InvocationTargetException e) { 
 } 
 */
-    }
+  //  }
 
 } 

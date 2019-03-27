@@ -19,6 +19,9 @@ import main.utills.GameConstants;
 
 import java.util.ArrayList;
 
+/**
+ * This class is a controller class for fortify dialog
+ */
 public class FortifyDialogController {
 
 
@@ -75,6 +78,10 @@ public class FortifyDialogController {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model object
+     * @param gameModel type of game model
+     */
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
         this.initializeFortify();

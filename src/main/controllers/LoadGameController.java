@@ -23,6 +23,9 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Optional;
 
+/**
+ * this class is the controller of the game loader
+ */
 public class LoadGameController {
 
     private GameModel gameModel;
@@ -36,10 +39,18 @@ public class LoadGameController {
     @FXML
     private TextField mapFileNameTextField;
 
+    /**
+     * constructor of the load game controller
+     */
     public LoadGameController() {
 
     }
 
+    /**
+     * this method create user map and get event which is type of ActionEvent as parameter
+     * @param event type of ActionEvent
+     * @throws IOException if exception occur it throws IOException
+     */
     @FXML
     public void createUserMap(ActionEvent event) throws IOException {
         CharSequence fileName = mapFileNameTextField.getCharacters();
@@ -74,10 +85,11 @@ public class LoadGameController {
 
     }
 
+
     /**
-     * Reads the relative path to the resource directory from the <code>data</code> file located in
-     * <code>/resources/</code>
-     * @return the relative path to the <code>resources</code> in the file system
+     * Create map file according to the file name and map data which gets as  parameters
+     * @param fileName this parameter is the file name type of  CharSequence
+     * @param mapData this method is an observable list of CharSequence
      */
     private void createMapFile(CharSequence fileName, ObservableList<CharSequence> mapData) {
         Iterator<CharSequence> iterator = mapData.iterator();
@@ -99,36 +111,54 @@ public class LoadGameController {
             alert.setTitle("Warning");
             alert.setHeaderText(GameConstants.INVALID_MAP_ERROR);
             alert.showAndWait();
-
         }
     }
 
 
     /**
-     * Reads the relative path to the resource directory from the <code>data</code> file located in
-     * <code>/resources/</code>
-     * @return gameModel
+     * Getter method to get the game model
+     * @return an object of game model
      */
     public GameModel getGameModel() {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel an object of game model
+     */
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
     }
 
+    /**
+     * Getter method to get the game controller
+     * @return the game controller object
+     */
     public GameController getGameController() {
         return gameController;
     }
 
+    /**
+     * Setter method to set the game controller
+     * @param gameController object of the game controller
+     */
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
 
+    /**
+     * Getter method to get the stage
+     * @return the stage type of Stage
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Setter method to set the stage
+     * @param stage type of Stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }

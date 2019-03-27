@@ -13,7 +13,10 @@ import main.models.CountryModel;
 import main.models.PlayerModel;
 import main.utills.GameCommons;
 
-public class PlayerCardController {
+/**
+ * This class is the controller of player cards
+ */
+public class PlayerInfoController {
 
     public PlayerModel playerModel;
 
@@ -22,18 +25,22 @@ public class PlayerCardController {
     @FXML
     public TableView playerTableView;
     @FXML
-    public TableColumn countryNameTableColumn, unitsCountTableColumn;
+    public TableColumn playerCountryNameTableColumn, unitsCountTableColumn;
 
+    /**
+     * Setter method to set the player model
+     * @param playerModel object of player model
+     */
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
 
         GameCommons gameCommons = new GameCommons();
-        playerLabel.setText("Player: "+playerModel.getColor().toString());
+        playerLabel.setText("Player: "+this.playerModel.getColor().toString());
         playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(this.playerModel.getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.playerModel.getCountries());
 
-        countryNameTableColumn.setCellValueFactory(
+        playerCountryNameTableColumn.setCellValueFactory(
                 new PropertyValueFactory<CountryModel, String>("countryName"));
 
         unitsCountTableColumn.setCellValueFactory(

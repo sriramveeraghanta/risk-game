@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * This class contains the methods and variables we need in start up phase
+ */
 public class StartupPhase {
 
     private int numberOfPlayers;
-
     private GameModel gameModel;
     private EnumHandler.Color[] colors = EnumHandler.Color.values();
 
     /**
      * Initialise the game objects set players properties such countries,armies,
      * Colour
-     *
-     * @param gameModel
+     * @param gameModel is an object of game model
      */
     public StartupPhase(GameModel gameModel) {
         this.gameModel = gameModel;
@@ -27,6 +28,7 @@ public class StartupPhase {
     /**
      * Initialize the game objects set players properties such
      * countries,armies,Color
+     * @param playerCount the number of player which is integer
      */
     public void initNewGame(int playerCount) {
         this.numberOfPlayers = playerCount;
@@ -39,10 +41,12 @@ public class StartupPhase {
     }
 
 
+
     /**
-     * Creating new players for the game
+     * getting the new players and returning the array list of player model
+     * @return array list of player model
      */
-    public ArrayList<PlayerModel> getNewPlayers() {
+    public ArrayList<PlayerModel> getNewPlayers(){
         ArrayList<PlayerModel> playersList = new ArrayList<>();
         // Creating new player objects for the count
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -58,7 +62,6 @@ public class StartupPhase {
 
     /**
      * assigns a color to the player randomly at the starting phase of the game *
-     *
      * @return the color which is assign to specific player
      */
     public EnumHandler.Color getAssignedColor() {
@@ -76,8 +79,7 @@ public class StartupPhase {
     }
 
     /**
-     * assign initial number of armies to the players at the initial phase *
-     *
+     * assign initial number of armies to the players at the initial phase
      * @return the unit model which is contains both number and type of armies
      */
     public int getInitialUnit() {
@@ -125,7 +127,6 @@ public class StartupPhase {
             while (player.getArmyInHand() > 0) {
                 for (CountryModel country : player.getCountries()) {
                     if(player.getArmyInHand() > 0) {
-                        System.out.println(country);
                         country.setArmyInCountry(country.getArmyInCountry() + 1);
                         player.setArmyInHand(player.getArmyInHand() - 1);
                     } else {
@@ -138,7 +139,6 @@ public class StartupPhase {
 
     /**
      * Randomly generate the cards and assign a different unit type to each
-     * <p>
      * This should be rewritten in phase 2 only 3 unique Type cards are needed.
      */
     public void createGameCards() {

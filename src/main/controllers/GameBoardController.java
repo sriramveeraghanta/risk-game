@@ -8,13 +8,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.models.ContinentModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is a controller for game board
+ */
 public class GameBoardController {
 
 
@@ -24,43 +27,77 @@ public class GameBoardController {
     private ArrayList playerCardList = new ArrayList();
 
     @FXML
-    public TilePane playerListPanel;
+    public TilePane playerListPanel, mapInfoPanel;
     @FXML
     public Button attackButton, fortifyButton, reinforceButton, nextPlayerButton;
     @FXML
     private Label currentPlayerLabel;
 
+    /**
+     * Constructor of the game board controller
+     */
     public GameBoardController() {
     }
 
+    /**
+     * Getter method to get the object of game model
+     * @return the object of game model
+     */
     private GameModel getGameModel() {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel object of game model
+     * @throws IOException
+     */
     void setGameModel(GameModel gameModel) throws IOException {
         this.gameModel = gameModel;
         this.initData();
     }
 
+    /**
+     * This method initialize the data
+     * @throws IOException
+     */
     private void initData() throws IOException {
         //System.out.println(getGameModel());
-        ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
         gameModel.setCurrentPlayerIndex(0);
-        for (int i = 0; i < playerModelsList.size(); i++) {
-            //System.out.println(playerListPanel);
+        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+        this.renderPlayersInfo();
+        this.renderMapInfo();
+    }
+
+    private void renderMapInfo() throws IOException {
+        ArrayList<ContinentModel> continents = getGameModel().getContinents();
+        for(ContinentModel continent: continents) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ContinentInfo.fxml"));
+            Parent continentInfoPanel = loader.load();
+            ContinentInfoController continentInfoController = loader.getController();
+            continentInfoController.setContinentModel(continent);
+            mapInfoPanel.getChildren().add(continentInfoPanel);
+        }
+    }
+
+    private void renderPlayersInfo() throws IOException {
+        ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
+        for (PlayerModel player: playerModelsList) {
             // Player Card
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerInfo.fxml"));
             Parent playerCard = loader.load();
-            PlayerCardController playerCardController = loader.getController();
-            playerCardController.setPlayerModel(playerModelsList.get(i));
+            PlayerInfoController playerInfoController = loader.getController();
+            playerInfoController.setPlayerModel(player);
             // Assigning to the list
             playerCardList.add(playerCard);
             // Appending to the Flow pane
             playerListPanel.getChildren().add(playerCard);
         }
-        currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
+    /**
+     * This method is a private method for attacking phase which creates the attack phase
+     */
     @FXML
     private void attackPhase() {
 
@@ -79,7 +116,9 @@ public class GameBoardController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method is a private method for fortify phase which creates the fortify phase
+     */
     @FXML
     private void fortifyPhase() {
         // Creating an Fortify Dialog Phase
@@ -96,7 +135,9 @@ public class GameBoardController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This method is a private method for reinforcement phase which creates the reinforcement phase
+     */
     @FXML
     private void reinforcementPhase() {
         // Creating an Attack Phase
@@ -114,6 +155,9 @@ public class GameBoardController {
         }
     }
 
+    /**
+     * this method is a private method which is getting the next player
+     */
     @FXML
     private void getNextPlayer(){
         if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){

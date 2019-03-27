@@ -49,12 +49,11 @@ public void before() throws Exception {
 public void after() throws Exception { 
 } 
 
-/** 
-* 
-* Method: swapCardsForArmyUnits() 
-* 
-*/ 
-@Test
+    /**
+     * Method: swapCardsForArmyUnits()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testSwapCardsForArmyUnitsForArmyGreaterThanZero() throws Exception {
     ArrayList<CardModel> cardModelList =new ArrayList<>();
     cardModelList.add(cardModel);
@@ -70,12 +69,12 @@ public void testSwapCardsForArmyUnitsForArmyGreaterThanZero() throws Exception {
         assertEquals(reinforce.swapCardsForArmyUnits(), 0);
     }
 
+
     /**
-* 
-* Method: getArmyUnitsForConqueredContinent() 
-* 
-*/ 
-@Test
+     * Method: getArmyUnitsForConqueredContinent()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testGetArmyUnitsForConqueredContinentForOneContinent() throws Exception {
     playerModel.addCountry(country1);
     playerModel.addCountry(country2);
@@ -97,12 +96,12 @@ public void testGetArmyUnitsForConqueredContinentForOneContinent() throws Except
         assertEquals(reinforce.getArmyUnitsForConqueredContinent(),2);
     }
 
-/**
-* 
-* Method: getArmyUnitsFromCountries() 
-* 
-*/ 
-@Test
+
+    /**
+     * Method: getArmyUnitsFromCountries()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testGetArmyUnitsFromCountries() throws Exception {
     playerModel.addCountry(country1);
     playerModel.addCountry(country2);
@@ -111,24 +110,23 @@ public void testGetArmyUnitsFromCountries() throws Exception {
     assertEquals(reinforce.getArmyUnitsFromCountries(), 3);
 } 
 
-/** 
-* 
-* Method: getNumberOfSimilarCards() 
-* 
-*/ 
-@Test
+    /**
+     * Method: getNumberOfSimilarCards()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testGetNumberOfSimilarCards() throws Exception {
     ArrayList<CardModel> cardModelList =new ArrayList<>();
     cardModelList.add(cardModel);
     playerModel.setDeck(cardModelList);
     assertEquals(reinforce.getNumberOfSimilarCards(), 1);
 }
-/** 
-* 
-* Method: getNumberOfDifferentCards() 
-* 
-*/ 
-@Test
+
+    /**
+     *  Method: getNumberOfDifferentCards()
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testGetNumberOfDifferentCards() throws Exception {
     ArrayList<CardModel> cardModelList =new ArrayList<>();
     cardModelList.add(cardModel);
@@ -136,12 +134,11 @@ public void testGetNumberOfDifferentCards() throws Exception {
     assertEquals(reinforce.getNumberOfDifferentCards(), 0);
 } 
 
-/** 
-* 
-* Method: getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.CardType unitType)
-* 
-*/ 
-@Test
+    /**
+     * Method: getNumberCardTypeByCardType
+     * @throws Exception if exception occur it throws Exception
+     */
+    @Test
 public void testGetNumberCardTypeByCardType() throws Exception {
     List<CardModel> card =new ArrayList<>();
     card.add(cardModel);

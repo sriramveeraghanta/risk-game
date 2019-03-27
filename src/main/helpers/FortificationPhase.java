@@ -6,11 +6,14 @@ import main.utills.GameConstants;
 
 import java.util.List;
 
+/**
+ * This class contains all of the fortification phase method
+ */
 public class FortificationPhase {
     private PlayerModel playerModel;
     /**
      * Constructor which get player model as parameter
-     * @param playerModel
+     * @param playerModel an object of player model
      */
     public FortificationPhase(PlayerModel playerModel) {
         this.setPlayerModel(playerModel);

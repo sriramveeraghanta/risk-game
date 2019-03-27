@@ -3,7 +3,7 @@ package main.models;
 import java.util.ArrayList;
 
 /**
- * Game Model
+ * Game Model which has the countries ,continents ,players , cards , number of players and current player
  */
 public class GameModel {
 
@@ -15,11 +15,15 @@ public class GameModel {
     private ArrayList<CardModel> cards = new ArrayList<>();
     private int currentPlayerIndex;
 
+    /**
+     * consructor for game model class
+     */
     public GameModel() {
 
     }
 
     /**
+     * Getter method for getting the arrary list of cards
      * @return the cards
      */
     public ArrayList<CardModel> getCards() {
@@ -27,6 +31,7 @@ public class GameModel {
     }
 
     /**
+     * Setter method for setting the arraylist of cards
      * @param cards the cards to set
      */
     public void setCards(ArrayList<CardModel> cards) {
@@ -35,7 +40,6 @@ public class GameModel {
 
     /**
      * Getter method for Title
-     *
      * @return the title
      */
     public String getTitle() {
@@ -44,7 +48,6 @@ public class GameModel {
 
     /**
      * Setter method for title
-     *
      * @param title the title to set
      */
     public void setTitle(String title) {
@@ -59,6 +62,7 @@ public class GameModel {
     }
 
     /**
+     * adding country to the list of country
      * @param country the countries to set
      */
     public void addCountry(CountryModel country) {
@@ -66,6 +70,7 @@ public class GameModel {
     }
 
     /**
+     * Getter method for getting the continents list
      * @return the continents
      */
     public ArrayList<ContinentModel> getContinents() {
@@ -73,6 +78,7 @@ public class GameModel {
     }
 
     /**
+     * adding new continent to the list of continents
      * @param continent the continents to set
      */
     public void addContinent(ContinentModel continent) {
@@ -80,6 +86,7 @@ public class GameModel {
     }
 
     /**
+     * Getter method for getting the number of players
      * @return the number of players in the game.
      */
     public int getNumberOfPlayers() {
@@ -87,6 +94,7 @@ public class GameModel {
     }
 
     /**
+     * Setter method for setting the number of players
      * @param numberOfPlayer that are currently playing the game.
      */
     public void setNumberOfPlayers(int numberOfPlayer) {
@@ -94,6 +102,7 @@ public class GameModel {
     }
 
     /**
+     * Getter method for getting the list of players
      * @return the player model
      */
     public ArrayList<PlayerModel> getPlayers() {
@@ -101,16 +110,25 @@ public class GameModel {
     }
 
     /**
+     * Setter method for setting the list of players
      * @param players of player models
      */
     public void setPlayers(ArrayList<PlayerModel> players) {
         this.players = players;
     }
 
+    /**
+     * Getter method for getting current index
+     * @return an integer for current player index
+     */
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
+    /**
+     * Setter methos for setting the current player index
+     * @param currentPlayerIndex integer index for current player
+     */
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         this.currentPlayerIndex = currentPlayerIndex;
     }

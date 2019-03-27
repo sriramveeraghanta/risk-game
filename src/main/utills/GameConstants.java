@@ -1,5 +1,8 @@
 package main.utills;
 
+/**
+ * this class contains the constatnt names and numbers in game
+ */
 public class GameConstants {
     // Constant Variables across the project
     public static final int MAXIMUM_NUMBER_OF_PLAYERS = 6;
@@ -42,6 +45,9 @@ public class GameConstants {
     public static final String CONTINENT_DATA_SPLITTER = "=";
     public static final String COUNTRY_DATA_SPLITTER = ",";
 
+    /**
+     * constructor for game constants
+     */
     public GameConstants() {
 
     }

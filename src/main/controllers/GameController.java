@@ -18,6 +18,9 @@ import main.utills.GameException;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * This class is a game controller class
+ */
 public class GameController {
 
     private GameModel gameModel;
@@ -27,20 +30,26 @@ public class GameController {
     @FXML
     private Button newGameButton,loadGameButton, exitGameButton ;
 
+    /**
+     * Constructor of the game controller class
+     */
     public GameController(){
 
     }
 
     /**
-     * Start Game
-     * @param event
-     * @throws IOException
+     * with Start Game new game starts
+     * @param event type of ActionEvent
+     * @throws IOException if exception occur it throws IOException
      */
     @FXML
     public void startNewGame(ActionEvent event) throws IOException {
         this.playerCountDialog();
     }
 
+    /**
+     * this method is player count dialog
+     */
     public void playerCountDialog(){
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
@@ -52,9 +61,8 @@ public class GameController {
                 playerCount = Integer.parseUnsignedInt(playerCountString);
                 if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
 
-                    /**
-                     * Initiating players and Creating new Map.
-                     * */
+
+                     // Initiating players and Creating new Map.
                     this.initGame(playerCount);
 
 
@@ -79,10 +87,17 @@ public class GameController {
             }
         });
     }
+
+    /**
+     * This method do all of the initialization of the game by getting the number of players  as a parameter
+     * @param playerCount number of players
+     * @throws GameException
+     * @throws IOException
+     */
     private void initGame(int playerCount) throws GameException, IOException {
         // TODO: Start Startup Phase
 
-        System.out.println("count"+playerCount);
+        //System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
         System.out.println(playerCount);
 
@@ -108,12 +123,11 @@ public class GameController {
 
     /**
      * Loading the New Game to the user
-     * @param event
-     * @throws IOException
+     * @param event type of ActionEvent
+     * @throws IOException if exception occur it throws IOException
      */
     @FXML
     public void loadGame(ActionEvent event) throws IOException {
-        System.out.println(getClass());
         Stage stage = (Stage) loadGameButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoadGame.fxml"));
         Parent loadGamePanel = loader.load();
@@ -129,19 +143,27 @@ public class GameController {
 
     /**
      * Exit the current window that is opened
-     * @param event
+     * @param event type of ActionEvent
      */
     @FXML
     public void exitGame(ActionEvent event) {
-        System.out.println("Exit game");
+        //System.out.println("Exit game");
         Stage stage = (Stage) exitGameButton.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Getter method to get the game model object
+     * @return the objectof game model
+     */
     public GameModel getGameModel() {
         return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel type of GameModel
+     */
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
     }

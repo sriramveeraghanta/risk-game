@@ -9,14 +9,18 @@ import main.controllers.GameController;
 import main.models.GameModel;
 
 
+
 /**
- * Main Class
- * */
+ * This class is a Main Class
+ */
 public class Main extends Application {
 
+
     /**
-     * Application Start
-     * */
+     * This method starts the application
+     * @param primaryStage type of Stage
+     * @throws Exception if exception happened it throws exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         GameModel gameModel = new GameModel();
@@ -34,9 +38,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     /**
-     * Main Method
-     * */
+     * This is the main method of the application
+     * @param args the default parameter for main
+     */
     public static void main(String[] args) {
         launch(args);
     }
