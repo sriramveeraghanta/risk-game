@@ -162,9 +162,11 @@ public class GameBoardController {
     private void getNextPlayer(){
         if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){
             gameModel.setCurrentPlayerIndex(0);
+            gameModel.getPlayers().get(0).setArmyInHand(3);
         }
         else{
             gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
+            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()+1).setArmyInHand(3);
         }
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
