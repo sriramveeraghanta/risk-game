@@ -91,4 +91,15 @@ public class GameCommons {
         }
         return adjacentList;
     }
+
+    public ArrayList<CountryModel> getPlayerOwnedAdjcentCountires(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
+        ArrayList<CountryModel> adjacentList = new ArrayList<>();
+
+        for(CountryModel country: adjcentCountries) {
+            if(playerCountries.contains(country)){
+                adjacentList.add(country);
+            }
+        }
+        return adjacentList;
+    }
 }

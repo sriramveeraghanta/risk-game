@@ -21,9 +21,7 @@ import java.util.Optional;
 public class GameController {
 
     private GameModel gameModel;
-    private boolean userMap;
-    private String userMapFilePath;
-
+    private boolean userMapValidated;
 
 
     @FXML
@@ -87,19 +85,15 @@ public class GameController {
         System.out.println("count"+playerCount);
         getGameModel().setNumberOfPlayers(playerCount);
         System.out.println(playerCount);
-        MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-        if(this.isUserMap()){
-           mapBuilder.readMapFile(this.userMapFilePath);
-        }else {
+
+        if(!this.isUserMapValidated()){
+            MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
             mapBuilder.readMapFile(null);
         }
-
-        System.out.println(getGameModel().getContinents());
 
         StartupPhase startupPhase = new StartupPhase(this.getGameModel());
         startupPhase.initNewGame(playerCount);
 
-        System.out.println(gameModel.getPlayers());
 
         // Creating an Game Board
         Stage stage = new Stage();
@@ -152,19 +146,12 @@ public class GameController {
         this.gameModel = gameModel;
     }
 
-    public boolean isUserMap() {
-        return userMap;
+    public boolean isUserMapValidated() {
+        return userMapValidated;
     }
 
-    public void setUserMap(boolean userMap) {
-        this.userMap = userMap;
+    public void setUserMapValidated(boolean userMapValidated) {
+        this.userMapValidated = userMapValidated;
     }
 
-    public String getUserMapFilePath() {
-        return userMapFilePath;
-    }
-
-    public void setUserMapFilePath(String userMapFilePath) {
-        this.userMapFilePath = userMapFilePath;
-    }
 }

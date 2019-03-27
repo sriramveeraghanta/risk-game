@@ -2,6 +2,7 @@ package main.helpers;
 
 import main.models.CountryModel;
 import main.models.PlayerModel;
+import main.utills.GameConstants;
 
 import java.util.List;
 
@@ -33,43 +34,24 @@ public class FortificationPhase {
     /**
      * swapping the particular number of armies between the countries the player owns for fortification and checking all the countries the
      * player own should have at least one army and countries should be adjacent
-     * @param fromCountryName
-     * @param toCountryName
+     * @param fromCountryModel
+     * @param toCountryModel
      * @param numberOfArmyUnits
      * @return if swapping is done successfully or not
      */
-//    public String swapArmyUnitsBetweenCountries(String fromCountryName, String toCountryName, int numberOfArmyUnits) {
-//        List<CountryModel> countries = this.getPlayerModel().getCountries();
-//        for (CountryModel country1 : countries) {
-//            System.out.println("countryName:" + country1.getCountryName());
-//            List<UnitModel> unitss = new ArrayList<UnitModel>();
-//            unitss = country1.getArmyInCountry();
-//            for (UnitModel uni : unitss) {
-//                System.out.println("armyUnit:" + uni.getType());
-//            }
-//        }
-//        CountryModel fromCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(fromCountryName))
-//                .findFirst().get();
-//        CountryModel toCountry = countries.stream().filter(c -> c.getCountryName().contentEquals(toCountryName))
-//                .findFirst().get();
-//
-//        if ((fromCountry.getNumberOfUnits() < 2) || ((fromCountry.getNumberOfUnits() - numberOfArmyUnits) < 1)) {
-//            return "Invalid Operation";
-//        } else {
-//            /// from Country;
-//            List<UnitModel> units = fromCountry.getArmyInCountry();
-//            System.out.println("Unit Size:" + units.size());
-//            UnitModel soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst()
-//                    .get();
-//            soldier.setUnitNumber((fromCountry.getNumberOfUnits() - numberOfArmyUnits));
-//
-//            // to Country
-//            units = toCountry.getArmyInCountry();
-//            soldier = units.stream().filter(a -> a.getType().equals(EnumHandler.CardType.INFANTRY)).findFirst().get();
-//            soldier.setUnitNumber((toCountry.getNumberOfUnits() + numberOfArmyUnits));
-//            return "Operation Completed";
-//        }
-//
-//    }
+    public String swapArmyUnitsBetweenCountries(CountryModel fromCountryModel,CountryModel toCountryModel, int numberOfArmyUnits) {
+        List<CountryModel> countries = this.getPlayerModel().getCountries();
+        CountryModel fromCountry = fromCountryModel;
+        CountryModel toCountry = toCountryModel;
+
+        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) < 1)) {
+            return GameConstants.FORTIFY_INVALID_MSG;
+        } else {
+            fromCountry.setArmyInCountry((fromCountry.getArmyInCountry() - numberOfArmyUnits));
+            toCountry.setArmyInCountry((toCountry.getArmyInCountry() + numberOfArmyUnits));
+            return GameConstants.FORTIFY_VALID_MSG;
+        }
+
+   }
 
 }
