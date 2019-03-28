@@ -66,13 +66,13 @@ public void before() throws Exception {
 */ 
 @Test
 public void testGetNumberofAttackerDice() throws Exception {
-    assertEquals(3, attackPhase.getNumberOfAttackerDice());
+    assertEquals(3, attackPhase.getNumberOfDiceCount());
 }
 
 @Test
 public void testGetNumberofAttackerDiceLessThan3() throws Exception {
     attackerCountry.setArmyInCountry(2);
-    assertEquals(2, attackPhase.getNumberOfAttackerDice());
+    assertEquals(2, attackPhase.getNumberOfDiceCount());
 }
     /**
 * 
@@ -81,13 +81,13 @@ public void testGetNumberofAttackerDiceLessThan3() throws Exception {
 */ 
 @Test
 public void testGetNumberofDefenderDice() throws Exception {
-    assertEquals(2, attackPhase.getNumberOfDefenderDice());
+    assertEquals(2, attackPhase.getNumberOfDiceCount());
 }
 
 @Test
 public void testGetNumberofDefenderDiceLessThan2() throws Exception {
     defenderCountry.setArmyInCountry(1);
-    assertEquals(1, attackPhase.getNumberOfDefenderDice());
+    assertEquals(1, attackPhase.getNumberOfDiceCount());
 }
 /**
 * 
