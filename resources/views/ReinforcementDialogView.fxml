@@ -15,6 +15,8 @@
                     <children>
                         <Button fx:id="AddArmiesButton" layoutX="23.0" layoutY="101.0" mnemonicParsing="false" onAction="#addArmyAction" prefHeight="32.0" prefWidth="131.0" text="Place ArmyUnits" />
                         <Button fx:id="SwapCardsButton" layoutX="23.0" layoutY="199.0" mnemonicParsing="false" onAction="#swapCardAction" prefHeight="32.0" prefWidth="131.0" text="Swap Cards" />
+                        <Label layoutX="7.0" layoutY="310.0" prefHeight="32.0" prefWidth="89.0" text="Cards Available:" />
+                        <Label fx:id="cards" layoutX="96.0" layoutY="310.0" prefHeight="32.0" prefWidth="81.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="PlayerCountriesDetailsPanel" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

@@ -23,9 +23,12 @@ public class ReinforcementDialogController {
 
     public AnchorPane ReinforcementPanel;
     public Label playerUnitsInHand;
+    public Label cards;
     private GameModel gameModel;
     private CountryModel selectedCountry = null;
     private PlayerModel playerModel=null;
+
+    private ReinforcementPhase reinforcePhase=null;
 
 
 
@@ -61,8 +64,11 @@ public class ReinforcementDialogController {
 
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         setPlayerModel(currentPlayer);
+        cards.setText(""+getPlayerModel().getDeck().size());
         playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
-
+        reinforcePhase = new ReinforcementPhase(currentPlayer, gameModel);
+        setReinforcePhase(reinforcePhase);
+        reinforcePhase.validateNewContinentOccupation();
         ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
         PlayerCountriesList.setItems(playerCountriesObservable);
@@ -105,8 +111,9 @@ public class ReinforcementDialogController {
             }
 
             if(armyCount <= playerModel.getArmyInHand() ) {
-                ReinforcementPhase reinforcePhase = new ReinforcementPhase(playerModel, gameModel);
-                reinforcePhase.assignArmyUnitToCountry(selectedCountry, armyCount);
+
+                getReinforcePhase().assignArmyUnitToCountry(selectedCountry, armyCount);
+                playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -122,6 +129,37 @@ public class ReinforcementDialogController {
         }
     }
 
+
+    /**
+     * SwapCards Action Listener.
+     *
+     * */
+    @FXML
+    public void swapCardAction() {
+        int armyUnitCount=0;
+        if(getPlayerModel().getDeck().size() >=3 && getPlayerModel().getDeck()!=null){
+
+           armyUnitCount=getReinforcePhase().swapCardsForArmyUnits();
+           if(armyUnitCount!=0){
+               getPlayerModel().setArmyInHand(armyUnitCount);
+               Alert alert = new Alert(Alert.AlertType.WARNING);
+               alert.setTitle("Warning");
+               alert.setHeaderText("Army Units Added:"+armyUnitCount);
+               alert.showAndWait();
+           }else{
+               Alert alert = new Alert(Alert.AlertType.WARNING);
+               alert.setTitle("Warning");
+               alert.setHeaderText("You are not eligible for Swap");
+               alert.showAndWait();
+           }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Invalid Card Swap Operation");
+            alert.showAndWait();
+        }
+
+    }
 
     /**
      * Getter method for getting the current Selected Country;
@@ -155,11 +193,13 @@ public class ReinforcementDialogController {
         this.playerModel = playerModel;
     }
 
-    /**
-     * SwapCards Action Listener.
-     * @param actionEvent Action event from javafx
-     * */
-    public void swapCardAction(ActionEvent actionEvent) {
 
+
+    public ReinforcementPhase getReinforcePhase() {
+        return reinforcePhase;
+    }
+
+    public void setReinforcePhase(ReinforcementPhase reinforcePhase) {
+        this.reinforcePhase = reinforcePhase;
     }
 }
