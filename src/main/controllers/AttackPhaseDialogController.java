@@ -33,7 +33,7 @@ public class AttackPhaseDialogController {
     public void attackAction() {
         if(attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
-            if(attackingCountry.getArmyInCountry() > 2) {
+            if(attackingCountry.getArmyInCountry() >= 2) {
                 attackPhase.attackCountry();
             }
         } else {
