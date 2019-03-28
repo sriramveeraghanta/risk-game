@@ -81,13 +81,14 @@ public void testGetNumberofAttackerDiceLessThan3() throws Exception {
 */ 
 @Test
 public void testGetNumberofDefenderDice() throws Exception {
-    assertEquals(2, attackPhase.getNumberOfDiceCount());
+
+    assertEquals(2, attackPhase.getNumberOfDiceCount()-1);
 }
 
 @Test
 public void testGetNumberofDefenderDiceLessThan2() throws Exception {
-    defenderCountry.setArmyInCountry(1);
-    assertEquals(1, attackPhase.getNumberOfDiceCount());
+    attackerCountry.setArmyInCountry(1);
+    assertEquals(1, attackPhase.getNumberOfDiceCount()-1);
 }
 /**
 * 
