@@ -9,8 +9,7 @@ import org.junit.runners.Suite;
         FortificationPhaseTest.class,
         MapBuilderTest.class,
         ReinforcementPhaseTest.class,
-        //StartupPhaseTest.class
-
+        StartupPhaseTest.class
 })
 public class TestSuite {
 }
