@@ -1,121 +1,90 @@
-//package test.main.helpers;
-//
-//import org.junit.Test;
-//import org.junit.Before;
-//import org.junit.After;
-//
-///**
-//* StartupPhase Tester.
-//*/
-//public class StartupPhaseTest {
-//
-//@Before
-//public void before() throws Exception {
-//}
-//
-//@After
-//public void after() throws Exception {
-//}
-//
-///**
-//*
-//* Method: init()
-//*
-//*/
-//@Test
-//public void testInit() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: getAssignedColor()
-//*
-//*/
-//@Test
-//public void testAssignColor() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: setInitialInfantry(PlayerModel player)
-//*
-//*/
-//@Test
-//public void testSetInitialInfantry() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: assignCountriesToPlayers()
-//*
-//*/
-//@Test
-//public void testAssignCountriesToPlayers() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: assignUnitsPerCountry()
-//*
-//*/
-//@Test
-//public void testAssignOneUnitPerCountry() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: createGameCards()
-//*
-//*/
-//@Test
-//public void testCreateGameCards() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: getCards()
-//*
-//*/
-//@Test
-//public void testGetCards() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: setCards(ArrayList<CardModel> cards)
-//*
-//*/
-//@Test
-//public void testSetCards() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: getPlayers()
-//*
-//*/
-//@Test
-//public void testGetPlayers() throws Exception {
-////TODO: Test goes here...
-//}
-//
-///**
-//*
-//* Method: setPlayers(ArrayList<PlayerModel> players)
-//*
-//*/
-//@Test
-//public void testSetPlayers() throws Exception {
-////TODO: Test goes here...
-//}
-//
-//
-//}
+package test.main.helpers;
+
+import main.helpers.MapBuilder;
+import main.helpers.StartupPhase;
+import main.models.CountryModel;
+import main.models.GameModel;
+import main.models.PlayerModel;
+import main.utills.GameCommons;
+import org.junit.Test;
+import org.junit.Before;
+import java.util.ArrayList;
+import static junit.framework.TestCase.*;
+
+/**
+* StartupPhase Tester.
+*
+*/
+public class StartupPhaseTest {
+    GameModel gameModel;
+    StartupPhase startup;
+    ArrayList<CountryModel> countryList;
+    ArrayList<PlayerModel> playerList;
+    GameCommons gameCommons;
+    MapBuilder mapBuilder;
+    /**
+     * method which should run before all of the test methods
+     * @throws Exception if exception occur throws Exception
+     */
+@Before
+public void before() throws Exception {
+    countryList = new ArrayList<>();
+    playerList = new ArrayList<>();
+    gameModel = new GameModel();
+    gameCommons = new GameCommons();
+    mapBuilder = new MapBuilder(gameModel);
+    mapBuilder.readMapFile(null);
+    startup = new StartupPhase(gameModel);
+}
+
+
+/**
+*
+* Method: getAssignedColor()
+*
+*/
+@Test
+public void testAssignColor() throws Exception {
+    assertNotNull(startup.getAssignedColor());
+}
+
+/**
+*
+* Method: setInitialInfantry(PlayerModel player)
+*
+*/
+@Test
+public void testSetInitialInfantryFor2Player() throws Exception {
+    startup.initNewGame(2);
+    assertEquals(40, startup.getInitialUnit());
+}
+@Test
+public void testSetInitialInfantryDefault() throws Exception {
+    startup.initNewGame(1);
+    assertEquals(0, startup.getInitialUnit());
+}
+
+/**
+*
+* Method: assignCountriesToPlayers()
+*
+*/
+@Test
+public void testAssignCountriesToPlayers() throws Exception {
+    startup.initNewGame(6);
+    playerList = gameModel.getPlayers();
+    assertNotNull(playerList.get(0).getCountries());
+}
+
+    /**
+     * Method: assignUnitsToPlayerCountries()
+     */
+    @Test
+public void testAssignUnitsToPlayerCountries() {
+    startup.initNewGame(2);
+    playerList = gameModel.getPlayers();
+    assertNotNull(playerList.get(0).getCountries().get(0).getArmyInCountry());
+    assertEquals(0,playerList.get(0).getArmyInHand());
+
+}
+}
