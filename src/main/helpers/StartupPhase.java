@@ -148,7 +148,7 @@ public class StartupPhase {
     public void createGameCards() {
         EnumHandler.CardType cardTypes[] = EnumHandler.CardType.values();
         ArrayList<CardModel> cards = new ArrayList<>();
-        for (int i = 0; i < gameModel.getCountries().size(); i++) {
+        for (int i = 0; i < this.gameModel.getCountries().size(); i++) {
             CardModel card = new CardModel(cardTypes[i % cardTypes.length]);
             cards.add(card);
         }

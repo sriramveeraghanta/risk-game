@@ -100,7 +100,7 @@ public class AttackPhaseDialogController {
                         if (empty) {
                             setText(null);
                         } else {
-                            setText(item.getCountryName());
+                            setText(item.getCountryName()+" - "+item.getArmyInCountry());
                         }
                     }
                 });
