@@ -56,6 +56,7 @@ public class LoadGameController {
         CharSequence fileName = mapFileNameTextField.getCharacters();
         ObservableList<CharSequence> paragraph = mapDataTextArea.getParagraphs();
         createMapFile(fileName, paragraph);
+
         MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
         boolean isvalidMap=false;
         Alert alert=null;

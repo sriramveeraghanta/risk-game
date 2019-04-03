@@ -37,18 +37,27 @@ public class AttackPhase {
     /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      */
-    public void attackCountry(){
+    public void attackCountry(int diceCount){
+        ArrayList<Integer> attackerDiceValues;
+        ArrayList<Integer> defenderDiceValues;
+        if(diceCount > 1) {
+            attackerDiceValues = getAllDiceValues(diceCount);
+            defenderDiceValues = getAllDiceValues(diceCount - 1);
+        } else {
+            attackerDiceValues = getAllDiceValues(1);
+            defenderDiceValues = getAllDiceValues(1);
+        }
 
-        ArrayList<Integer> attackerDiceValues = getAllDiceValues(getNumberOfDiceCount());
-        ArrayList<Integer> defenderDiceValues = getAllDiceValues(getNumberOfDiceCount() - 1);
-
-        for(int i=0 ; i < defenderDiceValues.size(); i++) {
+        for(int i=0; i< defenderDiceValues.size(); i++) {
             if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
                 attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
             } else {
                 defendingCountry.setArmyInCountry(defendingCountry.getArmyInCountry() - 1);
             }
+            attackerDiceValues.remove(attackerDiceValues.indexOf(Collections.max(attackerDiceValues)));
+            defenderDiceValues.remove(defenderDiceValues.indexOf(Collections.max(defenderDiceValues)));
         }
+
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
         // if attacker looses

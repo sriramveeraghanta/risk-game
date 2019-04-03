@@ -4,10 +4,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import main.helpers.AttackPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
  *This class is a controller for attack phase dialog
  */
 public class AttackPhaseDialogController {
+    public TextField diceCountTextField;
     private GameModel gameModel;
     private CountryModel attackingCountry = null;
     private CountryModel defendingCountry = null;
@@ -30,11 +34,21 @@ public class AttackPhaseDialogController {
     /**
      * this method do all action that should be done in attack phase
      */
-    public void attackAction() {
+    public void attackAction(ActionEvent event) {
         if(attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             if(attackingCountry.getArmyInCountry() >= 2) {
-                attackPhase.attackCountry();
+                try {
+                    int diceCount = Integer.parseInt(diceCountTextField.getText());
+                    attackPhase.attackCountry(diceCount);
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something Went Wrong, Please enter dice count value.");
+                    alert.showAndWait();
+                }
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -80,7 +94,7 @@ public class AttackPhaseDialogController {
                 if (empty) {
                     setText(null);
                 } else {
-                    setText(item.getCountryName());
+                    setText(item.getCountryName()+" - "+item.getArmyInCountry());
                 }
             }
         });

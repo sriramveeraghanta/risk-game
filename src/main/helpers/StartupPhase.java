@@ -35,8 +35,8 @@ public class StartupPhase {
     public void initNewGame(int playerCount) {
         this.numberOfPlayers = playerCount;
         // setting number of players count to game model
-        gameModel.setNumberOfPlayers(playerCount);
-        gameModel.setPlayers(getNewPlayers());
+        this.gameModel.setNumberOfPlayers(playerCount);
+        this.gameModel.setPlayers(getNewPlayers());
         this.assignCountriesToPlayers();
         this.assignUnitsToPlayerCountries();
         this.createGameCards();
@@ -109,7 +109,7 @@ public class StartupPhase {
     public void assignCountriesToPlayers() {
         int currentIndex;
         // Creating a shuffled the new list;
-        ArrayList<CountryModel> shuffledCountries = gameModel.getCountries();
+        ArrayList<CountryModel> shuffledCountries = (ArrayList) gameModel.getCountries().clone();
         Collections.shuffle(shuffledCountries);
         int playerIndex = 0;
         while (shuffledCountries.size() > 0) {
@@ -148,10 +148,10 @@ public class StartupPhase {
     public void createGameCards() {
         EnumHandler.CardType cardTypes[] = EnumHandler.CardType.values();
         ArrayList<CardModel> cards = new ArrayList<>();
-        for (int i = 0; i < this.gameModel.getCountries().size(); i++) {
+        for (int i = 0; i < gameModel.getCountries().size(); i++) {
             CardModel card = new CardModel(cardTypes[i % cardTypes.length]);
             cards.add(card);
         }
-        this.gameModel.setCards(cards);
+        gameModel.setCards(cards);
     }
 }
