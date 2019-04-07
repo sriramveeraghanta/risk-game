@@ -1,11 +1,12 @@
 package main.models;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Game Model which has the countries ,continents ,players , cards , number of players and current player
  */
-public class GameModel {
+public class GameModel extends Observable {
 
     private String title;
     private int numberOfPlayers;
@@ -22,6 +23,42 @@ public class GameModel {
 
     }
 
+
+    /**
+     * this method is notify the reinforcement View
+     */
+
+    public void reinforce(){
+        setChanged();
+        notifyObservers("Reinforce");
+    }
+
+    public void cardSwap(){
+        setChanged();
+        notifyObservers("cardSwap");
+    }
+
+    /**
+     * this method is notify the attack View
+     */
+    public void attackPhase(){
+        setChanged();
+        notifyObservers("Attack");
+    }
+
+
+    public void attackPhaseEnd(){
+        setChanged();
+        notifyObservers("Attack Finish");
+    }
+    /**
+     * this method is notify the fortify View
+     */
+
+    public void fortify(){
+        setChanged();
+        notifyObservers("Fortify");
+    }
     /**
      * Getter method for getting the arrary list of cards
      * @return the cards

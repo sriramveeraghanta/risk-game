@@ -34,7 +34,7 @@ public class ReinforcementPhase {
         int totalNumberOfArmyUnits = getNumberOfSimilarCards() + getNumberOfDifferentCards();
         if (totalNumberOfArmyUnits > 0) {
             this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
-
+            gameModel.cardSwap();
             return (totalNumberOfArmyUnits * 5) * this.playerModel.getSuccessfulCardSwapCounter();
         }
 
@@ -78,11 +78,15 @@ public class ReinforcementPhase {
      * @return boolean if it goes in catch it return false
      */
     public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
-        if (this.playerModel.getArmyInHand() > numberOfUnits) {
+        if (this.playerModel.getArmyInHand() >=numberOfUnits) {
             country.setArmyInCountry(country.getArmyInCountry() + numberOfUnits);
             this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
+            System.out.println("add army method");
+            gameModel.reinforce();
+            System.out.println("add army method:end");
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

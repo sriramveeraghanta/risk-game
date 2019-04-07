@@ -14,11 +14,13 @@ import main.models.PlayerModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class is a controller for game board
  */
-public class GameBoardController {
+public class GameBoardController implements Observer {
 
 
     private GameModel gameModel;
@@ -33,6 +35,8 @@ public class GameBoardController {
     @FXML
     private Label currentPlayerLabel;
 
+
+    private PlayerModel playerModel;
     /**
      * Constructor of the game board controller
      */
@@ -64,6 +68,7 @@ public class GameBoardController {
     private void initData() throws IOException {
         //System.out.println(getGameModel());
         gameModel.setCurrentPlayerIndex(0);
+        gameModel.addObserver(this);
         getGameModel().getPlayers().get(getGameModel().getCurrentPlayerIndex()).setArmyInHand(3);
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
         this.renderPlayersInfo();
@@ -79,6 +84,7 @@ public class GameBoardController {
             continentInfoController.setContinentModel(continent);
             mapInfoPanel.getChildren().add(continentInfoPanel);
         }
+
     }
 
     private void renderPlayersInfo() throws IOException {
@@ -109,7 +115,8 @@ public class GameBoardController {
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
             attackPhaseDialogController.setGameModel(this.gameModel);
-            stage.setScene(new Scene(LoadGamePanel, 600, 400));
+            gameModel.addObserver(attackPhaseDialogController);
+            stage.setScene(new Scene(LoadGamePanel, 600, 450));
             stage.setResizable(false);
             stage.show();
 
@@ -129,6 +136,7 @@ public class GameBoardController {
             Parent LoadGamePanel = loader.load();
             FortifyDialogController FortifyDialogController = loader.getController();
             FortifyDialogController.setGameModel(this.gameModel);
+            gameModel.addObserver(FortifyDialogController);
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.show();
 
@@ -143,11 +151,13 @@ public class GameBoardController {
     private void reinforcementPhase() {
         // Creating an Attack Phase
         try {
+
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ReinforcementDialogView.fxml"));
             Parent reinforcementPanel = loader.load();
             ReinforcementDialogController ReinforcementDialogController = loader.getController();
             ReinforcementDialogController.setGameModel(this.gameModel);
+            gameModel.addObserver(ReinforcementDialogController);
             stage.setScene(new Scene(reinforcementPanel, 600, 400));
             stage.show();
 
@@ -170,6 +180,12 @@ public class GameBoardController {
             gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
+    }
+
+
+    public void update(Observable o, Object arg) {
+
+
     }
 
 

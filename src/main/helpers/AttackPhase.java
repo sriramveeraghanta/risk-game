@@ -18,6 +18,8 @@ public class AttackPhase {
     public PlayerModel attackingPlayer, defendingPlayer;
     public CountryModel attackingCountry, defendingCountry;
     public GameModel gameModel;
+    private boolean attackEnd=false;
+    private boolean allOutModeFlag=false;
 
 
     /**
@@ -35,18 +37,52 @@ public class AttackPhase {
     }
 
     /**
+     * this method do all the logic for allout mode
+     */
+
+    public void allOutMode(){
+        int min=1,defenderMax,attackerMax;
+        setAllOutModeFlag(true);
+     while(!isAttackEnd()){
+         if(attackingCountry.getArmyInCountry() >=3 )
+         {
+             attackerMax=3;
+             defenderMax=2;
+         }else
+         {
+             attackerMax=attackingCountry.getArmyInCountry();
+             defenderMax=attackingCountry.getArmyInCountry();
+         }
+         int getAttackerDiceCount=diceCount(attackerMax,min);
+         int getDefenderDiceCount=diceCount(defenderMax,min);
+         if(attackingCountry.getArmyInCountry() >= 2 && defendingCountry.getArmyInCountry()>=1) {
+             attackCountry(getAttackerDiceCount,getDefenderDiceCount) ;
+         }else{
+             attackResult();
+             setAttackEnd(true);
+
+         }
+
+     }
+    }
+
+    /**
+     * this method will give dice counts
+     */
+
+    public int diceCount(int max,int min){
+        Random r = new Random();
+        int dice= r.nextInt((max - min) + 1) + min;
+        return dice;
+    }
+    /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      */
-    public void attackCountry(int diceCount){
+    public void attackCountry(int attackerDiceCount , int defenderDiceCount){
         ArrayList<Integer> attackerDiceValues;
         ArrayList<Integer> defenderDiceValues;
-        if(diceCount > 1) {
-            attackerDiceValues = getAllDiceValues(diceCount);
-            defenderDiceValues = getAllDiceValues(diceCount - 1);
-        } else {
-            attackerDiceValues = getAllDiceValues(1);
-            defenderDiceValues = getAllDiceValues(1);
-        }
+            attackerDiceValues = getAllDiceValues(attackerDiceCount);
+            defenderDiceValues = getAllDiceValues(defenderDiceCount);
 
         for(int i=0; i< defenderDiceValues.size(); i++) {
             if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
@@ -60,8 +96,18 @@ public class AttackPhase {
 
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
+        if(!isAllOutModeFlag()) {
+            attackResult();
+        }
+
+    }
+
+    /**
+     * this method will give attack result
+     */
+    public void attackResult(){
         // if attacker looses
-        if (attackingCountry.getArmyInCountry() <= 1) {
+        if (attackingCountry.getArmyInCountry() <= 1 ) {
             this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
@@ -71,9 +117,10 @@ public class AttackPhase {
             alert.setHeaderText(null);
             alert.setContentText("Attacker Lost");
             alert.showAndWait();
+            gameModel.attackPhaseEnd();
         }
         // if defender looses
-        else if (defendingCountry.getArmyInCountry() <= 0) {
+        else if (defendingCountry.getArmyInCountry() <= 0 ) {
             this.assignCardToPlayer(this.attackingPlayer);
             this.assignCountryToWinnerPlayer(this.attackingPlayer, this.defendingPlayer, this.defendingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
@@ -81,8 +128,9 @@ public class AttackPhase {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("You Lost");
             alert.setHeaderText(null);
-            alert.setContentText("Defender won and occupied the attacking country");
+            alert.setContentText("Attacker won and occupied the attacking country");
             alert.showAndWait();
+            gameModel.attackPhaseEnd();
         } else {
             // Alert to the user
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -90,6 +138,7 @@ public class AttackPhase {
             alert.setHeaderText(null);
             alert.setContentText("Attacking Complete");
             alert.showAndWait();
+            gameModel.attackPhase();
         }
     }
 
@@ -181,5 +230,21 @@ public class AttackPhase {
                 loserPlayer.setActive(false);
             }
         }
+    }
+
+    public boolean isAllOutModeFlag() {
+        return allOutModeFlag;
+    }
+
+    public void setAllOutModeFlag(boolean allOutModeFlag) {
+        this.allOutModeFlag = allOutModeFlag;
+    }
+
+    public boolean isAttackEnd() {
+        return attackEnd;
+    }
+
+    public void setAttackEnd(boolean attackEnd) {
+        this.attackEnd = attackEnd;
     }
 }

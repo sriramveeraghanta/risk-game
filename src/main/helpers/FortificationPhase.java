@@ -1,6 +1,7 @@
 package main.helpers;
 
 import main.models.CountryModel;
+import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.GameConstants;
 
@@ -11,11 +12,15 @@ import java.util.List;
  */
 public class FortificationPhase {
     private PlayerModel playerModel;
+    private GameModel gameModel;
+
+
     /**
      * Constructor which get player model as parameter
      * @param playerModel an object of player model
      */
-    public FortificationPhase(PlayerModel playerModel) {
+    public FortificationPhase(GameModel gameModel,PlayerModel playerModel)
+    {   this.setGameModel(gameModel);
         this.setPlayerModel(playerModel);
     }
 
@@ -47,14 +52,23 @@ public class FortificationPhase {
         CountryModel fromCountry = fromCountryModel;
         CountryModel toCountry = toCountryModel;
 
-        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) < 1)) {
+        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) <1)) {
             return GameConstants.FORTIFY_INVALID_MSG;
         } else {
             fromCountry.setArmyInCountry((fromCountry.getArmyInCountry() - numberOfArmyUnits));
             toCountry.setArmyInCountry((toCountry.getArmyInCountry() + numberOfArmyUnits));
+            getGameModel().fortify();
             return GameConstants.FORTIFY_VALID_MSG;
         }
 
    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
+    }
 
 }
