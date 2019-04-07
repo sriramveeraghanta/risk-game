@@ -4,7 +4,7 @@ import main.helpers.MapBuilder;
 import main.helpers.ReinforcementPhase;
 import main.models.*;
 import main.utills.EnumHandler;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import org.junit.Test;
 import org.junit.Before;
 import static junit.framework.Assert.*;
@@ -22,7 +22,7 @@ public class ReinforcementPhaseTest {
     ReinforcementPhase reinforce;
     CountryModel country1,country2,country3,country4;
     MapBuilder mapBuilder;
-    GameCommons gameCommons;
+    GameCommon gameCommons;
     CardModel cardModel;
     CardModel cardModel1;
 
@@ -37,7 +37,7 @@ public class ReinforcementPhaseTest {
         reinforce = new ReinforcementPhase(playerModel, gameModel);
         mapBuilder = new MapBuilder(gameModel);
         mapBuilder.readMapFile(null);
-        gameCommons = new GameCommons();
+        gameCommons = new GameCommon();
         cardModel = new CardModel(EnumHandler.CardType.INFANTRY);
         cardModel.setNumberOfCards(4);
         cardModel1 = new CardModel(EnumHandler.CardType.INFANTRY);

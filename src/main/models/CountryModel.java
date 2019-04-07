@@ -2,6 +2,7 @@ package main.models;
 
 import main.utills.EnumHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * in which continent it is belong to ,army country and array list of its
  * adjacent to that specific country
  */
-public class CountryModel {
+public class CountryModel implements Serializable {
 
     private String countryName;
     private int xAxis;

@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,23 +10,31 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.text.Text;
 import main.models.CountryModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class is the controller of player cards
  */
-public class PlayerInfoController {
+public class PlayerInfoController implements Observer {
 
     public PlayerModel playerModel;
 
     @FXML
     public Label playerLabel;
     @FXML
-    public TableView playerTableView;
+    public TableView<CountryModel> playerTableView;
     @FXML
-    public TableColumn playerCountryNameTableColumn, unitsCountTableColumn;
+    public TableColumn<CountryModel, String> playerCountryNameTableColumn;
+    @FXML
+    public TableColumn<CountryModel, Integer> unitsCountTableColumn;
+    public Text playerCardsTextField;
+    public Text playerArmyTextField;
 
     /**
      * Setter method to set the player model
@@ -33,20 +42,30 @@ public class PlayerInfoController {
      */
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
+        initializeComponent();
+    }
 
-        GameCommons gameCommons = new GameCommons();
-        playerLabel.setText("Player: "+this.playerModel.getColor().toString());
+    private void initializeComponent() {
+        // Setting label
+        GameCommon gameCommons = new GameCommon();
+        playerLabel.setText("Player: "+ this.playerModel.getColor().toString());
         playerLabel.setBackground(new Background(new BackgroundFill(gameCommons.getFXColor(this.playerModel.getColor().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-
+        // Player info text
+        int army = this.playerModel.getArmyInHand();
+        playerArmyTextField.textProperty().bind(new SimpleIntegerProperty(army).asString());
+        playerCardsTextField.setText(""+this.playerModel.getDeck().size());
+        // Rendering List
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.playerModel.getCountries());
-
         playerCountryNameTableColumn.setCellValueFactory(
-                new PropertyValueFactory<CountryModel, String>("countryName"));
-
+                new PropertyValueFactory<>("countryName"));
         unitsCountTableColumn.setCellValueFactory(
-                new PropertyValueFactory<CountryModel, Integer>("armyInCountry"));
-
+                new PropertyValueFactory<>("armyInCountry"));
         playerTableView.setItems(playerCountriesObservable);
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println(o);
+        System.out.println(arg);
     }
 }

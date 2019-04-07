@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PlayerInfoController">
+<AnchorPane prefHeight="236.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PlayerInfoController">
    <children>
-      <Label fx:id="playerLabel" alignment="CENTER" layoutX="13.0" layoutY="14.0" prefHeight="26.0" prefWidth="174.0" textAlignment="CENTER" textFill="#fafafa" />
-      <TableView fx:id="playerTableView" layoutX="3.0" layoutY="60.0" prefHeight="135.0" prefWidth="200">
+      <Label fx:id="playerLabel" alignment="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="22.0" prefWidth="180.0" textAlignment="CENTER" textFill="#fafafa" />
+      <TableView fx:id="playerTableView" layoutX="1.0" layoutY="88.0" prefHeight="145.0" prefWidth="210.0">
         <columns>
           <TableColumn fx:id="playerCountryNameTableColumn" prefWidth="160" text="Country Name" />
           <TableColumn fx:id="unitsCountTableColumn" prefWidth="40" text="Units" />
         </columns>
       </TableView>
+      <Text layoutX="15.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player cards:" />
+      <Text layoutX="15.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Army in the Hand:" />
+      <Text fx:id="playerCardsTextField" layoutX="106.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.2060546875" />
+      <Text fx:id="playerArmyTextField" layoutX="129.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="51.85986328125" />
    </children>
 </AnchorPane>

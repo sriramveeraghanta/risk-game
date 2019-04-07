@@ -8,7 +8,7 @@ import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.EnumHandler;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +22,7 @@ public class FortificationPhaseTest {
     CountryModel attackerCountryFrom;
     MapBuilder mapBuilder;
     GameModel gameModel;
-    GameCommons gameCommons;
+    GameCommon gameCommons;
     ArrayList<CountryModel> countryList;
     ArrayList<PlayerModel> playerList;
     FortificationPhase fortify;
@@ -35,7 +35,7 @@ public void before() throws Exception {
     countryList = new ArrayList<>();
     playerList = new ArrayList<>();
     gameModel = new GameModel();
-    gameCommons = new GameCommons();
+    gameCommons = new GameCommon();
     mapBuilder = new MapBuilder(gameModel);
     mapBuilder.readMapFile(null);
     attackerPlayer = new PlayerModel();

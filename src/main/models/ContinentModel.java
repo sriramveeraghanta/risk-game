@@ -1,12 +1,13 @@
 package main.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Continent Model stores the data specific to continent , i.e continentName,
  * control value and its ownned countries
  */
-public class ContinentModel {
+public class ContinentModel implements Serializable {
 
     private String continentName;
     private int controlValue;

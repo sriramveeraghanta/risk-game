@@ -4,18 +4,47 @@ import javafx.scene.paint.Color;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.sun.org.apache.xalan.internal.utils.SecuritySupport.getContextClassLoader;
 
 /**
  * Some common methods like parsing , getting color
  */
-public class GameCommons {
+public class GameCommon {
     /**
      * constructor for GameCommon class
      */
-    public GameCommons() {
+    public GameCommon() {
 
     }
+
+    /**
+     * This methods gets all the filename in resources path
+     * @param path resource folder path.
+     * @return this method returns a list of strings with file name  in the path.
+     */
+    public ArrayList<String> getResourceFiles(String path) throws IOException {
+        ArrayList<String> filenames = new ArrayList<>();
+        InputStream in = getResourceAsStream(path);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String resource;
+        while ((resource = br.readLine()) != null) {
+            filenames.add(resource);
+        }
+        return filenames;
+    }
+
+    private InputStream getResourceAsStream(String resource) {
+        final InputStream in = getContextClassLoader().getResourceAsStream(resource);
+        return in == null ? getClass().getResourceAsStream(resource) : in;
+    }
+
 
     /**
      * casting the string to integer

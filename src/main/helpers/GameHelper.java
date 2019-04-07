@@ -1,14 +1,14 @@
 package main.helpers;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import main.controllers.GameBoardController;
 import main.models.GameModel;
+import main.utills.GameConstants;
 import main.utills.GameException;
+import main.utills.Utills;
 
-import java.io.IOException;
+import java.io.*;
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GameHelper {
     /**
@@ -27,8 +27,38 @@ public class GameHelper {
         // Startup phase
         StartupPhase startupPhase = new StartupPhase(gameModel);
         startupPhase.initNewGame(playerCount);
+        return gameModel;
+    }
 
+    public void saveGame(GameModel gameModel) {
+        // Getting Current DataTime as String.
+        StringBuffer stringBuffer = new StringBuffer();
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ssZ");
+        simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
+        try {
+            String filePath = GameConstants.USER_SAVED_GAMES_PATH + stringBuffer+".ser";
+            // write object to file
+            FileOutputStream fos = new FileOutputStream(filePath);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(gameModel);
+            oos.close();
+        } catch (IOException e) {
+            Utills.showErrorMessage(GameConstants.SAVE_GAME_ERROR);
+        }
+    }
 
+    public GameModel loadGame(String filePath){
+        GameModel gameModel = null;
+        try {
+            // read object from file
+            FileInputStream fis = new FileInputStream(filePath);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            gameModel = (GameModel) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            Utills.showErrorMessage(GameConstants.LOAD_GAME_ERROR);
+        }
         return gameModel;
     }
 }

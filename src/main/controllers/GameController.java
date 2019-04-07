@@ -3,14 +3,12 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import main.helpers.GameHelper;
-import main.helpers.MapBuilder;
-import main.helpers.StartupPhase;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
@@ -25,25 +23,17 @@ import java.util.Optional;
 public class GameController {
 
     private GameModel gameModel;
-    private boolean userMapValidated;
-
-
-    @FXML
-    private Button exitGameButton ;
 
     /**
      * Constructor of the game controller class
      */
-    public GameController() {
-
-    }
+    public GameController() {}
 
     /**
      * with Start Game new game starts
-     * @param event type of ActionEvent
      */
     @FXML
-    public void startNewGame(ActionEvent event) {
+    public void startNewGame() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
         dialog.setTitle(getGameModel().getTitle());
@@ -56,14 +46,19 @@ public class GameController {
                     // Initiating players and Creating new Map.
                     GameHelper gameHelper = new GameHelper();
                     this.setGameModel(gameHelper.startNewGame(playerCount));
+                    //System.out.println(this.gameModel.getCountries());
                     // Creating an Game Board
                     Stage stage = new Stage();
+                    stage.setTitle(GameConstants.GAME_TITLE);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GameBoard.fxml"));
                     Parent GameBoardPanel = loader.load();
                     GameBoardController gameBoardController = loader.getController();
                     gameBoardController.setGameModel(this.gameModel);
                     stage.setScene(new Scene(GameBoardPanel, 1280, 768));
                     stage.show();
+                    stage.setOnCloseRequest(event -> {
+                        Utills.saveGameDialog(stage, this.gameModel);
+                    });
                 } else {
                     Utills.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
                 }
@@ -75,23 +70,33 @@ public class GameController {
         });
     }
 
-
-
     /**
      * Loading the New Game to the user
-     * @param event type of ActionEvent
      * @throws IOException if exception occur it throws IOException
      */
     @FXML
-    public void createGame(ActionEvent event) throws IOException {
+    public void createGame() throws IOException {
         Stage stage = new Stage();
+        stage.setTitle(GameConstants.GAME_TITLE);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/CreateGame.fxml"));
         Parent createNewGamePanel = loader.load();
         CreateGameController createGameController = loader.getController();
         createGameController.setGameModel(this.gameModel);
-        createGameController.setGameController(this);
-        createGameController.setStage(stage);
         stage.setScene(new Scene(createNewGamePanel,1280, 768));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
+     * Loads a saved game from the file.
+     * @throws IOException if exception occur it throws IOException.
+     */
+    public void loadGame() throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle(GameConstants.GAME_TITLE);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoadGame.fxml"));
+        Parent createNewGamePanel = loader.load();
+        stage.setScene(new Scene(createNewGamePanel,400, 600));
         stage.setResizable(false);
         stage.show();
     }
@@ -102,14 +107,12 @@ public class GameController {
      */
     @FXML
     public void exitGame(ActionEvent event) {
-        //System.out.println("Exit game");
-        Stage stage = (Stage) exitGameButton.getScene().getWindow();
-        stage.close();
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
     /**
      * Getter method to get the game model object
-     * @return the objectof game model
+     * @return the object of game model
      */
     public GameModel getGameModel() {
         return gameModel;
@@ -123,12 +126,5 @@ public class GameController {
         this.gameModel = gameModel;
     }
 
-    public boolean isUserMapValidated() {
-        return userMapValidated;
-    }
-
-    public void setUserMapValidated(boolean userMapValidated) {
-        this.userMapValidated = userMapValidated;
-    }
 
 }

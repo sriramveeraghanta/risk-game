@@ -20,9 +20,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -32,10 +29,7 @@ import java.util.Optional;
 public class CreateGameController {
 
     private GameModel gameModel;
-    private GameController gameController;
-    private Stage stage;
-    public String mapFilePath=null;
-
+    private String mapFilePath=null;
 
     @FXML
     private TextArea mapDataTextArea;
@@ -51,11 +45,9 @@ public class CreateGameController {
 
     /**
      * this method create user map and get event which is type of ActionEvent as parameter
-     * @param event type of ActionEvent
-     * @throws IOException if exception occur it throws IOException
      */
     @FXML
-    public void createUserMap(ActionEvent event) throws IOException {
+    public void createUserMap(ActionEvent event) {
         if(mapDataTextArea.getParagraphs().size() != 0 && mapFileNameTextField.getCharacters().length() != 0 ){
             CharSequence fileName = mapFileNameTextField.getCharacters();
             ObservableList<CharSequence> paragraph = mapDataTextArea.getParagraphs();
@@ -63,9 +55,7 @@ public class CreateGameController {
             createMapFile(fileName, paragraph);
             // Map Builder
             MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-
             boolean isMapValid = false;
-
             try {
                 isMapValid = mapBuilder.readMapFile(mapFilePath);
             }catch (GameException e) {
@@ -81,14 +71,16 @@ public class CreateGameController {
                 alert.getButtonTypes().setAll(yesButton, noButton);
                 // If User checks for Yes
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == yesButton) {
-                    this.startGame();
-                } else if(result.get() == noButton) {
-                    this.getStage().close();
+                if(result.isPresent()){
+                    if (result.get() == yesButton) {
+                        this.startGame();
+                    } else if(result.get() == noButton) {
+                        ((Node)(event.getSource())).getScene().getWindow().hide();
+                    }
                 }
-            } else {
-                Utills.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
             }
+        } else {
+            Utills.showWarningMessage(GameConstants.USER_NO_INPUT);
         }
     }
 
@@ -163,37 +155,5 @@ public class CreateGameController {
      */
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
-    }
-
-    /**
-     * Getter method to get the game controller
-     * @return the game controller object
-     */
-    public GameController getGameController() {
-        return gameController;
-    }
-
-    /**
-     * Setter method to set the game controller
-     * @param gameController object of the game controller
-     */
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
-    }
-
-    /**
-     * Getter method to get the stage
-     * @return the stage type of Stage
-     */
-    public Stage getStage() {
-        return stage;
-    }
-
-    /**
-     * Setter method to set the stage
-     * @param stage type of Stage
-     */
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }

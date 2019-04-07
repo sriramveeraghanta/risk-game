@@ -2,12 +2,14 @@ package main.models;
 
 import main.utills.EnumHandler;
 
+import java.io.Serializable;
+
 /**
  *
  * This is an entity class for CardModel
  *
  */
-public class CardModel {
+public class CardModel implements Serializable {
 
     private int numberOfCards;
     /**

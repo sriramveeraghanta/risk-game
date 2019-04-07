@@ -4,10 +4,9 @@ import main.helpers.MapBuilder;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 import main.models.GameModel;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import org.junit.*;
 import org.junit.Before;
-import org.junit.After;
 
 import static junit.framework.Assert.*;
 
@@ -18,7 +17,7 @@ public class MapBuilderTest {
     String continentName;
     String countryName;
     GameModel gameModel;
-    GameCommons gameCommons;
+    GameCommon gameCommons;
     MapBuilder mapBuilder;
 
     /**
@@ -27,7 +26,7 @@ public class MapBuilderTest {
      */
     @Before
     public void before() throws Exception {
-        gameCommons = new GameCommons();
+        gameCommons = new GameCommon();
         gameModel= new GameModel();
         mapBuilder = new MapBuilder(gameModel);
         mapBuilder.readMapFile(null);

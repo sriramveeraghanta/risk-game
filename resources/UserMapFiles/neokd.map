@@ -1,0 +1,64 @@
+[Map]
+author=Rob Werhand
+image=Tug Of War.bmp
+wrap=yes
+scroll=none
+warn=yes
+
+[Continents]
+Upper Left Arm=2
+Upper Right Arm=2
+Lower Left Arm=2
+Lower Right Arm=2
+Center=4
+
+[Territories]
+Territory00,216,43,Upper Left Arm,Territory01,Territory02
+Territory01,265,111,Upper Left Arm,Territory00,Territory02,Territory04,Territory03
+Territory02,283,90,Upper Left Arm,Territory00,Territory01,Territory05,Territory04
+Territory03,375,257,Upper Left Arm,Territory01,Territory04,Territory07
+Territory04,372,200,Upper Left Arm,Territory02,Territory01,Territory03,Territory05,Territory08,Territory07
+Territory05,433,201,Upper Left Arm,Territory02,Territory04,Territory08
+Territory06,430,389,Upper Left Arm,Territory07,Territory29,Territory45
+Territory07,429,315,Upper Left Arm,Territory04,Territory03,Territory06,Territory08,Territory45
+Territory08,496,257,Upper Left Arm,Territory05,Territory04,Territory07,Territory09,Territory44
+Territory09,563,254,Upper Left Arm,Territory08,Territory44,Territory16
+Territory10,974,43,Upper Right Arm,Territory12,Territory11
+Territory11,901,92,Upper Right Arm,Territory10,Territory12,Territory13,Territory14
+Territory12,922,111,Upper Right Arm,Territory10,Territory11,Territory14,Territory15
+Territory13,752,202,Upper Right Arm,Territory11,Territory17,Territory14
+Territory14,815,197,Upper Right Arm,Territory11,Territory12,Territory15,Territory17,Territory18,Territory13
+Territory15,812,262,Upper Right Arm,Territory12,Territory14,Territory18
+Territory16,627,255,Upper Right Arm,Territory09,Territory44,Territory17
+Territory17,700,256,Upper Right Arm,Territory13,Territory14,Territory16,Territory44,Territory18
+Territory18,760,317,Upper Right Arm,Territory14,Territory15,Territory46,Territory19,Territory17
+Territory19,761,388,Upper Right Arm,Territory18,Territory46,Territory39
+Territory20,217,796,Lower Left Arm,Territory22,Territory21
+Territory21,282,751,Lower Left Arm,Territory20,Territory22,Territory23,Territory24
+Territory22,263,728,Lower Left Arm,Territory20,Territory21,Territory24,Territory25
+Territory23,440,633,Lower Left Arm,Territory21,Territory24,Territory27
+Territory24,368,646,Lower Left Arm,Territory21,Territory22,Territory25,Territory23,Territory28,Territory27
+Territory25,379,572,Lower Left Arm,Territory22,Territory24,Territory28
+Territory26,559,584,Lower Left Arm,Territory36,Territory27,Territory47
+Territory27,487,584,Lower Left Arm,Territory24,Territory23,Territory28,Territory47,Territory26
+Territory28,428,527,Lower Left Arm,Territory24,Territory25,Territory29,Territory45,Territory27
+Territory29,432,454,Lower Left Arm,Territory06,Territory28,Territory45
+Territory30,976,800,Lower Right Arm,Territory32,Territory31
+Territory31,901,748,Lower Right Arm,Territory30,Territory32,Territory33,Territory34
+Territory32,926,728,Lower Right Arm,Territory30,Territory31,Territory34,Territory35
+Territory33,748,633,Lower Right Arm,Territory31,Territory34,Territory37
+Territory34,812,638,Lower Right Arm,Territory31,Territory32,Territory33,Territory35,Territory38,Territory37
+Territory35,808,567,Lower Right Arm,Territory32,Territory34,Territory38
+Territory36,626,586,Lower Right Arm,Territory47,Territory37,Territory26
+Territory37,701,587,Lower Right Arm,Territory34,Territory33,Territory36,Territory47,Territory38
+Territory38,759,523,Lower Right Arm,Territory35,Territory34,Territory37,Territory46,Territory39
+Territory39,762,453,Lower Right Arm,Territory19,Territory38,Territory46
+Territory40,559,387,Center,Territory41,Territory42,Territory44,Territory45
+Territory41,632,384,Center,Territory40,Territory43,Territory46,Territory44
+Territory42,558,459,Center,Territory40,Territory43,Territory47,Territory45
+Territory43,634,458,Center,Territory42,Territory41,Territory47,Territory46
+Territory44,597,309,Center,Territory08,Territory09,Territory16,Territory17,Territory41,Territory40,Territory46,Territory45
+Territory45,483,422,Center,Territory06,Territory07,Territory28,Territory29,Territory40,Territory42,Territory47,Territory44
+Territory46,706,420,Center,Territory18,Territory19,Territory38,Territory39,Territory43,Territory41,Territory44,Territory47
+Territory47,598,532,Center,Territory36,Territory37,Territory27,Territory26,Territory43,Territory42,Territory46,Territory45
+
