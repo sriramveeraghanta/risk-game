@@ -18,15 +18,20 @@ import main.models.PlayerModel;
 import main.utills.GameCommons;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *This class is a controller for attack phase dialog
  */
-public class AttackPhaseDialogController {
-    public TextField diceCountTextField;
+public class AttackPhaseDialogController implements Observer {
+    public TextField attackerDiceCountTextField,defenderDiceCountTextField;
     private GameModel gameModel;
     private CountryModel attackingCountry = null;
     private CountryModel defendingCountry = null;
+    private PlayerModel currentPlayerModel=null;
+
+
 
     @FXML
     private ListView<CountryModel> attackingCountryListView, defendingCountryListView;
@@ -39,9 +44,21 @@ public class AttackPhaseDialogController {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             if(attackingCountry.getArmyInCountry() >= 2) {
                 try {
-                    int diceCount = Integer.parseInt(diceCountTextField.getText());
-                    attackPhase.attackCountry(diceCount);
-                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                    int attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
+                    int defenderDiceCount = Integer.parseInt(defenderDiceCountTextField.getText());
+                    if(attackerDiceCount !=0 && defenderDiceCount!=0 && attackerDiceCount <=attackingCountry.getArmyInCountry() &&
+                            defenderDiceCount <= attackingCountry.getArmyInCountry() && attackerDiceCount<=3 && defenderDiceCount<=2 )
+                    {
+                        attackPhase.attackCountry(attackerDiceCount,defenderDiceCount);
+                    }
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Enter proper dice values");
+                        alert.showAndWait();
+                    }
+                   /// ((Node)(event.getSource())).getScene().getWindow().hide();
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Input Error");
@@ -58,6 +75,25 @@ public class AttackPhaseDialogController {
             alert.showAndWait();
         }
     }
+
+    /**
+     * this method do allout action in attack phase
+     */
+
+    public void allOutMode(ActionEvent event) {
+        if(attackingCountry != null && defendingCountry != null) {
+            AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
+            attackPhase.allOutMode();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Please Select Attacking and Defending country");
+            alert.setHeaderText(null);
+            alert.setContentText("Something Went Wrong, make sure you select it.");
+            alert.showAndWait();
+        }
+
+    }
+
 
     /**
      * Getter method to get game model object
@@ -84,6 +120,7 @@ public class AttackPhaseDialogController {
         GameCommons gameCommons = new GameCommons();
 
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
+        setCurrentPlayerModel(currentPlayer);
         ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
         attackingCountryListView.setItems(playerCountriesObservable);
@@ -119,13 +156,72 @@ public class AttackPhaseDialogController {
                     }
                 });
                 defendingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>(){
+
                     @Override
                     public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
                         setDefendingCountry(newValue);
                     }
+
+
+
                 });
             }
         });
+    }
+
+    /**
+     * this method is to update the view
+     */
+    public void update(Observable o, Object arg) {
+        String phase = (String) arg;
+        if(phase.equalsIgnoreCase("attack")) {
+            attackingCountryListView.refresh();
+            defendingCountryListView.refresh();
+        }else if(phase.equalsIgnoreCase("attack finish")){
+            countriesUpdate();
+        }
+    }
+
+    private void countriesUpdate() {
+        System.out.println("update method :1");
+        GameCommons gameCommons = new GameCommons();
+        ArrayList<CountryModel> attackingPlayerCountries =getCurrentPlayerModel().getCountries();
+        ObservableList<CountryModel> defendingCountriesList=null;
+        System.out.println("countrySize:"+attackingPlayerCountries.size());
+        ObservableList<CountryModel> playerCountriesObservableList = FXCollections.observableArrayList(attackingPlayerCountries);
+        attackingCountryListView.setItems(playerCountriesObservableList);
+        attackingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+            @Override
+            public void updateItem(CountryModel item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getCountryName()+" - "+item.getArmyInCountry());
+                }
+            }
+        });
+    if(getCurrentPlayerModel().getCountries().contains(getAttackingCountry())) {
+        ArrayList<CountryModel> defendingCountyModel = gameCommons.getAttackerAdjcentCountires(getAttackingCountry().getAdjacentCountries(), attackingPlayerCountries);
+        defendingCountriesList = FXCollections.observableArrayList(defendingCountyModel);
+        defendingCountryListView.setItems(defendingCountriesList);
+        defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+            @Override
+            public void updateItem(CountryModel item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getCountryName() + " - " + item.getArmyInCountry());
+                }
+            }
+        });
+    }
+    else{
+        defendingCountryListView.setItems(defendingCountriesList);
+    }
+
+
     }
 
     /**
@@ -158,4 +254,13 @@ public class AttackPhaseDialogController {
     public void setDefendingCountry(CountryModel defendingCountry) {
         this.defendingCountry = defendingCountry;
     }
+
+    public PlayerModel getCurrentPlayerModel() {
+        return currentPlayerModel;
+    }
+
+    public void setCurrentPlayerModel(PlayerModel currentPlayerModel) {
+        this.currentPlayerModel = currentPlayerModel;
+    }
+
 }

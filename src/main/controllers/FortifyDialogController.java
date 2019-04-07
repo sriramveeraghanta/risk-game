@@ -18,11 +18,13 @@ import main.utills.GameCommons;
 import main.utills.GameConstants;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class is a controller class for fortify dialog
  */
-public class FortifyDialogController {
+public class FortifyDialogController implements Observer {
 
 
     private GameModel gameModel;
@@ -64,7 +66,7 @@ public class FortifyDialogController {
         try {
             if (getPlayerFromCountry() != null && getPlayerOwnedAdjacentToCountry() != null) {
                 int armyCount = 0;
-                FortificationPhase fortifyPhase = new FortificationPhase(getCurrentPlayer());
+                FortificationPhase fortifyPhase = new FortificationPhase(getGameModel(),getCurrentPlayer());
                 try {
                     armyCount = Integer.parseUnsignedInt(armyCountToFortify.getText());
                 } catch (NumberFormatException e) {
@@ -148,6 +150,18 @@ public class FortifyDialogController {
                 });
             }
         });
+    }
+
+    /**
+     * this method is to update the view
+     */
+    public void update(Observable o, Object arg) {
+        String phase = (String) arg;
+        if(phase.equalsIgnoreCase("fortify")) {
+            System.out.println("update method");
+            playerCountryList.refresh();
+            playerOwnedAdjacentCountryList.refresh();
+        }
     }
 
     /**

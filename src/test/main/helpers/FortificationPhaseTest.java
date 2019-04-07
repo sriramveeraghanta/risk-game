@@ -49,7 +49,7 @@ public void before() throws Exception {
     attackerPlayer.setCountries(countryList);
     playerList.add(attackerPlayer);
     gameModel.setPlayers(playerList);
-    fortify = new FortificationPhase(attackerPlayer);
+    fortify = new FortificationPhase(gameModel,attackerPlayer);
 }
 /** 
 * 
