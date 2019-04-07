@@ -21,6 +21,7 @@ public class GameConstants {
     public static final String SAVE_GAME_CONFIRMATION_DESCRIPTION = "You can save the game and continue it later.";
     public static final String SAVE_GAME_ERROR = "Something Went Wrong, Your game is not saved.";
     public static final String LOAD_GAME_ERROR = "Something Went Wrong, This Game cant be loaded.";
+    public static final String LOAD_GAME_SELECT_WARNING = "Please Select one file to load the game";
 
     // error Messages
     public static final String PLAYER_COUNT_ERROR = "Enter a valid Number-Players count should be between 2 and 6";

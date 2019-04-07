@@ -8,7 +8,7 @@ import main.models.GameModel;
 
 import java.util.Optional;
 
-public class Utills {
+public class DialogHandler {
 
     /**
      * This method triggers a warning alert view

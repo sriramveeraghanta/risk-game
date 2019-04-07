@@ -3,7 +3,7 @@ package main.helpers;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
-import main.utills.Utills;
+import main.utills.DialogHandler;
 
 import java.io.*;
 import java.text.FieldPosition;
@@ -44,20 +44,20 @@ public class GameHelper {
             oos.writeObject(gameModel);
             oos.close();
         } catch (IOException e) {
-            Utills.showErrorMessage(GameConstants.SAVE_GAME_ERROR);
+            DialogHandler.showErrorMessage(GameConstants.SAVE_GAME_ERROR);
         }
     }
 
-    public GameModel loadGame(String filePath){
+    public GameModel loadGame(String fileName){
         GameModel gameModel = null;
         try {
             // read object from file
-            FileInputStream fis = new FileInputStream(filePath);
+            FileInputStream fis = new FileInputStream(GameConstants.USER_SAVED_GAMES_PATH+fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             gameModel = (GameModel) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
-            Utills.showErrorMessage(GameConstants.LOAD_GAME_ERROR);
+            DialogHandler.showErrorMessage(GameConstants.LOAD_GAME_ERROR);
         }
         return gameModel;
     }

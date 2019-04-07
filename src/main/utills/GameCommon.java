@@ -4,10 +4,8 @@ import javafx.scene.paint.Color;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,20 +29,17 @@ public class GameCommon {
      */
     public ArrayList<String> getResourceFiles(String path) throws IOException {
         ArrayList<String> filenames = new ArrayList<>();
-        InputStream in = getResourceAsStream(path);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String resource;
-        while ((resource = br.readLine()) != null) {
-            filenames.add(resource);
+
+        File directory = new File(path);
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+        for (File file : fList){
+            if (file.isFile()){
+                filenames.add(file.getName());
+            }
         }
         return filenames;
     }
-
-    private InputStream getResourceAsStream(String resource) {
-        final InputStream in = getContextClassLoader().getResourceAsStream(resource);
-        return in == null ? getClass().getResourceAsStream(resource) : in;
-    }
-
 
     /**
      * casting the string to integer

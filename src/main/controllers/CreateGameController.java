@@ -14,7 +14,7 @@ import main.helpers.MapBuilder;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
-import main.utills.Utills;
+import main.utills.DialogHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -59,7 +59,7 @@ public class CreateGameController {
             try {
                 isMapValid = mapBuilder.readMapFile(mapFilePath);
             }catch (GameException e) {
-                Utills.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
+                DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
             }
 
             if(isMapValid) {
@@ -80,7 +80,7 @@ public class CreateGameController {
                 }
             }
         } else {
-            Utills.showWarningMessage(GameConstants.USER_NO_INPUT);
+            DialogHandler.showWarningMessage(GameConstants.USER_NO_INPUT);
         }
     }
 
@@ -107,12 +107,12 @@ public class CreateGameController {
                     stage.show();
 
                 } else {
-                    Utills.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
+                    DialogHandler.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
                 }
             } catch (NumberFormatException | IOException e) {
-                Utills.showWarningMessage(GameConstants.PLAYER_COUNT_ERROR);
+                DialogHandler.showWarningMessage(GameConstants.PLAYER_COUNT_ERROR);
             } catch (GameException e) {
-                Utills.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
+                DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
             }
         });
     }
@@ -136,7 +136,7 @@ public class CreateGameController {
             bufferedWriter.flush();
             bufferedWriter.close();
         } catch (IOException e) {
-            Utills.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
+            DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
         }
     }
 

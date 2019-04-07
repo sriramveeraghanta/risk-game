@@ -12,7 +12,7 @@ import main.helpers.GameHelper;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
-import main.utills.Utills;
+import main.utills.DialogHandler;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -57,15 +57,15 @@ public class GameController {
                     stage.setScene(new Scene(GameBoardPanel, 1280, 768));
                     stage.show();
                     stage.setOnCloseRequest(event -> {
-                        Utills.saveGameDialog(stage, this.gameModel);
+                        DialogHandler.saveGameDialog(stage, this.gameModel);
                     });
                 } else {
-                    Utills.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
+                    DialogHandler.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
                 }
             } catch (NumberFormatException | IOException e) {
-                Utills.showWarningMessage(GameConstants.PLAYER_COUNT_ERROR);
+                DialogHandler.showWarningMessage(GameConstants.PLAYER_COUNT_ERROR);
             } catch (GameException e) {
-                Utills.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
+                DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
             }
         });
     }
@@ -91,12 +91,13 @@ public class GameController {
      * Loads a saved game from the file.
      * @throws IOException if exception occur it throws IOException.
      */
+    @FXML
     public void loadGame() throws IOException {
         Stage stage = new Stage();
         stage.setTitle(GameConstants.GAME_TITLE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoadGame.fxml"));
-        Parent createNewGamePanel = loader.load();
-        stage.setScene(new Scene(createNewGamePanel,400, 600));
+        FXMLLoader loader = new FXMLLoader(GameController.class.getClass().getResource("/views/LoadGame.fxml"));
+        Parent loadGamePanel = loader.load();
+        stage.setScene(new Scene(loadGamePanel,400, 400));
         stage.setResizable(false);
         stage.show();
     }
