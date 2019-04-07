@@ -6,7 +6,7 @@ import org.junit.Before;
 import main.helpers.AttackPhase;
 import main.helpers.MapBuilder;
 import main.utills.EnumHandler;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.*;
@@ -23,7 +23,7 @@ public class AttackPhaseTest {
     CountryModel defenderCountry;
     MapBuilder mapBuilder;
     GameModel gameModel;
-    GameCommons gameCommons;
+    GameCommon gameCommons;
     ArrayList<CountryModel> countryList;
     ArrayList<PlayerModel> playerList;
     AttackPhase attackPhase;
@@ -41,7 +41,7 @@ public void before() throws Exception {
     defenderPlayer.setActive(false);
     attackerPlayer.setColor(EnumHandler.Color.BLUE);
     gameModel = new GameModel();
-    gameCommons = new GameCommons();
+    gameCommons = new GameCommon();
     mapBuilder = new MapBuilder(gameModel);
     mapBuilder.readMapFile(null);
     attackerCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alaska");

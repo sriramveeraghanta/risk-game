@@ -13,16 +13,15 @@ public class GameConstants {
     public static final String PROJECT_TITLE = "Risk - SOEN 6441 Porject - Group # 40";
     public static final String GAME_TITLE = "Risk Game";
 
-    // Button Title Strings
-    public static final String NEW_GAME_BUTTON_TITLE = "New Game";
-    public static final String EXIT_GAME_BUTTON_TITLE = "Exit Game";
-    public static final String REINFORCEMENT_BUTTON_TITLE = "Reinforcement";
-    public static final String ATTACK_BUTTON_TITLE = "Attack";
-    public static final String FORTIFY_BUTTON_TITLE = "Fortify";
-
     // some other string
     public static final String SELECT_PLAYERS = "Select the number of players";
     public static final String PLACE_ARMY = "Place your armies in any of your countries";
+
+    public static final String SAVE_GAME_CONFIRMATION = "Do you wish to save this game?";
+    public static final String SAVE_GAME_CONFIRMATION_DESCRIPTION = "You can save the game and continue it later.";
+    public static final String SAVE_GAME_ERROR = "Something Went Wrong, Your game is not saved.";
+    public static final String LOAD_GAME_ERROR = "Something Went Wrong, This Game cant be loaded.";
+    public static final String LOAD_GAME_SELECT_WARNING = "Please Select one file to load the game";
 
     // error Messages
     public static final String PLAYER_COUNT_ERROR = "Enter a valid Number-Players count should be between 2 and 6";
@@ -41,6 +40,8 @@ public class GameConstants {
     public static final String MAP_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.map";
     public static final String MAP_IMAGE_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.bmp";
     public static final String USER_MAP_FILE_PATH = System.getProperty("user.dir") + "/resources/userMapFiles/";
+    public static final String USER_SAVED_GAMES_PATH = System.getProperty("user.dir") + "/resources/saved_games/";
+    public static final String USER_NO_INPUT = "Please enter all the fields to continue";
     // Splitters
     public static final String CONTINENT_DATA_SPLITTER = "=";
     public static final String COUNTRY_DATA_SPLITTER = ",";

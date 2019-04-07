@@ -1,0 +1,3 @@
+// Initiating players and Creating new Map.
+                    GameHelper gameHelper = new GameHelper();
+                    this.setGameModel(gameHelper.startNewGame(playerCount));

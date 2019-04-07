@@ -4,17 +4,41 @@ import javafx.scene.paint.Color;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.sun.org.apache.xalan.internal.utils.SecuritySupport.getContextClassLoader;
 
 /**
  * Some common methods like parsing , getting color
  */
-public class GameCommons {
+public class GameCommon {
     /**
      * constructor for GameCommon class
      */
-    public GameCommons() {
+    public GameCommon() {
 
+    }
+
+    /**
+     * This methods gets all the filename in resources path
+     * @param path resource folder path.
+     * @return this method returns a list of strings with file name  in the path.
+     */
+    public ArrayList<String> getResourceFiles(String path) throws IOException {
+        ArrayList<String> filenames = new ArrayList<>();
+
+        File directory = new File(path);
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+        for (File file : fList){
+            if (file.isFile()){
+                filenames.add(file.getName());
+            }
+        }
+        return filenames;
     }
 
     /**

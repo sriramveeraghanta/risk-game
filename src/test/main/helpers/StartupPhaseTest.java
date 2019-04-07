@@ -5,7 +5,7 @@ import main.helpers.StartupPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import org.junit.Test;
 import org.junit.Before;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class StartupPhaseTest {
     StartupPhase startup;
     ArrayList<CountryModel> countryList;
     ArrayList<PlayerModel> playerList;
-    GameCommons gameCommons;
+    GameCommon gameCommons;
     MapBuilder mapBuilder;
     /**
      * method which should run before all of the test methods
@@ -31,7 +31,7 @@ public void before() throws Exception {
     countryList = new ArrayList<>();
     playerList = new ArrayList<>();
     gameModel = new GameModel();
-    gameCommons = new GameCommons();
+    gameCommons = new GameCommon();
     mapBuilder = new MapBuilder(gameModel);
     mapBuilder.readMapFile(null);
     startup = new StartupPhase(gameModel);

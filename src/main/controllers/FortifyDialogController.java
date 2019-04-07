@@ -9,12 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import main.helpers.AttackPhase;
 import main.helpers.FortificationPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import main.utills.GameConstants;
 
 import java.util.ArrayList;
@@ -104,7 +103,7 @@ public class FortifyDialogController implements Observer {
      */
     private void initializeFortify() {
 
-        GameCommons gameCommons = new GameCommons();
+        GameCommon gameCommons = new GameCommon();
 
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         setCurrentPlayer(currentPlayer);

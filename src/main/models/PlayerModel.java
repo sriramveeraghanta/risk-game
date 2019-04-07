@@ -2,13 +2,15 @@ package main.models;
 
 import main.utills.EnumHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * this class contains the information about the plsyer sech as color , army in hand the list of the cards he own
  * which called deck , the list of countries he owned .
  */
-public class PlayerModel {
+public class PlayerModel extends Observable implements Serializable {
 
     private EnumHandler.Color color;
     private boolean isActive;

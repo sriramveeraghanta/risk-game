@@ -3,7 +3,7 @@ package main.helpers;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 import main.models.GameModel;
-import main.utills.GameCommons;
+import main.utills.GameCommon;
 import main.utills.GameConstants;
 import main.utills.GameException;
 
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class MapBuilder {
 
     private GameModel gameModel;
-    private GameCommons gameCommon;
+    private GameCommon gameCommon;
     private ArrayList<String> mapDataList = new ArrayList<String>();
     private HashMap<String, ContinentModel> continents = new HashMap<String, ContinentModel>();
     FileReader mapFileReader;
@@ -32,7 +32,7 @@ public class MapBuilder {
      */
     public MapBuilder(GameModel gameModel) {
         this.gameModel = gameModel;
-        this.gameCommon = new GameCommons();
+        this.gameCommon = new GameCommon();
     }
 
 

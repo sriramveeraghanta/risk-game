@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.controllers.GameController;
 import main.models.GameModel;
-
+import main.utills.GameConstants;
 
 
 /**
@@ -24,7 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         GameModel gameModel = new GameModel();
-        gameModel.setTitle("Risk Game");
+        gameModel.setTitle(GameConstants.GAME_TITLE);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Home.fxml"));
         Parent root = loader.load();

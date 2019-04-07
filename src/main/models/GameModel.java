@@ -1,12 +1,13 @@
 package main.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
 /**
  * Game Model which has the countries ,continents ,players , cards , number of players and current player
  */
-public class GameModel extends Observable {
+public class GameModel extends Observable implements Serializable {
 
     private String title;
     private int numberOfPlayers;

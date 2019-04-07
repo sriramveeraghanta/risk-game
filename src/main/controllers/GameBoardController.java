@@ -1,5 +1,7 @@
 package main.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.models.ContinentModel;
+import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 
@@ -22,11 +25,7 @@ import java.util.Observer;
  */
 public class GameBoardController implements Observer {
 
-
     private GameModel gameModel;
-
-
-    private ArrayList playerCardList = new ArrayList();
 
     @FXML
     public TilePane playerListPanel, mapInfoPanel;
@@ -35,8 +34,6 @@ public class GameBoardController implements Observer {
     @FXML
     private Label currentPlayerLabel;
 
-
-    private PlayerModel playerModel;
     /**
      * Constructor of the game board controller
      */
@@ -54,7 +51,7 @@ public class GameBoardController implements Observer {
     /**
      * Setter method to set the game model
      * @param gameModel object of game model
-     * @throws IOException
+     * @throws IOException User input exceptions
      */
     void setGameModel(GameModel gameModel) throws IOException {
         this.gameModel = gameModel;
@@ -63,10 +60,9 @@ public class GameBoardController implements Observer {
 
     /**
      * This method initialize the data
-     * @throws IOException
+     * @throws IOException User input exception
      */
     private void initData() throws IOException {
-        //System.out.println(getGameModel());
         gameModel.setCurrentPlayerIndex(0);
         gameModel.addObserver(this);
         getGameModel().getPlayers().get(getGameModel().getCurrentPlayerIndex()).setArmyInHand(3);
@@ -75,6 +71,10 @@ public class GameBoardController implements Observer {
         this.renderMapInfo();
     }
 
+    /**
+     * This method renders the Map info
+     * @throws IOException User input exception
+     */
     private void renderMapInfo() throws IOException {
         ArrayList<ContinentModel> continents = getGameModel().getContinents();
         for(ContinentModel continent: continents) {
@@ -84,9 +84,12 @@ public class GameBoardController implements Observer {
             continentInfoController.setContinentModel(continent);
             mapInfoPanel.getChildren().add(continentInfoPanel);
         }
-
     }
 
+    /**
+     * This method renders the player info
+     * @throws IOException User input exception
+     */
     private void renderPlayersInfo() throws IOException {
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
         for (PlayerModel player: playerModelsList) {
@@ -95,19 +98,16 @@ public class GameBoardController implements Observer {
             Parent playerCard = loader.load();
             PlayerInfoController playerInfoController = loader.getController();
             playerInfoController.setPlayerModel(player);
-            // Assigning to the list
-            playerCardList.add(playerCard);
             // Appending to the Flow pane
             playerListPanel.getChildren().add(playerCard);
         }
     }
 
     /**
-     * This method is a private method for attacking phase which creates the attack phase
+     * This is a action method for attacking phase which creates the attack phase view
      */
     @FXML
     private void attackPhase() {
-
         // Creating an Attack Phase
         try {
             Stage stage = new Stage();
@@ -119,11 +119,11 @@ public class GameBoardController implements Observer {
             stage.setScene(new Scene(LoadGamePanel, 600, 450));
             stage.setResizable(false);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * This method is a private method for fortify phase which creates the fortify phase
      */
