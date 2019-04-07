@@ -15,13 +15,15 @@ import main.models.PlayerModel;
 import main.utills.GameConstants;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class is the reinforcement phase controller
  */
-public class ReinforcementDialogController {
+public class ReinforcementDialogController implements Observer {
 
-    public AnchorPane ReinforcementPanel;
+
     public Label playerUnitsInHand;
     public Label cards;
     private GameModel gameModel;
@@ -44,6 +46,8 @@ public class ReinforcementDialogController {
      * Setter method to setting the game model
      * @param gameModel object of game model
      */
+    @FXML
+    public AnchorPane ReinforcementPanel;
 
     @FXML
     private ListView<CountryModel> PlayerCountriesList;
@@ -65,8 +69,9 @@ public class ReinforcementDialogController {
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         setPlayerModel(currentPlayer);
         cards.setText(""+getPlayerModel().getDeck().size());
-        playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
         reinforcePhase = new ReinforcementPhase(currentPlayer, gameModel);
+        getPlayerModel().setArmyInHand(getPlayerModel().getArmyInHand()+reinforcePhase.getArmyUnitsForConqueredContinent());
+        playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
         setReinforcePhase(reinforcePhase);
         reinforcePhase.validateNewContinentOccupation();
         ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
@@ -97,34 +102,43 @@ public class ReinforcementDialogController {
      * */
     @FXML
     public void addArmyAction() {
-        if(getSelectedCountry() != null && !ArmyCountToPlace.getText().equals("")) {
-            System.out.println("country name:"+ getSelectedCountry().getCountryName());
-            System.out.println("Player:"+ getPlayerModel().getArmyInHand());
-            int armyCount = 0;
-            try {
-                armyCount = Integer.parseUnsignedInt(ArmyCountToPlace.getText());
-            } catch (NumberFormatException e) {
+        if(getPlayerModel().getDeck().size() < 5) {
+            if (getSelectedCountry() != null && !ArmyCountToPlace.getText().equals("")) {
+                System.out.println("country name:" + getSelectedCountry().getCountryName());
+                System.out.println("Player:" + getPlayerModel().getArmyInHand());
+                int armyCount = 0;
+                try {
+                    armyCount = Integer.parseUnsignedInt(ArmyCountToPlace.getText());
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
+                    alert.showAndWait();
+                }
+
+                if (armyCount <= playerModel.getArmyInHand()) {
+
+                    getReinforcePhase().assignArmyUnitToCountry(selectedCountry, armyCount);
+                    playerUnitsInHand.setText("" + getPlayerModel().getArmyInHand());
+               /* System.out.println("add army method");
+                gameModel.reinforce();
+                System.out.println("add army method:end");*/
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Invalid Input data, please enter army count less than army count in your hand. Player units in hand:" + getPlayerModel().getArmyInHand());
+                    alert.showAndWait();
+                }
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
                 alert.showAndWait();
             }
-
-            if(armyCount <= playerModel.getArmyInHand() ) {
-
-                getReinforcePhase().assignArmyUnitToCountry(selectedCountry, armyCount);
-                playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Invalid Input data, please enter army count less than army count in your hand. Player units in hand:"+getPlayerModel().getArmyInHand());
-                alert.showAndWait();
-            }
-        } else {
+        }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
-            alert.setHeaderText(GameConstants.FORTIFY_INVALID_MSG);
+            alert.setHeaderText("Please Swap Card before reinforcing");
             alert.showAndWait();
         }
     }
@@ -141,7 +155,7 @@ public class ReinforcementDialogController {
 
            armyUnitCount=getReinforcePhase().swapCardsForArmyUnits();
            if(armyUnitCount!=0){
-               getPlayerModel().setArmyInHand(armyUnitCount);
+               getPlayerModel().setArmyInHand(getPlayerModel().getArmyInHand()+armyUnitCount);
                Alert alert = new Alert(Alert.AlertType.WARNING);
                alert.setTitle("Warning");
                alert.setHeaderText("Army Units Added:"+armyUnitCount);
@@ -202,4 +216,18 @@ public class ReinforcementDialogController {
     public void setReinforcePhase(ReinforcementPhase reinforcePhase) {
         this.reinforcePhase = reinforcePhase;
     }
+
+    /**
+     * this method is to update the view
+     */
+    public void update(Observable o, Object arg) {
+        String phase = (String) arg;
+        if(phase.equalsIgnoreCase("reinforce")) {
+            PlayerCountriesList.refresh();
+            playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
+            //initializeReinforce();
+        }else  if(phase.equalsIgnoreCase("cardSwap")) {
+            cards.setText(""+getPlayerModel().getDeck().size());
+        }
+      }
 }
