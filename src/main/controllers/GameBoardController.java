@@ -41,24 +41,6 @@ public class GameBoardController implements Observer {
     }
 
     /**
-     * Getter method to get the object of game model
-     * @return the object of game model
-     */
-    private GameModel getGameModel() {
-        return gameModel;
-    }
-
-    /**
-     * Setter method to set the game model
-     * @param gameModel object of game model
-     * @throws IOException User input exceptions
-     */
-    void setGameModel(GameModel gameModel) throws IOException {
-        this.gameModel = gameModel;
-        this.initData();
-    }
-
-    /**
      * This method initialize the data
      * @throws IOException User input exception
      */
@@ -171,7 +153,7 @@ public class GameBoardController implements Observer {
      */
     @FXML
     private void getNextPlayer(){
-        if(gameModel.getNumberOfPlayers()==gameModel.getCurrentPlayerIndex()+1){
+        if(gameModel.getNumberOfPlayers() == gameModel.getCurrentPlayerIndex()+1){
             gameModel.setCurrentPlayerIndex(0);
             gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
@@ -182,11 +164,26 @@ public class GameBoardController implements Observer {
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
     }
 
-
-    public void update(Observable o, Object arg) {
-
-
+    /**
+     * Getter method to get the object of game model
+     * @return the object of game model
+     */
+    private GameModel getGameModel() {
+        return gameModel;
     }
 
+    /**
+     * Setter method to set the game model
+     * @param gameModel object of game model
+     * @throws IOException User input exceptions
+     */
+    void setGameModel(GameModel gameModel) throws IOException {
+        this.gameModel = gameModel;
+        this.initData();
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }

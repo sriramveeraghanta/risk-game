@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="220.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.ContinentInfoController">
    <children>
-      <Label fx:id="continentNameLabel" alignment="CENTER" layoutX="9.0" layoutY="6.0" prefHeight="17.0" prefWidth="182.0" text="..." textAlignment="CENTER" />
+      <Label fx:id="continentNameLabel" alignment="CENTER" layoutY="1.0" prefHeight="17.0" prefWidth="200.0" text="..." textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica Neue Bold" size="16.0" />
+         </font></Label>
       <TableView fx:id="countriesTableView" layoutX="2.0" layoutY="29.0" prefHeight="188.0" prefWidth="195.0">
         <columns>
           <TableColumn fx:id="countryNameTableColumn" prefWidth="143.63525819778442" text="Country Name" />
-          <TableColumn fx:id="countryUnitsTableColumn" prefWidth="48.36473083496094" text="Units" />
+          <TableColumn fx:id="adjacentCountriesTableColumn" prefWidth="48.36473083496094" text="Units" />
         </columns>
       </TableView>
    </children>

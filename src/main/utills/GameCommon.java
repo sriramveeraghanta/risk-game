@@ -135,8 +135,8 @@ public class GameCommon {
             return Color.PINK;
         }else if(color.equals("RED")){
             return Color.RED;
-        }else if(color.equals("YELLOW")){
-            return Color.YELLOW;
+        }else if(color.equals("PURPLE")){
+            return Color.PURPLE;
         } else {
             return Color.GREY;
         }

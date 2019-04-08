@@ -1,29 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.GameBoardController">
-   <top>
-      <TilePane fx:id="playerListPanel" layoutX="14.0" layoutY="14.0" prefHeight="214.0" prefWidth="1280.0" />
-   </top>
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.GameBoardController">
 
    <bottom>
-      <Pane layoutX="50.0" layoutY="707.0" prefHeight="40.0" prefWidth="1206.0" BorderPane.alignment="CENTER">
+      <Pane layoutX="50.0" layoutY="707.0" prefHeight="60.0" prefWidth="1280.0" style="-fx-background-color: #505050;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="reinforceButton" layoutX="1003.0" layoutY="7.0" mnemonicParsing="false" onAction="#reinforcementPhase" text="Reinforce" />
-            <Button fx:id="fortifyButton" layoutX="895.0" layoutY="7.0" mnemonicParsing="false" onAction="#fortifyPhase" text="Fortify" />
-            <Button fx:id="attackButton" layoutX="793.0" layoutY="7.0" mnemonicParsing="false" onAction="#attackPhase" text="Attack" />
-            <Label layoutX="28.0" layoutY="4.0" prefHeight="32.0" prefWidth="57.0" text="Status:" />
-            <Label fx:id="currentPlayerLabel" layoutX="85.0" layoutY="5.0" prefHeight="32.0" prefWidth="153.0" text="______" />
-            <Button fx:id="nextPlayerButton" layoutX="273.0" layoutY="7.0" mnemonicParsing="false" onAction="#getNextPlayer" text="Next Player" />
+            <Button fx:id="reinforceButton" layoutX="318.0" layoutY="15.0" mnemonicParsing="false" onAction="#reinforcementPhase" prefHeight="30.0" prefWidth="200.0" text="Reinforce" />
+            <Button fx:id="fortifyButton" layoutX="743.0" layoutY="14.0" mnemonicParsing="false" onAction="#fortifyPhase" prefHeight="30.0" prefWidth="200.0" text="Fortify" />
+            <Button fx:id="attackButton" layoutX="534.0" layoutY="15.0" mnemonicParsing="false" onAction="#attackPhase" prefHeight="30.0" prefWidth="200.0" text="Attack" />
+            <Label layoutX="5.0" layoutY="14.0" prefHeight="32.0" prefWidth="101.0" text="Current Player:" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentPlayerLabel" layoutX="112.0" layoutY="13.0" prefHeight="32.0" prefWidth="95.0" textFill="WHITE" />
+            <Button fx:id="nextPlayerButton" layoutX="211.0" layoutY="16.0" mnemonicParsing="false" onAction="#getNextPlayer" text="Next Player" />
          </children>
       </Pane>
    </bottom>
+   <top>
+      <Pane prefHeight="296.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+         <children>
+            <TilePane fx:id="playerListPanel" layoutY="34.0" prefHeight="205.0" prefWidth="1280.0" />
+            <Text layoutX="585.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" textAlignment="CENTER" wrappingWidth="110.94775390625">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="26.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </top>
    <center>
-      <TilePane fx:id="mapInfoPanel" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="270.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+         <children>
+            <TilePane fx:id="mapInfoPanel" layoutY="31.0" prefHeight="214.0" prefWidth="1280.0" />
+            <Text layoutX="578.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Countries">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="26.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
    </center>
 </BorderPane>

@@ -56,9 +56,7 @@ public class GameController {
                     gameBoardController.setGameModel(this.gameModel);
                     stage.setScene(new Scene(GameBoardPanel, 1280, 768));
                     stage.show();
-                    stage.setOnCloseRequest(event -> {
-                        DialogHandler.saveGameDialog(stage, this.gameModel);
-                    });
+                    stage.setOnCloseRequest(event -> DialogHandler.saveGameDialog(stage, this.gameModel));
                 } else {
                     DialogHandler.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
                 }
@@ -95,7 +93,7 @@ public class GameController {
     public void loadGame() throws IOException {
         Stage stage = new Stage();
         stage.setTitle(GameConstants.GAME_TITLE);
-        FXMLLoader loader = new FXMLLoader(GameController.class.getClass().getResource("/views/LoadGame.fxml"));
+        FXMLLoader loader = new FXMLLoader(GameController.class.getResource("/views/LoadGame.fxml"));
         Parent loadGamePanel = loader.load();
         stage.setScene(new Scene(loadGamePanel,400, 400));
         stage.setResizable(false);
