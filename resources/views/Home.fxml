@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,14 +8,23 @@
 
 <Pane fx:id="HomePanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.GameController">
     <children>
-        <Button fx:id="newGameButton" layoutX="546.0" layoutY="323.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="30.0" prefWidth="230.0" text="New Game" />
-        <Button fx:id="createGameButton" layoutX="546.0" layoutY="369.0" mnemonicParsing="false" onAction="#createGame" prefHeight="30.0" prefWidth="230.0" text="Create New Game" />
-        <Button fx:id="exitGameButton" layoutX="546.0" layoutY="464.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="30.0" prefWidth="230.0" text="Exit Game" />
-        <Button fx:id="loadGameButton" onAction="#loadGame" layoutX="547.0" layoutY="420.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="230.0" text="Load Game" />
-        <Text layoutX="486.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RISK GAME">
-            <font>
-                <Font name="Helvetica Neue Bold" size="62.0" />
-            </font>
-        </Text>
+      <ImageView fitHeight="784.0" fitWidth="1376.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/home_background.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="430.0" layoutY="128.0" prefHeight="412.0" prefWidth="451.0" style="-fx-background-color: #000; -fx-opacity: 0.75;">
+         <children>
+              <Text fill="WHITE" layoutX="50.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RISK GAME" textAlignment="CENTER">
+                  <font>
+                      <Font name="Baskerville SemiBold" size="62.0" />
+                  </font>
+              </Text>
+              <Button fx:id="loadGameButton" layoutX="111.0" layoutY="278.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="27.0" prefWidth="230.0" text="Load Game" />
+              <Button fx:id="exitGameButton" layoutX="111.0" layoutY="319.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="30.0" prefWidth="230.0" text="Exit Game" />
+              <Button fx:id="createGameButton" layoutX="111.0" layoutY="234.0" mnemonicParsing="false" onAction="#createGame" prefHeight="30.0" prefWidth="230.0" text="Create New Game" />
+              <Button fx:id="newGameButton" layoutX="111.0" layoutY="191.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="30.0" prefWidth="230.0" text="New Game" />
+         </children>
+      </Pane>
     </children>
 </Pane>

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -47,7 +48,6 @@ public class LoadGameController {
         if(fileName != null) {
             GameHelper gameHelper = new GameHelper();
             this.gameModel = gameHelper.loadGame(fileName);
-            System.out.println(this.gameModel.getPlayers());
             // Creating an Game Board
             Stage stage = new Stage();
             stage.setTitle(GameConstants.GAME_TITLE);
@@ -60,6 +60,7 @@ public class LoadGameController {
             stage.setOnCloseRequest(windowEvent -> {
                 DialogHandler.saveGameDialog(stage, this.gameModel);
             });
+            ((Node)(event.getSource())).getScene().getWindow().hide();
         } else {
             DialogHandler.showWarningMessage(GameConstants.LOAD_GAME_SELECT_WARNING);
         }

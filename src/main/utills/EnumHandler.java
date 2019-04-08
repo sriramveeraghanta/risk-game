@@ -16,6 +16,6 @@ public class EnumHandler {
      * color is the color which is assigned to the players
      */
     public enum Color {
-        BLACK, BLUE, GREEN, PINK, RED, CYAN
+        BLACK, BLUE, GREEN, PINK, RED, PURPLE
     }
 }

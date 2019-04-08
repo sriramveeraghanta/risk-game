@@ -1,10 +1,12 @@
 package main.models;
 
 import main.utills.EnumHandler;
+import main.utills.GameCommon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Country model have the data about a country like its name ,xAxis ,yAxis ,
@@ -19,6 +21,7 @@ public class CountryModel implements Serializable {
     private ContinentModel assignedContinent;
     private int armyInCountry;
     private ArrayList<CountryModel> adjacentCountries;
+    private String adjacentCountriesDisplay;
 
     /**
      * CountryModel constructor to create countryModel object for each initialisation
@@ -150,6 +153,16 @@ public class CountryModel implements Serializable {
      */
     public void addUnitsToCountry(int unitsCount) {
         this.setArmyInCountry(this.getArmyInCountry() + unitsCount);
+    }
+
+    public String getAdjacentCountriesDisplay() {
+        GameCommon common = new GameCommon();
+        ArrayList<String> adjCountries = common.getCountriesList(getAdjacentCountries());
+        return String.join("\n", adjCountries);
+    }
+
+    public void setAdjacentCountriesDisplay(String adjacentCountriesDisplay) {
+        this.adjacentCountriesDisplay = adjacentCountriesDisplay;
     }
 
 //    public void setArmy(ArrayList<UnitModel> army) {
