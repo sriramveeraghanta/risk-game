@@ -4,16 +4,20 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import main.helpers.ReinforcementPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.GameConstants;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -120,9 +124,6 @@ public class ReinforcementDialogController implements Observer {
 
                     getReinforcePhase().assignArmyUnitToCountry(selectedCountry, armyCount);
                     playerUnitsInHand.setText("" + getPlayerModel().getArmyInHand());
-               /* System.out.println("add army method");
-                gameModel.reinforce();
-                System.out.println("add army method:end");*/
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
@@ -150,28 +151,22 @@ public class ReinforcementDialogController implements Observer {
      * */
     @FXML
     public void swapCardAction() {
-        int armyUnitCount=0;
-        if(getPlayerModel().getDeck().size() >=3 && getPlayerModel().getDeck()!=null){
 
-           armyUnitCount=getReinforcePhase().swapCardsForArmyUnits();
-           if(armyUnitCount!=0){
-               getPlayerModel().setArmyInHand(getPlayerModel().getArmyInHand()+armyUnitCount);
-               Alert alert = new Alert(Alert.AlertType.WARNING);
-               alert.setTitle("Warning");
-               alert.setHeaderText("Army Units Added:"+armyUnitCount);
-               alert.showAndWait();
-           }else{
-               Alert alert = new Alert(Alert.AlertType.WARNING);
-               alert.setTitle("Warning");
-               alert.setHeaderText("You are not eligible for Swap");
-               alert.showAndWait();
-           }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Invalid Card Swap Operation");
-            alert.showAndWait();
-        }
+            try {
+
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/CardExchangeView.fxml"));
+                Parent cardViewPanel = loader.load();
+                CardSwapDialogController cardSwapDialogController = loader.getController();
+                cardSwapDialogController.setGameModel(this.gameModel);
+                gameModel.addObserver(cardSwapDialogController);
+                stage.setScene(new Scene(cardViewPanel, 600, 400));
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
     }
 
@@ -226,7 +221,7 @@ public class ReinforcementDialogController implements Observer {
             PlayerCountriesList.refresh();
             playerUnitsInHand.setText(""+getPlayerModel().getArmyInHand());
             //initializeReinforce();
-        }else  if(phase.equalsIgnoreCase("cardSwap")) {
+        }else     if(phase.equalsIgnoreCase("cardSwap")) {
             cards.setText(""+getPlayerModel().getDeck().size());
         }
       }

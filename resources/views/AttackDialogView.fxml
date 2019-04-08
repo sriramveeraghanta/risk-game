@@ -41,13 +41,20 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-        <Button fx:id="AttackActionButton" layoutX="385.0" layoutY="404.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack" />
+        <Button fx:id="AttackActionButton" layoutX="378.0" layoutY="404.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack" />
       <Pane layoutX="14.0" layoutY="394.0" prefHeight="45.0" prefWidth="273.0">
          <children>
             <Label layoutX="14.0" layoutY="10.0" prefHeight="25.0" prefWidth="187.0" text="Number of Defender Dice to Roll:" />
             <TextField fx:id="defenderDiceCountTextField" layoutX="205.0" layoutY="9.0" prefHeight="27.0" prefWidth="66.0" />
          </children>
       </Pane>
-      <Button fx:id="AllOutActionButton" layoutX="385.0" layoutY="362.0" mnemonicParsing="false" onAction="#allOutMode" prefHeight="25.0" prefWidth="139.0" text="All Out" />
+      <Button fx:id="AllOutActionButton" layoutX="378.0" layoutY="349.0" mnemonicParsing="false" onAction="#allOutMode" prefHeight="25.0" prefWidth="139.0" text="All Out" />
+      <Pane fx:id="armyMovePane" layoutX="14.0" layoutY="439.0" prefHeight="45.0" prefWidth="273.0">
+         <children>
+            <Label fx:id="armyCountLabel" layoutX="14.0" layoutY="10.0" prefHeight="25.0" prefWidth="187.0" text="Army count to move :" />
+            <TextField fx:id="armyCount" layoutX="205.0" layoutY="9.0" prefHeight="27.0" prefWidth="66.0" />
+         </children>
+      </Pane>
+      <Button fx:id="ArmyMoveActionButton" layoutX="378.0" layoutY="449.0" mnemonicParsing="false" onAction="#armyMoveAction" prefHeight="25.0" prefWidth="139.0" text="Move" />
     </children>
 </AnchorPane>

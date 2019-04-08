@@ -31,6 +31,8 @@ public class GameConstants {
     public static final String MAP_MSG="Do you want to Start a Game with new map ?";
     public static final String FORTIFY_INVALID_MSG = "Invalid Operation Data";
     public static final String FORTIFY_VALID_MSG = "Fortification Completed";
+    public static final String ATTACK_ARMY_SWAP_INVALID_MSG = "You don't have enough army";
+    public static final String ATTACK_ARMY_SWAP_VALID_MSG = "Army units swap completed";
     public static final String SELECT_ATTACKER_COUNTRY = "Select one of your countries for attacking";
     public static final String SELECT_DEFENDER_COUNTRY = "Select one of your adjacent countries for attacking";
     public static final String NUMBER_OF_DICES = "Select the number of dices";

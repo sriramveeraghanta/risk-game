@@ -65,7 +65,6 @@ public class PlayerInfoController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(o);
-        System.out.println(arg);
+        playerTableView.refresh();
     }
 }

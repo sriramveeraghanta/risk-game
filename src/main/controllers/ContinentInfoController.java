@@ -14,9 +14,11 @@ import main.models.CountryModel;
 import main.utills.GameCommon;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class ContinentInfoController {
+public class ContinentInfoController implements Observer {
     @FXML
     public Label continentNameLabel;
     @FXML
@@ -35,5 +37,12 @@ public class ContinentInfoController {
         countryNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("countryName"));
         adjacentCountriesTableColumn.setCellValueFactory(new PropertyValueFactory<>("adjacentCountriesDisplay"));
         countriesTableView.setItems(playerCountriesObservable);
+    }
+
+    /**
+     * this method is to update the view
+     */
+    public void update(Observable o, Object arg) {
+        countriesTableView.refresh();
     }
 }
