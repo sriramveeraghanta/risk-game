@@ -39,7 +39,7 @@ public class GameConstants {
     public static final String DEFENDER_WIN = "Defender wins";
     public static final String MAP_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.map";
     public static final String MAP_IMAGE_FILE_PATH = System.getProperty("user.dir") + "/src/resources/World.bmp";
-    public static final String USER_MAP_FILE_PATH = System.getProperty("user.dir") + "/resources/userMapFiles/";
+    public static final String USER_MAP_FILE_PATH = System.getProperty("user.dir") + "/resources/user_map_files/";
     public static final String USER_SAVED_GAMES_PATH = System.getProperty("user.dir") + "/resources/saved_games/";
     public static final String USER_NO_INPUT = "Please enter all the fields to continue";
     // Splitters
