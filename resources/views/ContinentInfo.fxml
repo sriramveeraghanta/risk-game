@@ -13,10 +13,10 @@
          <font>
             <Font name="Helvetica Neue Bold" size="16.0" />
          </font></Label>
-      <TableView fx:id="countriesTableView" layoutX="2.0" layoutY="29.0" prefHeight="188.0" prefWidth="195.0">
+      <TableView fx:id="countriesTableView" layoutX="2.0" layoutY="29.0" prefHeight="188.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="countryNameTableColumn" prefWidth="143.63525819778442" text="Country Name" />
-          <TableColumn fx:id="adjacentCountriesTableColumn" prefWidth="48.36473083496094" text="Units" />
+          <TableColumn fx:id="countryNameTableColumn" prefWidth="100" text="Country Name" />
+          <TableColumn fx:id="adjacentCountriesTableColumn" prefWidth="100" text="Adjacent Countries" />
         </columns>
       </TableView>
    </children>

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import main.models.ContinentModel;
 import main.models.CountryModel;
 import main.utills.GameCommon;
@@ -26,46 +27,13 @@ public class ContinentInfoController {
     public TableColumn<CountryModel, String> adjacentCountriesTableColumn;
 
     private ContinentModel continentModel;
-//    ObservableList<CountryModel> adjacentList = FXCollections.observableArrayList(param.getValue().getAdjacentCountries());
-//    ListView<CountryModel> adjacentListView = new ListView<>();
-//                adjacentListView.setItems(adjacentList);
 
     void setContinentModel(ContinentModel continent) {
         this.continentModel = continent;
         continentNameLabel.setText(this.continentModel.getContinentName());
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(this.continentModel.getCountries());
         countryNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("countryName"));
-        adjacentCountriesTableColumn.setCellValueFactory(param -> {
-            GameCommon common = new GameCommon();
-            ArrayList<String> adjcentCountries = common.getCountriesList(param.getValue().getAdjacentCountries());
-            ObservableValue<String> ff= new ObservableValue<String>() {
-                @Override
-                public void addListener(InvalidationListener listener) {
-
-                }
-
-                @Override
-                public void removeListener(InvalidationListener listener) {
-
-                }
-
-                @Override
-                public void addListener(ChangeListener listener) {
-
-                }
-
-                @Override
-                public void removeListener(ChangeListener listener) {
-
-                }
-
-                @Override
-                public String getValue() {
-                    return adjcentCountries.toString();
-                }
-            };
-            return ff;
-        });
+        adjacentCountriesTableColumn.setCellValueFactory(new PropertyValueFactory<>("adjacentCountriesDisplay"));
         countriesTableView.setItems(playerCountriesObservable);
     }
 }
