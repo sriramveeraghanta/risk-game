@@ -64,6 +64,7 @@ public class GameBoardController implements Observer {
             Parent continentInfoPanel = loader.load();
             ContinentInfoController continentInfoController = loader.getController();
             continentInfoController.setContinentModel(continent);
+            gameModel.addObserver(continentInfoController);
             mapInfoPanel.getChildren().add(continentInfoPanel);
         }
     }
@@ -80,6 +81,7 @@ public class GameBoardController implements Observer {
             Parent playerCard = loader.load();
             PlayerInfoController playerInfoController = loader.getController();
             playerInfoController.setPlayerModel(player);
+            gameModel.addObserver(playerInfoController);
             // Appending to the Flow pane
             playerListPanel.getChildren().add(playerCard);
         }
@@ -98,7 +100,7 @@ public class GameBoardController implements Observer {
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
             attackPhaseDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(attackPhaseDialogController);
-            stage.setScene(new Scene(LoadGamePanel, 600, 450));
+            stage.setScene(new Scene(LoadGamePanel, 600, 500));
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {

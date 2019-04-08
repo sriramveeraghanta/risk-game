@@ -1,14 +1,16 @@
 package main.helpers;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextInputDialog;
 import main.models.CardModel;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.GameConstants;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * This class contains all of the methods that we need in attack phase
@@ -126,9 +128,9 @@ public class AttackPhase {
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
             // Alert to the user
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("You Lost");
+            alert.setTitle("Defender Lost");
             alert.setHeaderText(null);
-            alert.setContentText("Attacker won and occupied the attacking country");
+            alert.setContentText("Attacker won and occupied the attacking country,Attacker can move the army");
             alert.showAndWait();
             gameModel.attackPhaseEnd();
         } else {
@@ -212,8 +214,10 @@ public class AttackPhase {
         List<CountryModel> loserCountries = loserPlayer.getCountries();
         loserCountries.remove(lostCountry);
         // Winner
+        System.out.println("COuntries of cuurent player before adding:"+winnerPlayer.getCountries().size());
         List<CountryModel> winnerCountries = winnerPlayer.getCountries();
         winnerCountries.add(lostCountry);
+        System.out.println("COuntries of cuurent player after adding:"+winnerPlayer.getCountries().size());
     }
 
     /**
@@ -230,6 +234,20 @@ public class AttackPhase {
                 loserPlayer.setActive(false);
             }
         }
+    }
+
+    public String swapArmyBetweenCountries(int numberOfArmyUnits) {
+        CountryModel fromCountry = this.attackingCountry;
+        CountryModel toCountry = this.defendingCountry;
+        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) <1)) {
+            return GameConstants.ATTACK_ARMY_SWAP_INVALID_MSG;
+        } else {
+            fromCountry.setArmyInCountry((fromCountry.getArmyInCountry() - numberOfArmyUnits));
+            toCountry.setArmyInCountry((toCountry.getArmyInCountry() + numberOfArmyUnits));
+            this.gameModel.attackPhase();
+            return GameConstants.ATTACK_ARMY_SWAP_VALID_MSG;
+        }
+
     }
 
     public boolean isAllOutModeFlag() {
