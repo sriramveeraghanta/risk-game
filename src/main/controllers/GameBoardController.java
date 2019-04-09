@@ -1,7 +1,4 @@
 package main.controllers;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.helpers.GameHelper;
 import main.models.ContinentModel;
-import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
 
@@ -41,13 +38,30 @@ public class GameBoardController implements Observer {
     }
 
     /**
+     * Getter method to get the object of game model
+     * @return the object of game model
+     */
+    private GameModel getGameModel() {
+        return gameModel;
+    }
+
+    /**
+     * Setter method to set the game model
+     * @param gameModel object of game model
+     * @throws IOException User input exceptions
+     */
+    void setGameModel(GameModel gameModel) throws IOException {
+        this.gameModel = gameModel;
+        this.initData();
+    }
+
+    /**
      * This method initialize the data
      * @throws IOException User input exception
      */
     private void initData() throws IOException {
         gameModel.setCurrentPlayerIndex(0);
         gameModel.addObserver(this);
-        getGameModel().getPlayers().get(getGameModel().getCurrentPlayerIndex()).setArmyInHand(3);
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
         this.renderPlayersInfo();
         this.renderMapInfo();
@@ -91,7 +105,7 @@ public class GameBoardController implements Observer {
      * This is a action method for attacking phase which creates the attack phase view
      */
     @FXML
-    private void attackPhase() {
+    private void attackPhaseAction() {
         // Creating an Attack Phase
         try {
             Stage stage = new Stage();
@@ -112,7 +126,7 @@ public class GameBoardController implements Observer {
      * This method is a private method for fortify phase which creates the fortify phase
      */
     @FXML
-    private void fortifyPhase() {
+    private void fortifyPhaseAction() {
         // Creating an Fortify Dialog Phase
         try {
             Stage stage = new Stage();
@@ -132,7 +146,7 @@ public class GameBoardController implements Observer {
      * This method is a private method for reinforcement phase which creates the reinforcement phase
      */
     @FXML
-    private void reinforcementPhase() {
+    private void reinforcementPhaseAction() {
         // Creating an Attack Phase
         try {
             Stage stage = new Stage();
@@ -153,34 +167,10 @@ public class GameBoardController implements Observer {
      * this method is a private method which is getting the next player
      */
     @FXML
-    private void getNextPlayer(){
-        if(gameModel.getNumberOfPlayers() == gameModel.getCurrentPlayerIndex()+1){
-            gameModel.setCurrentPlayerIndex(0);
-            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
-        }
-        else{
-            gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
-            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
-        }
+    private void switchPlayerControlAction(){
+        GameHelper gameHelper = new GameHelper();
+        gameHelper.switchPlayerControl(getGameModel());
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
-    }
-
-    /**
-     * Getter method to get the object of game model
-     * @return the object of game model
-     */
-    private GameModel getGameModel() {
-        return gameModel;
-    }
-
-    /**
-     * Setter method to set the game model
-     * @param gameModel object of game model
-     * @throws IOException User input exceptions
-     */
-    void setGameModel(GameModel gameModel) throws IOException {
-        this.gameModel = gameModel;
-        this.initData();
     }
 
     @Override
