@@ -100,7 +100,7 @@ public class GameBoardController implements Observer {
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
             attackPhaseDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(attackPhaseDialogController);
-            stage.setScene(new Scene(LoadGamePanel, 600, 500));
+            stage.setScene(new Scene(LoadGamePanel, 500, 500));
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
@@ -135,16 +135,15 @@ public class GameBoardController implements Observer {
     private void reinforcementPhase() {
         // Creating an Attack Phase
         try {
-
             Stage stage = new Stage();
+            stage.setTitle("Reinforcement Phase");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ReinforcementDialogView.fxml"));
             Parent reinforcementPanel = loader.load();
             ReinforcementDialogController ReinforcementDialogController = loader.getController();
             ReinforcementDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(ReinforcementDialogController);
-            stage.setScene(new Scene(reinforcementPanel, 600, 400));
+            stage.setScene(new Scene(reinforcementPanel, 500, 500));
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

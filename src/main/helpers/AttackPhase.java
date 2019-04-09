@@ -17,16 +17,17 @@ import java.util.Random;
  */
 public class AttackPhase {
 
-    public PlayerModel attackingPlayer, defendingPlayer;
-    public CountryModel attackingCountry, defendingCountry;
+    private PlayerModel attackingPlayer, defendingPlayer;
+    private CountryModel attackingCountry, defendingCountry;
     public GameModel gameModel;
-    private boolean attackEnd=false;
-    private boolean allOutModeFlag=false;
+    private boolean attackEnd = false;
+    private boolean allOutModeFlag = false;
 
 
     /**
      * This method is constructor for attack phase
-     * @param gameModel object of game model
+     *
+     * @param gameModel        object of game model
      * @param attackingCountry which is an object of country model
      * @param defendingCountry which is an object of country model
      */
@@ -39,9 +40,8 @@ public class AttackPhase {
     }
 
     /**
-     * this method do all the logic for allout mode
+     * This method handles all out attack
      */
-
     public void allOutMode(){
         int min=1,defenderMax,attackerMax;
         setAllOutModeFlag(true);
@@ -71,13 +71,11 @@ public class AttackPhase {
          }
 
      }
-    }
 
     /**
      * this method will give dice counts
      */
-
-    public int diceCount(int max,int min){
+    private int diceCount(int max, int min) {
         Random r = new Random();
         int dice= r.nextInt((max - min) + 1);
         if(dice==0){
@@ -85,16 +83,16 @@ public class AttackPhase {
         }
         return dice;
     }
+
     /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      */
-    public void attackCountry(int attackerDiceCount , int defenderDiceCount){
+    public void attackCountry(int attackerDiceCount, int defenderDiceCount) {
         ArrayList<Integer> attackerDiceValues;
         ArrayList<Integer> defenderDiceValues;
-            attackerDiceValues = getAllDiceValues(attackerDiceCount);
-            defenderDiceValues = getAllDiceValues(defenderDiceCount);
-
-        for(int i=0; i< defenderDiceValues.size(); i++) {
+        attackerDiceValues = getAllDiceValues(attackerDiceCount);
+        defenderDiceValues = getAllDiceValues(defenderDiceCount);
+        for (int i = 0; i < defenderDiceValues.size(); i++) {
             if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
                 attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
             } else {
@@ -103,10 +101,9 @@ public class AttackPhase {
             attackerDiceValues.remove(attackerDiceValues.indexOf(Collections.max(attackerDiceValues)));
             defenderDiceValues.remove(defenderDiceValues.indexOf(Collections.max(defenderDiceValues)));
         }
-
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
-        if(!isAllOutModeFlag()) {
+        if (!isAllOutModeFlag()) {
             attackResult();
         }
 
@@ -115,7 +112,7 @@ public class AttackPhase {
     /**
      * this method will give attack result
      */
-    public void attackResult(){
+    private void attackResult() {
         // if attacker looses
         if (attackingCountry.getArmyInCountry() <=0 ) {
             this.assignCardToPlayer(this.defendingPlayer);
@@ -130,7 +127,7 @@ public class AttackPhase {
             gameModel.attackPhaseEnd();
         }
         // if defender looses
-        else if (defendingCountry.getArmyInCountry() <= 0 ) {
+        else if (defendingCountry.getArmyInCountry() <= 0) {
             this.assignCardToPlayer(this.attackingPlayer);
             this.assignCountryToWinnerPlayer(this.attackingPlayer, this.defendingPlayer, this.defendingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.attackingPlayer, this.defendingPlayer);
@@ -155,6 +152,7 @@ public class AttackPhase {
     /**
      * this method getting the number of attacker dice and set and return the number of dices according to the
      * player army in that specific country
+     *
      * @return the number of dices according to the attacker army in that specific country
      */
     public int getNumberOfDiceCount() {
@@ -167,6 +165,7 @@ public class AttackPhase {
 
     /**
      * rolling the dice by getting the number of dices
+     *
      * @param numberOfDice number of dices attacker or defender wants to roll
      * @return an array list of dice face numbers which is sorted
      */
@@ -184,6 +183,7 @@ public class AttackPhase {
 
     /**
      * assign the cards to the player (deck) by getting the player as the parameter
+     *
      * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
@@ -197,6 +197,7 @@ public class AttackPhase {
 
     /**
      * finding the defender player by getting the country name
+     *
      * @param defendingCountry object of the defender country
      * @return the player who is defending
      */
@@ -214,26 +215,28 @@ public class AttackPhase {
 
     /**
      * adding or removing the country to or from the countrylist after battle according to the result
+     *
      * @param winnerPlayer object of the player who won
-     * @param loserPlayer object of the player who lost
-     * @param lostCountry object of the country which the loser lost it
+     * @param loserPlayer  object of the player who lost
+     * @param lostCountry  object of the country which the loser lost it
      */
     private void assignCountryToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer, CountryModel lostCountry) {
         // loser
         List<CountryModel> loserCountries = loserPlayer.getCountries();
         loserCountries.remove(lostCountry);
         // Winner
-        System.out.println("COuntries of cuurent player before adding:"+winnerPlayer.getCountries().size());
+        System.out.println("COuntries of cuurent player before adding:" + winnerPlayer.getCountries().size());
         List<CountryModel> winnerCountries = winnerPlayer.getCountries();
         winnerCountries.add(lostCountry);
-        System.out.println("COuntries of cuurent player after adding:"+winnerPlayer.getCountries().size());
+        System.out.println("COuntries of cuurent player after adding:" + winnerPlayer.getCountries().size());
     }
 
     /**
      * checking if the loser do not have any other countries and own any card then
      * it should be given to the winner player
+     *
      * @param winnerPlayer object of the player who won
-     * @param loserPlayer object of the player who lost
+     * @param loserPlayer  object of the player who lost
      */
     public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
         System.out.println("assignRemainingCardsToWinnerPlayer method start");
@@ -253,7 +256,7 @@ public class AttackPhase {
     public String swapArmyBetweenCountries(int numberOfArmyUnits) {
         CountryModel fromCountry = this.attackingCountry;
         CountryModel toCountry = this.defendingCountry;
-        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) <1)) {
+        if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) < 1)) {
             return GameConstants.ATTACK_ARMY_SWAP_INVALID_MSG;
         } else {
             fromCountry.setArmyInCountry((fromCountry.getArmyInCountry() - numberOfArmyUnits));

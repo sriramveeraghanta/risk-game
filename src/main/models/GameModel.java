@@ -24,11 +24,9 @@ public class GameModel extends Observable implements Serializable {
 
     }
 
-
     /**
      * this method is notify the reinforcement View
      */
-
     public void reinforce(){
         setChanged();
         notifyObservers("Reinforce");
