@@ -91,26 +91,26 @@ public class AttackPhase {
 
         attackerDiceValues = getAllDiceValues(attackerDiceCount);
         defenderDiceValues = getAllDiceValues(defenderDiceCount);
+        List<String> copyAttackerDiceValues =  new ArrayList<>();
+        List<String> copyDefenderDiceValues = new ArrayList<>();
 
-        for(Integer i : attackerDiceValues){
-            System.out.println("Attacker dice values :"+i);
-        }
-        for(Integer i : defenderDiceValues){
-            System.out.println("defender dice values :"+i);
-        }
+        for(int i : attackerDiceValues ) copyAttackerDiceValues.add(String.valueOf(i));
+        for(int i : defenderDiceValues ) copyDefenderDiceValues.add(String.valueOf(i));
+
+        int originalAttackerArmyCount=  attackingCountry.getArmyInCountry();
+        int originalDefenderArmyCount= defendingCountry.getArmyInCountry();
+
         for (int i = 0; i < defenderDiceValues.size(); i++) {
-            if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
+            if (attackerDiceValues.get(i) < defenderDiceValues.get(i)) {
                 attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
             } else {
                 defendingCountry.setArmyInCountry(defendingCountry.getArmyInCountry() - 1);
             }
-            attackerDiceValues.remove(attackerDiceValues.indexOf(Collections.max(attackerDiceValues)));
-            defenderDiceValues.remove(defenderDiceValues.indexOf(Collections.max(defenderDiceValues)));
         }
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
-        if (!allOutModeFlag) {
-            attackResult();
+        if (!isAllOutModeFlag()) {
+            attackResult( String.join(" - ", copyAttackerDiceValues),String.join(" - ", copyDefenderDiceValues),originalAttackerArmyCount,originalDefenderArmyCount );
         }
 
     }
@@ -118,8 +118,12 @@ public class AttackPhase {
     /**
      * this method will give attack result
      */
-    private void attackResult() {
-        allOutModeFlag=false;
+    private void attackResult(String attackerDices, String defenderDices, int originalAttackerArmyCount, int originalDefenderArmyCount) {
+        String outputText =  "Player " + attackingPlayer.getColor().toString().toUpperCase() + " of country " + this.attackingCountry.getCountryName() +" got the dice values "+ attackerDices +"\n" +
+                "Player " + defendingPlayer.getColor().toString().toUpperCase() + " of country " + this.defendingCountry.getCountryName() +"  got the dice values "+ defenderDices +"\n" +
+                "Player "+ attackingPlayer.getColor().toString().toUpperCase()+ " " + this.returnWonOrLost(originalAttackerArmyCount,this.attackingCountry.getArmyInCountry()) +" " + Math.abs(originalAttackerArmyCount -this.attackingCountry.getArmyInCountry()) +"\n" +
+                "Player "+ defendingPlayer.getColor().toString().toUpperCase()+ " " + this.returnWonOrLost(originalDefenderArmyCount,this.defendingCountry.getArmyInCountry()) +" "  + Math.abs(originalDefenderArmyCount -this.defendingCountry.getArmyInCountry())  +"\n";
+
         // if attacker looses
         if (attackingCountry.getArmyInCountry() <=0 ) {
             this.assignCardToPlayer(this.defendingPlayer);
@@ -129,7 +133,7 @@ public class AttackPhase {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("You have attacked the defending country");
             alert.setHeaderText(null);
-            alert.setContentText("Attacker Lost");
+            alert.setContentText( attackingPlayer.getColor().toString().toUpperCase()+" Attacker Lost");
             alert.showAndWait();
             gameModel.attackPhaseEnd();
         }
@@ -148,9 +152,9 @@ public class AttackPhase {
         } else {
             // Alert to the user
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("You have attacked the defending country");
+            alert.setTitle( attackingPlayer.getColor().toString().toUpperCase() + " attack on "+  defendingPlayer.getColor().toString().toUpperCase());
             alert.setHeaderText(null);
-            alert.setContentText("Attacking Complete");
+            alert.setContentText(outputText);
             alert.showAndWait();
             gameModel.attackPhase();
         }
@@ -288,5 +292,12 @@ public class AttackPhase {
 
     public void setAttackEnd(boolean attackEnd) {
         this.attackEnd = attackEnd;
+    }
+
+    private String returnWonOrLost(int beforeValue, int afterValue){
+        if(beforeValue < afterValue)
+            return " lost ";
+        else
+        return " won ";
     }
 }

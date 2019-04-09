@@ -28,6 +28,7 @@ import java.util.Observer;
 public class AttackPhaseDialogController implements Observer {
 
     public TextField attackerDiceCountTextField, defenderDiceCountTextField, armyCountTextField;
+    private GameCommon gameCommon = new GameCommon();
     private GameModel gameModel;
     private CountryModel attackingCountry = null;
     private CountryModel defendingCountry = null;
@@ -40,6 +41,7 @@ public class AttackPhaseDialogController implements Observer {
 
     /**
      * Getter method to get game model object
+     *
      * @return gameModel object
      */
     public GameModel getGameModel() {
@@ -48,6 +50,7 @@ public class AttackPhaseDialogController implements Observer {
 
     /**
      * Setter method to set the game model according to the parameter it gets and initialize the attack phase
+     *
      * @param gameModel game model object
      */
     public void setGameModel(GameModel gameModel) {
@@ -77,6 +80,16 @@ public class AttackPhaseDialogController implements Observer {
                 }
             }
         });
+
+        attackerDiceCountTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*") || (attackingCountry != null) || (defendingCountry != null)) {
+                    attackerDiceCountTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
         attackingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
             @Override
             public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
@@ -142,6 +155,12 @@ public class AttackPhaseDialogController implements Observer {
                         alert.setHeaderText(null);
                         alert.setContentText("Enter proper dice values");
                         alert.showAndWait();
+                    } else {
+                        attackPhase.attackCountry(attackerDiceCount, defenderDiceCount);
+                        if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
+                            System.out.println("Inside disable condition");
+                            armyCountTextField.setDisable(false);
+                        }
                     }
                     /// ((Node)(event.getSource())).getScene().getWindow().hide();
                 } catch (NumberFormatException e) {
@@ -198,7 +217,6 @@ public class AttackPhaseDialogController implements Observer {
     }
 
 
-
     /**
      * this method is to update the view
      */
@@ -249,8 +267,6 @@ public class AttackPhaseDialogController implements Observer {
         } else {
             defendingCountryListView.setItems(defendingCountriesList);
         }
-
-
     }
 
     /**
@@ -288,6 +304,10 @@ public class AttackPhaseDialogController implements Observer {
     public void setDefendingCountry(CountryModel defendingCountry) {
         this.defendingCountry = defendingCountry;
         setDefendingCountryName(defendingCountry.getCountryName());
+        if (attackingCountry != null && defendingCountry != null) {
+            attackerDiceCountTextField.setText(Integer.toString(getNumberOfDiceCount()));
+            defenderDiceCountTextField.setText(Integer.toString((Integer.parseInt(attackerDiceCountTextField.getText()) - 1)));
+        }
     }
 
     public PlayerModel getCurrentPlayerModel() {
@@ -304,6 +324,14 @@ public class AttackPhaseDialogController implements Observer {
 
     public void setDefendingCountryName(String defendingCountryName) {
         this.defendingCountryName = defendingCountryName;
+    }
+
+    public int getNumberOfDiceCount() {
+        if (attackingCountry.getArmyInCountry() >= 3) {
+            return 3;
+        } else {
+            return 2;
+        }
     }
 
 }
