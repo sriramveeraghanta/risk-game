@@ -1,5 +1,6 @@
 package main.helpers;
 
+import main.models.CountryModel;
 import main.models.GameModel;
 import main.utills.GameConstants;
 import main.utills.GameException;
@@ -8,6 +9,7 @@ import main.utills.DialogHandler;
 import java.io.*;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GameHelper {
@@ -48,6 +50,9 @@ public class GameHelper {
         }
     }
 
+    /**
+     *
+     * */
     public GameModel loadGame(String fileName){
         GameModel gameModel = null;
         try {
@@ -60,5 +65,21 @@ public class GameHelper {
             DialogHandler.showErrorMessage(GameConstants.LOAD_GAME_ERROR);
         }
         return gameModel;
+    }
+
+    /**
+     * Getting the attacker adjacent countries according to the parameters below
+     * @param adjcentCountries array list of adjacent countries
+     * @param playerCountries array list of players countries
+     * @return array list of country model which are adjacent
+     */
+    public ArrayList<CountryModel> getAttackerAdjacentCounties(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
+        ArrayList<CountryModel> adjacentList = new ArrayList<>();
+        for(CountryModel country: adjcentCountries) {
+            if(!playerCountries.contains(country)){
+                adjacentList.add(country);
+            }
+        }
+        return adjacentList;
     }
 }

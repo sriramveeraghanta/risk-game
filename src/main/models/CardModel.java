@@ -11,23 +11,6 @@ import java.io.Serializable;
  */
 public class CardModel implements Serializable {
 
-    private int numberOfCards;
-    /**
-     * Getter method to get number of cards
-     * @return the numberOfCards
-     */
-    public int getNumberOfCards() {
-        return numberOfCards;
-    }
-
-    /**
-     * Setter method to set the number of cards
-     * @param numberOfCards the numberOfCards to set
-     */
-    public void setNumberOfCards(int numberOfCards) {
-        this.numberOfCards = numberOfCards;
-    }
-
     /**
      * The @cardType.
      */

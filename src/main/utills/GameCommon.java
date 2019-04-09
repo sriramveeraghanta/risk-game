@@ -142,23 +142,6 @@ public class GameCommon {
         }
     }
 
-    /**
-     * Getting the attacker adjacent countries according to the parameters below
-     * @param adjcentCountries array list of adjacent countries
-     * @param playerCountries array list of players countries
-     * @return array list of country model which are adjacent
-     */
-    public ArrayList<CountryModel> getAttackerAdjcentCountires(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
-        ArrayList<CountryModel> adjacentList = new ArrayList<>();
-
-        for(CountryModel country: adjcentCountries) {
-            if(!playerCountries.contains(country)){
-                adjacentList.add(country);
-            }
-        }
-        return adjacentList;
-    }
-
     public ArrayList<CountryModel> getPlayerOwnedAdjcentCountires(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
         ArrayList<CountryModel> adjacentList = new ArrayList<>();
 

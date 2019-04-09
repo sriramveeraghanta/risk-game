@@ -16,8 +16,6 @@ public class ReinforcementPhase {
     private GameModel gameModel;
     private boolean updatePlayerDeck=false;
 
-
-
     /**
      * Constructor Reinforcement Phase
      * @param playerModel the player
@@ -29,12 +27,46 @@ public class ReinforcementPhase {
     }
 
     /**
+     * calculating the number of armies players can get for each round by default which should
+     * be the number of countries divided by 3
+     * rounded down
+     * @return the number of armies each player can by default
+     */
+    public int getArmyUnitsFromCountries() {
+        int numberOfUnits;
+        int numberOfCountries = this.playerModel.getCountries().size();
+        if (numberOfCountries < 11) {
+            numberOfUnits = 3;
+        } else {
+            numberOfUnits = Math.floorDiv(numberOfCountries, 3);
+        }
+        return numberOfUnits;
+    }
+
+    /**
+     * assigning the number of armies which calculated to the country of the player
+     * @param country   which country we want to place the armies
+     * @param numberOfUnits number of armies assign to the country
+     * @return boolean if it goes in catch it return false
+     */
+    public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
+        if (this.playerModel.getArmyInHand() >=numberOfUnits) {
+            country.setArmyInCountry(country.getArmyInCountry() + numberOfUnits);
+            this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
+            gameModel.reinforce();
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * this method calculates the number of army units player get according to the cards if they are similar of they are different
      * and the number will increase 5 times more each time he swap the cards with armies
      * @return the total number of army units he can get for cards
      */
-    public int swapCardsForArmyUnits(List<CardModel>  playerCardsList) {
-        System.out.println("Swapcard Method:"+playerCardsList.size());
+    public int swapCardsForArmyUnits(ArrayList<CardModel>  playerCardsList) {
+        System.out.println("Swap card Method:"+playerCardsList.size());
         for(CardModel card :playerCardsList ){
             System.out.println("Card name:"+card.getCardType().toString());
         }
@@ -58,57 +90,36 @@ public class ReinforcementPhase {
      * @return the number of control value of specific continent
      */
     public int getArmyUnitsForConqueredContinent() {
-
-        return this.validateNewContinentOccupation();
-    }
-
-    /**
-     * calculating the number of armies players can get for each round by default which should
-     * be the number of countries divided by 3
-     * rounded down
-     * @return the number of armies each player can by default
-     */
-    public int getArmyUnitsFromCountries() {
-        int numberOfUnits = 0;
-
-        int numberOfCountries = this.playerModel.getCountries().size();
-
-        if (numberOfCountries < 11) {
-            numberOfUnits = 3;
-        } else {
-            numberOfUnits = Math.floorDiv(numberOfCountries, 3);
+        int totalContinentValues = 0;
+        for (ContinentModel continent : gameModel.getContinents()) {
+            if (checkIfPlayerCountriesHaveAllContinentCountries(continent, this.playerModel.getCountries())) {
+                List<String> continentList = this.playerModel.getContinents().stream().map(c -> c.getContinentName())
+                        .collect(Collectors.toList());
+                if (!continentList.contains(continent.getContinentName())) {
+                    ArrayList<ContinentModel> playerContinents = this.playerModel.getContinents();
+                    if (playerContinents == null) {
+                        playerContinents = new ArrayList<>();
+                    }
+                    playerContinents.add(continent);
+                    this.playerModel.setContinents(playerContinents);
+                    totalContinentValues += continent.getControlValue();
+                }
+            }
         }
-
-        return numberOfUnits;
-    }
-
-    /**
-     * assigning the number of armies which calculated to the country of the player
-     * @param country   which country we want to place the armies
-     * @param numberOfUnits number of armies assign to the country
-     * @return boolean if it goes in catch it return false
-     */
-    public boolean assignArmyUnitToCountry(CountryModel country, int numberOfUnits) {
-        if (this.playerModel.getArmyInHand() >=numberOfUnits) {
-            country.setArmyInCountry(country.getArmyInCountry() + numberOfUnits);
-            this.playerModel.setArmyInHand(this.playerModel.getArmyInHand() - numberOfUnits);
-            gameModel.reinforce();
-            return true;
-        }
-        return false;
+        return totalContinentValues;
     }
 
     /**
      * checking the cards of the player if they are similar types and return the number of units he can get
      * @return the number of units he can get for similar cards
      */
-    public int getNumberOfSimilarCards(List<CardModel>  playerCardsList) {
-        System.out.println("Similarcard method") ;
+    public int getNumberOfSimilarCards(ArrayList<CardModel>  playerCardsList) {
+        System.out.println("Similar card method") ;
         int numberOfUnits = 0;
         int infantryCardNumber = 0;
         int artilaryCardNumber = 0;
         int cavalaryCardNumber = 0;
-        List<CardModel> cards = playerCardsList;
+        ArrayList<CardModel> cards = playerCardsList;
 
         infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
         artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
@@ -135,24 +146,25 @@ public class ReinforcementPhase {
      * checking the cards of the player if they are different types and return the number of units he can get
      * @return the number of units he can get for different cards
      */
-    public int getNumberOfDifferentCards(List<CardModel>  playerCardsList) {
+    public int getNumberOfDifferentCards(ArrayList<CardModel>  playerCardsList) {
         System.out.println("different card method") ;
         int numberOfUnits = 0;
         int infantryCardNumber = 0;
         int artilaryCardNumber = 0;
         int cavalaryCardNumber = 0;
-        List<CardModel> cards = playerCardsList;
 
-        infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
-        artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
-        cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.CAVALRY);
+        ArrayList<CardModel> playerCards = playerCardsList;
+
+        infantryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.INFANTRY);
+        artilaryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.ARTILLERY);
+        cavalaryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.CAVALRY);
 
         numberOfUnits = Math.min(infantryCardNumber, Math.min(artilaryCardNumber, cavalaryCardNumber));
 
         if (numberOfUnits > 0 && isUpdatePlayerDeck()) {
-            setPlayerDeckByCardType(cards, EnumHandler.CardType.INFANTRY, numberOfUnits);
-            setPlayerDeckByCardType(cards, EnumHandler.CardType.ARTILLERY, numberOfUnits);
-            setPlayerDeckByCardType(cards, EnumHandler.CardType.CAVALRY, numberOfUnits);
+            setPlayerDeckByCardType(playerCards, EnumHandler.CardType.INFANTRY, numberOfUnits);
+            setPlayerDeckByCardType(playerCards, EnumHandler.CardType.ARTILLERY, numberOfUnits);
+            setPlayerDeckByCardType(playerCards, EnumHandler.CardType.CAVALRY, numberOfUnits);
         }
 
         return numberOfUnits;
@@ -160,25 +172,20 @@ public class ReinforcementPhase {
     }
 
     /**
-     * checking the cards type and return the number of each card type
-     *
-     * @param cards    list of all cards player own
+     * checking the cards type and return the number of each card type.
+     * @param playerCards    list of all cards player own
      * @param cardType getting the unit type and return the number of it
      * @return the number of specific card type
      */
-    public int getNumberCardTypeByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
-        try {
-            CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
-            System.out.println("Swapcard same Method 1:"+card.getCardType().toString());
-            if (card != null) {
-                System.out.println("Swapcard same Method 2:"+card.getNumberOfCards());
-                return card.getNumberOfCards();
-            } else {
-                return 0;
+    public int getNumberCardTypeByCardType(ArrayList<CardModel> playerCards, EnumHandler.CardType cardType) {
+        //System.out.println(playerCards.stream().filter(card -> card.getCardType().equals(cardType)).);
+        ArrayList<CardModel> cardsByCardType = new ArrayList<>();
+        for(CardModel card: playerCards) {
+            if(card.getCardType() == cardType){
+                cardsByCardType.add(card);
             }
-        } catch (Exception ex) {
-            return 0;
         }
+        return cardsByCardType.size();
     }
 
     /**
@@ -186,11 +193,10 @@ public class ReinforcementPhase {
      * @param cards    a list of cards
      * @param cardType which is the type of cards
      */
-    public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst()
-                .get();
+    private void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
+        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
         if (card != null) {
-            card.setNumberOfCards(card.getNumberOfCards() - (3 * (card.getNumberOfCards() / 3)));
+           //card.setNumberOfCards(card.getNumberOfCards() - (3 * (card.getNumberOfCards() / 3)));
         }
     }
 
@@ -201,38 +207,11 @@ public class ReinforcementPhase {
      * @param numbeOfUnits the number of each card type player has
      */
     public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType, int numbeOfUnits) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst()
-                .get();
-        if (card != null) {
-            card.setNumberOfCards(card.getNumberOfCards() - numbeOfUnits);
-        }
+        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
+//        if (card != null) {
+//            //card.setNumberOfCards(card.getNumberOfCards() - numbeOfUnits);
+//        }
 
-    }
-
-    /**
-     * checking if the continent player occupy is in his continent list
-     * @return number of the control value of the continent player can occupies all the countries
-     */
-    public int validateNewContinentOccupation() {
-        int totalContinetValues = 0;
-        for (ContinentModel continent : gameModel.getContinents()) {
-
-            if (checkIfPlayerCountriesHaveAllContinentCountries(continent, this.playerModel.getCountries())) {
-                List<String> continentList = this.playerModel.getContinents().stream().map(c -> c.getContinentName())
-                        .collect(Collectors.toList());
-                if (!continentList.contains(continent.getContinentName())) {
-                    ArrayList<ContinentModel> playerContinents = this.playerModel.getContinents();
-                    if (playerContinents == null) {
-                        playerContinents = new ArrayList<ContinentModel>();
-                    }
-                    playerContinents.add(continent);
-                    this.playerModel.setContinents(playerContinents);
-
-                    totalContinetValues += continent.getControlValue();
-                }
-            }
-        }
-        return totalContinetValues;
     }
 
     /**
@@ -241,8 +220,7 @@ public class ReinforcementPhase {
      * @param countries a list of countries player own
      * @return if player can get whole continent return true
      */
-    public boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent,
-                                                                   List<CountryModel> countries) {
+    public boolean checkIfPlayerCountriesHaveAllContinentCountries(ContinentModel continent, List<CountryModel> countries) {
         List<String> continentCountryNames = continent.getCountries().stream().map(c -> c.getCountryName())
                 .collect(Collectors.toList());
         List<String> countryNames = countries.stream().map(c -> c.getCountryName()).collect(Collectors.toList());
