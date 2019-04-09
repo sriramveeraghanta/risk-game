@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AttackPhaseDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AttackPhaseDialogController">
     <children>
         <Pane layoutY="299.0" prefHeight="150.0" prefWidth="500.0">
             <children>
-            <Label layoutX="20.0" layoutY="62.0" prefHeight="25.0" prefWidth="208.0" text="Number of Defender Dice to Roll:" />
-            <TextField fx:id="defenderDiceCountTextField" layoutX="166.0" layoutY="110.0" prefHeight="27.0" prefWidth="66.0" />
-            <Label layoutX="26.0" layoutY="111.0" prefHeight="25.0" prefWidth="139.0" text="Army count to move :" />
-            <TextField fx:id="armyCountTextField" layoutX="234.0" layoutY="62.0" prefHeight="27.0" prefWidth="66.0" />
-            <TextField fx:id="attackerDiceCountTextField" layoutX="225.0" layoutY="13.0" prefHeight="27.0" prefWidth="66.0" />
+                <Label layoutX="20.0" layoutY="62.0" prefHeight="25.0" prefWidth="208.0" text="Number of Defender Dice to Roll:" />
+                <TextField fx:id="armyCountTextField" layoutX="225.0" layoutY="110.0" prefHeight="27.0" prefWidth="66.0" />
+                <Label layoutX="26.0" layoutY="111.0" prefHeight="25.0" prefWidth="139.0" text="Army count to move :" />
+                <TextField fx:id="defenderDiceCountTextField" layoutX="225.0" layoutY="61.0" prefHeight="27.0" prefWidth="66.0" />
+                <TextField fx:id="attackerDiceCountTextField" layoutX="225.0" layoutY="13.0" prefHeight="27.0" prefWidth="66.0" />
             </children>
         </Pane>
-      <Pane layoutY="450.0" prefHeight="50.0" prefWidth="500.0">
-         <children>
-             <Button fx:id="AllOutActionButton" layoutX="181.0" layoutY="12.0" mnemonicParsing="false" onAction="#allOutAttackAction" prefHeight="25.0" prefWidth="139.0" text="All Out Attack" />
-             <Button fx:id="AttackActionButton" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack" />
-             <Button fx:id="ArmyMoveActionButton" layoutX="347.0" layoutY="12.0" mnemonicParsing="false" onAction="#armyMoveAction" prefHeight="25.0" prefWidth="139.0" text="Move" />
-         </children>
-      </Pane>
-      <Pane prefHeight="300.0" prefWidth="250.0">
-         <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" text="Attacking Country List">
-                      <font>
-                          <Font name="Helvetica Neue Bold" size="14.0" />
-                      </font>
-                  </Label>
-                  <ListView fx:id="attackingCountryListView" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="250.0" prefHeight="300.0" prefWidth="250.0">
-         <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="250.0" text="Defending Country List">
-                      <font>
-                          <Font name="Helvetica Neue Bold" size="14.0" />
-                      </font>
-                  </Label>
-                  <ListView fx:id="defendingCountryListView" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" />
-         </children>
-      </Pane>
-          <Label layoutX="20.0" layoutY="314.0" prefHeight="25.0" prefWidth="208.0" text="Number of Attacker Dice to Roll:" />
+        <Pane layoutY="450.0" prefHeight="50.0" prefWidth="500.0">
+            <children>
+                <Button fx:id="AllOutActionButton" layoutX="181.0" layoutY="12.0" mnemonicParsing="false" onAction="#allOutAttackAction" prefHeight="25.0" prefWidth="139.0" text="All Out Attack" />
+                <Button fx:id="AttackActionButton" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#attackAction" prefHeight="25.0" prefWidth="139.0" text="Attack" />
+                <Button fx:id="ArmyMoveActionButton" layoutX="347.0" layoutY="12.0" mnemonicParsing="false" onAction="#armyMoveAction" prefHeight="25.0" prefWidth="139.0" text="Move" />
+            </children>
+        </Pane>
+        <Pane prefHeight="300.0" prefWidth="250.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" text="Attacking Country List">
+                    <font>
+                        <Font name="Helvetica Neue Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ListView fx:id="attackingCountryListView" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" />
+            </children>
+        </Pane>
+        <Pane layoutX="250.0" prefHeight="300.0" prefWidth="250.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="250.0" text="Defending Country List">
+                    <font>
+                        <Font name="Helvetica Neue Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ListView fx:id="defendingCountryListView" layoutY="50.0" prefHeight="250.0" prefWidth="250.0" />
+            </children>
+        </Pane>
+        <Label layoutX="20.0" layoutY="314.0" prefHeight="25.0" prefWidth="208.0" text="Number of Attacker Dice to Roll:" />
     </children>
 </AnchorPane>

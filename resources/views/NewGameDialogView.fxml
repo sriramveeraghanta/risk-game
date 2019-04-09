@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.NewGameDialogController">
+   <children>
+      <ListView fx:id="mapsListView" layoutX="14.0" layoutY="14.0" prefHeight="280.0" prefWidth="374.0" />
+      <TextField fx:id="playerCountTextField" layoutX="117.0" layoutY="307.0" />
+      <Label layoutX="23.0" layoutY="312.0" prefHeight="17.0" prefWidth="90.0" text="Players Count:" />
+      <Button onAction="#startNewGame" layoutX="142.0" layoutY="350.0" mnemonicParsing="false" text="Start New Game" />
+   </children>
+</AnchorPane>

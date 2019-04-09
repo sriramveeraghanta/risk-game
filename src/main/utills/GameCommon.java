@@ -23,25 +23,6 @@ public class GameCommon {
     }
 
     /**
-     * This methods gets all the filename in resources path
-     * @param path resource folder path.
-     * @return this method returns a list of strings with file name  in the path.
-     */
-    public ArrayList<String> getResourceFiles(String path) throws IOException {
-        ArrayList<String> filenames = new ArrayList<>();
-
-        File directory = new File(path);
-        //get all the files from a directory
-        File[] fList = directory.listFiles();
-        for (File file : fList){
-            if (file.isFile()){
-                filenames.add(file.getName());
-            }
-        }
-        return filenames;
-    }
-
-    /**
      * casting the string to integer
      * @param value string
      * @return true or false if it is possible to parse it

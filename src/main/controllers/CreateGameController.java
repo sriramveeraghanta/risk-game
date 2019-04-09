@@ -29,7 +29,6 @@ import java.util.Optional;
 public class CreateGameController {
 
     private GameModel gameModel;
-    private String mapFilePath=null;
 
     @FXML
     private TextArea mapDataTextArea;
@@ -53,70 +52,25 @@ public class CreateGameController {
             ObservableList<CharSequence> paragraph = mapDataTextArea.getParagraphs();
             // creating a map file in the file System
             createMapFile(fileName, paragraph);
-            // Map Builder
-            MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
-            boolean isMapValid = false;
+            boolean isMapValid;
             try {
-                isMapValid = mapBuilder.readMapFile(mapFilePath);
+                // Map Builder
+                MapBuilder mapBuilder = new MapBuilder(this.getGameModel());
+                isMapValid = mapBuilder.readMapFile(fileName+".map");
+                if(isMapValid) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Risk Game");
+                    alert.setHeaderText(GameConstants.VALID_MAP_FILE_SAVE);
+                    alert.showAndWait();
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                }
             }catch (GameException e) {
                 DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
-            }
-
-            if(isMapValid) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Risk Game");
-                alert.setHeaderText(GameConstants.MAP_MSG);
-                ButtonType yesButton = new ButtonType("Yes");
-                ButtonType noButton = new ButtonType("No");
-                alert.getButtonTypes().setAll(yesButton, noButton);
-                // If User checks for Yes
-                Optional<ButtonType> result = alert.showAndWait();
-                if(result.isPresent()){
-                    if (result.get() == yesButton) {
-                        this.startGame();
-                    } else if(result.get() == noButton) {
-                        ((Node)(event.getSource())).getScene().getWindow().hide();
-                    }
-                }
             }
         } else {
             DialogHandler.showWarningMessage(GameConstants.USER_NO_INPUT);
         }
     }
-
-    private void startGame() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setHeaderText(GameConstants.SELECT_PLAYERS);
-        dialog.setTitle(getGameModel().getTitle());
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(playerCountString -> {
-            int playerCount;
-            try {
-                playerCount = Integer.parseUnsignedInt(playerCountString);
-                if (playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS) {
-                    // Initiating players and Creating new Map.
-                    GameHelper gameHelper = new GameHelper();
-                    this.setGameModel(gameHelper.startNewGame(playerCount));
-                    // Creating an Game Board
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GameBoard.fxml"));
-                    Parent GameBoardPanel = loader.load();
-                    GameBoardController gameBoardController = loader.getController();
-                    gameBoardController.setGameModel(this.gameModel);
-                    stage.setScene(new Scene(GameBoardPanel, 1280, 768));
-                    stage.show();
-
-                } else {
-                    DialogHandler.showWarningMessage(GameConstants.INVALID_PLAYER_COUNT_ERROR);
-                }
-            } catch (NumberFormatException | IOException e) {
-                DialogHandler.showWarningMessage(GameConstants.PLAYER_COUNT_ERROR);
-            } catch (GameException e) {
-                DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
-            }
-        });
-    }
-
 
     /**
      * Create map file according to the file name and map data which gets as  parameters
@@ -125,8 +79,9 @@ public class CreateGameController {
      */
     private void createMapFile(CharSequence fileName, ObservableList<CharSequence> mapData) {
         Iterator<CharSequence> iterator = mapData.iterator();
+        String mapFilePath = null;
         try {
-            mapFilePath = GameConstants.USER_MAP_FILE_PATH + fileName.toString()+".map";
+            mapFilePath = GameConstants.MAPS_DIR_PATH + fileName.toString()+".map";
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(mapFilePath)));
             while(iterator.hasNext()) {
                 CharSequence seq = iterator.next();

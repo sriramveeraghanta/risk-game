@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
- * this class contains the information about the plsyer sech as color , army in hand the list of the cards he own
+ * this class contains the information about the players which has color, army in hand the list of the cards he own
  * which called deck , the list of countries he owned .
  */
 public class PlayerModel extends Observable implements Serializable {
@@ -117,10 +117,10 @@ public class PlayerModel extends Observable implements Serializable {
 
     /**
      * Setter method for setting the array list of the countries
-     * @param countiresList the countryModels to set
+     * @param countriesList the countryModels to set
      */
-    public void setCountries(ArrayList<CountryModel> countiresList) {
-        this.countriesList = countiresList;
+    public void setCountries(ArrayList<CountryModel> countriesList) {
+        this.countriesList = countriesList;
     }
 
     /**
