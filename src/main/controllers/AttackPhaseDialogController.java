@@ -35,6 +35,8 @@ public class AttackPhaseDialogController implements Observer {
     private PlayerModel currentPlayerModel = null;
     private String defendingCountryName = null;
     private int currentPlayerCountrySize;
+    private int attackerDiceCount;
+    private ArrayList<CountryModel> defendingCountriesList;
 
     @FXML
     private ListView<CountryModel> attackingCountryListView, defendingCountryListView;
@@ -81,51 +83,66 @@ public class AttackPhaseDialogController implements Observer {
             }
         });
 
-        attackerDiceCountTextField.textProperty().addListener(new ChangeListener<String>() {
+    /*    attackerDiceCountTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (!newValue.matches("\\d*") || (attackingCountry != null) || (defendingCountry != null)) {
                     attackerDiceCountTextField.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
-        });
+        });*/
 
         attackingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
             @Override
             public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
-                setAttackingCountry(newValue);
-                ArrayList<CountryModel> defendingCountriesList = gameHelper.getAttackerAdjacentCounties(newValue.getAdjacentCountries(), playerCountries);
-                ObservableList<CountryModel> defendingCountries = FXCollections.observableArrayList(defendingCountriesList);
-                defendingCountryListView.setItems(defendingCountries);
-                defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
-                    @Override
-                    public void updateItem(CountryModel item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(item.getCountryName() + " - " + item.getArmyInCountry());
+                if (newValue != null) {
+                    setAttackingCountry(newValue);
+                    armyCountTextField.setDisable(true);
+                    defendingCountriesList = gameHelper.getAttackerAdjacentCounties(newValue.getAdjacentCountries(), playerCountries);
+                    ObservableList<CountryModel> defendingCountries = FXCollections.observableArrayList(defendingCountriesList);
+                    defendingCountryListView.setItems(defendingCountries);
+                    defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+                        @Override
+                        public void updateItem(CountryModel item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setText(null);
+                            } else {
+                                setText(item.getCountryName() + " - " + item.getArmyInCountry());
+                            }
                         }
-                    }
-                });
-                defendingCountryListView.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> setDefendingCountry(newValue1));
+                    });
+
+                    defendingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
+
+                        @Override
+                        public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
+                            if (newValue != null) {
+                                setDefendingCountry(newValue);
+                            }
+                        }
+
+
+                    });
+                    /// defendingCountryListView.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> setDefendingCountry(newValue1));
+                }
             }
         });
+
     }
 
     /**
      * this method do all out attack action in attack phase
      */
     public void allOutAttackAction() {
-        if (attackingCountry != null && defendingCountry != null) {
+        if (attackingCountry != null && defendingCountry != null && attackingCountry.getArmyInCountry()>=2) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
-            attackPhase.allOutMode();
+            attackerDiceCount=attackPhase.allOutMode();
             if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
-                System.out.println("Inside disable condition");
                 armyCountTextField.setDisable(false);
             }
         } else {
-            DialogHandler.showWarningMessage("Please Select Attacking and Defending country");
+            DialogHandler.showWarningMessage("Please Select Proper Attacking and Defending country");
         }
     }
 
@@ -135,18 +152,15 @@ public class AttackPhaseDialogController implements Observer {
     public void attackAction() {
         if (attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
-             currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
-            if(attackingCountry.getArmyInCountry() >= 1) {
+            currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
+            if(attackingCountry.getArmyInCountry() >= 2) {
                 try {
                     int attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
                     int defenderDiceCount = Integer.parseInt(defenderDiceCountTextField.getText());
-                    System.out.println("Attacker dice count:"+attackerDiceCount);
-                    System.out.println("defender dice count:"+defenderDiceCount);
-                    if (attackerDiceCount != 0 && defenderDiceCount != 0 && attackerDiceCount <= attackingCountry.getArmyInCountry() &&
+                    if (attackerDiceCount != 0 && defenderDiceCount != 0 && attackerDiceCount < attackingCountry.getArmyInCountry() &&
                             defenderDiceCount <= attackingCountry.getArmyInCountry() && attackerDiceCount <= 3 && defenderDiceCount <= 2) {
                         attackPhase.attackCountry(attackerDiceCount, defenderDiceCount);
                         if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
-                            System.out.println("Inside disable condition");
                             armyCountTextField.setDisable(false);
                         }
                     } else {
@@ -155,13 +169,13 @@ public class AttackPhaseDialogController implements Observer {
                         alert.setHeaderText(null);
                         alert.setContentText("Enter proper dice values");
                         alert.showAndWait();
-                    } else {
+                    }/* else {
                         attackPhase.attackCountry(attackerDiceCount, defenderDiceCount);
                         if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
                             System.out.println("Inside disable condition");
                             armyCountTextField.setDisable(false);
                         }
-                    }
+                    }*/
                     /// ((Node)(event.getSource())).getScene().getWindow().hide();
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -182,20 +196,28 @@ public class AttackPhaseDialogController implements Observer {
     }
 
     public void armyMoveAction(ActionEvent event) {
-        System.out.println("defender name:" + getDefendingCountryName());
         GameCommon gameCommons = new GameCommon();
-        CountryModel defender = gameCommons.getCountryModelFromList(getCurrentPlayerModel().getCountries(), getDefendingCountryName());
-        if (defender != null) {
+        CountryModel defender = gameCommons.getCountryModelFromList(currentPlayerModel.getCountries(), getDefendingCountryName());
+        if (defender != null  ) {
             try {
                 int armyUnitCount = Integer.parseInt(armyCountTextField.getText());
-                AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defender);
-                String message = attackPhase.swapArmyBetweenCountries(armyUnitCount);
-                if (message != null) {
+                if(armyUnitCount >= attackerDiceCount) {
+                    AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defender);
+                    String message = attackPhase.swapArmyBetweenCountries(armyUnitCount);
+                    if (message != null) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Attack Phase : Army Unit Transfer");
+                        alert.setHeaderText(null);
+                        alert.setContentText(message);
+                        alert.showAndWait();
+                    }
+                }else{
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Fortification Phase");
+                    alert.setTitle("Attack Phase : Army Unit Transfer");
                     alert.setHeaderText(null);
-                    alert.setContentText(message);
+                    alert.setContentText("Army count should be greater or equal to :" + attackerDiceCount);
                     alert.showAndWait();
+
                 }
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -231,11 +253,9 @@ public class AttackPhaseDialogController implements Observer {
     }
 
     private void countriesUpdate() {
-        System.out.println("update method :1");
         GameHelper gameHelper = new GameHelper();
         ArrayList<CountryModel> attackingPlayerCountries = getCurrentPlayerModel().getCountries();
         ObservableList<CountryModel> defendingCountriesList = null;
-        System.out.println("countrySize:" + attackingPlayerCountries.size());
         ObservableList<CountryModel> playerCountriesObservableList = FXCollections.observableArrayList(attackingPlayerCountries);
         attackingCountryListView.setItems(playerCountriesObservableList);
         attackingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
@@ -264,9 +284,9 @@ public class AttackPhaseDialogController implements Observer {
                     }
                 }
             });
-        } else {
-            defendingCountryListView.setItems(defendingCountriesList);
         }
+
+
     }
 
     /**
@@ -304,10 +324,10 @@ public class AttackPhaseDialogController implements Observer {
     public void setDefendingCountry(CountryModel defendingCountry) {
         this.defendingCountry = defendingCountry;
         setDefendingCountryName(defendingCountry.getCountryName());
-        if (attackingCountry != null && defendingCountry != null) {
+       /* if (attackingCountry != null && defendingCountry != null) {
             attackerDiceCountTextField.setText(Integer.toString(getNumberOfDiceCount()));
             defenderDiceCountTextField.setText(Integer.toString((Integer.parseInt(attackerDiceCountTextField.getText()) - 1)));
-        }
+        }*/
     }
 
     public PlayerModel getCurrentPlayerModel() {
@@ -326,12 +346,12 @@ public class AttackPhaseDialogController implements Observer {
         this.defendingCountryName = defendingCountryName;
     }
 
-    public int getNumberOfDiceCount() {
+   /* public int getNumberOfDiceCount() {
         if (attackingCountry.getArmyInCountry() >= 3) {
             return 3;
         } else {
             return 2;
         }
-    }
+    }*/
 
 }

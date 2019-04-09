@@ -66,14 +66,12 @@ public class ReinforcementPhase {
      * @return the total number of army units he can get for cards
      */
     public int swapCardsForArmyUnits(ArrayList<CardModel>  playerCardsList) {
-        System.out.println("Swap card Method:"+playerCardsList.size());
-        for(CardModel card :playerCardsList ){
-            System.out.println("Card name:"+card.getCardType().toString());
-        }
         int totalNumberOfArmyUnits = getNumberOfSimilarCards(playerCardsList) + getNumberOfDifferentCards(playerCardsList);
         if (totalNumberOfArmyUnits > 0) {
                 this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
+            if(isUpdatePlayerDeck()) {
                 gameModel.cardSwap();
+            }
             return (totalNumberOfArmyUnits * 5) *(this.playerModel.getSuccessfulCardSwapCounter());
         }
 
@@ -119,18 +117,12 @@ public class ReinforcementPhase {
         ArrayList<CardModel> cards = playerCardsList;
 
         infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
-        System.out.println("infinity card number:"+infantryCardNumber);
         artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
-        System.out.println("artilary card number:"+artilaryCardNumber);
         cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.CAVALRY);
-        System.out.println("cavalry card number:"+cavalaryCardNumber);
 
         numberOfUnits += infantryCardNumber / 3;
-        System.out.println("Step 1::"+numberOfUnits);
         numberOfUnits += artilaryCardNumber / 3;
-        System.out.println("Step 2::"+numberOfUnits);
         numberOfUnits += cavalaryCardNumber / 3;
-        System.out.println("Step 3::"+numberOfUnits);
 
         if (infantryCardNumber / 3 > 0 && isUpdatePlayerDeck()) {
             setPlayerDeckByCardType(cards, EnumHandler.CardType.INFANTRY);
@@ -159,14 +151,10 @@ public class ReinforcementPhase {
         ArrayList<CardModel> playerCards = playerCardsList;
 
         infantryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.INFANTRY);
-        System.out.println("infinity card number:"+infantryCardNumber);
         artilaryCardNumber = getNumberCardTypeByCardType(playerCards , EnumHandler.CardType.ARTILLERY);
-        System.out.println("artilary card number:"+artilaryCardNumber);
         cavalaryCardNumber = getNumberCardTypeByCardType(playerCards , EnumHandler.CardType.CAVALRY);
-        System.out.println("cavalry card number:"+cavalaryCardNumber);
 
         numberOfUnits = Math.min(infantryCardNumber, Math.min(artilaryCardNumber, cavalaryCardNumber));
-        System.out.println("number of units:"+numberOfUnits);
 
         if (numberOfUnits > 0 && isUpdatePlayerDeck()) {
             setPlayerDeckByCardType(playerCards, EnumHandler.CardType.INFANTRY, numberOfUnits);
@@ -200,10 +188,26 @@ public class ReinforcementPhase {
      * @param cards    a list of cards
      * @param cardType which is the type of cards
      */
+
+
+
     private void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
-        if (card != null) {
-           //card.setNumberOfCards(card.getNumberOfCards() - (3 * (card.getNumberOfCards() / 3)));
+        ArrayList<CardModel> playerCards=playerModel.getDeck();
+        ArrayList<CardModel> playerCardsToRemove=new ArrayList<CardModel>();
+        int cardCounter=0;
+        int cardsLimit=(3 * (cards.size()/ 3));
+        if(cards!=null){
+
+            for (int i = 0; i < playerCards.size(); i++){
+                if(playerCards.get(i).getCardType() == cardType && cardCounter<cardsLimit){
+                    playerCardsToRemove.add(playerCards.get(i));
+                    cardCounter=cardCounter+1;
+                }
+            }
+            if(playerCardsToRemove.size() >0) {
+                playerCards.removeAll(playerCardsToRemove);
+            }
+            cardCounter=0;
         }
     }
 
@@ -214,7 +218,25 @@ public class ReinforcementPhase {
      * @param numbeOfUnits the number of each card type player has
      */
     public void setPlayerDeckByCardType(List<CardModel> cards, EnumHandler.CardType cardType, int numbeOfUnits) {
-        CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
+        ArrayList<CardModel> playerCards=playerModel.getDeck();
+        ArrayList<CardModel> playerCardsToRemove=new ArrayList<CardModel>();
+        int cardCounter=0;
+        if(cards!=null){
+
+            for (int i = 0; i < playerCards.size(); i++){
+                if(playerCards.get(i).getCardType() == cardType && cardCounter<numbeOfUnits){
+                    playerCardsToRemove.add(playerCards.get(i));
+                    cardCounter=cardCounter+1;
+                }
+            }
+            if(playerCardsToRemove.size() > 0) {
+                playerCards.removeAll(playerCardsToRemove);
+            }
+            cardCounter=0;
+        }
+
+
+       /// CardModel card = cards.stream().filter(x -> x.getCardType().equals(cardType)).findFirst().get();
 //        if (card != null) {
 //            //card.setNumberOfCards(card.getNumberOfCards() - numbeOfUnits);
 //        }
