@@ -8,9 +8,9 @@ import org.junit.runners.Suite;
         AttackPhaseTest.class,  //5
         FortificationPhaseTest.class,   //2
         MapBuilderTest.class,   //9
-        //ReinforcementPhaseTest.class,   //8
+       // ReinforcementPhaseTest.class,   //8
         StartupPhaseTest.class, //6
-        GameHelperTest.class    //2
+        GameHelperTest.class    //5
 
 })
 public class TestSuite {

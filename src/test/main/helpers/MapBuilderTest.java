@@ -15,6 +15,7 @@ import static junit.framework.Assert.*;
 /**
 * MapBuilder Tester.
 */
+
 public class MapBuilderTest {
 String continentName;
 String countryName;
@@ -24,96 +25,109 @@ MapBuilder invalidMapBuilder;
 MapBuilder mapBuilder;
 
 /**
- * method which should run before all of the test methods
- * @throws Exception if exception occur throws Exception
- */
+* method which should run before all of the test methods
+* @throws Exception if exception occur throws Exception
+*/
 @Before
 public void before() throws Exception {
-    gameCommons = new GameCommon();
-    gameModel= new GameModel();
-    mapBuilder = new MapBuilder(gameModel);
-    invalidMapBuilder = new MapBuilder(gameModel);
-    mapBuilder.readMapFile(null);
+gameCommons = new GameCommon();
+gameModel= new GameModel();
+mapBuilder = new MapBuilder(gameModel);
+invalidMapBuilder = new MapBuilder(gameModel);
+mapBuilder.readMapFile("world.map");
 
 }
+
+/**
+* method test the self-adjacency in the map
+* @throws GameException
+*/
 @Test
 public void testSelfAdjacencyMapReader() throws GameException {
-    assertEquals(false,
-            invalidMapBuilder.readMapFile(System.getProperty("user.dir") + "/resources/maps/world2.map"));
+assertEquals(false,
+    invalidMapBuilder.readMapFile("world2.map"));
 }
+
+/**
+ * method test the country-adjacency in the map
+ * @throws GameException
+ */
 @Test
 public void testCountryAdjacencyMapReader() throws GameException {
-    assertFalse(invalidMapBuilder.readMapFile(System.getProperty("user.dir") + "/resources/maps/world2.map"));
+assertFalse(invalidMapBuilder.readMapFile("world2.map"));
 }
+
+/**
+ * method test the continent-adjacency in the map
+ * @throws GameException
+ */
 @Test
 public void testContinentAdjacencyMapReader() throws GameException {
-    assertEquals(false,
-            invalidMapBuilder.readMapFile(System.getProperty("user.dir") + "/resources/maps/world2.map"));
+assertEquals(false,
+    invalidMapBuilder.readMapFile("world2.map"));
 }
+
 /**
- * Method: assignCountryToContinent(String countryName, String continentName)
- * @throws Exception if exception occur throws Exception
- */
+* Method: assignCountryToContinent(String countryName, String continentName)
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testAssignCountryToContinent() throws Exception {
-    continentName = "North America";
-    countryName = "Alaska";
-    //mapBuilder.assignCountryToContinent(countryName,continentName);
-    ContinentModel continent = gameCommons.getContinentModelFromList(gameModel.getContinents(), continentName);
-    for (CountryModel country : continent.getCountries()) {
-        if (countryName.equalsIgnoreCase(country.getCountryName())) {
-            assertEquals(country.getCountryName(), countryName);
-        }
-    }
+continentName = "North America";
+countryName = "Alaska";
+//mapBuilder.assignCountryToContinent(countryName,continentName);
+ContinentModel continent = gameCommons.getContinentModelFromList(gameModel.getContinents(), continentName);
+for (CountryModel country : continent.getCountries()) {
+if (countryName.equalsIgnoreCase(country.getCountryName())) {
+    assertEquals(country.getCountryName(), countryName);
+}
+}
 }
 
-
 /**
- * Method: validateCountriesBelongToOneContinent()
- * @throws Exception if exception occur throws Exception
- */
+* Method: validateCountriesBelongToOneContinent()
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testValidateCountriesBelongToOneContinent() throws Exception {
-    assertTrue(mapBuilder.validateCountriesBelongToOneContinent());
+assertTrue(mapBuilder.validateCountriesBelongToOneContinent());
 }
 
 /**
- * Method: validateIfContinentExists(String continentName)
- * @throws Exception if exception occur throws Exception
- */
+* Method: validateIfContinentExists(String continentName)
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testValidateIfContinentExists() throws Exception {
-    continentName="North America";
-    assertTrue(mapBuilder.validateIfContinentExists(continentName));
+continentName="North America";
+assertTrue(mapBuilder.validateIfContinentExists(continentName));
 }
 
 /**
- * Method:validateIfContinentExists(boolean inavlidCOntinentName)
- * @throws Exception if exception occur throws Exception
- */
+* Method:validateIfContinentExists(boolean inavlidCOntinentName)
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testValidateInvalidContinent() throws Exception {
-    String inavlidCOntinentName="Wakanda";
-    assertFalse(mapBuilder.validateIfContinentExists(inavlidCOntinentName));
+String inavlidCOntinentName="Wakanda";
+assertFalse(mapBuilder.validateIfContinentExists(inavlidCOntinentName));
 }
 
-
 /**
- * Method: validateIfCountriesAreAdjacent(ArrayList<String[]> countryMapDataList)
- * @throws Exception if exception occur throws Exception
- */
+* Method: validateIfCountriesAreAdjacent(ArrayList<String[]> countryMapDataList)
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testValidateIfCountriesAreAdjacent() throws Exception {
-    assertTrue(mapBuilder.validateIfCountriesAreAdjacent());
+assertTrue(mapBuilder.validateIfCountriesAreAdjacent());
 }
 
 /**
- * Method: validateContinentsAreAdjacent()
- * @throws Exception if exception occur throws Exception
- */
+* Method: validateContinentsAreAdjacent()
+* @throws Exception if exception occur throws Exception
+*/
 @Test
 public void testValidateContinentsAreAdjacent() throws Exception {
-    assertTrue(mapBuilder.validateContinentsAreAdjacent());
+assertTrue(mapBuilder.validateContinentsAreAdjacent());
 }
-
 } 
