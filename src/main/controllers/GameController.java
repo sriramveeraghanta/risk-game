@@ -125,5 +125,16 @@ public class GameController {
         this.gameModel = gameModel;
     }
 
-
+    /**
+     *Tournament Action method with raises a popup and takes the input from the user.
+     * */
+    public void tournamentModeAction() throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle(GameConstants.GAME_TITLE);
+        FXMLLoader loader = new FXMLLoader(GameController.class.getResource("/views/TournamentMode.fxml"));
+        Parent loadGamePanel = loader.load();
+        stage.setScene(new Scene(loadGamePanel,400, 400));
+        stage.setResizable(false);
+        stage.show();
+    }
 }

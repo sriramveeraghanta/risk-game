@@ -32,6 +32,10 @@ public class GameHelper {
         return gameModel;
     }
 
+
+    /**
+     *
+     * */
     public void saveGame(GameModel gameModel) {
         // Getting Current DataTime as String.
         StringBuffer stringBuffer = new StringBuffer();
@@ -62,6 +66,7 @@ public class GameHelper {
             gameModel = (GameModel) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             DialogHandler.showErrorMessage(GameConstants.LOAD_GAME_ERROR);
         }
         return gameModel;
@@ -69,17 +74,52 @@ public class GameHelper {
 
     /**
      * Getting the attacker adjacent countries according to the parameters below
-     * @param adjcentCountries array list of adjacent countries
+     * @param adjacentCountries array list of adjacent countries
      * @param playerCountries array list of players countries
      * @return array list of country model which are adjacent
      */
-    public ArrayList<CountryModel> getAttackerAdjacentCounties(ArrayList<CountryModel> adjcentCountries, ArrayList<CountryModel> playerCountries) {
+    public ArrayList<CountryModel> getAttackerAdjacentCounties(ArrayList<CountryModel> adjacentCountries, ArrayList<CountryModel> playerCountries) {
         ArrayList<CountryModel> adjacentList = new ArrayList<>();
-        for(CountryModel country: adjcentCountries) {
+        for(CountryModel country: adjacentCountries) {
             if(!playerCountries.contains(country)){
                 adjacentList.add(country);
             }
         }
         return adjacentList;
+    }
+
+    /**
+     * This method switchs the control of the player to next player.
+     * @param gameModel it take the param as gameModel to change few things int he model.
+     * */
+    public void switchPlayerControl(GameModel gameModel){
+        if(gameModel.getNumberOfPlayers() == gameModel.getCurrentPlayerIndex()+1){
+            gameModel.setCurrentPlayerIndex(0);
+            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
+        }
+        else{
+            gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
+            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
+        }
+    }
+
+    /**
+     * This methods gets all the filename in resources path
+     * @param path resource folder path.
+     * @return this method returns a list of strings with file name  in the path.
+     */
+    public ArrayList<String> getResourceFiles(String path) throws IOException {
+        ArrayList<String> filenames = new ArrayList<>();
+        File directory = new File(path);
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+        if (fList != null) {
+            for (File file : fList){
+                if (file.isFile() && !file.isHidden()){
+                    filenames.add(file.getName());
+                }
+            }
+        }
+        return filenames;
     }
 }

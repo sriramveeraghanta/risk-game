@@ -36,8 +36,8 @@ public class LoadGameController {
 
     @FXML
     public void initialize() throws IOException {
-        GameCommon gameCommon = new GameCommon();
-        fileNamesList = gameCommon.getResourceFiles(GameConstants.USER_SAVED_GAMES_PATH);
+        GameHelper gameHelper = new GameHelper();
+        fileNamesList = gameHelper.getResourceFiles(GameConstants.USER_SAVED_GAMES_PATH);
         ObservableList<String> fileNamesObservableList = FXCollections.observableArrayList(fileNamesList);
         fileNamesListView.setItems(fileNamesObservableList);
     }
@@ -48,6 +48,7 @@ public class LoadGameController {
         if(fileName != null) {
             GameHelper gameHelper = new GameHelper();
             this.gameModel = gameHelper.loadGame(fileName);
+            System.out.println(gameModel);
             // Creating an Game Board
             Stage stage = new Stage();
             stage.setTitle(GameConstants.GAME_TITLE);
