@@ -55,12 +55,12 @@ public void testAssignColor() throws Exception {
 */
 @Test
 public void testSetInitialInfantryFor2Player() throws Exception {
-    startup.initNewGame(2);
+    //startup.initNewGame(2);
     assertEquals(40, startup.getInitialUnit());
 }
 @Test
 public void testSetInitialInfantryDefault() throws Exception {
-    startup.initNewGame(1);
+    //startup.initNewGame(1);
     assertEquals(0, startup.getInitialUnit());
 }
 
@@ -71,7 +71,7 @@ public void testSetInitialInfantryDefault() throws Exception {
 */
 @Test
 public void testAssignCountriesToPlayers() throws Exception {
-    startup.initNewGame(6);
+    //startup.initNewGame(6);
     playerList = gameModel.getPlayers();
     assertNotNull(playerList.get(0).getCountries());
 }
@@ -81,7 +81,7 @@ public void testAssignCountriesToPlayers() throws Exception {
      */
     @Test
 public void testAssignUnitsToPlayerCountries() {
-    startup.initNewGame(2);
+    //startup.initNewGame(2);
     playerList = gameModel.getPlayers();
     assertNotNull(playerList.get(0).getCountries().get(0).getArmyInCountry());
     assertEquals(0,playerList.get(0).getArmyInHand());

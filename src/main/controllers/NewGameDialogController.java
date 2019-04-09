@@ -41,9 +41,13 @@ public class NewGameDialogController {
             try{
                 int playerCount = Integer.parseUnsignedInt(playerCountString);
                 if(playerCount <= GameConstants.MAXIMUM_NUMBER_OF_PLAYERS && playerCount >= GameConstants.MINIMUM_NUMBER_OF_PLAYERS){
+                    ArrayList<String> playerTypes = new ArrayList<>();
+                    for(int i=0; i< playerCount; i++){
+                        playerTypes.add("HUMAN");
+                    }
                     // Initiating players and Creating new Map.
                     GameHelper gameHelper = new GameHelper();
-                    this.gameModel = gameHelper.startNewGame(playerCount, fileName);
+                    this.gameModel = gameHelper.startNewGame(fileName, playerTypes);
                     System.out.println(gameModel);
                     // Creating an Game Board
                     Stage stage = new Stage();

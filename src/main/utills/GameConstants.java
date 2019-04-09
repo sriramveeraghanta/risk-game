@@ -27,6 +27,8 @@ public class GameConstants {
     public static final String INVALID_MAP_ERROR = "Enter a valid Map Data";
     public static final String INVALID_MAP_PLAYER_COUNT_ERROR = "Please select map file and enter player count to start new Game";
     public static final String VALID_MAP_FILE_SAVE = "Your map is saved start your new Game from home page";
+    public static final String INVALID_TOURNAMENT_DATA = "Please select a map file, Number of turns count, number of games and select the players.";
+    public static final String INVALID_NUMBER_TOURNAMENT = "Please enter a valid Integers for game Count and tun count";
 
     public static final String MAP_MSG="Do you want to Start a Game with new map ?";
     public static final String FORTIFY_INVALID_MSG = "Invalid Operation Data";

@@ -19,6 +19,7 @@ public class PlayerModel extends Observable implements Serializable {
     private ArrayList<CardModel> deck = new ArrayList<>();
     private ArrayList<CountryModel> countriesList = new ArrayList<>();
     private ArrayList<ContinentModel> continentsList=new ArrayList<>();
+    private EnumHandler.PlayerType playerType;
 
     /**
      *constructor for player model class
@@ -150,5 +151,19 @@ public class PlayerModel extends Observable implements Serializable {
         this.countriesList = this.getCountries();
         this.countriesList.add(country);
         this.setCountries(countriesList);
+    }
+
+    /**
+     * Player Type getter
+     * */
+    public EnumHandler.PlayerType getPlayerType() {
+        return playerType;
+    }
+
+    /**
+     * Player type Setter
+     * */
+    public void setPlayerType(EnumHandler.PlayerType playerType) {
+        this.playerType = playerType;
     }
 }
