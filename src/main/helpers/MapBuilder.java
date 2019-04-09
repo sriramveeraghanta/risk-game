@@ -35,19 +35,15 @@ public class MapBuilder {
         this.gameCommon = new GameCommon();
     }
 
-
     /**
      * Processing of World.map file starts here
-     * @param mapFilePath This parameter will contain the path of map file
+     * @param mapFileName This parameter will contain the path of map file
      * @return boolean if it is valid or invalid
      * @throws GameException if exception happened it throws exception
      */
-    public boolean readMapFile(String mapFilePath) throws GameException {
-        if (mapFilePath == null) {
-            mapFilePath = MapBuilder.class.getResource("/maps/world.map").getFile();
-        }
+    public boolean readMapFile(String mapFileName) throws GameException {
         try {
-            mapFileReader = new FileReader(mapFilePath);
+            mapFileReader = new FileReader(GameConstants.MAPS_DIR_PATH + mapFileName);
             BufferedReader mapDataReader = new BufferedReader(mapFileReader);
             String mapLineData;
             while ((mapLineData = mapDataReader.readLine()) != null) {
