@@ -42,35 +42,33 @@ public class AttackPhase {
     /**
      * This method handles all out attack
      */
-    public void allOutMode(){
-        int min=1,defenderMax,attackerMax;
-        setAllOutModeFlag(true);
-     while(!isAttackEnd()){
-         if(attackingCountry.getArmyInCountry() >=3 )
-         {
-             attackerMax=3;
-             defenderMax=2;
-         }else
-         {
-                 attackerMax = attackingCountry.getArmyInCountry();
-                 defenderMax = attackingCountry.getArmyInCountry();
+    public void allOutMode() {
+        int min = 1;
+        int defenderMax, attackerMax;
+        allOutModeFlag=true;
+        while (!attackEnd) {
+            if (attackingCountry.getArmyInCountry() >= 3) {
+                attackerMax = 3;
+                defenderMax = 2;
+            } else {
+                attackerMax = attackingCountry.getArmyInCountry();
+                defenderMax = attackingCountry.getArmyInCountry();
+            }
 
-         }
-         int getAttackerDiceCount=diceCount(attackerMax,min);
-         int getDefenderDiceCount=diceCount(defenderMax,min);
-         System.out.println("allout attacker army:"+attackingCountry.getArmyInCountry());
-         System.out.println("allout defender:"+defendingCountry.getArmyInCountry());
-         if(attackingCountry.getArmyInCountry() >= 1 && defendingCountry.getArmyInCountry()>=1) {
-             System.out.println("allout mode method 1 attacker dice count:"+getAttackerDiceCount);
-             System.out.println("allout mode method 1 defender dice count:"+getDefenderDiceCount);
-             attackCountry(getAttackerDiceCount,getDefenderDiceCount) ;
-         }else{
-             attackResult();
-             setAttackEnd(true);
-
-         }
-
-     }
+            if(attackingCountry.getArmyInCountry() >= 1 && defendingCountry.getArmyInCountry()>=1) {
+                int getAttackerDiceCount = diceCount(attackerMax, min);
+                int getDefenderDiceCount = diceCount(defenderMax, min);
+                System.out.println("allout attacker army:"+attackingCountry.getArmyInCountry());
+                System.out.println("allout defender:"+defendingCountry.getArmyInCountry());
+                System.out.println("allout mode method 1 attacker dice count:"+getAttackerDiceCount);
+                System.out.println("allout mode method 1 defender dice count:"+getDefenderDiceCount);
+                attackCountry(getAttackerDiceCount, getDefenderDiceCount);
+            } else {
+                attackResult();
+                attackEnd=true;
+            }
+        }
+    }
 
     /**
      * this method will give dice counts
@@ -87,11 +85,19 @@ public class AttackPhase {
     /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      */
-    public void attackCountry(int attackerDiceCount, int defenderDiceCount) {
+    public void attackCountry(int attackerDiceCount,int defenderDiceCount) {
         ArrayList<Integer> attackerDiceValues;
         ArrayList<Integer> defenderDiceValues;
+
         attackerDiceValues = getAllDiceValues(attackerDiceCount);
         defenderDiceValues = getAllDiceValues(defenderDiceCount);
+
+        for(Integer i : attackerDiceValues){
+            System.out.println("Attacker dice values :"+i);
+        }
+        for(Integer i : defenderDiceValues){
+            System.out.println("defender dice values :"+i);
+        }
         for (int i = 0; i < defenderDiceValues.size(); i++) {
             if (Collections.max(attackerDiceValues) < Collections.max(defenderDiceValues)) {
                 attackingCountry.setArmyInCountry(attackingCountry.getArmyInCountry() - 1);
@@ -103,7 +109,7 @@ public class AttackPhase {
         }
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
-        if (!isAllOutModeFlag()) {
+        if (!allOutModeFlag) {
             attackResult();
         }
 
@@ -113,6 +119,7 @@ public class AttackPhase {
      * this method will give attack result
      */
     private void attackResult() {
+        allOutModeFlag=false;
         // if attacker looses
         if (attackingCountry.getArmyInCountry() <=0 ) {
             this.assignCardToPlayer(this.defendingPlayer);
@@ -247,7 +254,7 @@ public class AttackPhase {
                 System.out.println("assignRemainingCardsToWinnerPlayer method start:loser deck before adding"+loserPlayer.getDeck().size());
                 winnerDeck.addAll(loserPlayer.getDeck());
                 System.out.println("assignRemainingCardsToWinnerPlayer method start:winner deck after adding"+winnerDeck.size());
-                loserPlayer.setDeck(null);
+              ///  loserPlayer.setDeck(null);
                 loserPlayer.setActive(false);
             }
        // }

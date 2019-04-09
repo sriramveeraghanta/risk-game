@@ -73,6 +73,7 @@ public class ReinforcementDialogController implements Observer {
         this.currentPlayerModel.setArmyInHand(this.currentPlayerModel.getArmyInHand() + reinforcePhase.getArmyUnitsForConqueredContinent());
         // Display
         playerUnitsInHandLabel.setText("" + this.currentPlayerModel.getArmyInHand());
+
         playerCardsCountLabel.setText("" + this.currentPlayerModel.getDeck().size());
         // Rendering Player Countries
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(currentPlayerModel.getCountries());

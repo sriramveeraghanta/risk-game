@@ -33,6 +33,7 @@ public class AttackPhaseDialogController implements Observer {
     private CountryModel defendingCountry = null;
     private PlayerModel currentPlayerModel = null;
     private String defendingCountryName = null;
+    private int currentPlayerCountrySize;
 
     @FXML
     private ListView<CountryModel> attackingCountryListView, defendingCountryListView;
@@ -64,6 +65,7 @@ public class AttackPhaseDialogController implements Observer {
         ArrayList<CountryModel> playerCountries = currentPlayerModel.getCountries();
         ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
         attackingCountryListView.setItems(playerCountriesObservable);
+        armyCountTextField.setDisable(true);
         attackingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
             @Override
             public void updateItem(CountryModel item, boolean empty) {
@@ -105,6 +107,10 @@ public class AttackPhaseDialogController implements Observer {
         if (attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             attackPhase.allOutMode();
+            if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
+                System.out.println("Inside disable condition");
+                armyCountTextField.setDisable(false);
+            }
         } else {
             DialogHandler.showWarningMessage("Please Select Attacking and Defending country");
         }
@@ -116,11 +122,13 @@ public class AttackPhaseDialogController implements Observer {
     public void attackAction() {
         if (attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
-            int currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
+             currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
             if(attackingCountry.getArmyInCountry() >= 1) {
                 try {
                     int attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
                     int defenderDiceCount = Integer.parseInt(defenderDiceCountTextField.getText());
+                    System.out.println("Attacker dice count:"+attackerDiceCount);
+                    System.out.println("defender dice count:"+defenderDiceCount);
                     if (attackerDiceCount != 0 && defenderDiceCount != 0 && attackerDiceCount <= attackingCountry.getArmyInCountry() &&
                             defenderDiceCount <= attackingCountry.getArmyInCountry() && attackerDiceCount <= 3 && defenderDiceCount <= 2) {
                         attackPhase.attackCountry(attackerDiceCount, defenderDiceCount);
@@ -137,6 +145,7 @@ public class AttackPhaseDialogController implements Observer {
                     }
                     /// ((Node)(event.getSource())).getScene().getWindow().hide();
                 } catch (NumberFormatException e) {
+                    e.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Input Error");
                     alert.setHeaderText(null);

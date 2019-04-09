@@ -63,11 +63,7 @@ public class CardSwapDialogController implements Observer {
     public void initializeCardsViewer() {
         playerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         ArrayList<CardModel>  playerCardsList = getPlayerModel().getDeck();
-        if (playerCardsList.size() < 3) {
             SwapCardsButton.setDisable(true);
-        } else {
-            SwapCardsButton.setDisable(false);
-        }
         int numberOfCards = playerCardsList.size();
         checkBoxes = new CheckBox[numberOfCards];
         for (int i = 0; i < numberOfCards; i++) {
@@ -97,7 +93,11 @@ public class CardSwapDialogController implements Observer {
                 playerUnitsInHand.setText(Integer.toString(armyUnits));
                 if(armyUnits ==0){
                     SwapCardsButton.setDisable(true);
+                    playerModel.setSuccessfulCardSwapCounter(playerModel.getSuccessfulCardSwapCounter()-1);
+                }else{
+                    SwapCardsButton.setDisable(false);
                 }
+
 
             }
 

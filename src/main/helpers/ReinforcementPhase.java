@@ -72,12 +72,9 @@ public class ReinforcementPhase {
         }
         int totalNumberOfArmyUnits = getNumberOfSimilarCards(playerCardsList) + getNumberOfDifferentCards(playerCardsList);
         if (totalNumberOfArmyUnits > 0) {
-            if(isUpdatePlayerDeck())
-            {
                 this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
                 gameModel.cardSwap();
-            }
-            return (totalNumberOfArmyUnits * 5) *(this.playerModel.getSuccessfulCardSwapCounter() + 1);
+            return (totalNumberOfArmyUnits * 5) *(this.playerModel.getSuccessfulCardSwapCounter());
         }
 
         return 0;
@@ -122,12 +119,18 @@ public class ReinforcementPhase {
         ArrayList<CardModel> cards = playerCardsList;
 
         infantryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.INFANTRY);
+        System.out.println("infinity card number:"+infantryCardNumber);
         artilaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.ARTILLERY);
+        System.out.println("artilary card number:"+artilaryCardNumber);
         cavalaryCardNumber = getNumberCardTypeByCardType(cards, EnumHandler.CardType.CAVALRY);
+        System.out.println("cavalry card number:"+cavalaryCardNumber);
 
         numberOfUnits += infantryCardNumber / 3;
+        System.out.println("Step 1::"+numberOfUnits);
         numberOfUnits += artilaryCardNumber / 3;
+        System.out.println("Step 2::"+numberOfUnits);
         numberOfUnits += cavalaryCardNumber / 3;
+        System.out.println("Step 3::"+numberOfUnits);
 
         if (infantryCardNumber / 3 > 0 && isUpdatePlayerDeck()) {
             setPlayerDeckByCardType(cards, EnumHandler.CardType.INFANTRY);
@@ -156,10 +159,14 @@ public class ReinforcementPhase {
         ArrayList<CardModel> playerCards = playerCardsList;
 
         infantryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.INFANTRY);
-        artilaryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.ARTILLERY);
-        cavalaryCardNumber = getNumberCardTypeByCardType(playerCards, EnumHandler.CardType.CAVALRY);
+        System.out.println("infinity card number:"+infantryCardNumber);
+        artilaryCardNumber = getNumberCardTypeByCardType(playerCards , EnumHandler.CardType.ARTILLERY);
+        System.out.println("artilary card number:"+artilaryCardNumber);
+        cavalaryCardNumber = getNumberCardTypeByCardType(playerCards , EnumHandler.CardType.CAVALRY);
+        System.out.println("cavalry card number:"+cavalaryCardNumber);
 
         numberOfUnits = Math.min(infantryCardNumber, Math.min(artilaryCardNumber, cavalaryCardNumber));
+        System.out.println("number of units:"+numberOfUnits);
 
         if (numberOfUnits > 0 && isUpdatePlayerDeck()) {
             setPlayerDeckByCardType(playerCards, EnumHandler.CardType.INFANTRY, numberOfUnits);

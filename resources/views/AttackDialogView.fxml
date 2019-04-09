@@ -18,9 +18,9 @@
         <Pane layoutY="299.0" prefHeight="150.0" prefWidth="500.0">
             <children>
             <Label layoutX="20.0" layoutY="62.0" prefHeight="25.0" prefWidth="208.0" text="Number of Defender Dice to Roll:" />
-            <TextField fx:id="defenderDiceCountTextField" layoutX="166.0" layoutY="110.0" prefHeight="27.0" prefWidth="66.0" />
+            <TextField  fx:id="armyCountTextField" layoutX="166.0" layoutY="110.0" prefHeight="27.0" prefWidth="66.0" />
             <Label layoutX="26.0" layoutY="111.0" prefHeight="25.0" prefWidth="139.0" text="Army count to move :" />
-            <TextField fx:id="armyCountTextField" layoutX="234.0" layoutY="62.0" prefHeight="27.0" prefWidth="66.0" />
+            <TextField  fx:id="defenderDiceCountTextField" layoutX="234.0" layoutY="62.0" prefHeight="27.0" prefWidth="66.0" />
             <TextField fx:id="attackerDiceCountTextField" layoutX="225.0" layoutY="13.0" prefHeight="27.0" prefWidth="66.0" />
             </children>
         </Pane>
