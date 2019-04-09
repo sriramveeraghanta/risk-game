@@ -63,11 +63,7 @@ public class CardSwapDialogController implements Observer {
     public void initializeCardsViewer() {
         playerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         ArrayList<CardModel>  playerCardsList = getPlayerModel().getDeck();
-        if (playerCardsList.size() < 3) {
             SwapCardsButton.setDisable(true);
-        } else {
-            SwapCardsButton.setDisable(false);
-        }
         int numberOfCards = playerCardsList.size();
         checkBoxes = new CheckBox[numberOfCards];
         for (int i = 0; i < numberOfCards; i++) {
@@ -97,7 +93,12 @@ public class CardSwapDialogController implements Observer {
                 playerUnitsInHand.setText(Integer.toString(armyUnits));
                 if(armyUnits ==0){
                     SwapCardsButton.setDisable(true);
+
+                }else{
+                    SwapCardsButton.setDisable(false);
+                    playerModel.setSuccessfulCardSwapCounter(playerModel.getSuccessfulCardSwapCounter()-1);
                 }
+
 
             }
 
@@ -168,6 +169,8 @@ public class CardSwapDialogController implements Observer {
      * this method is to update the view
      */
     public void update(Observable o, Object arg) {
+
+        System.out.println("player Cards:"+ getPlayerModel().getDeck().size());
         String phase = (String) arg;
           if(phase.equalsIgnoreCase("cardSwap")) {
             cards.setText(""+getPlayerModel().getDeck().size());
@@ -177,6 +180,7 @@ public class CardSwapDialogController implements Observer {
                   checkBoxes[i] = new CheckBox(
                           getPlayerModel().getDeck().get(i).getCardType().toString());
               }
+              cardsView.getChildren().clear();
               cardsView.getChildren().addAll(checkBoxes);
               CalculateArmyButton.setDisable(true);
               SwapCardsButton.setDisable(true);

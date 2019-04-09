@@ -22,7 +22,8 @@ public class AttackPhase {
     public GameModel gameModel;
     private boolean attackEnd = false;
     private boolean allOutModeFlag = false;
-
+    private int attackerArmyCount,defenderArmyCount;
+    int getAttackerDiceCount,getDefenderDiceCount;
 
     /**
      * This method is constructor for attack phase
@@ -35,6 +36,8 @@ public class AttackPhase {
         this.gameModel = gameModel;
         this.attackingCountry = attackingCountry;
         this.defendingCountry = defendingCountry;
+        this.attackerArmyCount=attackingCountry.getArmyInCountry();
+        this.defenderArmyCount=defendingCountry.getArmyInCountry();
         this.attackingPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         this.defendingPlayer = getDefender(defendingCountry);
     }
@@ -42,26 +45,33 @@ public class AttackPhase {
     /**
      * This method handles all out attack
      */
-    public void allOutMode() {
+    public int allOutMode() {
         int min = 1;
         int defenderMax, attackerMax;
-        while (!isAttackEnd()) {
+        allOutModeFlag=true;
+        while (!attackEnd) {
             if (attackingCountry.getArmyInCountry() >= 3) {
                 attackerMax = 3;
                 defenderMax = 2;
             } else {
-                attackerMax = attackingCountry.getArmyInCountry();
+                attackerMax = attackingCountry.getArmyInCountry() - 1;
                 defenderMax = attackingCountry.getArmyInCountry();
             }
-            int getAttackerDiceCount = diceCount(attackerMax, min);
-            int getDefenderDiceCount = diceCount(defenderMax, min);
-            if (attackingCountry.getArmyInCountry() >= 2 && defendingCountry.getArmyInCountry() >= 1) {
+
+            if(attackingCountry.getArmyInCountry() >= 2 && defendingCountry.getArmyInCountry()>=1) {
+                 getAttackerDiceCount = diceCount(attackerMax, min);
+                 getDefenderDiceCount = diceCount(defenderMax, min);
+                System.out.println("allout attacker army:"+attackingCountry.getArmyInCountry());
+                System.out.println("allout defender:"+defendingCountry.getArmyInCountry());
+                System.out.println("allout mode method 1 attacker dice count:"+getAttackerDiceCount);
+                System.out.println("allout mode method 1 defender dice count:"+getDefenderDiceCount);
                 attackCountry(getAttackerDiceCount, getDefenderDiceCount);
             } else {
-                //attackResult();
-                setAttackEnd(true);
+                attackResult();
+                attackEnd=true;
             }
         }
+        return getAttackerDiceCount;
     }
 
     /**
@@ -69,26 +79,30 @@ public class AttackPhase {
      */
     private int diceCount(int max, int min) {
         Random r = new Random();
-        int dice = r.nextInt((max - min) + 1) + min;
+        int dice= r.nextInt((max - min) + 1);
+        if(dice==0){
+            dice=1;
+        }
         return dice;
     }
 
     /**
      * This method do all the processes it should be done in attacking phase like rolling dice check result
      */
-    public void attackCountry(int attackerDiceCount, int defenderDiceCount) {
+    public void attackCountry(int attackerDiceCount,int defenderDiceCount) {
         ArrayList<Integer> attackerDiceValues;
         ArrayList<Integer> defenderDiceValues;
+
         attackerDiceValues = getAllDiceValues(attackerDiceCount);
         defenderDiceValues = getAllDiceValues(defenderDiceCount);
-        List<String> copyAttackerDiceValues =  new ArrayList<>();
+        /*List<String> copyAttackerDiceValues =  new ArrayList<>();
         List<String> copyDefenderDiceValues = new ArrayList<>();
 
         for(int i : attackerDiceValues ) copyAttackerDiceValues.add(String.valueOf(i));
         for(int i : defenderDiceValues ) copyDefenderDiceValues.add(String.valueOf(i));
 
         int originalAttackerArmyCount=  attackingCountry.getArmyInCountry();
-        int originalDefenderArmyCount= defendingCountry.getArmyInCountry();
+        int originalDefenderArmyCount= defendingCountry.getArmyInCountry();*/
 
         for (int i = 0; i < defenderDiceValues.size(); i++) {
             if (attackerDiceValues.get(i) < defenderDiceValues.get(i)) {
@@ -99,8 +113,8 @@ public class AttackPhase {
         }
         System.out.println(attackingCountry.getArmyInCountry());
         System.out.println(defendingCountry.getArmyInCountry());
-        if (!isAllOutModeFlag()) {
-            attackResult( String.join(" - ", copyAttackerDiceValues),String.join(" - ", copyDefenderDiceValues),originalAttackerArmyCount,originalDefenderArmyCount );
+        if (!allOutModeFlag) {
+            attackResult( /*String.join(" - ", copyAttackerDiceValues),String.join(" - ", copyDefenderDiceValues),originalAttackerArmyCount,originalDefenderArmyCount*/ );
         }
 
     }
@@ -108,24 +122,20 @@ public class AttackPhase {
     /**
      * this method will give attack result
      */
-    private void attackResult(String attackerDices, String defenderDices, int originalAttackerArmyCount, int originalDefenderArmyCount) {
-        String outputText =  "Player " + attackingPlayer.getColor().toString().toUpperCase() + " of country " + this.attackingCountry.getCountryName() +" got the dice values "+ attackerDices +"\n" +
-                "Player " + defendingPlayer.getColor().toString().toUpperCase() + " of country " + this.defendingCountry.getCountryName() +"  got the dice values "+ defenderDices +"\n" +
-                "Player "+ attackingPlayer.getColor().toString().toUpperCase()+ " " + this.returnWonOrLost(originalAttackerArmyCount,this.attackingCountry.getArmyInCountry()) +" " + Math.abs(originalAttackerArmyCount -this.attackingCountry.getArmyInCountry()) +"\n" +
-                "Player "+ defendingPlayer.getColor().toString().toUpperCase()+ " " + this.returnWonOrLost(originalDefenderArmyCount,this.defendingCountry.getArmyInCountry()) +" "  + Math.abs(originalDefenderArmyCount -this.defendingCountry.getArmyInCountry())  +"\n";
-
+    private void attackResult() {
+        allOutModeFlag=false;
         // if attacker looses
-        if (attackingCountry.getArmyInCountry() <= 1) {
-            this.assignCardToPlayer(this.defendingPlayer);
+        if (attackingCountry.getArmyInCountry() <=1 && defendingCountry.getArmyInCountry()>=1 ) {
+      /*      this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
-            this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
+            this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);*/
             // Alert to the user
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("You have attacked the defending country");
             alert.setHeaderText(null);
-            alert.setContentText( attackingPlayer.getColor().toString().toUpperCase()+" Attacker Lost");
+            alert.setContentText("Attacker "+attackingPlayer.getColor().toString()+" Lost");
             alert.showAndWait();
-            gameModel.attackPhaseEnd();
+            gameModel.attackPhase();
         }
         // if defender looses
         else if (defendingCountry.getArmyInCountry() <= 0) {
@@ -136,15 +146,17 @@ public class AttackPhase {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Defender Lost");
             alert.setHeaderText(null);
-            alert.setContentText("Attacker won and occupied the attacking country,Attacker can move the army");
+            alert.setContentText("Attacker "+attackingPlayer.getColor().toString()+" won and occupied the attacking country,Attacker can move the army");
             alert.showAndWait();
             gameModel.attackPhaseEnd();
         } else {
-            // Alert to the user
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle( attackingPlayer.getColor().toString().toUpperCase() + " attack on "+  defendingPlayer.getColor().toString().toUpperCase());
+            alert.setTitle("Attacker "+attackingPlayer.getColor().toString()+" attacked the defending country "+defendingCountry.getCountryName());
             alert.setHeaderText(null);
-            alert.setContentText(outputText);
+            int attackerArmyUnitLost=attackerArmyCount-attackingCountry.getArmyInCountry();
+            int defenderArmyUnitLost=defenderArmyCount-defendingCountry.getArmyInCountry();
+            alert.setContentText("Attacking Complete :Attacker Lost "+attackerArmyUnitLost+" army unit and defender lost "+defenderArmyUnitLost+" army unit");
             alert.showAndWait();
             gameModel.attackPhase();
         }
@@ -188,11 +200,12 @@ public class AttackPhase {
      * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
-        System.out.println(this.gameModel.getCards());
+        System.out.println("Assign cards to player method :Start"+player.getDeck().size());
         int index = new Random().nextInt(this.gameModel.getCards().size());
         ArrayList<CardModel> deck = player.getDeck();
         deck.add(gameModel.getCards().get(index));
         player.setDeck(deck);
+        System.out.println("Assign cards to player method : end"+player.getDeck().size());
     }
 
     /**
@@ -239,12 +252,21 @@ public class AttackPhase {
      * @param loserPlayer  object of the player who lost
      */
     public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
-        if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
-            if (loserPlayer.getDeck() != null || loserPlayer.getDeck().size() > 0) {
-                ArrayList<CardModel> winnerDeck = winnerPlayer.getDeck();
-                winnerDeck.addAll(loserPlayer.getDeck());
-                loserPlayer.setActive(false);
-            }
+        System.out.println("assignRemainingCardsToWinnerPlayer method start");
+         if (loserPlayer.getCountries() == null || loserPlayer.getCountries().size() == 0) {
+        if (loserPlayer.getDeck() != null && loserPlayer.getDeck().size() > 0) {
+            ArrayList<CardModel> winnerDeck = winnerPlayer.getDeck();
+            System.out.println("assignRemainingCardsToWinnerPlayer method start:winner deck before adding"+winnerDeck.size());
+            System.out.println("assignRemainingCardsToWinnerPlayer method start:loser deck before adding"+loserPlayer.getDeck().size());
+            winnerDeck.addAll(loserPlayer.getDeck());
+            System.out.println("assignRemainingCardsToWinnerPlayer method start:winner deck after adding"+winnerDeck.size());
+             if(loserPlayer.getDeck()!= null && loserPlayer.getDeck().size()>0 ){
+                   loserPlayer.getDeck().clear();
+
+                   ///TODO: check whether lostPlayer model should be removed
+             }
+            loserPlayer.setActive(false);
+        }
         }
     }
 
@@ -278,10 +300,10 @@ public class AttackPhase {
         this.attackEnd = attackEnd;
     }
 
-    private String returnWonOrLost(int beforeValue, int afterValue){
+   /* private String returnWonOrLost(int beforeValue, int afterValue){
         if(beforeValue < afterValue)
             return " lost ";
         else
-        return " won ";
-    }
+            return " won ";
+    }*/
 }
