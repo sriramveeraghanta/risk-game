@@ -20,15 +20,24 @@ import java.util.Observer;
  */
 public class CardSwapDialogController implements Observer {
 
-
     public Label cards,playerUnitsInHand;
     private GameModel gameModel;
     private CountryModel selectedCountry = null;
-    private PlayerModel playerModel=null;
-    private List<CardModel> selectedCards=null;
+    private PlayerModel playerModel;
+    private ArrayList<CardModel> selectedCards;
     private ReinforcementPhase reinforcePhase=null;
+    private CheckBox[] checkBoxes;
 
-
+    @FXML
+    private VBox cardsView;
+    @FXML
+    private Button SwapCardsButton, CalculateArmyButton;
+    @FXML
+    public AnchorPane ReinforcementPanel;
+    @FXML
+    private ListView<CardModel> PlayerCardsList;
+    @FXML
+    private TextField ArmyCountToPlace;
 
     /**
      * Getter method to get the game model object
@@ -42,24 +51,6 @@ public class CardSwapDialogController implements Observer {
      * Setter method to setting the game model
      * @param gameModel object of game model
      */
-
-    private CheckBox[] checkBoxes;
-
-    @FXML
-    private VBox cardsView;
-
-    @FXML
-    private Button SwapCardsButton,CalculateArmyButton;
-
-    @FXML
-    public AnchorPane ReinforcementPanel;
-
-    @FXML
-    private ListView<CardModel> PlayerCardsList;
-
-    @FXML
-    private TextField ArmyCountToPlace;
-
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
         this.initializeCardsViewer();
@@ -70,8 +61,8 @@ public class CardSwapDialogController implements Observer {
      *
      * */
     public void initializeCardsViewer() {
-        setPlayerModel(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()));
-        List<CardModel>  playerCardsList = getPlayerModel().getDeck();
+        playerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
+        ArrayList<CardModel>  playerCardsList = getPlayerModel().getDeck();
         if (playerCardsList.size() < 3) {
             SwapCardsButton.setDisable(true);
         } else {
@@ -90,7 +81,7 @@ public class CardSwapDialogController implements Observer {
     @FXML
     public void calculateArmy() {
             int counter = 0;
-        List<CardModel>  playerCardsList = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getDeck();
+        ArrayList<CardModel>  playerCardsList = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getDeck();
          selectedCards = new ArrayList<>();
             for (CheckBox check : checkBoxes) {
                 if (check.isSelected()) {
@@ -112,10 +103,8 @@ public class CardSwapDialogController implements Observer {
 
     }
 
-
     /**
      * SwapCards Action Listener.
-     *
      * */
     @FXML
     public void swapCardAction() {

@@ -30,23 +30,23 @@ public class ReinforcementPhaseTest {
      * method which should run before all of the test methods
      * @throws Exception if exception occur throws Exception
      */
-    @Before
-    public void before() throws Exception {
-        playerModel = new PlayerModel();
-        gameModel = new GameModel();
-        reinforce = new ReinforcementPhase(playerModel, gameModel);
-        mapBuilder = new MapBuilder(gameModel);
-        mapBuilder.readMapFile(null);
-        gameCommons = new GameCommon();
-        cardModel = new CardModel(EnumHandler.CardType.INFANTRY);
-        cardModel.setNumberOfCards(4);
-        cardModel1 = new CardModel(EnumHandler.CardType.INFANTRY);
-        cardModel1.setNumberOfCards(2);
-        country1 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Venezuala");
-        country2 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Peru");
-        country3 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Brazil");
-        country4 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Argentina");
-    }
+//    @Before
+//    public void before() throws Exception {
+//        playerModel = new PlayerModel();
+//        gameModel = new GameModel();
+//        reinforce = new ReinforcementPhase(playerModel, gameModel);
+//        mapBuilder = new MapBuilder(gameModel);
+//        mapBuilder.readMapFile(null);
+//        gameCommons = new GameCommon();
+//        cardModel = new CardModel(EnumHandler.CardType.INFANTRY);
+//        cardModel.setNumberOfCards(4);
+//        cardModel1 = new CardModel(EnumHandler.CardType.INFANTRY);
+//        cardModel1.setNumberOfCards(2);
+//        country1 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Venezuala");
+//        country2 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Peru");
+//        country3 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Brazil");
+//        country4 = gameCommons.getCountryModelFromList(gameModel.getCountries(),"Argentina");
+//    }
 
     /**
      * Method: swapCardsForArmyUnits()
@@ -145,7 +145,7 @@ public class ReinforcementPhaseTest {
      */
     @Test
     public void testGetNumberCardTypeByCardType() throws Exception {
-        List<CardModel> card =new ArrayList<>();
+        ArrayList<CardModel> card =new ArrayList<>();
         card.add(cardModel);
         assertEquals(reinforce.getNumberCardTypeByCardType(card, EnumHandler.CardType.INFANTRY), 4);
     }
