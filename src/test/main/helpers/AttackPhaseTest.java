@@ -99,4 +99,9 @@ public void testGetNumberofDefenderDiceLessThan2() throws Exception {
 public void testGetAllDiceValues() throws Exception {
     assertNotNull(attackPhase.getAllDiceValues(2));
 }
+
+@Test
+    public void testAllOut(){
+    attackPhase.allOutMode();
+}
 } 
