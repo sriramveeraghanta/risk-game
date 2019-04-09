@@ -52,12 +52,17 @@ public class AttackPhase {
              defenderMax=2;
          }else
          {
-             attackerMax=attackingCountry.getArmyInCountry();
-             defenderMax=attackingCountry.getArmyInCountry();
+                 attackerMax = attackingCountry.getArmyInCountry();
+                 defenderMax = attackingCountry.getArmyInCountry();
+
          }
          int getAttackerDiceCount=diceCount(attackerMax,min);
          int getDefenderDiceCount=diceCount(defenderMax,min);
-         if(attackingCountry.getArmyInCountry() >= 2 && defendingCountry.getArmyInCountry()>=1) {
+         System.out.println("allout attacker army:"+attackingCountry.getArmyInCountry());
+         System.out.println("allout defender:"+defendingCountry.getArmyInCountry());
+         if(attackingCountry.getArmyInCountry() >= 1 && defendingCountry.getArmyInCountry()>=1) {
+             System.out.println("allout mode method 1 attacker dice count:"+getAttackerDiceCount);
+             System.out.println("allout mode method 1 defender dice count:"+getDefenderDiceCount);
              attackCountry(getAttackerDiceCount,getDefenderDiceCount) ;
          }else{
              attackResult();
@@ -74,7 +79,10 @@ public class AttackPhase {
 
     public int diceCount(int max,int min){
         Random r = new Random();
-        int dice= r.nextInt((max - min) + 1) + min;
+        int dice= r.nextInt((max - min) + 1);
+        if(dice==0){
+            dice=1;
+        }
         return dice;
     }
     /**
@@ -109,7 +117,7 @@ public class AttackPhase {
      */
     public void attackResult(){
         // if attacker looses
-        if (attackingCountry.getArmyInCountry() <= 1 ) {
+        if (attackingCountry.getArmyInCountry() <=0 ) {
             this.assignCardToPlayer(this.defendingPlayer);
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);
@@ -179,11 +187,12 @@ public class AttackPhase {
      * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
-        System.out.println(this.gameModel.getCards());
+        System.out.println("Assign cards to player method :Start"+player.getDeck().size());
         int index = new Random().nextInt(this.gameModel.getCards().size());
         ArrayList<CardModel> deck = player.getDeck();
         deck.add(gameModel.getCards().get(index));
         player.setDeck(deck);
+        System.out.println("Assign cards to player method : end"+player.getDeck().size());
     }
 
     /**
@@ -227,13 +236,18 @@ public class AttackPhase {
      * @param loserPlayer object of the player who lost
      */
     public void assignRemainingCardsToWinnerPlayer(PlayerModel winnerPlayer, PlayerModel loserPlayer) {
-        if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
-            if (loserPlayer.getDeck() != null || loserPlayer.getDeck().size() > 0) {
+        System.out.println("assignRemainingCardsToWinnerPlayer method start");
+       // if (loserPlayer.getCountries() != null || loserPlayer.getCountries().size() == 0) {
+            if (loserPlayer.getDeck() != null && loserPlayer.getDeck().size() > 0) {
                 ArrayList<CardModel> winnerDeck = winnerPlayer.getDeck();
+                System.out.println("assignRemainingCardsToWinnerPlayer method start:winner deck before adding"+winnerDeck.size());
+                System.out.println("assignRemainingCardsToWinnerPlayer method start:loser deck before adding"+loserPlayer.getDeck().size());
                 winnerDeck.addAll(loserPlayer.getDeck());
+                System.out.println("assignRemainingCardsToWinnerPlayer method start:winner deck after adding"+winnerDeck.size());
+                loserPlayer.setDeck(null);
                 loserPlayer.setActive(false);
             }
-        }
+       // }
     }
 
     public String swapArmyBetweenCountries(int numberOfArmyUnits) {

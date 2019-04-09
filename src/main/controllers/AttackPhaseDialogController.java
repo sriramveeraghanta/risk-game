@@ -43,7 +43,7 @@ public class AttackPhaseDialogController implements Observer {
         if(attackingCountry != null && defendingCountry != null) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             int currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
-            if(attackingCountry.getArmyInCountry() >= 2) {
+            if(attackingCountry.getArmyInCountry() >= 1) {
                 try {
 
                     int attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
