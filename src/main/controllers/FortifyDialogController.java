@@ -4,7 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -13,6 +15,7 @@ import main.helpers.FortificationPhase;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.models.PlayerModel;
+import main.utills.DialogHandler;
 import main.utills.GameCommon;
 import main.utills.GameConstants;
 
@@ -30,7 +33,8 @@ public class FortifyDialogController implements Observer {
     private CountryModel playerFromCountry = null;
     private CountryModel playerOwnedAdjacentToCountry = null;
     private PlayerModel currentPlayer = null;
-
+    private boolean fortifyEligibility=false;
+    private GameBoardController gameBoardController;
     @FXML
     private ListView<CountryModel> playerOwnedAdjacentCountryList, playerCountryList;
 
@@ -57,11 +61,16 @@ public class FortifyDialogController implements Observer {
         this.initializeFortify();
     }
 
+    public void setGameController (GameBoardController gameBoardController) {
+       this.gameBoardController=gameBoardController;
+    }
+
     /**
      * Fortify action listener
      */
     @FXML
-    public void fortifyAction() {
+    public void fortifyAction(ActionEvent event) {
+        if(fortifyEligibility){
         try {
             if (getPlayerFromCountry() != null && getPlayerOwnedAdjacentToCountry() != null) {
                 int armyCount = 0;
@@ -73,6 +82,11 @@ public class FortifyDialogController implements Observer {
                 }
                 String message = fortifyPhase.swapArmyUnitsBetweenCountries(getPlayerFromCountry(), getPlayerOwnedAdjacentToCountry(), armyCount);
                 if (message != null) {
+                    if(message .equalsIgnoreCase(GameConstants.FORTIFY_VALID_MSG)){
+                        fortifyEligibility=false;
+                        gameBoardController.switchPlayerControlAction();
+                        ((Node)(event.getSource())).getScene().getWindow().hide();
+                    }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Fortification Phase");
                     alert.setHeaderText(null);
@@ -85,6 +99,9 @@ public class FortifyDialogController implements Observer {
             }
         } catch (Exception e) {
             invalidMsg();
+        }
+        }else{
+            DialogHandler.showWarningMessage("Your fortification turn over");
         }
     }
 
@@ -104,7 +121,7 @@ public class FortifyDialogController implements Observer {
     private void initializeFortify() {
 
         GameCommon gameCommons = new GameCommon();
-
+        fortifyEligibility=true;
         PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
         setCurrentPlayer(currentPlayer);
         ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
