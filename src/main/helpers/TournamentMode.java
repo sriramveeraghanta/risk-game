@@ -35,6 +35,7 @@ public class TournamentMode {
         }
         for(String result :results){
             System.out.println("result ----:"+result);
+
         }
 
         if(results.size()>0){
@@ -57,7 +58,7 @@ public class TournamentMode {
                 if(player.getPlayerType().toString().equals("AGGRESSIVE")){
                     System.out.println("Aggreassive mode Start");
                     aggressivePlay(player, gameModel);
-                    System.out.println("Aggreassive mode Stop:"+player.getCountries().size());
+                    System.out.println("Aggreassive mode Stop:");
                     if(player.getCountries().size() == gameModel.getCountries().size()){
                         return "Aggresive Player Won" ;
                     }
@@ -66,19 +67,23 @@ public class TournamentMode {
                 if(player.getPlayerType().toString().equals("BENEVOLENT")){
                     System.out.println("Benevolent mode Start");
                     benevolentPlay(player, gameModel);
-                    System.out.println("Benevolent mode Stop:"+player.getCountries().size());
+                    System.out.println("Benevolent mode Stop");
                     if(player.getCountries().size() == gameModel.getCountries().size()){
                         return "BENEVOLENT Player Won" ;
                     }
                 }
                 if(player.getPlayerType().toString().equals("RANDOM")){
+                    System.out.println("Random mode Start");
                     randomPlay(player, gameModel);
+                    System.out.println("Random mode Stop");
                     if(player.getCountries().size() == gameModel.getCountries().size()){
                         return "RAndom Player Won" ;
                     }
                 }
                 if(player.getPlayerType().toString().equals("CHEATER")){
+                    System.out.println("Cheater mode Start");
                     cheaterPlay(player, gameModel);
+                    System.out.println("Cheater mode Stop");
                     if(player.getCountries().size() == gameModel.getCountries().size()){
                         return "CheaterPlayer Won" ;
                     }
@@ -149,6 +154,7 @@ public class TournamentMode {
                 }
             }
             System.out.println("Attack --------------end");
+
             System.out.println("Fortify--------------Start");
             ///doubling the army count
             if (playerModel.getCountries().size() != 0) {
@@ -281,14 +287,21 @@ public class TournamentMode {
                 units.add(country.getArmyInCountry());
             }
             Collections.sort(units);
-            for (CountryModel country : countriesList) {
+            ///getting the weakest country
+            reinforceCountry= countriesList.stream()
+                    .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                    .findFirst().get();
+            if(reinforceCountry!=null){
+                reinforcementPhase.assignArmyUnitToCountry(reinforceCountry, playerModel.getArmyInHand());
+            }
+          /*  for (CountryModel country : countriesList) {
                 if (country.getArmyInCountry() == units.get(0)) {
-                    ///getting the weakest country
+
                     reinforceCountry = country;
                     reinforcementPhase.assignArmyUnitToCountry(reinforceCountry, playerModel.getArmyInHand());
                     break;
                 }
-            }
+            }*/
             System.out.println(" Reinforce --------------Stop");
             GameCommon gameCommons = new GameCommon();
             System.out.println(" fortify --------------Start");
@@ -298,12 +311,15 @@ public class TournamentMode {
             }
             CountryModel fortifyCountry = null, adjacentCountryToGetArmy = null;
             Collections.sort(units);
-            for (CountryModel country : countriesList) {
+            fortifyCountry= countriesList.stream()
+                    .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                    .findFirst().get();
+         /*   for (CountryModel country : countriesList) {
                 if (country.getArmyInCountry() == units.get(0)) {
                     fortifyCountry = country;
                     break;
                 }
-            }
+            }*/
             ArrayList<CountryModel> adjacentOwnedCountriesList = gameCommons.getPlayerOwnedAdjcentCountires(fortifyCountry.getAdjacentCountries(), playerModel.getCountries());
             units.clear();
             if (adjacentOwnedCountriesList.size() > 0) {
@@ -311,13 +327,17 @@ public class TournamentMode {
                     units.add(country.getArmyInCountry());
                 }
 
+
                 Collections.sort(units, Collections.reverseOrder());
-                for (CountryModel country : adjacentOwnedCountriesList) {
+                adjacentCountryToGetArmy= adjacentOwnedCountriesList.stream()
+                        .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                        .findFirst().get();
+              /*  for (CountryModel country : adjacentOwnedCountriesList) {
                     if (country.getArmyInCountry() == units.get(0)) {
                         adjacentCountryToGetArmy = country;
                         break;
                     }
-                }
+                }*/
                 FortificationPhase fortificationPhase = new FortificationPhase(gameModel, playerModel);
                 if (adjacentCountryToGetArmy.getArmyInCountry() >= 2) {
                     fortificationPhase.swapArmyUnitsBetweenCountries(adjacentCountryToGetArmy, fortifyCountry, adjacentCountryToGetArmy.getArmyInCountry() - 1);
@@ -364,6 +384,15 @@ public class TournamentMode {
                 units.add(country.getArmyInCountry());
             }
             Collections.sort(units, Collections.reverseOrder());
+            //getting the strongest country
+            reinforceCountry= countriesList.stream()
+                    .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                    .findFirst().get();
+
+            if(reinforcementPhase!=null){
+                reinforcementPhase.assignArmyUnitToCountry(reinforceCountry, playerModel.getArmyInHand());
+            }
+        /*    System.out.println("Stream check:"+coun.getCountryName());
             for (CountryModel country : countriesList) {
                 if (country.getArmyInCountry() == units.get(0)) {
                     ///getting strong country
@@ -371,7 +400,7 @@ public class TournamentMode {
                     reinforcementPhase.assignArmyUnitToCountry(reinforceCountry, playerModel.getArmyInHand());
                     break;
                 }
-            }
+            }*/
             System.out.println("Reinforce --------------END");
             ///Attack phase
             GameCommon gameCommons = new GameCommon();
@@ -423,12 +452,15 @@ public class TournamentMode {
             }
             CountryModel fortifyCountry = null, adjacentCountryToGetArmy = null;
             Collections.sort(units, Collections.reverseOrder());
-            for (CountryModel country : countriesList) {
+            fortifyCountry= countriesList.stream()
+                    .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                    .findFirst().get();
+           /* for (CountryModel country : countriesList) {
                 if (country.getArmyInCountry() == units.get(0)) {
                     fortifyCountry = country;
                     break;
                 }
-            }
+            }*/
             ArrayList<CountryModel> adjacentOwnedCountriesList = gameCommons.getPlayerOwnedAdjcentCountires(fortifyCountry.getAdjacentCountries(), playerModel.getCountries());
             units.clear();
             if (adjacentOwnedCountriesList.size() != 0) {
@@ -437,12 +469,16 @@ public class TournamentMode {
                 }
 
                 Collections.sort(units, Collections.reverseOrder());
-                for (CountryModel country : adjacentOwnedCountriesList) {
+
+                adjacentCountryToGetArmy= adjacentOwnedCountriesList.stream()
+                        .filter(countryModel -> countryModel.getArmyInCountry()==(units.get(0)))
+                        .findFirst().get();
+               /* for (CountryModel country : adjacentOwnedCountriesList) {
                     if (country.getArmyInCountry() == units.get(0)) {
                         adjacentCountryToGetArmy = country;
                         break;
                     }
-                }
+                }*/
                 FortificationPhase fortificationPhase = new FortificationPhase(gameModel, playerModel);
                 if (adjacentCountryToGetArmy.getArmyInCountry() >= 2) {
                     fortificationPhase.swapArmyUnitsBetweenCountries(adjacentCountryToGetArmy, fortifyCountry, adjacentCountryToGetArmy.getArmyInCountry() - 1);
