@@ -119,53 +119,60 @@ public class FortifyDialogController implements Observer {
      * Initializing the fortification phase
      */
     private void initializeFortify() {
+        if(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getCountries().size() == gameModel.getCountries().size()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You Won the Match");
+            alert.showAndWait();
+        }else {
 
-        GameCommon gameCommons = new GameCommon();
-        fortifyEligibility=true;
-        PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
-        setCurrentPlayer(currentPlayer);
-        ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
-        ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
-        playerCountryList.setItems(playerCountriesObservable);
-        playerCountryList.setCellFactory(lv -> new ListCell<CountryModel>() {
-            @Override
-            public void updateItem(CountryModel item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item.getCountryName() + "-" + item.getArmyInCountry());
+            GameCommon gameCommons = new GameCommon();
+            fortifyEligibility = true;
+            PlayerModel currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
+            setCurrentPlayer(currentPlayer);
+            ArrayList<CountryModel> playerCountries = currentPlayer.getCountries();
+            ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
+            playerCountryList.setItems(playerCountriesObservable);
+            playerCountryList.setCellFactory(lv -> new ListCell<CountryModel>() {
+                @Override
+                public void updateItem(CountryModel item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.getCountryName() + "-" + item.getArmyInCountry());
+                    }
                 }
-            }
-        });
-        playerCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
-            @Override
-            public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
-                //System.out.println("Selected Country: " + newValue.getCountryName());
-                setPlayerFromCountry(newValue);
+            });
+            playerCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
+                @Override
+                public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
+                    //System.out.println("Selected Country: " + newValue.getCountryName());
+                    setPlayerFromCountry(newValue);
 
-                ArrayList<CountryModel> adjacentCountryModels = gameCommons.getPlayerOwnedAdjcentCountires(newValue.getAdjacentCountries(), playerCountries);
-                ObservableList<CountryModel> adjacentCountries = FXCollections.observableArrayList(adjacentCountryModels);
-                playerOwnedAdjacentCountryList.setItems(adjacentCountries);
-                playerOwnedAdjacentCountryList.setCellFactory(lv -> new ListCell<CountryModel>() {
-                    @Override
-                    public void updateItem(CountryModel item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(item.getCountryName() + "-" + item.getArmyInCountry());
+                    ArrayList<CountryModel> adjacentCountryModels = gameCommons.getPlayerOwnedAdjcentCountires(newValue.getAdjacentCountries(), playerCountries);
+                    ObservableList<CountryModel> adjacentCountries = FXCollections.observableArrayList(adjacentCountryModels);
+                    playerOwnedAdjacentCountryList.setItems(adjacentCountries);
+                    playerOwnedAdjacentCountryList.setCellFactory(lv -> new ListCell<CountryModel>() {
+                        @Override
+                        public void updateItem(CountryModel item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setText(null);
+                            } else {
+                                setText(item.getCountryName() + "-" + item.getArmyInCountry());
+                            }
                         }
-                    }
-                });
-                playerOwnedAdjacentCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
-                    @Override
-                    public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
-                        setPlayerOwnedAdjacentToCountry(newValue);
-                    }
-                });
-            }
-        });
+                    });
+                    playerOwnedAdjacentCountryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
+                        @Override
+                        public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
+                            setPlayerOwnedAdjacentToCountry(newValue);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     /**

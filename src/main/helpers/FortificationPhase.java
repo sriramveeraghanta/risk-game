@@ -13,6 +13,8 @@ import java.util.List;
 public class FortificationPhase {
     private PlayerModel playerModel;
     private GameModel gameModel;
+    private boolean tournamentModeFlag=false;
+
 
 
     /**
@@ -51,17 +53,27 @@ public class FortificationPhase {
         List<CountryModel> countries = this.getPlayerModel().getCountries();
         CountryModel fromCountry = fromCountryModel;
         CountryModel toCountry = toCountryModel;
-
+       System.out.println("Army Swapping");
         if ((fromCountry.getArmyInCountry() < 2) || ((fromCountry.getArmyInCountry() - numberOfArmyUnits) <1)) {
             return GameConstants.FORTIFY_INVALID_MSG;
         } else {
             fromCountry.setArmyInCountry((fromCountry.getArmyInCountry() - numberOfArmyUnits));
             toCountry.setArmyInCountry((toCountry.getArmyInCountry() + numberOfArmyUnits));
-            getGameModel().fortify();
+            if(!tournamentModeFlag) {
+                getGameModel().fortify();
+            }
             return GameConstants.FORTIFY_VALID_MSG;
         }
 
    }
+
+    public boolean isTournamentModeFlag() {
+        return tournamentModeFlag;
+    }
+
+    public void setTournamentModeFlag(boolean tournamentModeFlag) {
+        this.tournamentModeFlag = tournamentModeFlag;
+    }
 
     public GameModel getGameModel() {
         return gameModel;
