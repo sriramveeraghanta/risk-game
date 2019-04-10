@@ -10,10 +10,10 @@ import main.helpers.GameHelper;
 import main.helpers.TournamentMode;
 import main.utills.DialogHandler;
 import main.utills.GameConstants;
+import main.utills.GameException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TournamentModeController {
 
@@ -44,7 +44,7 @@ public class TournamentModeController {
     }
 
     /**
-     * Start Tounmanent Action
+     * Start Tournament Action
      * */
     @FXML
     public void startTournamentMode() {
@@ -64,6 +64,8 @@ public class TournamentModeController {
                 }
             } catch (NumberFormatException e){
                 DialogHandler.showWarningMessage(GameConstants.INVALID_NUMBER_TOURNAMENT);
+            } catch (GameException e) {
+                DialogHandler.showWarningMessage(GameConstants.INVALID_MAP_ERROR);
             }
         } else {
             DialogHandler.showWarningMessage(GameConstants.INVALID_TOURNAMENT_DATA);
