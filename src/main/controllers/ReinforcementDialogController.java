@@ -65,6 +65,7 @@ public class ReinforcementDialogController implements Observer {
      * Initializing the Reinforment phase required data
      */
     private void initializeReinforce() {
+
         this.currentPlayerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
 
         reinforcePhase = new ReinforcementPhase(this.currentPlayerModel, gameModel);

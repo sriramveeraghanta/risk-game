@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -138,11 +139,36 @@ public class AttackPhaseDialogController implements Observer {
         if (attackingCountry != null && defendingCountry != null && attackingCountry.getArmyInCountry()>=2) {
             AttackPhase attackPhase = new AttackPhase(gameModel, attackingCountry, defendingCountry);
             attackerDiceCount=attackPhase.allOutMode();
-            if (currentPlayerCountrySize != getCurrentPlayerModel().getCountries().size()) {
+            GameCommon gameCommons = new GameCommon();
+            CountryModel defender = gameCommons.getCountryModelFromList(currentPlayerModel.getCountries(), getDefendingCountryName());
+            if (defender != null ) {
                 armyCountTextField.setDisable(false);
             }
         } else {
             DialogHandler.showWarningMessage("Please Select Proper Attacking and Defending country");
+        }
+    }
+
+
+    /**
+     * this method is to end attack
+     */
+    public void endAttackAction(ActionEvent event) {
+        GameCommon gameCommons = new GameCommon();
+        CountryModel defender = gameCommons.getCountryModelFromList(currentPlayerModel.getCountries(), getDefendingCountryName());
+        if (defender != null ) {
+            if(defender.getArmyInCountry() >= attackerDiceCount){
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Attack Phase : Army Unit Transfer");
+                alert.setHeaderText(null);
+                alert.setContentText("Army count should be greater or equal to :" + attackerDiceCount);
+                alert.showAndWait();
+            }
+            }
+         else {
+            ((Node)(event.getSource())).getScene().getWindow().hide();
         }
     }
 
@@ -155,7 +181,7 @@ public class AttackPhaseDialogController implements Observer {
             currentPlayerCountrySize=getCurrentPlayerModel().getCountries().size();
             if(attackingCountry.getArmyInCountry() >= 2) {
                 try {
-                    int attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
+                      attackerDiceCount = Integer.parseInt(attackerDiceCountTextField.getText());
                     int defenderDiceCount = Integer.parseInt(defenderDiceCountTextField.getText());
                     if (attackerDiceCount != 0 && defenderDiceCount != 0 && attackerDiceCount < attackingCountry.getArmyInCountry() &&
                             defenderDiceCount <= attackingCountry.getArmyInCountry() && attackerDiceCount <= 3 && defenderDiceCount <= 2) {
@@ -176,7 +202,7 @@ public class AttackPhaseDialogController implements Observer {
                             armyCountTextField.setDisable(false);
                         }
                     }*/
-                    /// ((Node)(event.getSource())).getScene().getWindow().hide();
+               /////     ((Node)(event.getSource())).getScene().getWindow().hide();
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);

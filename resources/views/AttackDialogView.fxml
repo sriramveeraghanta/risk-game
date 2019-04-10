@@ -17,6 +17,7 @@
                 <Label layoutX="26.0" layoutY="111.0" prefHeight="25.0" prefWidth="139.0" text="Army count to move :" />
                 <TextField fx:id="defenderDiceCountTextField" layoutX="225.0" layoutY="61.0" prefHeight="27.0" prefWidth="66.0" />
                 <TextField fx:id="attackerDiceCountTextField" layoutX="225.0" layoutY="13.0" prefHeight="27.0" prefWidth="66.0" />
+            <Button fx:id="EndAttackButton" layoutX="335.0" layoutY="63.0" mnemonicParsing="false" onAction="#endAttackAction" prefHeight="25.0" prefWidth="139.0" text="End Attack" />
             </children>
         </Pane>
         <Pane layoutY="450.0" prefHeight="50.0" prefWidth="500.0">

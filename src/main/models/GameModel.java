@@ -37,6 +37,10 @@ public class GameModel extends Observable implements Serializable {
         notifyObservers("cardSwap");
     }
 
+    public void updateMainPanel(){
+        setChanged();
+        notifyObservers("updatePanel");
+    }
     /**
      * this method is notify the attack View
      */

@@ -149,6 +149,7 @@ public class AttackPhase {
             alert.setContentText("Attacker "+attackingPlayer.getColor().toString()+" won and occupied the attacking country,Attacker can move the army");
             alert.showAndWait();
             gameModel.attackPhaseEnd();
+            gameModel.updateMainPanel();
         } else {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -200,7 +201,7 @@ public class AttackPhase {
      * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
-        System.out.println("Assign cards to player method :Start"+player.getDeck().size());
+       /// System.out.println("Assign cards to player method :Start"+player.getDeck().size());
         int index = new Random().nextInt(this.gameModel.getCards().size());
         ArrayList<CardModel> deck = player.getDeck();
         deck.add(gameModel.getCards().get(index));

@@ -7,14 +7,17 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.text.Text;
 import main.models.CountryModel;
+import main.models.GameModel;
 import main.models.PlayerModel;
 import main.utills.GameCommon;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,6 +27,7 @@ import java.util.Observer;
 public class PlayerInfoController implements Observer {
 
     public PlayerModel playerModel;
+    public GameModel gameModel;
 
     @FXML
     public Label playerLabel;
@@ -33,6 +37,8 @@ public class PlayerInfoController implements Observer {
     public TableColumn<CountryModel, String> playerCountryNameTableColumn;
     @FXML
     public TableColumn<CountryModel, Integer> unitsCountTableColumn;
+    @FXML
+    public AnchorPane playerInfoPane;
     public Text playerCardsTextField;
     public Text playerArmyTextField;
 
@@ -43,6 +49,10 @@ public class PlayerInfoController implements Observer {
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
         initializeComponent();
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel=gameModel;
     }
 
     private void initializeComponent() {
@@ -65,6 +75,8 @@ public class PlayerInfoController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        playerTableView.refresh();
+
+            playerTableView.refresh();
+
     }
 }

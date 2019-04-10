@@ -71,6 +71,7 @@ public class ReinforcementPhase {
                 this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
             if(isUpdatePlayerDeck()) {
                 gameModel.cardSwap();
+                gameModel.reinforce();
             }
             return (totalNumberOfArmyUnits * 5) *(this.playerModel.getSuccessfulCardSwapCounter());
         }

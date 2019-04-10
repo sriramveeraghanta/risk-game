@@ -31,6 +31,9 @@ public class GameBoardController implements Observer {
     @FXML
     private Label currentPlayerLabel;
 
+    private PlayerInfoController playerInfoController;
+
+
     /**
      * Constructor of the game board controller
      */
@@ -39,6 +42,7 @@ public class GameBoardController implements Observer {
 
     /**
      * Getter method to get the object of game model
+     *
      * @return the object of game model
      */
     private GameModel getGameModel() {
@@ -47,6 +51,7 @@ public class GameBoardController implements Observer {
 
     /**
      * Setter method to set the game model
+     *
      * @param gameModel object of game model
      * @throws IOException User input exceptions
      */
@@ -57,6 +62,7 @@ public class GameBoardController implements Observer {
 
     /**
      * This method initialize the data
+     *
      * @throws IOException User input exception
      */
     private void initData() throws IOException {
@@ -69,11 +75,12 @@ public class GameBoardController implements Observer {
 
     /**
      * This method renders the Map info
+     *
      * @throws IOException User input exception
      */
     private void renderMapInfo() throws IOException {
         ArrayList<ContinentModel> continents = getGameModel().getContinents();
-        for(ContinentModel continent: continents) {
+        for (ContinentModel continent : continents) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ContinentInfo.fxml"));
             Parent continentInfoPanel = loader.load();
             ContinentInfoController continentInfoController = loader.getController();
@@ -85,17 +92,19 @@ public class GameBoardController implements Observer {
 
     /**
      * This method renders the player info
+     *
      * @throws IOException User input exception
      */
     private void renderPlayersInfo() throws IOException {
         ArrayList<PlayerModel> playerModelsList = getGameModel().getPlayers();
-        for (PlayerModel player: playerModelsList) {
+        for (PlayerModel player : playerModelsList) {
             // Player Card
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PlayerInfo.fxml"));
             Parent playerCard = loader.load();
-            PlayerInfoController playerInfoController = loader.getController();
+            playerInfoController = loader.getController();
             playerInfoController.setPlayerModel(player);
             gameModel.addObserver(playerInfoController);
+            playerInfoController.setGameModel(gameModel);
             // Appending to the Flow pane
             playerListPanel.getChildren().add(playerCard);
         }
@@ -109,11 +118,12 @@ public class GameBoardController implements Observer {
         // Creating an Attack Phase
         try {
             Stage stage = new Stage();
+            stage.setTitle("Attack Phase");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AttackDialogView.fxml"));
             Parent LoadGamePanel = loader.load();
             AttackPhaseDialogController attackPhaseDialogController = loader.getController();
-            attackPhaseDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(attackPhaseDialogController);
+            attackPhaseDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(LoadGamePanel, 500, 500));
             stage.setResizable(false);
             stage.show();
@@ -130,11 +140,13 @@ public class GameBoardController implements Observer {
         // Creating an Fortify Dialog Phase
         try {
             Stage stage = new Stage();
+            stage.setTitle("Fortify Phase");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FortifyView.fxml"));
             Parent LoadGamePanel = loader.load();
             FortifyDialogController FortifyDialogController = loader.getController();
-            FortifyDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(FortifyDialogController);
+            FortifyDialogController.setGameController(this);
+            FortifyDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(LoadGamePanel, 600, 400));
             stage.show();
 
@@ -142,6 +154,7 @@ public class GameBoardController implements Observer {
             e.printStackTrace();
         }
     }
+
     /**
      * This method is a private method for reinforcement phase which creates the reinforcement phase
      */
@@ -154,8 +167,8 @@ public class GameBoardController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ReinforcementDialogView.fxml"));
             Parent reinforcementPanel = loader.load();
             ReinforcementDialogController ReinforcementDialogController = loader.getController();
-            ReinforcementDialogController.setGameModel(this.gameModel);
             gameModel.addObserver(ReinforcementDialogController);
+            ReinforcementDialogController.setGameModel(this.gameModel);
             stage.setScene(new Scene(reinforcementPanel, 500, 500));
             stage.show();
         } catch (IOException e) {
@@ -166,8 +179,7 @@ public class GameBoardController implements Observer {
     /**
      * this method is a private method which is getting the next player
      */
-    @FXML
-    private void switchPlayerControlAction(){
+    public void switchPlayerControlAction() {
         GameHelper gameHelper = new GameHelper();
         gameHelper.switchPlayerControl(getGameModel());
         currentPlayerLabel.setText(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getColor().toString());
@@ -175,6 +187,14 @@ public class GameBoardController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        String phase = (String) arg;
+        if (phase.equalsIgnoreCase("updatePanel")) {
+            playerListPanel.getChildren().clear();
+            try {
+                renderPlayersInfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
