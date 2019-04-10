@@ -130,11 +130,11 @@ public class AttackPhase {
             this.assignCountryToWinnerPlayer(this.defendingPlayer, this.attackingPlayer, this.attackingCountry);
             this.assignRemainingCardsToWinnerPlayer(this.defendingPlayer, this.attackingPlayer);*/
             // Alert to the user
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("You have attacked the defending country");
-            alert.setHeaderText(null);
-            alert.setContentText("Attacker "+attackingPlayer.getColor().toString()+" Lost");
-            alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("You have attacked the defending country");
+                alert.setHeaderText(null);
+                alert.setContentText("Attacker " + attackingPlayer.getColor().toString() + " Lost");
+                alert.showAndWait();
             gameModel.attackPhase();
         }
         // if defender looses
@@ -200,8 +200,8 @@ public class AttackPhase {
      * @param player which is an object of player model
      */
     public void assignCardToPlayer(PlayerModel player) {
-        System.out.println("Assign cards to player method :Start"+player.getDeck().size());
-        int index = new Random().nextInt(this.gameModel.getCards().size());
+        //System.out.println("Assign cards to player method :Start"+player.getDeck().size());
+        int index = new Random().nextInt(this.gameModel.getCards().size())+1;
         ArrayList<CardModel> deck = player.getDeck();
         deck.add(gameModel.getCards().get(index));
         player.setDeck(deck);

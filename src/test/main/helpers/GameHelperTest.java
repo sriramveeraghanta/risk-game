@@ -43,7 +43,7 @@ public void before() throws Exception {
 */ 
 @Test
 public void testStartNewGame() throws Exception {
-    assertNotNull(gameHelper.startNewGame(3, "world.map" ));
+    assertNotNull(gameHelper.startNewGame(2, "world.map" ));
 }
 
 /**

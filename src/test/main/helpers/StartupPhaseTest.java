@@ -22,6 +22,7 @@ public class StartupPhaseTest {
     ArrayList<PlayerModel> playerList;
     GameCommon gameCommons;
     MapBuilder mapBuilder;
+    ArrayList<String> playerType;
     /**
      * method which should run before all of the test methods
      * @throws Exception if exception occur throws Exception
@@ -30,6 +31,7 @@ public class StartupPhaseTest {
     public void before() throws Exception {
         countryList = new ArrayList<>();
         playerList = new ArrayList<>();
+        playerType = new ArrayList<>();
         gameModel = new GameModel();
         gameCommons = new GameCommon();
         mapBuilder = new MapBuilder(gameModel);
