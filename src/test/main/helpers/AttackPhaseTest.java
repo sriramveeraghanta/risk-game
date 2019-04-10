@@ -43,7 +43,7 @@ public void before() throws Exception {
     gameModel = new GameModel();
     gameCommons = new GameCommon();
     mapBuilder = new MapBuilder(gameModel);
-    mapBuilder.readMapFile(null);
+    mapBuilder.readMapFile("world.map");
     attackerCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alaska");
     defenderCountry = gameCommons.getCountryModelFromList(gameModel.getCountries(), "Alberta");
     attackerCountry.setArmyInCountry(4);
@@ -98,5 +98,10 @@ public void testGetNumberofDefenderDiceLessThan2() throws Exception {
 @Test
 public void testGetAllDiceValues() throws Exception {
     assertNotNull(attackPhase.getAllDiceValues(2));
+}
+
+@Test
+    public void testAllOut(){
+    attackPhase.allOutMode();
 }
 } 
