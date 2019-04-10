@@ -15,21 +15,21 @@ import java.util.Date;
 public class GameHelper {
     /**
      * This method do all of the initialization of the game by getting the number of players  as a parameter
-     * @param playerCount number of players.
-     * @param fileName
+     * @param fileName number of players.
+     * @param playerTypes player Types Array
      * @throws GameException, Game exceptions for Game related Exception Handling.
      * @throws IOException, Input out exception from user.
      */
-    public GameModel startNewGame(int playerCount, String fileName) throws GameException, IOException {
+    public GameModel startNewGame(String fileName, ArrayList<String> playerTypes) throws GameException {
         // creating new Game Model
         GameModel gameModel = new GameModel();
-        gameModel.setNumberOfPlayers(playerCount);
+        gameModel.setNumberOfPlayers(playerTypes.size());
         // Creating New Map
         MapBuilder mapBuilder = new MapBuilder(gameModel);
         mapBuilder.readMapFile(fileName);
         // Startup phase
         StartupPhase startupPhase = new StartupPhase(gameModel);
-        startupPhase.initNewGame(playerCount);
+        startupPhase.initNewGame(playerTypes);
         return gameModel;
     }
 

@@ -18,4 +18,8 @@ public class EnumHandler {
     public enum Color {
         BLACK, BLUE, GREEN, PINK, RED, PURPLE
     }
+
+    public enum PlayerType {
+        HUMAN, AGGRESSIVE, BENEVOLENT, RANDOM, CHEATER
+    }
 }

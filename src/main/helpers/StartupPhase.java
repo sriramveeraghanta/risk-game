@@ -15,6 +15,7 @@ public class StartupPhase {
     private int numberOfPlayers;
     private GameModel gameModel;
     private EnumHandler.Color[] colors = EnumHandler.Color.values();
+    private EnumHandler.PlayerType[] genericPlayerTypes = EnumHandler.PlayerType.values();
 
     /**
      * Initialise the game objects set players properties such countries,armies,
@@ -30,33 +31,47 @@ public class StartupPhase {
      * Initialize the game objects set players properties such
      * countries,armies,Color
      *
-     * @param playerCount the number of player which is integer
+     * @param playerTypes the number of player with their behaviour Types
      */
-    public void initNewGame(int playerCount) {
-        this.numberOfPlayers = playerCount;
+    public void initNewGame(ArrayList<String> playerTypes) {
+        this.numberOfPlayers = playerTypes.size();
         // setting number of players count to game model
-        this.gameModel.setNumberOfPlayers(playerCount);
-        this.gameModel.setPlayers(getNewPlayers());
+        this.gameModel.setNumberOfPlayers(playerTypes.size());
+        this.gameModel.setPlayers(getNewPlayers(playerTypes));
         this.assignCountriesToPlayers();
         this.assignUnitsToPlayerCountries();
         this.createGameCards();
     }
 
-
     /**
      * getting the new players and returning the array list of player model
-     *
      * @return array list of player model
+     * @param playerTypes
      */
-    public ArrayList<PlayerModel> getNewPlayers() {
+    public ArrayList<PlayerModel> getNewPlayers(ArrayList<String> playerTypes) {
         ArrayList<PlayerModel> playersList = new ArrayList<>();
         // Creating new player objects for the count
-        for (int i = 0; i < numberOfPlayers; i++) {
-            EnumHandler.Color assignedColor = this.getAssignedColor();
+        for (String playerType: playerTypes) {
             PlayerModel player = new PlayerModel();
-            player.setColor(assignedColor);
+            player.setColor(this.getAssignedColor());
             player.setActive(false);
             player.setArmyInHand(getInitialUnit());
+            if(EnumHandler.PlayerType.HUMAN.toString().equals(playerType)){
+                player.setPlayerType(EnumHandler.PlayerType.HUMAN);
+            }
+            if(EnumHandler.PlayerType.AGGRESSIVE.toString().equals(playerType)){
+                player.setPlayerType(EnumHandler.PlayerType.AGGRESSIVE);
+            }
+            if(EnumHandler.PlayerType.BENEVOLENT.toString().equals(playerType)){
+                player.setPlayerType(EnumHandler.PlayerType.BENEVOLENT);
+            }
+            if(EnumHandler.PlayerType.CHEATER.toString().equals(playerType)){
+                player.setPlayerType(EnumHandler.PlayerType.CHEATER);
+            }
+            if(EnumHandler.PlayerType.RANDOM.toString().equals(playerType)){
+                player.setPlayerType(EnumHandler.PlayerType.RANDOM);
+            }
+
             playersList.add(player);
         }
         return playersList;
