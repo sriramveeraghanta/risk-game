@@ -5,6 +5,8 @@ import main.models.ContinentModel;
 import main.models.CountryModel;
 import main.models.GameModel;
 import main.utills.GameCommon;
+import main.utills.GameConstants;
+import main.utills.GameException;
 import org.junit.*;
 import org.junit.Before;
 
@@ -13,11 +15,13 @@ import static junit.framework.Assert.*;
 /**
  * MapBuilder Tester.
  */
+
 public class MapBuilderTest {
     String continentName;
     String countryName;
     GameModel gameModel;
     GameCommon gameCommons;
+    MapBuilder invalidMapBuilder;
     MapBuilder mapBuilder;
 
     /**
@@ -29,8 +33,38 @@ public class MapBuilderTest {
         gameCommons = new GameCommon();
         gameModel= new GameModel();
         mapBuilder = new MapBuilder(gameModel);
-        mapBuilder.readMapFile(null);
+        invalidMapBuilder = new MapBuilder(gameModel);
+        mapBuilder.readMapFile("world.map");
 
+    }
+
+    /**
+     * method test the self-adjacency in the map
+     * @throws GameException
+     */
+    @Test
+    public void testSelfAdjacencyMapReader() throws GameException {
+        assertEquals(false,
+                invalidMapBuilder.readMapFile("world2.map"));
+    }
+
+    /**
+     * method test the country-adjacency in the map
+     * @throws GameException
+     */
+    @Test
+    public void testCountryAdjacencyMapReader() throws GameException {
+        assertFalse(invalidMapBuilder.readMapFile("world2.map"));
+    }
+
+    /**
+     * method test the continent-adjacency in the map
+     * @throws GameException
+     */
+    @Test
+    public void testContinentAdjacencyMapReader() throws GameException {
+        assertEquals(false,
+                invalidMapBuilder.readMapFile("world2.map"));
     }
 
     /**
@@ -41,7 +75,7 @@ public class MapBuilderTest {
     public void testAssignCountryToContinent() throws Exception {
         continentName = "North America";
         countryName = "Alaska";
-        //mapBuilder.assignCountryToContinent(countryName,continentName);
+//mapBuilder.assignCountryToContinent(countryName,continentName);
         ContinentModel continent = gameCommons.getContinentModelFromList(gameModel.getContinents(), continentName);
         for (CountryModel country : continent.getCountries()) {
             if (countryName.equalsIgnoreCase(country.getCountryName())) {
@@ -49,7 +83,6 @@ public class MapBuilderTest {
             }
         }
     }
-
 
     /**
      * Method: validateCountriesBelongToOneContinent()
@@ -80,7 +113,6 @@ public class MapBuilderTest {
         assertFalse(mapBuilder.validateIfContinentExists(inavlidCOntinentName));
     }
 
-
     /**
      * Method: validateIfCountriesAreAdjacent(ArrayList<String[]> countryMapDataList)
      * @throws Exception if exception occur throws Exception
@@ -98,5 +130,4 @@ public class MapBuilderTest {
     public void testValidateContinentsAreAdjacent() throws Exception {
         assertTrue(mapBuilder.validateContinentsAreAdjacent());
     }
-
 } 
