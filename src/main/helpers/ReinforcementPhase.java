@@ -15,6 +15,9 @@ public class ReinforcementPhase {
     private PlayerModel playerModel;
     private GameModel gameModel;
     private boolean updatePlayerDeck=false;
+    private  boolean tournamentModeFlag=false;
+
+
 
     /**
      * Constructor Reinforcement Phase
@@ -39,6 +42,9 @@ public class ReinforcementPhase {
             numberOfUnits = 3;
         } else {
             numberOfUnits = Math.floorDiv(numberOfCountries, 3);
+        }
+        if(!tournamentModeFlag){
+            gameModel.updateMainPanel();
         }
         return numberOfUnits;
     }
@@ -69,7 +75,7 @@ public class ReinforcementPhase {
         int totalNumberOfArmyUnits = getNumberOfSimilarCards(playerCardsList) + getNumberOfDifferentCards(playerCardsList);
         if (totalNumberOfArmyUnits > 0) {
                 this.playerModel.setSuccessfulCardSwapCounter(this.playerModel.getSuccessfulCardSwapCounter() + 1);
-            if(isUpdatePlayerDeck()) {
+            if(isUpdatePlayerDeck() && !isTournamentModeFlag()) {
                 gameModel.cardSwap();
                 gameModel.reinforce();
             }
@@ -244,6 +250,13 @@ public class ReinforcementPhase {
 
     }
 
+    public boolean isTournamentModeFlag() {
+        return tournamentModeFlag;
+    }
+
+    public void setTournamentModeFlag(boolean tournamentModeFlag) {
+        this.tournamentModeFlag = tournamentModeFlag;
+    }
     /**
      * checking if all the countries in a continent occupied by the player and return the control value of that continent
      * @param continent the object of continent

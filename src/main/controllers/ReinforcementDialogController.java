@@ -65,34 +65,41 @@ public class ReinforcementDialogController implements Observer {
      * Initializing the Reinforment phase required data
      */
     private void initializeReinforce() {
-
         this.currentPlayerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
+        if(this.currentPlayerModel.getCountries().size() == gameModel.getCountries().size()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You Won the Match");
+            alert.showAndWait();
+        }else {
 
-        reinforcePhase = new ReinforcementPhase(this.currentPlayerModel, gameModel);
 
-        // Setting army to playerModel
-        this.currentPlayerModel.setArmyInHand(this.currentPlayerModel.getArmyInHand() + reinforcePhase.getArmyUnitsForConqueredContinent());
-        // Display
-        playerUnitsInHandLabel.setText("" + this.currentPlayerModel.getArmyInHand());
+            reinforcePhase = new ReinforcementPhase(this.currentPlayerModel, gameModel);
 
-        playerCardsCountLabel.setText("" + this.currentPlayerModel.getDeck().size());
-        // Rendering Player Countries
-        ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(currentPlayerModel.getCountries());
-        playerCountriesListView.setItems(playerCountriesObservable);
-        playerCountriesListView.setCellFactory(lv -> new ListCell<CountryModel>() {
-            @Override
-            public void updateItem(CountryModel item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item.getCountryName() + "-" + item.getArmyInCountry());
+            // Setting army to playerModel
+            this.currentPlayerModel.setArmyInHand(this.currentPlayerModel.getArmyInHand() + reinforcePhase.getArmyUnitsForConqueredContinent() + reinforcePhase.getArmyUnitsFromCountries());
+            // Display
+            playerUnitsInHandLabel.setText("" + this.currentPlayerModel.getArmyInHand());
+
+            playerCardsCountLabel.setText("" + this.currentPlayerModel.getDeck().size());
+            // Rendering Player Countries
+            ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(currentPlayerModel.getCountries());
+            playerCountriesListView.setItems(playerCountriesObservable);
+            playerCountriesListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+                @Override
+                public void updateItem(CountryModel item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.getCountryName() + "-" + item.getArmyInCountry());
+                    }
                 }
-            }
-        });
-        playerCountriesListView.getSelectionModel().selectedItemProperty().addListener((ChangeListener<CountryModel>) (observable, oldValue, newValue) -> {
-            setSelectedCountry(newValue);
-        });
+            });
+            playerCountriesListView.getSelectionModel().selectedItemProperty().addListener((ChangeListener<CountryModel>) (observable, oldValue, newValue) -> {
+                setSelectedCountry(newValue);
+            });
+        }
     }
 
     /**

@@ -66,23 +66,29 @@ public class AttackPhaseDialogController implements Observer {
      * and graph of countries
      */
     private void initializeAttack() {
-        GameHelper gameHelper = new GameHelper();
-        currentPlayerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
-        ArrayList<CountryModel> playerCountries = currentPlayerModel.getCountries();
-        ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
-        attackingCountryListView.setItems(playerCountriesObservable);
-        armyCountTextField.setDisable(true);
-        attackingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
-            @Override
-            public void updateItem(CountryModel item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item.getCountryName() + " - " + item.getArmyInCountry());
+        if(gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getCountries().size() == gameModel.getCountries().size()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You Won the Match");
+            alert.showAndWait();
+        }else {
+            GameHelper gameHelper = new GameHelper();
+            currentPlayerModel = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex());
+            ArrayList<CountryModel> playerCountries = currentPlayerModel.getCountries();
+            ObservableList<CountryModel> playerCountriesObservable = FXCollections.observableArrayList(playerCountries);
+            attackingCountryListView.setItems(playerCountriesObservable);
+            armyCountTextField.setDisable(true);
+            attackingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+                @Override
+                public void updateItem(CountryModel item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item.getCountryName() + " - " + item.getArmyInCountry());
+                    }
                 }
-            }
-        });
+            });
 
     /*    attackerDiceCountTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -93,43 +99,43 @@ public class AttackPhaseDialogController implements Observer {
             }
         });*/
 
-        attackingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
-            @Override
-            public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
-                if (newValue != null) {
-                    setAttackingCountry(newValue);
-                    armyCountTextField.setDisable(true);
-                    defendingCountriesList = gameHelper.getAttackerAdjacentCounties(newValue.getAdjacentCountries(), playerCountries);
-                    ObservableList<CountryModel> defendingCountries = FXCollections.observableArrayList(defendingCountriesList);
-                    defendingCountryListView.setItems(defendingCountries);
-                    defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
-                        @Override
-                        public void updateItem(CountryModel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                setText(null);
-                            } else {
-                                setText(item.getCountryName() + " - " + item.getArmyInCountry());
+            attackingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
+                @Override
+                public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
+                    if (newValue != null) {
+                        setAttackingCountry(newValue);
+                        armyCountTextField.setDisable(true);
+                        defendingCountriesList = gameHelper.getAttackerAdjacentCounties(newValue.getAdjacentCountries(), playerCountries);
+                        ObservableList<CountryModel> defendingCountries = FXCollections.observableArrayList(defendingCountriesList);
+                        defendingCountryListView.setItems(defendingCountries);
+                        defendingCountryListView.setCellFactory(lv -> new ListCell<CountryModel>() {
+                            @Override
+                            public void updateItem(CountryModel item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setText(null);
+                                } else {
+                                    setText(item.getCountryName() + " - " + item.getArmyInCountry());
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    defendingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
+                        defendingCountryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CountryModel>() {
 
-                        @Override
-                        public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
-                            if (newValue != null) {
-                                setDefendingCountry(newValue);
+                            @Override
+                            public void changed(ObservableValue<? extends CountryModel> observable, CountryModel oldValue, CountryModel newValue) {
+                                if (newValue != null) {
+                                    setDefendingCountry(newValue);
+                                }
                             }
-                        }
 
 
-                    });
-                    /// defendingCountryListView.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> setDefendingCountry(newValue1));
+                        });
+                        /// defendingCountryListView.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> setDefendingCountry(newValue1));
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     /**
