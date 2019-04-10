@@ -155,6 +155,7 @@ public class PlayerModel extends Observable implements Serializable {
 
     /**
      * Player Type getter
+     * @return player type
      * */
     public EnumHandler.PlayerType getPlayerType() {
         return playerType;
@@ -162,6 +163,7 @@ public class PlayerModel extends Observable implements Serializable {
 
     /**
      * Player type Setter
+     * @param playerType player type
      * */
     public void setPlayerType(EnumHandler.PlayerType playerType) {
         this.playerType = playerType;

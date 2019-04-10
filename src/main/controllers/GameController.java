@@ -81,6 +81,7 @@ public class GameController {
 
     /**
      *Tournament Action method with raises a popup and takes the input from the user.
+     * @throws IOException Input expections
      * */
     public void tournamentModeAction() throws IOException {
         Stage stage = new Stage();

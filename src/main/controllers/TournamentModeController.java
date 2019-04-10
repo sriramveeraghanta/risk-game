@@ -34,6 +34,7 @@ public class TournamentModeController {
 
     /**
      * Initializes the Controller with pre defined data.
+     * @throws IOException input expection from the map
      * */
     @FXML
     public void initialize() throws IOException {
