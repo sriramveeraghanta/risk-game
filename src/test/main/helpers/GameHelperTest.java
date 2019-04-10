@@ -24,6 +24,7 @@ import static junit.framework.TestCase.*;
 public class GameHelperTest {
     GameHelper gameHelper;
     GameModel gameModel;
+    ArrayList<String> playerTypes;
 
     /**
      * method which should run before all of the test methods
@@ -33,6 +34,9 @@ public class GameHelperTest {
 public void before() throws Exception {
     gameHelper = new GameHelper();
     gameModel = new GameModel();
+    playerTypes = new ArrayList<>();
+    playerTypes.add("HUMAN");
+    playerTypes.add("BENEVOLENT");
 } 
 
 /** 
@@ -43,7 +47,7 @@ public void before() throws Exception {
 */ 
 @Test
 public void testStartNewGame() throws Exception {
-    //assertNotNull(gameHelper.startNewGame(3, "world.map" ));
+    assertNotNull(gameHelper.startNewGame("world.map", playerTypes));
 }
 
 /**
@@ -72,11 +76,7 @@ public void testSaveGame() throws IOException {
 @Test
 public void testLoadGame() throws Exception {
     gameHelper.saveGame(gameModel);
-    StringBuffer stringBuffer = new StringBuffer();
-    Date now = new Date();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ssZ");
-    simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
-    assertNotNull(gameHelper.loadGame(stringBuffer+".ser"));
+    assertNotNull(gameHelper.loadGame("10-04-2019 18-04-25-0400.ser"));
 }
 
 /** 
@@ -87,7 +87,7 @@ public void testLoadGame() throws Exception {
 */ 
 @Test
 public void testSwitchPlayerControl() throws Exception {
-    //gameModel = gameHelper.startNewGame(2, "world.map" );
+    gameHelper.startNewGame("world.map", playerTypes);
     int previous_active = gameModel.getCurrentPlayerIndex();
     gameHelper.switchPlayerControl(gameModel);
     int current_active = gameModel.getCurrentPlayerIndex();

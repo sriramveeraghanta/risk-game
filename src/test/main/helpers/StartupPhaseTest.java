@@ -23,6 +23,8 @@ public class StartupPhaseTest {
     ArrayList<PlayerModel> playerList;
     GameCommon gameCommons;
     MapBuilder mapBuilder;
+    ArrayList<String> playerTypes;
+    ArrayList<String> playerTypes2;
 
     /**
      * method which should run before all of the test methods
@@ -33,6 +35,11 @@ public class StartupPhaseTest {
     public void before() throws Exception {
         countryList = new ArrayList<>();
         playerList = new ArrayList<>();
+        playerTypes = new ArrayList<>();
+        playerTypes2 = new ArrayList<>();
+        playerTypes2.add("HUMAN");
+        playerTypes.add("HUMAN");
+        playerTypes.add("BENEVOLENT");
         gameModel = new GameModel();
         gameCommons = new GameCommon();
         mapBuilder = new MapBuilder(gameModel);
@@ -53,13 +60,13 @@ public class StartupPhaseTest {
      */
     @Test
     public void testSetInitialInfantryFor2Player() throws Exception {
-        //startup.initNewGame(2);
+        startup.initNewGame(playerTypes);
         assertEquals(40, startup.getInitialUnit());
     }
 
     @Test
     public void testSetInitialInfantryDefault() throws Exception {
-        //startup.initNewGame(1);
+        startup.initNewGame(playerTypes2);
         assertEquals(0, startup.getInitialUnit());
     }
 
@@ -68,14 +75,14 @@ public class StartupPhaseTest {
      */
     @Test
     public void testAssignCountriesToPlayers() throws Exception {
-        //startup.initNewGame(6);
+        startup.initNewGame(playerTypes);
         playerList = gameModel.getPlayers();
         assertNotNull(playerList.get(0).getCountries());
     }
 
     @Test
     public void testAssignCountriesToOnePlayer() throws Exception {
-        //startup.initNewGame(1);
+        startup.initNewGame(playerTypes2);
         playerList = gameModel.getPlayers();
         assertNotNull(playerList.get(0).getCountries());
     }
@@ -85,9 +92,9 @@ public class StartupPhaseTest {
      */
     @Test
     public void testAssignUnitsToPlayerCountries() {
-        //startup.initNewGame(2);
+        startup.initNewGame(playerTypes);
         playerList = gameModel.getPlayers();
-        assertNotNull(playerList.get(0).getCountries().get(0).getArmyInCountry());
+        assertEquals(2, playerList.get(0).getCountries().get(0).getArmyInCountry());
     }
 
     /**
@@ -95,7 +102,7 @@ public class StartupPhaseTest {
      */
     @Test
     public void testAssignUnitsToPlayer() {
-        //startup.initNewGame(2);
+        startup.initNewGame(playerTypes);
         playerList = gameModel.getPlayers();
         assertEquals(0, playerList.get(0).getArmyInHand());
     }

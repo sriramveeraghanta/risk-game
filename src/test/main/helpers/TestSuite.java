@@ -1,4 +1,5 @@
 package test.main.helpers;
+import main.helpers.TournamentMode;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -8,9 +9,10 @@ import org.junit.runners.Suite;
         AttackPhaseTest.class,  //5
         FortificationPhaseTest.class,   //5
         MapBuilderTest.class,   //9
-       // ReinforcementPhaseTest.class,   //8
+        ReinforcementPhaseTest.class,   //8
         StartupPhaseTest.class, //7
-        GameHelperTest.class    //5
+        GameHelperTest.class,   //5
+        TournamentModeTest.class  //1
 
 })
 public class TestSuite {
