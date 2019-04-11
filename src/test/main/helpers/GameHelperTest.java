@@ -37,6 +37,7 @@ public void before() throws Exception {
     playerTypes = new ArrayList<>();
     playerTypes.add("HUMAN");
     playerTypes.add("BENEVOLENT");
+    gameModel.setNumberOfPlayers(playerTypes.size());
 } 
 
 /** 
@@ -76,7 +77,7 @@ public void testSaveGame() throws IOException {
 @Test
 public void testLoadGame() throws Exception {
     gameHelper.saveGame(gameModel);
-    assertNotNull(gameHelper.loadGame("10-04-2019 18-04-25-0400.ser"));
+    assertNotNull(gameHelper.loadGame("10-04-2019 19-36-12-0400.ser"));
 }
 
 /** 

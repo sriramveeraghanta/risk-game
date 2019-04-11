@@ -35,16 +35,7 @@ public void before() throws Exception {
     tournamentMode = new TournamentMode(2,2,"world.map",playerTypes);
 } 
 
-/** 
-* 
-* Method: initMode() 
-* 
-*/ 
-@Test
-public void testInitMode() throws Exception { 
-//TODO: Test goes here... 
-} 
-
+/**
 /** 
 * 
 * Method: randomNumberGenerator(ArrayList<CountryModel> CountryModel) 
@@ -55,55 +46,4 @@ public void testRandomNumberGenerator() throws Exception {
     assertNotNull(tournamentMode.randomNumberGenerator(countryList));
 } 
 
-
-/** 
-* 
-* Method: playGame(GameModel gameModel) 
-* 
-*/ 
-@Test
-public void testPlayGame() throws Exception {
-    tournamentMode.initMode();
-    //System.out.println(tournamentMode.playGame(gameModel));
 }
-
-/** 
-* 
-* Method: cheaterPlay(PlayerModel playerModel, GameModel gameModel) 
-* 
-*/ 
-@Test
-public void testCheaterPlay() throws Exception {
-} 
-
-/** 
-* 
-* Method: randomPlay(PlayerModel playerModel, GameModel gameModel) 
-* 
-*/ 
-@Test
-public void testRandomPlay() throws Exception { 
-//TODO: Test goes here...
-} 
-
-/** 
-* 
-* Method: benevolentPlay(PlayerModel playerModel, GameModel gameModel) 
-* 
-*/ 
-@Test
-public void testBenevolentPlay() throws Exception { 
-//TODO: Test goes here...
-} 
-
-/** 
-* 
-* Method: aggressivePlay(PlayerModel playerModel, GameModel gameModel) 
-* 
-*/ 
-@Test
-public void testAggressivePlay() throws Exception { 
-//TODO: Test goes here...
-} 
-
-} 

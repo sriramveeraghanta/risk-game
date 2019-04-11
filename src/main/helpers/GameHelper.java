@@ -96,11 +96,11 @@ public class GameHelper {
     public void switchPlayerControl(GameModel gameModel){
         if(gameModel.getNumberOfPlayers() == gameModel.getCurrentPlayerIndex()+1){
             gameModel.setCurrentPlayerIndex(0);
-            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
+            //gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
         else{
             gameModel.setCurrentPlayerIndex(gameModel.getCurrentPlayerIndex()+1);
-            gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
+            //gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).setArmyInHand(3);
         }
     }
 
